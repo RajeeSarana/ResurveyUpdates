@@ -1,0 +1,194 @@
+[
+  {
+    "district_id": "asifabad",
+    "name": "Asifabad",
+    "non_cadastral_target": 36,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "mancherial",
+    "name": "Mancherial",
+    "non_cadastral_target": 11,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "peddapally",
+    "name": "Peddapally",
+    "non_cadastral_target": 0,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "bhupapally",
+    "name": "Bhupapally",
+    "non_cadastral_target": 13,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "mulugu",
+    "name": "Mulugu",
+    "non_cadastral_target": 2,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "adilabad",
+    "name": "Adilabad",
+    "non_cadastral_target": 8,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "nirmal",
+    "name": "Nirmal",
+    "non_cadastral_target": 14,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "nizamabad",
+    "name": "Nizamabad",
+    "non_cadastral_target": 0,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "jagitial",
+    "name": "Jagitial",
+    "non_cadastral_target": 20,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "kamareddy",
+    "name": "Kamareddy",
+    "non_cadastral_target": 16,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "siddipet",
+    "name": "Siddipet",
+    "non_cadastral_target": 22,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "medak",
+    "name": "Medak",
+    "non_cadastral_target": 24,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "rajanna_siricilla",
+    "name": "Rajanna Siricilla",
+    "non_cadastral_target": 0,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "karimnagar",
+    "name": "Karimnagar",
+    "non_cadastral_target": 1,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "warangal",
+    "name": "Warangal",
+    "non_cadastral_target": 6,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "hanumakonda",
+    "name": "Hanumakonda",
+    "non_cadastral_target": 2,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "mahabubabad",
+    "name": "Mahabubabad",
+    "non_cadastral_target": 1,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "khammam",
+    "name": "Khammam",
+    "non_cadastral_target": 0,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "kothagudem",
+    "name": "Kothagudem",
+    "non_cadastral_target": 8,
+    "cadastral_target": 69
+  },
+  {
+    "district_id": "nalgonda",
+    "name": "Nalgonda",
+    "non_cadastral_target": 0,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "yadadri_bhuvanagiri",
+    "name": "Yadadri Bhuvanagiri",
+    "non_cadastral_target": 6,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "suryapet",
+    "name": "Suryapet",
+    "non_cadastral_target": 14,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "janagaon",
+    "name": "Janagaon",
+    "non_cadastral_target": 12,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "rangareddy",
+    "name": "Rangareddy",
+    "non_cadastral_target": 44,
+    "cadastral_target": 67
+  },
+  {
+    "district_id": "medchal_malkajgiri",
+    "name": "Medchal Malkajgiri",
+    "non_cadastral_target": 4,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "vikarabad",
+    "name": "Vikarabad",
+    "non_cadastral_target": 38,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "sangareddy",
+    "name": "Sangareddy",
+    "non_cadastral_target": 17,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "mahabubnagar",
+    "name": "Mahabubnagar",
+    "non_cadastral_target": 16,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "narayanapet",
+    "name": "Narayanapet",
+    "non_cadastral_target": 33,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "wanaparthy",
+    "name": "Wanaparthy",
+    "non_cadastral_target": 0,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "nagarkurnool",
+    "name": "Nagarkurnool",
+    "non_cadastral_target": 5,
+    "cadastral_target": 70
+  },
+  {
+    "district_id": "jogulamba_gadwal",
+    "name": "Jogulamba Gadwal",
+    "non_cadastral_target": 0,
+    "cadastral_target": 70
+  }
+]

@@ -1,0 +1,26 @@
+﻿version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: resurvey_portal_web
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017
+      - MONGODB_DB=resurvey_portal
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:7.0
+    container_name: resurvey_portal_db
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:

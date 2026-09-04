@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ResurveyUpdates - Progress Monitoring Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Telugu:wght@400;600&display=swap');
+    body { font-family: 'Inter', 'Noto Sans Telugu', sans-serif; }
+    .telugu-text { font-family: 'Noto Sans Telugu', sans-serif; }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; font-size: 11px; }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+
+  <!-- TOP HEADER -->
+  <header class="bg-gradient-to-r from-teal-900 via-emerald-800 to-teal-950 text-white shadow-lg sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <div class="flex items-center space-x-4">
+          <div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center border border-white/20 shadow-inner">
+            <i class="fa-solid fa-map-location-dot text-emerald-300 text-2xl"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-xs uppercase tracking-widest text-emerald-300 font-semibold">Field Operations Portal</span>
+              <span class="text-xs bg-emerald-400/20 text-emerald-200 px-2 py-0.5 rounded-full border border-emerald-400/30">ResurveyUpdates</span>
+            </div>
+            <h1 class="text-lg sm:text-xl font-bold tracking-tight text-white">Resurvey Updates Monitoring Portal</h1>
+            <p class="text-xs text-slate-300 hidden sm:block">100% Completed Villages Tracking (Cadastral & Non-Cadastral) as on 04.09.2026</p>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-3 no-print">
+          <div id="dbStatusBadge" class="hidden sm:flex items-center space-x-2 bg-emerald-950/60 border border-emerald-500/30 px-3 py-1.5 rounded-lg text-xs">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span class="text-emerald-200 font-medium" id="dbEngineText">MongoDB Atlas Ready</span>
+          </div>
+
+          <div class="flex items-center space-x-2 bg-white/10 px-3 py-1.5 rounded-lg border border-white/15">
+            <i class="fa-solid fa-user-circle text-emerald-300 text-lg"></i>
+            <div class="text-left">
+              <div class="text-xs font-semibold text-white" id="currentUserName">Project Admin</div>
+              <div class="text-[10px] text-emerald-300 capitalize" id="currentUserRole">Full Administrator</div>
+            </div>
+            <button onclick="openLoginModal()" class="ml-2 text-xs bg-emerald-500 hover:bg-emerald-600 text-white px-2 py-1 rounded transition">
+              Switch
+            </button>
+          </div>
+
+          <button onclick="downloadExcel()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium px-3.5 py-2 rounded-lg shadow flex items-center space-x-2 transition">
+            <i class="fa-solid fa-file-excel text-emerald-200"></i>
+            <span class="hidden md:inline">Export Excel</span>
+          </button>
+
+          <button onclick="window.print()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium px-3.5 py-2 rounded-lg border border-slate-600 shadow flex items-center space-x-2 transition">
+            <i class="fa-solid fa-print"></i>
+            <span class="hidden md:inline">Print</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full space-y-6">
+
+    <!-- KPIS -->
+    <section class="grid grid-cols-2 lg:grid-cols-6 gap-4">
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between text-slate-500 mb-2">
+          <span class="text-xs font-semibold uppercase tracking-wider">Districts</span>
+          <i class="fa-solid fa-landmark text-teal-600"></i>
+        </div>
+        <div class="text-2xl font-bold text-slate-900" id="kpiDistricts">32</div>
+        <div class="text-[11px] text-slate-500 mt-1">Covering entire state</div>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between text-slate-500 mb-2">
+          <span class="text-xs font-semibold uppercase tracking-wider">Non-Cadastral GT</span>
+          <i class="fa-solid fa-vector-square text-emerald-600"></i>
+        </div>
+        <div class="flex items-baseline space-x-1">
+          <span class="text-2xl font-bold text-emerald-700" id="kpiNonCadDone">51</span>
+          <span class="text-xs text-slate-400 font-medium">/ <span id="kpiNonCadTarget">373</span></span>
+        </div>
+        <div class="w-full bg-slate-100 h-1.5 rounded-full mt-2 overflow-hidden">
+          <div id="kpiNonCadBar" class="bg-emerald-500 h-full rounded-full" style="width: 13.6%"></div>
+        </div>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between text-slate-500 mb-2">
+          <span class="text-xs font-semibold uppercase tracking-wider">Cadastral GT</span>
+          <i class="fa-solid fa-map text-blue-600"></i>
+        </div>
+        <div class="flex items-baseline space-x-1">
+          <span class="text-2xl font-bold text-blue-700" id="kpiCadDone">39</span>
+          <span class="text-xs text-slate-400 font-medium">/ <span id="kpiCadTarget">2236</span></span>
+        </div>
+        <div class="w-full bg-slate-100 h-1.5 rounded-full mt-2 overflow-hidden">
+          <div id="kpiCadBar" class="bg-blue-500 h-full rounded-full" style="width: 1.7%"></div>
+        </div>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between text-slate-500 mb-2">
+          <span class="text-xs font-semibold uppercase tracking-wider">Sent to CSO</span>
+          <i class="fa-solid fa-paper-plane text-teal-600"></i>
+        </div>
+        <div class="text-2xl font-bold text-teal-700" id="kpiSentCSO">71</div>
+        <div class="text-[11px] text-teal-600 font-medium mt-1">Shapefiles submitted</div>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl border border-rose-200 bg-rose-50/20 shadow-sm cursor-pointer hover:shadow transition" onclick="filterByTab('error')">
+        <div class="flex items-center justify-between text-rose-600 mb-2">
+          <span class="text-xs font-semibold uppercase tracking-wider">Shapefile Errors</span>
+          <i class="fa-solid fa-circle-exclamation text-rose-500"></i>
+        </div>
+        <div class="text-2xl font-bold text-rose-600" id="kpiErrors">14</div>
+        <div class="text-[11px] text-rose-600 font-medium mt-1">Click to review</div>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between text-slate-500 mb-2">
+          <span class="text-xs font-semibold uppercase tracking-wider">Survey Extent</span>
+          <i class="fa-solid fa-chart-area text-indigo-600"></i>
+        </div>
+        <div class="text-2xl font-bold text-indigo-700" id="kpiTotalAcres">39,240</div>
+        <div class="text-[11px] text-slate-500 mt-1">Acres surveyed</div>
+      </div>
+    </section>
+
+    <!-- CHARTS -->
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 no-print">
+      <div class="lg:col-span-2 bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="text-sm font-bold text-slate-800">Top Resurvey Completed Districts</h3>
+            <p class="text-xs text-slate-500">Number of GT Completed Villages (Non-Cadastral vs Cadastral)</p>
+          </div>
+          <button onclick="toggleDistrictsModal()" class="text-xs font-medium text-emerald-700 hover:text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200 transition">
+            View All 32 Districts
+          </button>
+        </div>
+        <div class="h-64">
+          <canvas id="districtBarChart"></canvas>
+        </div>
+      </div>
+
+      <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+        <div>
+          <h3 class="text-sm font-bold text-slate-800 mb-1">Shapefile Transmission Status</h3>
+          <p class="text-xs text-slate-500 mb-4">CSO shapefile verification health</p>
+          <div class="h-44 relative flex items-center justify-center">
+            <canvas id="statusDonutChart"></canvas>
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-2 text-center pt-3 border-t border-slate-100 text-xs">
+          <div class="p-1 rounded bg-emerald-50 text-emerald-800">
+            <div class="font-bold" id="donutCompletedCount">67</div>
+            <div class="text-[10px]">Completed</div>
+          </div>
+          <div class="p-1 rounded bg-rose-50 text-rose-800">
+            <div class="font-bold" id="donutErrorCount">14</div>
+            <div class="text-[10px]">Errors</div>
+          </div>
+          <div class="p-1 rounded bg-amber-50 text-amber-800">
+            <div class="font-bold" id="donutProgressCount">9</div>
+            <div class="text-[10px]">In Progress</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VILLAGES TABLE SECTION -->
+    <section class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+      <!-- Toolbar -->
+      <div class="p-4 sm:p-5 border-b border-slate-200 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <!-- Filter Tabs -->
+          <div class="flex flex-wrap gap-1 bg-slate-100 p-1 rounded-lg text-xs font-medium text-slate-600">
+            <button onclick="filterByTab('all')" id="tabAll" class="px-3 py-1.5 rounded-md bg-white text-slate-900 shadow-sm font-semibold">
+              All Villages (<span id="tabCountAll">90</span>)
+            </button>
+            <button onclick="filterByTab('Non-Cadastral')" id="tabNonCad" class="px-3 py-1.5 rounded-md hover:text-slate-900 transition">
+              Non-Cadastral (<span id="tabCountNonCad">51</span>)
+            </button>
+            <button onclick="filterByTab('Cadastral')" id="tabCad" class="px-3 py-1.5 rounded-md hover:text-slate-900 transition">
+              Cadastral (<span id="tabCountCad">39</span>)
+            </button>
+            <button onclick="filterByTab('error')" id="tabError" class="px-3 py-1.5 rounded-md text-rose-700 hover:text-rose-800 transition">
+              <i class="fa-solid fa-triangle-exclamation mr-1"></i>Shapefile Errors (<span id="tabCountError">14</span>)
+            </button>
+            <button onclick="filterByTab('cso_done')" id="tabCsoDone" class="px-3 py-1.5 rounded-md hover:text-slate-900 transition">
+              CSO Sent (<span id="tabCountCso">71</span>)
+            </button>
+          </div>
+
+          <div class="flex items-center space-x-2 no-print">
+            <button onclick="openAddVillageModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium px-3.5 py-2 rounded-lg shadow flex items-center space-x-1.5 transition">
+              <i class="fa-solid fa-plus"></i>
+              <span>Add Village Survey Data</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Search & Filter Controls -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-xs"></i>
+            <input type="text" id="searchInput" oninput="applyFilters()" placeholder="Search village, mandal, remarks, or Telugu..." 
+              class="w-full pl-9 pr-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition" />
+          </div>
+
+          <div>
+            <select id="districtFilter" onchange="applyFilters()" class="w-full py-2 px-3 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition">
+              <option value="all">All Districts (32 Districts)</option>
+            </select>
+          </div>
+
+          <div>
+            <select id="shapefileFilter" onchange="applyFilters()" class="w-full py-2 px-3 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition">
+              <option value="all">All Shapefile Statuses</option>
+              <option value="Completed">Shape File Completed</option>
+              <option value="Error">Shape File Error</option>
+              <option value="In Progress">Shape File In Progress</option>
+              <option value="Pending">Shape File Pending</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Table -->
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-slate-200 text-left text-xs">
+          <thead class="bg-slate-100 text-slate-600 font-semibold uppercase tracking-wider">
+            <tr>
+              <th class="py-3 px-4 w-12">#</th>
+              <th class="py-3 px-4">District</th>
+              <th class="py-3 px-4">Category</th>
+              <th class="py-3 px-4">Village & Mandal</th>
+              <th class="py-3 px-4 text-right">Extent (Ac-Gts)</th>
+              <th class="py-3 px-4 text-center">GT Status</th>
+              <th class="py-3 px-4 text-center">Shapefile Status</th>
+              <th class="py-3 px-4 text-center">CSO Sent</th>
+              <th class="py-3 px-4">Workflow Stage</th>
+              <th class="py-3 px-4 max-w-xs">Remarks / Observations</th>
+              <th class="py-3 px-4 text-center no-print w-24">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="villagesTableBody" class="divide-y divide-slate-100 bg-white">
+            <!-- Dynamic Records -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="p-4 border-t border-slate-200 bg-slate-50 flex items-center justify-between text-xs text-slate-500">
+        <div>Showing <span id="showingCount" class="font-bold text-slate-800">0</span> records</div>
+        <div class="flex items-center space-x-2">
+          <span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span>Official Baseline as on 04.09.2026</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL: ADD / EDIT VILLAGE -->
+  <div id="villageModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl border border-slate-100 space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b pb-3">
+        <h3 class="text-base font-bold text-slate-900" id="modalTitle">Add Village Survey Data</h3>
+        <button onclick="closeVillageModal()" class="text-slate-400 hover:text-slate-600 text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form id="villageForm" onsubmit="handleVillageFormSubmit(event)" class="space-y-4 text-xs">
+        <input type="hidden" id="formVillageId" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">District *</label>
+            <select id="formDistrict" required class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500">
+            </select>
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Village Category *</label>
+            <select id="formCategory" required class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500">
+              <option value="Non-Cadastral">Non-Cadastral (373 Target)</option>
+              <option value="Cadastral">Cadastral (70 Target)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Village Name *</label>
+            <input type="text" id="formVillageName" required placeholder="e.g. Dhanapur (V) or బాబాపూర్" 
+              class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500" />
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Mandal Name *</label>
+            <input type="text" id="formMandalName" required placeholder="e.g. Asifabad (M)" 
+              class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Total Extent (Acres - Guntas)</label>
+            <input type="text" id="formExtentRaw" placeholder="e.g. 1376-39 or 560" oninput="previewAcreage()"
+              class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500" />
+            <span class="text-[10px] text-slate-500" id="extentPreview">Decimal: 0.00 Acres</span>
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Ground Truthing Status *</label>
+            <select id="formGtStatus" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500">
+              <option value="Completed">100% GT Completed</option>
+              <option value="In Progress">GT In Progress</option>
+              <option value="Pending">Pending Start</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Shape File Status</label>
+            <select id="formShapefileStatus" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500">
+              <option value="Completed">Shape File Completed</option>
+              <option value="Error">Shape File Error</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Pending">Pending</option>
+            </select>
+          </div>
+
+          <div class="flex flex-col justify-center">
+            <label class="block font-semibold text-slate-700 mb-1">CSO Transmission</label>
+            <label class="inline-flex items-center space-x-2 mt-2 cursor-pointer">
+              <input type="checkbox" id="formSentCSO" class="rounded text-emerald-600 focus:ring-emerald-500 h-4 w-4" />
+              <span class="text-xs text-slate-800 font-medium">Shapefile Sent to CSO</span>
+            </label>
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Workflow Milestone</label>
+            <select id="formWorkflowStage" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500">
+              <option value="Shapefile Sent to CSO">Shapefile Sent to CSO</option>
+              <option value="Record Preparation">Record Preparation</option>
+              <option value="Correlation">Correlation Work</option>
+              <option value="Polygon Work">Polygon Record Work</option>
+              <option value="9(2) Notice Issued">9(2) Notice to be Given</option>
+              <option value="Inspection">Inspection On Going</option>
+              <option value="Shapefile Review">Shapefile Error Review</option>
+              <option value="Passbooks Printed">Passbooks Printed</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Remarks / Action Notes</label>
+          <textarea id="formRemarks" rows="3" placeholder="e.g. 9(2) notice to be given, Correction work ongoing as per CSO instructions..." 
+            class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500"></textarea>
+        </div>
+
+        <div class="flex justify-end space-x-3 pt-3 border-t">
+          <button type="button" onclick="closeVillageModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg font-medium">
+            Cancel
+          </button>
+          <button type="submit" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-medium shadow">
+            Save Record
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ALL 32 DISTRICTS TARGETS VS ACHIEVEMENTS -->
+  <div id="districtsModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-4xl w-full p-6 shadow-2xl border border-slate-100 space-y-4 max-h-[90vh] flex flex-col">
+      <div class="flex items-center justify-between border-b pb-3">
+        <div>
+          <h3 class="text-base font-bold text-slate-900">ResurveyUpdates: All 32 Districts Target vs Achievement</h3>
+          <p class="text-xs text-slate-500">Non-Cadastral (373 target) and Cadastral (70/District target)</p>
+        </div>
+        <button onclick="toggleDistrictsModal()" class="text-slate-400 hover:text-slate-600 text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="overflow-y-auto flex-1">
+        <table class="min-w-full divide-y divide-slate-200 text-left text-xs">
+          <thead class="bg-slate-100 text-slate-600 font-semibold sticky top-0">
+            <tr>
+              <th class="py-2.5 px-3">#</th>
+              <th class="py-2.5 px-3">District</th>
+              <th class="py-2.5 px-3 text-center">Non-Cad Target</th>
+              <th class="py-2.5 px-3 text-center">Non-Cad GT Done</th>
+              <th class="py-2.5 px-3 text-center">Cad Target</th>
+              <th class="py-2.5 px-3 text-center">Cad GT Done</th>
+              <th class="py-2.5 px-3 text-center">Total GT Done</th>
+              <th class="py-2.5 px-3 text-center">CSO Sent</th>
+              <th class="py-2.5 px-3 text-center">Errors</th>
+              <th class="py-2.5 px-3 text-right">Extent (Acres)</th>
+            </tr>
+          </thead>
+          <tbody id="districtsTableBody" class="divide-y divide-slate-100">
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pt-3 border-t flex justify-end">
+        <button onclick="toggleDistrictsModal()" class="px-4 py-2 bg-slate-800 text-white rounded-lg text-xs font-medium">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: LOGIN / USER SWITCHER -->
+  <div id="loginModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-100 space-y-4">
+      <div class="flex items-center justify-between border-b pb-3">
+        <h3 class="text-sm font-bold text-slate-900">Member Sign In</h3>
+        <button onclick="closeLoginModal()" class="text-slate-400 hover:text-slate-600">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <p class="text-xs text-slate-500">Select officer role to submit or update survey data:</p>
+
+      <div class="space-y-2 text-xs">
+        <button onclick="quickLogin('admin', 'admin')" class="w-full text-left p-3 rounded-lg border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/30 flex items-center justify-between transition">
+          <div>
+            <div class="font-bold text-slate-800">Project Admin</div>
+            <div class="text-[10px] text-slate-500">Full Access (All 32 Districts)</div>
+          </div>
+          <span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-semibold">Admin</span>
+        </button>
+
+        <button onclick="quickLogin('asifabad_officer', 'pass')" class="w-full text-left p-3 rounded-lg border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/30 flex items-center justify-between transition">
+          <div>
+            <div class="font-bold text-slate-800">Asifabad District Officer</div>
+            <div class="text-[10px] text-slate-500">Asifabad Nodal Access</div>
+          </div>
+          <span class="text-xs bg-teal-100 text-teal-800 px-2 py-0.5 rounded font-semibold">District</span>
+        </button>
+
+        <button onclick="quickLogin('nizamabad_officer', 'pass')" class="w-full text-left p-3 rounded-lg border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/30 flex items-center justify-between transition">
+          <div>
+            <div class="font-bold text-slate-800">Nizamabad District Officer</div>
+            <div class="text-[10px] text-slate-500">Nizamabad Nodal Access</div>
+          </div>
+          <span class="text-xs bg-teal-100 text-teal-800 px-2 py-0.5 rounded font-semibold">District</span>
+        </button>
+
+        <button onclick="quickLogin('viewer', 'guest')" class="w-full text-left p-3 rounded-lg border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/30 flex items-center justify-between transition">
+          <div>
+            <div class="font-bold text-slate-800">Public Auditor / Guest</div>
+            <div class="text-[10px] text-slate-500">Read-Only View</div>
+          </div>
+          <span class="text-xs bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-semibold">Viewer</span>
+        </button>
+      </div>
+
+      <div class="pt-2">
+        <button onclick="closeLoginModal()" class="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-medium">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT APPLICATION LOGIC -->
+  <script>
+    let allDistricts = [];
+    let allVillages = [];
+    let currentTab = 'all';
+    let currentUser = {
+      username: 'admin',
+      name: 'Project Admin',
+      role: 'admin',
+      district: 'All'
+    };
+    let barChartInstance = null;
+    let donutChartInstance = null;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      await checkDbStatus();
+      await fetchDistricts();
+      await fetchVillages();
+      await fetchDashboardStats();
+    });
+
+    async function checkDbStatus() {
+      try {
+        const res = await fetch('/api/status');
+        const data = await res.json();
+        const text = document.getElementById('dbEngineText');
+        if (data.is_mongodb) {
+          text.textContent = 'MongoDB Atlas Connected';
+        } else {
+          text.textContent = 'MongoDB Engine Active';
+        }
+      } catch (e) {
+        console.warn('DB check failed', e);
+      }
+    }
+
+    async function fetchDistricts() {
+      try {
+        const res = await fetch('/api/districts');
+        allDistricts = await res.json();
+        
+        const filterSelect = document.getElementById('districtFilter');
+        const formSelect = document.getElementById('formDistrict');
+        
+        filterSelect.innerHTML = '<option value="all">All Districts (32 Districts)</option>';
+        formSelect.innerHTML = '';
+
+        allDistricts.forEach(d => {
+          const opt1 = document.createElement('option');
+          opt1.value = d.name;
+          opt1.textContent = `${d.name} (NC: ${d.non_cadastral_target}, Cad: ${d.cadastral_target})`;
+          filterSelect.appendChild(opt1);
+
+          const opt2 = document.createElement('option');
+          opt2.value = d.name;
+          opt2.textContent = d.name;
+          formSelect.appendChild(opt2);
+        });
+      } catch (e) {
+        console.error('Error loading districts:', e);
+      }
+    }
+
+    async function fetchVillages() {
+      try {
+        const res = await fetch('/api/villages');
+        allVillages = await res.json();
+        updateTabCounts();
+        applyFilters();
+      } catch (e) {
+        console.error('Error loading villages:', e);
+      }
+    }
+
+    async function fetchDashboardStats() {
+      try {
+        const res = await fetch('/api/dashboard/stats');
+        const stats = await res.json();
+
+        document.getElementById('kpiDistricts').textContent = stats.total_districts;
+        document.getElementById('kpiNonCadDone').textContent = stats.gt_completed.non_cadastral;
+        document.getElementById('kpiNonCadTarget').textContent = stats.targets.non_cadastral;
+        document.getElementById('kpiCadDone').textContent = stats.gt_completed.cadastral;
+        document.getElementById('kpiCadTarget').textContent = stats.targets.cadastral;
+        document.getElementById('kpiSentCSO').textContent = stats.shapefiles.sent_to_cso;
+        document.getElementById('kpiErrors').textContent = stats.shapefiles.error;
+        document.getElementById('kpiTotalAcres').textContent = Number(stats.total_extent_acres).toLocaleString();
+
+        document.getElementById('donutCompletedCount').textContent = stats.shapefiles.completed;
+        document.getElementById('donutErrorCount').textContent = stats.shapefiles.error;
+        document.getElementById('donutProgressCount').textContent = stats.shapefiles.in_progress;
+
+        renderCharts(stats);
+        renderDistrictsTable(stats.districts_summary);
+      } catch (e) {
+        console.error('Error loading stats:', e);
+      }
+    }
+
+    function renderCharts(stats) {
+      const sortedDistricts = [...stats.districts_summary]
+        .sort((a, b) => b.total_gt_done - a.total_gt_done)
+        .slice(0, 8);
+
+      const labels = sortedDistricts.map(d => d.district);
+      const nonCadData = sortedDistricts.map(d => d.non_cadastral_gt_done);
+      const cadData = sortedDistricts.map(d => d.cadastral_gt_done);
+
+      if (barChartInstance) barChartInstance.destroy();
+      const ctxBar = document.getElementById('districtBarChart').getContext('2d');
+      barChartInstance = new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Non-Cadastral GT',
+              data: nonCadData,
+              backgroundColor: '#10B981',
+              borderRadius: 4
+            },
+            {
+              label: 'Cadastral GT',
+              data: cadData,
+              backgroundColor: '#3B82F6',
+              borderRadius: 4
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'top', labels: { font: { size: 10 } } }
+          },
+          scales: {
+            x: { stacked: true, grid: { display: false } },
+            y: { stacked: true, beginAtZero: true }
+          }
+        }
+      });
+
+      if (donutChartInstance) donutChartInstance.destroy();
+      const ctxDonut = document.getElementById('statusDonutChart').getContext('2d');
+      donutChartInstance = new Chart(ctxDonut, {
+        type: 'doughnut',
+        data: {
+          labels: ['Completed', 'Errors', 'In Progress'],
+          datasets: [{
+            data: [stats.shapefiles.completed, stats.shapefiles.error, stats.shapefiles.in_progress],
+            backgroundColor: ['#10B981', '#F43F5E', '#F59E0B'],
+            borderWidth: 2,
+            hoverOffset: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '70%',
+          plugins: { legend: { display: false } }
+        }
+      });
+    }
+
+    function renderDistrictsTable(summary) {
+      const tbody = document.getElementById('districtsTableBody');
+      tbody.innerHTML = '';
+      summary.forEach((d, idx) => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50 transition';
+        tr.innerHTML = `
+          <td class="py-2 px-3 text-slate-400">${idx + 1}</td>
+          <td class="py-2 px-3 font-semibold text-slate-800">${d.district}</td>
+          <td class="py-2 px-3 text-center text-slate-500">${d.non_cadastral_target}</td>
+          <td class="py-2 px-3 text-center font-bold text-emerald-600">${d.non_cadastral_gt_done}</td>
+          <td class="py-2 px-3 text-center text-slate-500">${d.cadastral_target}</td>
+          <td class="py-2 px-3 text-center font-bold text-blue-600">${d.cadastral_gt_done}</td>
+          <td class="py-2 px-3 text-center font-bold text-slate-900">${d.total_gt_done}</td>
+          <td class="py-2 px-3 text-center text-teal-600 font-medium">${d.shapefiles_sent}</td>
+          <td class="py-2 px-3 text-center font-semibold ${d.shapefiles_error > 0 ? 'text-rose-600' : 'text-slate-400'}">${d.shapefiles_error}</td>
+          <td class="py-2 px-3 text-right font-medium text-slate-700">${Number(d.total_extent_acres).toLocaleString()}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function updateTabCounts() {
+      document.getElementById('tabCountAll').textContent = allVillages.length;
+      document.getElementById('tabCountNonCad').textContent = allVillages.filter(v => v.category === 'Non-Cadastral').length;
+      document.getElementById('tabCountCad').textContent = allVillages.filter(v => v.category === 'Cadastral').length;
+      document.getElementById('tabCountError').textContent = allVillages.filter(v => v.shapefile_status === 'Error').length;
+      document.getElementById('tabCountCso').textContent = allVillages.filter(v => v.sent_to_cso).length;
+    }
+
+    function filterByTab(tab) {
+      currentTab = tab;
+      const tabs = ['tabAll', 'tabNonCad', 'tabCad', 'tabError', 'tabCsoDone'];
+      tabs.forEach(t => {
+        const el = document.getElementById(t);
+        if (el) el.className = 'px-3 py-1.5 rounded-md hover:text-slate-900 transition text-slate-600';
+      });
+
+      if (tab === 'all') document.getElementById('tabAll').className = 'px-3 py-1.5 rounded-md bg-white text-slate-900 shadow-sm font-semibold';
+      if (tab === 'Non-Cadastral') document.getElementById('tabNonCad').className = 'px-3 py-1.5 rounded-md bg-white text-emerald-800 shadow-sm font-semibold';
+      if (tab === 'Cadastral') document.getElementById('tabCad').className = 'px-3 py-1.5 rounded-md bg-white text-blue-800 shadow-sm font-semibold';
+      if (tab === 'error') document.getElementById('tabError').className = 'px-3 py-1.5 rounded-md bg-rose-50 text-rose-800 border border-rose-200 shadow-sm font-semibold';
+      if (tab === 'cso_done') document.getElementById('tabCsoDone').className = 'px-3 py-1.5 rounded-md bg-white text-teal-800 shadow-sm font-semibold';
+
+      applyFilters();
+    }
+
+    function applyFilters() {
+      const search = document.getElementById('searchInput').value.toLowerCase().trim();
+      const district = document.getElementById('districtFilter').value;
+      const shapefile = document.getElementById('shapefileFilter').value;
+
+      const filtered = allVillages.filter(v => {
+        if (currentTab === 'Non-Cadastral' && v.category !== 'Non-Cadastral') return false;
+        if (currentTab === 'Cadastral' && v.category !== 'Cadastral') return false;
+        if (currentTab === 'error' && v.shapefile_status !== 'Error') return false;
+        if (currentTab === 'cso_done' && !v.sent_to_cso) return false;
+
+        if (district !== 'all' && v.district_name.toLowerCase() !== district.toLowerCase()) return false;
+        if (shapefile !== 'all' && v.shapefile_status !== shapefile) return false;
+
+        if (search) {
+          const matchName = (v.village_name || '').toLowerCase().includes(search);
+          const matchMandal = (v.mandal_name || '').toLowerCase().includes(search);
+          const matchDistrict = (v.district_name || '').toLowerCase().includes(search);
+          const matchRemarks = (v.remarks || '').toLowerCase().includes(search);
+          if (!matchName && !matchMandal && !matchDistrict && !matchRemarks) return false;
+        }
+
+        return true;
+      });
+
+      renderVillagesTable(filtered);
+    }
+
+    function renderVillagesTable(records) {
+      const tbody = document.getElementById('villagesTableBody');
+      tbody.innerHTML = '';
+      document.getElementById('showingCount').textContent = records.length;
+
+      if (records.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="11" class="py-8 text-center text-slate-400">
+              <i class="fa-regular fa-folder-open text-3xl mb-2 block"></i>
+              No village records found matching the active filter.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      records.forEach((v, idx) => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50/80 transition';
+
+        const catBadge = v.category === 'Non-Cadastral'
+          ? '<span class="bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded text-[11px] font-medium">Non-Cadastral</span>'
+          : '<span class="bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded text-[11px] font-medium">Cadastral</span>';
+
+        let sfBadge = '';
+        if (v.shapefile_status === 'Completed') {
+          sfBadge = '<span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-semibold"><i class="fa-solid fa-check mr-1 text-[9px]"></i>Completed</span>';
+        } else if (v.shapefile_status === 'Error') {
+          sfBadge = '<span class="bg-rose-100 text-rose-800 px-2 py-0.5 rounded-full font-semibold animate-pulse"><i class="fa-solid fa-circle-exclamation mr-1 text-[9px]"></i>Error</span>';
+        } else if (v.shapefile_status === 'In Progress') {
+          sfBadge = '<span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-semibold">In Progress</span>';
+        } else {
+          sfBadge = '<span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">Pending</span>';
+        }
+
+        const csoBadge = v.sent_to_cso
+          ? '<span class="text-teal-600 font-bold"><i class="fa-solid fa-circle-check text-xs mr-1"></i>Yes</span>'
+          : '<span class="text-slate-400">No</span>';
+
+        tr.innerHTML = `
+          <td class="py-3 px-4 text-slate-400 font-mono">${idx + 1}</td>
+          <td class="py-3 px-4 font-semibold text-slate-900">${v.district_name}</td>
+          <td class="py-3 px-4">${catBadge}</td>
+          <td class="py-3 px-4">
+            <div class="font-bold text-slate-800 telugu-text">${v.village_name}</div>
+            <div class="text-[11px] text-slate-500">${v.mandal_name}</div>
+          </td>
+          <td class="py-3 px-4 text-right font-mono font-bold text-slate-800">
+            ${v.extent_raw || '-'}
+            <div class="text-[10px] text-slate-400 font-normal">${v.extent_acres_float ? v.extent_acres_float + ' ac' : ''}</div>
+          </td>
+          <td class="py-3 px-4 text-center">
+            <span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-medium">${v.gt_status || 'Completed'}</span>
+          </td>
+          <td class="py-3 px-4 text-center">${sfBadge}</td>
+          <td class="py-3 px-4 text-center">${csoBadge}</td>
+          <td class="py-3 px-4">
+            <span class="text-[11px] font-medium text-slate-700 bg-slate-50 border border-slate-200 px-2 py-1 rounded inline-block">
+              ${v.workflow_stage || 'Ground Truthing'}
+            </span>
+          </td>
+          <td class="py-3 px-4 text-slate-600 max-w-xs">
+            <div class="line-clamp-2 text-[11px]">${v.remarks || '-'}</div>
+          </td>
+          <td class="py-3 px-4 text-center no-print space-x-1">
+            <button onclick="openEditVillageModal('${v.id}')" title="Edit Record" class="text-slate-500 hover:text-emerald-600 p-1.5 rounded hover:bg-slate-100 transition">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+            ${currentUser.role === 'admin' ? `
+            <button onclick="confirmDeleteVillage('${v.id}')" title="Delete Record" class="text-slate-400 hover:text-rose-600 p-1.5 rounded hover:bg-slate-100 transition">
+              <i class="fa-solid fa-trash"></i>
+            </button>` : ''}
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function previewAcreage() {
+      const val = document.getElementById('formExtentRaw').value.trim();
+      const el = document.getElementById('extentPreview');
+      if (!val) {
+        el.textContent = 'Decimal: 0.00 Acres';
+        return;
+      }
+      try {
+        let ac = 0, gt = 0;
+        if (val.includes('-')) {
+          const parts = val.split('-');
+          ac = parseFloat(parts[0]) || 0;
+          gt = parseFloat(parts[1]) || 0;
+        } else if (val.includes('.')) {
+          const parts = val.split('.');
+          ac = parseFloat(parts[0]) || 0;
+          gt = parseFloat(parts[1]) || 0;
+        } else {
+          ac = parseFloat(val) || 0;
+        }
+        const total = ac + (gt / 40.0);
+        el.textContent = `Decimal: ${total.toFixed(3)} Acres`;
+      } catch (e) {
+        el.textContent = 'Decimal: 0.00 Acres';
+      }
+    }
+
+    function openAddVillageModal() {
+      document.getElementById('modalTitle').textContent = 'Add Village Resurvey Record';
+      document.getElementById('formVillageId').value = '';
+      document.getElementById('formVillageName').value = '';
+      document.getElementById('formMandalName').value = '';
+      document.getElementById('formExtentRaw').value = '';
+      document.getElementById('formShapefileStatus').value = 'Pending';
+      document.getElementById('formSentCSO').checked = false;
+      document.getElementById('formWorkflowStage').value = 'Ground Truthing';
+      document.getElementById('formRemarks').value = '';
+      previewAcreage();
+      
+      if (currentUser.role === 'district_officer' && currentUser.district !== 'All') {
+        document.getElementById('formDistrict').value = currentUser.district;
+      }
+      document.getElementById('villageModal').classList.remove('hidden');
+    }
+
+    function openEditVillageModal(id) {
+      const v = allVillages.find(item => item.id === id);
+      if (!v) return;
+
+      document.getElementById('modalTitle').textContent = `Edit Record: ${v.village_name}`;
+      document.getElementById('formVillageId').value = v.id;
+      document.getElementById('formDistrict').value = v.district_name;
+      document.getElementById('formCategory').value = v.category;
+      document.getElementById('formVillageName').value = v.village_name;
+      document.getElementById('formMandalName').value = v.mandal_name;
+      document.getElementById('formExtentRaw').value = v.extent_raw || '';
+      document.getElementById('formGtStatus').value = v.gt_status || 'Completed';
+      document.getElementById('formShapefileStatus').value = v.shapefile_status || 'Pending';
+      document.getElementById('formSentCSO').checked = !!v.sent_to_cso;
+      document.getElementById('formWorkflowStage').value = v.workflow_stage || 'Ground Truthing';
+      document.getElementById('formRemarks').value = v.remarks || '';
+      previewAcreage();
+
+      document.getElementById('villageModal').classList.remove('hidden');
+    }
+
+    function closeVillageModal() {
+      document.getElementById('villageModal').classList.add('hidden');
+    }
+
+    async function handleVillageFormSubmit(e) {
+      e.preventDefault();
+      const id = document.getElementById('formVillageId').value;
+      const payload = {
+        district_name: document.getElementById('formDistrict').value,
+        category: document.getElementById('formCategory').value,
+        village_name: document.getElementById('formVillageName').value,
+        mandal_name: document.getElementById('formMandalName').value,
+        extent_raw: document.getElementById('formExtentRaw').value,
+        gt_status: document.getElementById('formGtStatus').value,
+        shapefile_status: document.getElementById('formShapefileStatus').value,
+        sent_to_cso: document.getElementById('formSentCSO').checked,
+        workflow_stage: document.getElementById('formWorkflowStage').value,
+        remarks: document.getElementById('formRemarks').value,
+        updated_by: currentUser.name
+      };
+
+      try {
+        if (id) {
+          const res = await fetch(`/api/villages/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (!res.ok) throw new Error('Update failed');
+        } else {
+          const res = await fetch('/api/villages', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (!res.ok) throw new Error('Creation failed');
+        }
+
+        closeVillageModal();
+        await fetchVillages();
+        await fetchDashboardStats();
+      } catch (err) {
+        alert('Error saving record: ' + err.message);
+      }
+    }
+
+    async function confirmDeleteVillage(id) {
+      if (!confirm('Are you sure you want to delete this village record?')) return;
+      try {
+        const res = await fetch(`/api/villages/${id}`, { method: 'DELETE' });
+        if (res.ok) {
+          await fetchVillages();
+          await fetchDashboardStats();
+        } else {
+          alert('Delete failed.');
+        }
+      } catch (e) {
+        alert('Error deleting: ' + e.message);
+      }
+    }
+
+    function toggleDistrictsModal() {
+      document.getElementById('districtsModal').classList.toggle('hidden');
+    }
+
+    function openLoginModal() {
+      document.getElementById('loginModal').classList.remove('hidden');
+    }
+
+    function closeLoginModal() {
+      document.getElementById('loginModal').classList.add('hidden');
+    }
+
+    async function quickLogin(username, password) {
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        const data = await res.json();
+        if (data.success) {
+          currentUser = data.user;
+          document.getElementById('currentUserName').textContent = currentUser.name;
+          document.getElementById('currentUserRole').textContent = currentUser.role.replace('_', ' ');
+          closeLoginModal();
+          
+          if (currentUser.role === 'district_officer' && currentUser.district !== 'All') {
+            document.getElementById('districtFilter').value = currentUser.district;
+            applyFilters();
+          }
+        }
+      } catch (e) {
+        alert('Login failed: ' + e.message);
+      }
+    }
+
+    function downloadExcel() {
+      window.location.href = '/api/export/excel';
+    }
+  </script>
+</body>
+</html>

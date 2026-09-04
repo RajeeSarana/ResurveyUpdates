@@ -1,0 +1,44 @@
+[
+  {
+    "username": "admin",
+    "name": "Project Admin (Central Coordinator)",
+    "role": "admin",
+    "password": "admin",
+    "district": "All"
+  },
+  {
+    "username": "asifabad_officer",
+    "name": "Asifabad District Nodal Officer",
+    "role": "district_officer",
+    "password": "pass",
+    "district": "Asifabad"
+  },
+  {
+    "username": "nizamabad_officer",
+    "name": "Nizamabad District Nodal Officer",
+    "role": "district_officer",
+    "password": "pass",
+    "district": "Nizamabad"
+  },
+  {
+    "username": "medak_officer",
+    "name": "Medak District Nodal Officer",
+    "role": "district_officer",
+    "password": "pass",
+    "district": "Medak"
+  },
+  {
+    "username": "siddipet_officer",
+    "name": "Siddipet District Nodal Officer",
+    "role": "district_officer",
+    "password": "pass",
+    "district": "Siddipet"
+  },
+  {
+    "username": "viewer",
+    "name": "Guest Auditor (View Only)",
+    "role": "viewer",
+    "password": "guest",
+    "district": "All"
+  }
+]
