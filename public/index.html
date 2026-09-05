@@ -32,7 +32,231 @@
     }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+<body class="bg-slate-50 text-slate-900 min-h-screen">
+
+  <!-- ========================================================================================= -->
+  <!-- 1. DEFAULT GATEWAY: DEDICATED LOGIN SCREEN (Displayed by default when unauthenticated)    -->
+  <!-- ========================================================================================= -->
+  <div id="loginGateway" class="min-h-screen flex flex-col justify-between bg-gradient-to-br from-slate-950 via-teal-950 to-slate-900 text-slate-100 selection:bg-emerald-500 selection:text-white">
+    <!-- Gateway Header -->
+    <header class="border-b border-teal-800/40 bg-slate-950/60 backdrop-blur-md px-4 sm:px-8 py-4">
+      <div class="max-w-7xl mx-auto flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center text-white shadow-lg shadow-emerald-900/40">
+            <i class="fa-solid fa-map-location-dot text-lg"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-xs uppercase tracking-widest text-emerald-400 font-bold">Field Operations Gateway</span>
+              <span class="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full font-semibold">ResurveyUpdates</span>
+            </div>
+            <h1 class="text-base sm:text-lg font-bold text-white tracking-tight">Central Monitoring &amp; Verification Portal</h1>
+          </div>
+        </div>
+        <div class="flex items-center space-x-3 text-xs">
+          <div class="hidden sm:flex items-center space-x-2 bg-emerald-950/70 border border-emerald-500/30 px-3 py-1.5 rounded-lg text-emerald-300">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span class="font-medium">System Online &amp; Secure</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Gateway Center Body: Centered Login Card -->
+    <main class="flex-1 flex items-center justify-center px-4 py-8 sm:py-12">
+      <div class="w-full max-w-lg bg-slate-900/90 border border-teal-700/40 rounded-2xl shadow-2xl p-6 sm:p-8 space-y-6 backdrop-blur-xl">
+        
+        <!-- Card Header -->
+        <div class="text-center space-y-2 border-b border-slate-800 pb-5">
+          <div class="w-14 h-14 mx-auto rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-2xl shadow-inner">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <h2 class="text-xl font-bold text-white tracking-tight">Officer Sign In &amp; Access Gateway</h2>
+          <p class="text-xs text-slate-400 max-w-sm mx-auto">
+            100% Completed Villages Tracking &amp; Cadastral Verification. Sign in with your official role credentials to enter your designated workspace.
+          </p>
+        </div>
+
+        <!-- Mode Toggle Tabs: Credentials vs 1-Click Role Access -->
+        <div class="flex rounded-xl bg-slate-950/70 p-1 border border-slate-800 text-xs font-semibold">
+          <button type="button" onclick="switchGatewayTab('form')" id="btnGatewayTabForm" class="flex-1 py-2 rounded-lg bg-emerald-600 text-white font-bold shadow transition">
+            <i class="fa-solid fa-key mr-1.5 text-xs"></i>
+            <span>Officer Sign In</span>
+          </button>
+          <button type="button" onclick="switchGatewayTab('quick')" id="btnGatewayTabQuick" class="flex-1 py-2 rounded-lg text-slate-400 hover:text-white font-medium transition">
+            <i class="fa-solid fa-users mr-1.5 text-xs"></i>
+            <span>1-Click Role Access (Demo)</span>
+          </button>
+        </div>
+
+        <!-- Panel 1: Standard Username/Password Credentials -->
+        <div id="panelGatewayForm" class="space-y-4">
+          <form onsubmit="handleGatewayLogin(event)" class="space-y-4 text-xs">
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1.5">Username / Officer ID *</label>
+              <div class="relative">
+                <i class="fa-solid fa-user absolute left-3.5 top-3 text-slate-500"></i>
+                <input type="text" id="gatewayUsernameInput" required placeholder="e.g. admin, qc_lead, asifabad_rep1, executive_dir" 
+                  class="w-full pl-10 pr-3 py-2.5 bg-slate-950/70 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-xs font-medium" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1.5">Official Password *</label>
+              <div class="relative">
+                <i class="fa-solid fa-lock absolute left-3.5 top-3 text-slate-500"></i>
+                <input type="password" id="gatewayPasswordInput" required placeholder="Enter password" 
+                  class="w-full pl-10 pr-3 py-2.5 bg-slate-950/70 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-xs font-medium" />
+              </div>
+            </div>
+
+            <!-- Error Banner -->
+            <div id="gatewayErrorMessage" class="hidden p-3 rounded-xl bg-rose-950/70 border border-rose-500/40 text-rose-200 text-xs flex items-center space-x-2">
+              <i class="fa-solid fa-triangle-exclamation text-rose-400"></i>
+              <span id="gatewayErrorText">Invalid credentials</span>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="btnGatewaySubmit" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg shadow-emerald-950/50 transition flex items-center justify-center space-x-2 text-xs">
+              <i class="fa-solid fa-right-to-bracket text-sm"></i>
+              <span>Sign In to Officer Workspace</span>
+            </button>
+          </form>
+
+          <div class="pt-3 text-[11px] text-slate-400 text-center border-t border-slate-800/80">
+            <span class="text-slate-400">Standard evaluation passwords:</span>
+            <code class="ml-1 bg-slate-800 text-emerald-300 px-1.5 py-0.5 rounded font-mono font-semibold">pass</code>,
+            <code class="ml-1 bg-slate-800 text-emerald-300 px-1.5 py-0.5 rounded font-mono font-semibold">admin</code>, or
+            <code class="ml-1 bg-slate-800 text-emerald-300 px-1.5 py-0.5 rounded font-mono font-semibold">rep123</code>
+          </div>
+        </div>
+
+        <!-- Panel 2: 1-Click Role Access (Instant Role Testing) -->
+        <div id="panelGatewayQuick" class="hidden space-y-3 text-xs">
+          <p class="text-[11px] text-slate-400">
+            Click any role to test its specific landing screen and view permissions:
+          </p>
+
+          <div class="space-y-2">
+            <!-- 1. System Administrator -->
+            <button type="button" onclick="executeQuickLogin('admin', 'admin')" class="w-full text-left p-3 rounded-xl border border-slate-700/80 bg-slate-950/50 hover:border-emerald-500 hover:bg-emerald-950/20 flex items-center justify-between transition group">
+              <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30">
+                  <i class="fa-solid fa-user-shield text-xs"></i>
+                </div>
+                <div>
+                  <div class="font-bold text-white flex items-center space-x-2">
+                    <span>System Administrator</span>
+                    <span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-500/30 font-semibold">All Modules</span>
+                  </div>
+                  <div class="text-[11px] text-slate-400">Overview Dashboard, Master Data Hub &amp; full authority</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-chevron-right text-slate-500 group-hover:text-emerald-400 transition text-xs"></i>
+            </button>
+
+            <!-- 2. Central QC Engineer -->
+            <button type="button" onclick="executeQuickLogin('qc_lead', 'pass')" class="w-full text-left p-3 rounded-xl border border-slate-700/80 bg-slate-950/50 hover:border-amber-500 hover:bg-amber-950/20 flex items-center justify-between transition group">
+              <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-500/30">
+                  <i class="fa-solid fa-clipboard-check text-xs"></i>
+                </div>
+                <div>
+                  <div class="font-bold text-white flex items-center space-x-2">
+                    <span>Central QC Lead Engineer</span>
+                    <span class="text-[10px] bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded border border-amber-500/30 font-semibold">QC Desk</span>
+                  </div>
+                  <div class="text-[11px] text-slate-400">K. Ravinder Reddy &bull; Lands on QC Verification Desk</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-chevron-right text-slate-500 group-hover:text-amber-400 transition text-xs"></i>
+            </button>
+
+            <!-- 3. Executive Director -->
+            <button type="button" onclick="executeQuickLogin('executive_dir', 'pass')" class="w-full text-left p-3 rounded-xl border border-slate-700/80 bg-slate-950/50 hover:border-indigo-500 hover:bg-indigo-950/20 flex items-center justify-between transition group">
+              <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center border border-indigo-500/30">
+                  <i class="fa-solid fa-briefcase text-xs"></i>
+                </div>
+                <div>
+                  <div class="font-bold text-white flex items-center space-x-2">
+                    <span>Executive Project Director</span>
+                    <span class="text-[10px] bg-indigo-500/20 text-indigo-300 px-1.5 py-0.5 rounded border border-indigo-500/30 font-semibold">Leadership</span>
+                  </div>
+                  <div class="text-[11px] text-slate-400">V. S. Murthy &bull; Lands on Executive Briefing &amp; KPI Radar</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-chevron-right text-slate-500 group-hover:text-indigo-400 transition text-xs"></i>
+            </button>
+
+            <!-- 4. District Representative Dropdown Selector -->
+            <div class="p-3 rounded-xl border border-teal-700/50 bg-teal-950/30 space-y-2">
+              <div class="flex items-center space-x-2 text-teal-300 font-bold">
+                <i class="fa-solid fa-map-pin text-xs"></i>
+                <span>District Representative (32 Districts)</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Lands on Village Survey Explorer pre-filtered to your district:</p>
+              <div class="flex space-x-2">
+                <select id="gatewayDistrictSelect" class="flex-1 p-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-white focus:outline-none focus:border-teal-500">
+                  <option value="Asifabad">Asifabad Representative</option>
+                  <option value="Adilabad">Adilabad Representative</option>
+                  <option value="Mancherial">Mancherial Representative</option>
+                  <option value="Nizamabad">Nizamabad Representative</option>
+                  <option value="Medak">Medak Representative</option>
+                  <option value="Siddipet">Siddipet Representative</option>
+                  <option value="Khammam">Khammam Representative</option>
+                  <option value="Karimnagar">Karimnagar Representative</option>
+                </select>
+                <button type="button" onclick="executeGatewayDistrictRepLogin()" class="bg-teal-600 hover:bg-teal-500 text-white font-bold px-3 py-2 rounded-lg text-xs transition shadow flex items-center space-x-1">
+                  <span>Sign In</span>
+                  <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- 5. Public Auditor / Guest -->
+            <button type="button" onclick="executeQuickLogin('viewer', 'guest')" class="w-full text-left p-2.5 rounded-xl border border-slate-800 bg-slate-950/30 hover:border-slate-600 flex items-center justify-between transition group">
+              <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-slate-800 text-slate-400 flex items-center justify-center">
+                  <i class="fa-solid fa-eye text-xs"></i>
+                </div>
+                <div>
+                  <div class="font-bold text-slate-300">Public Auditor / Transparency Viewer</div>
+                  <div class="text-[10px] text-slate-500">Read-only statewide overview without editing access</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-slate-400 transition text-xs"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Security & Audit Note -->
+        <div class="flex items-start space-x-2.5 p-3 rounded-xl bg-slate-950/60 border border-slate-800 text-[11px] text-slate-400">
+          <i class="fa-solid fa-shield text-emerald-400 text-sm mt-0.5"></i>
+          <div>
+            <span class="font-semibold text-slate-300">Authenticated Operational Governance:</span>
+            All record modifications, verification approvals, and master catalog updates are cryptographically tied to the active officer session and stored in the central audit trail.
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Gateway Footer -->
+    <footer class="border-t border-teal-900/40 bg-slate-950/80 px-4 py-3 text-center text-xs text-slate-500">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+        <div>ResurveyUpdates - Central Monitoring &amp; Verification Portal</div>
+        <div>Cadastral &amp; Non-Cadastral 100% Completed Villages Tracking</div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ========================================================================================= -->
+  <!-- 2. AUTHENTICATED APPLICATION PORTAL (Hidden by default until authentication)              -->
+  <!-- ========================================================================================= -->
+  <div id="authenticatedApp" class="hidden min-h-screen flex flex-col">
 
   <!-- TOP HEADER -->
   <header class="bg-gradient-to-r from-teal-900 via-emerald-800 to-teal-950 text-white shadow-lg sticky top-0 z-40">
@@ -1519,10 +1743,182 @@
     </div>
   </div>
 
+  </div> <!-- End #authenticatedApp -->
+
   <!-- ========================================================================================= -->
   <!-- JAVASCRIPT APPLICATION LOGIC                                                              -->
   <!-- ========================================================================================= -->
   <script>
+    // Gateway UI & Role-Based Tab Switchers
+    function switchGatewayTab(tab) {
+      const btnForm = document.getElementById('btnGatewayTabForm');
+      const btnQuick = document.getElementById('btnGatewayTabQuick');
+      const panelForm = document.getElementById('panelGatewayForm');
+      const panelQuick = document.getElementById('panelGatewayQuick');
+
+      if (tab === 'form') {
+        if (btnForm) btnForm.className = 'flex-1 py-2 rounded-lg bg-emerald-600 text-white font-bold shadow transition text-xs';
+        if (btnQuick) btnQuick.className = 'flex-1 py-2 rounded-lg text-slate-400 hover:text-white font-medium transition text-xs';
+        if (panelForm) panelForm.classList.remove('hidden');
+        if (panelQuick) panelQuick.classList.add('hidden');
+      } else {
+        if (btnQuick) btnQuick.className = 'flex-1 py-2 rounded-lg bg-emerald-600 text-white font-bold shadow transition text-xs';
+        if (btnForm) btnForm.className = 'flex-1 py-2 rounded-lg text-slate-400 hover:text-white font-medium transition text-xs';
+        if (panelQuick) panelQuick.classList.remove('hidden');
+        if (panelForm) panelForm.classList.add('hidden');
+      }
+    }
+
+    async function handleGatewayLogin(e) {
+      if (e) e.preventDefault();
+      const usernameInput = document.getElementById('gatewayUsernameInput');
+      const passwordInput = document.getElementById('gatewayPasswordInput');
+      const errBox = document.getElementById('gatewayErrorMessage');
+      const errText = document.getElementById('gatewayErrorText');
+      const submitBtn = document.getElementById('btnGatewaySubmit');
+
+      const username = usernameInput ? usernameInput.value.trim() : '';
+      const password = passwordInput ? passwordInput.value.trim() : '';
+
+      if (!username || !password) {
+        if (errBox && errText) {
+          errText.textContent = 'Please enter both Username and Password.';
+          errBox.classList.remove('hidden');
+        }
+        return;
+      }
+
+      if (errBox) errBox.classList.add('hidden');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Authenticating...</span>';
+      }
+
+      try {
+        const res = await fetch('/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          authToken = data.token;
+          currentUser = data.user;
+          localStorage.setItem('resurvey_auth_token', authToken);
+          showAuthenticatedPortal();
+        } else {
+          if (errBox && errText) {
+            errText.textContent = data.detail || 'Invalid username or password. Please verify credentials.';
+            errBox.classList.remove('hidden');
+          }
+        }
+      } catch (err) {
+        if (errBox && errText) {
+          errText.textContent = 'Connection error: ' + err.message;
+          errBox.classList.remove('hidden');
+        }
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i class="fa-solid fa-right-to-bracket text-sm"></i><span>Sign In to Officer Workspace</span>';
+        }
+      }
+    }
+
+    async function executeGatewayDistrictRepLogin() {
+      const sel = document.getElementById('gatewayDistrictSelect');
+      if (!sel || !sel.value) return;
+      const districtName = sel.value;
+      const slug = districtName.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const username = `${slug}_rep1`;
+      await executeQuickLogin(username, 'rep123');
+    }
+
+    function showLoginGateway() {
+      const gateway = document.getElementById('loginGateway');
+      const app = document.getElementById('authenticatedApp');
+      if (gateway) gateway.classList.remove('hidden');
+      if (app) app.classList.add('hidden');
+      document.title = 'ResurveyUpdates - Officer Sign In';
+    }
+
+    function showAuthenticatedPortal() {
+      const gateway = document.getElementById('loginGateway');
+      const app = document.getElementById('authenticatedApp');
+      if (gateway) gateway.classList.add('hidden');
+      if (app) app.classList.remove('hidden');
+      document.title = 'ResurveyUpdates - Monitoring & Verification Portal';
+      renderAuthHeaderUI();
+      applyRoleBasedNavigation(currentUser);
+    }
+
+    function applyRoleBasedNavigation(user) {
+      if (!user) return;
+      const role = user.role || 'viewer';
+
+      const navOverview = document.getElementById('nav-tab-overview');
+      const navVillages = document.getElementById('nav-tab-villages');
+      const navQc = document.getElementById('nav-tab-qc');
+      const navExecutive = document.getElementById('nav-tab-executive');
+      const navAudit = document.getElementById('nav-tab-audit');
+      const navMaster = document.getElementById('nav-tab-master');
+
+      // Reset all navigation tabs to visible initially
+      [navOverview, navVillages, navQc, navExecutive, navAudit, navMaster].forEach(btn => {
+        if (btn) btn.classList.remove('hidden');
+      });
+
+      if (role === 'district_rep') {
+        // District Rep:
+        // Visible: Village Explorer, Overview, Audit
+        // Hidden: QC Desk, Executive Briefing, Master Data Hub
+        if (navQc) navQc.classList.add('hidden');
+        if (navExecutive) navExecutive.classList.add('hidden');
+        if (navMaster) navMaster.classList.add('hidden');
+
+        // Land directly on Village Survey Explorer
+        switchMainTab('tab-villages');
+
+        // Pre-filter district dropdown to assigned district
+        if (user.district && user.district !== 'All') {
+          const distFilter = document.getElementById('districtFilter');
+          if (distFilter) {
+            distFilter.value = user.district;
+          }
+          applyFilters();
+        }
+      } else if (role === 'qc_engineer') {
+        // Central QC Engineer:
+        // Visible: QC Desk, Overview, Village Explorer, Audit
+        // Hidden: Executive Briefing, Master Data Hub
+        if (navExecutive) navExecutive.classList.add('hidden');
+        if (navMaster) navMaster.classList.add('hidden');
+
+        // Land directly on QC Verification Desk
+        switchMainTab('tab-qc');
+      } else if (role === 'executive') {
+        // Executive Director:
+        // Visible: Executive Briefing, Overview, Village Explorer, Audit
+        // Hidden: QC Desk, Master Data Hub
+        if (navQc) navQc.classList.add('hidden');
+        if (navMaster) navMaster.classList.add('hidden');
+
+        // Land directly on Executive Briefing
+        switchMainTab('tab-executive');
+      } else if (role === 'admin') {
+        // System Administrator:
+        // All 6 tabs visible
+        // Land on Overview Dashboard
+        switchMainTab('tab-overview');
+      } else {
+        // Public Auditor / Guest:
+        if (navQc) navQc.classList.add('hidden');
+        if (navExecutive) navExecutive.classList.add('hidden');
+        if (navMaster) navMaster.classList.add('hidden');
+        switchMainTab('tab-overview');
+      }
+    }
+
     // State management
     let allDistricts = [];
     let allMandals = [];
@@ -1578,9 +1974,17 @@
           }
         } catch (e) {
           console.warn('Session verification error', e);
+          authToken = null;
+          currentUser = null;
+          localStorage.removeItem('resurvey_auth_token');
         }
       }
-      renderAuthHeaderUI();
+
+      if (currentUser && authToken) {
+        showAuthenticatedPortal();
+      } else {
+        showLoginGateway();
+      }
     }
 
     function renderAuthHeaderUI() {
@@ -1696,8 +2100,29 @@
       }
     }
 
-    // Tab Navigation Switcher
+    // Tab Navigation Switcher with Role Guarding
     function switchMainTab(tabId) {
+      if (!currentUser) {
+        showLoginGateway();
+        return;
+      }
+
+      const role = currentUser.role || 'viewer';
+
+      // Enforce role-based module boundaries
+      if (tabId === 'tab-qc' && role !== 'admin' && role !== 'qc_engineer') {
+        alert('Access Restricted: QC Verification Desk is reserved for QC Engineers and Administrators.');
+        return;
+      }
+      if (tabId === 'tab-master' && role !== 'admin') {
+        alert('Access Restricted: Master Data Hub is reserved for System Administrators.');
+        return;
+      }
+      if (tabId === 'tab-executive' && role !== 'admin' && role !== 'executive') {
+        alert('Access Restricted: Executive Briefing is reserved for Executive Management and Administrators.');
+        return;
+      }
+
       currentActiveMainTab = tabId;
       const tabIds = ['tab-overview', 'tab-villages', 'tab-qc', 'tab-executive', 'tab-audit', 'tab-master'];
       
@@ -1767,6 +2192,7 @@
         const formSelect = document.getElementById('formDistrict');
         const auditSelect = document.getElementById('auditDistrictFilter');
         const switchSelect = document.getElementById('switchDistrictSelect');
+        const gatewayDistSelect = document.getElementById('gatewayDistrictSelect');
         const repDistSelect = document.getElementById('formRepDistrict');
         const mDistFilter = document.getElementById('mandalDistrictFilter');
         const vMasterDistFilter = document.getElementById('villageMasterDistrictFilter');
@@ -1776,6 +2202,7 @@
         if (auditSelect) auditSelect.innerHTML = '<option value="all">All Districts</option>';
         if (formSelect) formSelect.innerHTML = '<option value="">Select District...</option>';
         if (switchSelect) switchSelect.innerHTML = '';
+        if (gatewayDistSelect) gatewayDistSelect.innerHTML = '';
         if (repDistSelect) repDistSelect.innerHTML = '<option value="All">All Districts (HQ)</option>';
         if (mDistFilter) mDistFilter.innerHTML = '<option value="all">All Districts</option>';
         if (vMasterDistFilter) vMasterDistFilter.innerHTML = '<option value="all">All Districts</option>';
@@ -1810,6 +2237,13 @@
             optSwitch.value = d.name;
             optSwitch.textContent = `${d.name} Representative`;
             switchSelect.appendChild(optSwitch);
+          }
+
+          if (gatewayDistSelect) {
+            const optG = document.createElement('option');
+            optG.value = d.name;
+            optG.textContent = `${d.name} Representative`;
+            gatewayDistSelect.appendChild(optG);
           }
 
           if (repDistSelect) {
@@ -3698,9 +4132,8 @@
           authToken = data.token;
           currentUser = data.user;
           localStorage.setItem('resurvey_auth_token', authToken);
-          renderAuthHeaderUI();
+          showAuthenticatedPortal();
           closeLoginModal();
-          alert(`Welcome back, ${currentUser.name}!\nYou are signed in as ${currentUser.designation || currentUser.role}.`);
         } else {
           errBox.textContent = data.detail || 'Invalid username or password';
           errBox.classList.remove('hidden');
@@ -3723,9 +4156,8 @@
           authToken = data.token;
           currentUser = data.user;
           localStorage.setItem('resurvey_auth_token', authToken);
-          renderAuthHeaderUI();
+          showAuthenticatedPortal();
           closeLoginModal();
-          alert(`Authenticated as: ${currentUser.name} (${currentUser.role})`);
         } else {
           alert('Login failed: ' + (data.detail || 'Invalid credentials'));
         }
@@ -3750,8 +4182,15 @@
       authToken = null;
       currentUser = null;
       localStorage.removeItem('resurvey_auth_token');
-      renderAuthHeaderUI();
-      alert('You have successfully logged out. Reverted to Public Read-Only Mode.');
+      showLoginGateway();
+
+      // Reset login form inputs on gateway
+      const u = document.getElementById('gatewayUsernameInput');
+      const p = document.getElementById('gatewayPasswordInput');
+      const err = document.getElementById('gatewayErrorMessage');
+      if (u) u.value = '';
+      if (p) p.value = '';
+      if (err) err.classList.add('hidden');
     }
 
     function downloadExcel() {
