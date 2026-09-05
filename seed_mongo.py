@@ -1,4 +1,4 @@
-﻿"""
+"""
 One-click MongoDB Atlas Seeding Script for ResurveyUpdates Portal
 Usage:
     python seed_mongo.py "mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority"

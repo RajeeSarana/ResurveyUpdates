@@ -1,4 +1,4 @@
-﻿import os
+import os
 import sys
 from typing import Optional, Dict, Any
 from fastapi import FastAPI, HTTPException, Depends, Query, status

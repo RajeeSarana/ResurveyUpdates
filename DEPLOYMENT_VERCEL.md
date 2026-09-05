@@ -1,4 +1,4 @@
-﻿# Step-by-Step Guide: Deploying Land Resurvey Portal on Vercel & MongoDB Atlas (100% Free)
+# Step-by-Step Guide: Deploying Land Resurvey Portal on Vercel & MongoDB Atlas (100% Free)
 
 This guide walks you through setting up a **free cloud MongoDB database** and hosting the **ResurveyUpdates Portal** on **Vercel** with automatic HTTPS and instant global access.
 

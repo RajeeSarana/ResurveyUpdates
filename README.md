@@ -1,4 +1,4 @@
-﻿# ResurveyUpdates - Progress Monitoring Portal
+# ResurveyUpdates - Progress Monitoring Portal
 
 A modern, mobile-responsive web application and data collection portal designed to track 100% completed villages under the **Cadastral & Non-Cadastral Resurvey** project across all 32 project districts (as on 04.09.2026).
 
