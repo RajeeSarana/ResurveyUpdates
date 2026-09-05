@@ -1,0 +1,713 @@
+[
+  {
+    "id": "mnd-001",
+    "mandal_name": "Asifabad (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Asifabad",
+    "district_id": "asifabad",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-002",
+    "mandal_name": "Kagaznagar (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Asifabad",
+    "district_id": "asifabad",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-003",
+    "mandal_name": "Tandur (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Mancherial",
+    "district_id": "mancherial",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-004",
+    "mandal_name": "Ramagiri (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Peddapally",
+    "district_id": "peddapally",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-005",
+    "mandal_name": "Tadavai (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Mulugu",
+    "district_id": "mulugu",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-006",
+    "mandal_name": "Mallampally (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Mulugu",
+    "district_id": "mulugu",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-007",
+    "mandal_name": "Sirikonda (New) (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Adilabad",
+    "district_id": "adilabad",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-008",
+    "mandal_name": "Neradigonda (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Adilabad",
+    "district_id": "adilabad",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-009",
+    "mandal_name": "Utnoor (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Adilabad",
+    "district_id": "adilabad",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-010",
+    "mandal_name": "Bazahatnoor (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Adilabad",
+    "district_id": "adilabad",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-011",
+    "mandal_name": "Bhainsa (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Nirmal",
+    "district_id": "nirmal",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-012",
+    "mandal_name": "Khanapur (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Nirmal",
+    "district_id": "nirmal",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-013",
+    "mandal_name": "Laxmanchanda (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Nirmal",
+    "district_id": "nirmal",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-014",
+    "mandal_name": "Mamada (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Nirmal",
+    "district_id": "nirmal",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-015",
+    "mandal_name": "భీంగల్ (Bheemgal)",
+    "mandal_name_telugu": "భీంగల్",
+    "district_name": "Nizamabad",
+    "district_id": "nizamabad",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-016",
+    "mandal_name": "కోటగిరి (Kotagiri)",
+    "mandal_name_telugu": "కోటగిరి",
+    "district_name": "Nizamabad",
+    "district_id": "nizamabad",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-017",
+    "mandal_name": "డిచ్ పల్లి (Dichpally)",
+    "mandal_name_telugu": "డిచ్ పల్లి",
+    "district_name": "Nizamabad",
+    "district_id": "nizamabad",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-018",
+    "mandal_name": "నిజామాబాద్ రూరల్ (Nizamabad Rural)",
+    "mandal_name_telugu": "నిజామాబాద్ రూరల్",
+    "district_name": "Nizamabad",
+    "district_id": "nizamabad",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-019",
+    "mandal_name": "Beerpur (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Jagitial",
+    "district_id": "jagitial",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-020",
+    "mandal_name": "Gandhari (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Kamareddy",
+    "district_id": "kamareddy",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-021",
+    "mandal_name": "Jukkal (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Kamareddy",
+    "district_id": "kamareddy",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-022",
+    "mandal_name": "Palwancha (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Kamareddy",
+    "district_id": "kamareddy",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-023",
+    "mandal_name": "Dongli (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Kamareddy",
+    "district_id": "kamareddy",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-024",
+    "mandal_name": "Nagnoor (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Siddipet",
+    "district_id": "siddipet",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-025",
+    "mandal_name": "Dubbaka (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Siddipet",
+    "district_id": "siddipet",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-026",
+    "mandal_name": "Koheda (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Siddipet",
+    "district_id": "siddipet",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-027",
+    "mandal_name": "Mulugu (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Siddipet",
+    "district_id": "siddipet",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-028",
+    "mandal_name": "Raipole (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Siddipet",
+    "district_id": "siddipet",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-029",
+    "mandal_name": "Chinnakodur (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Siddipet",
+    "district_id": "siddipet",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-030",
+    "mandal_name": "Jagdevpoor (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Siddipet",
+    "district_id": "siddipet",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-031",
+    "mandal_name": "Wargal (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Siddipet",
+    "district_id": "siddipet",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-032",
+    "mandal_name": "Akbarpet Boompally (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Siddipet",
+    "district_id": "siddipet",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-033",
+    "mandal_name": "Kowdipally (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Medak",
+    "district_id": "medak",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-034",
+    "mandal_name": "Narsapur (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Medak",
+    "district_id": "medak",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-035",
+    "mandal_name": "Medak (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Medak",
+    "district_id": "medak",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-036",
+    "mandal_name": "Manoharabad (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Medak",
+    "district_id": "medak",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-037",
+    "mandal_name": "Ramayampet (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Medak",
+    "district_id": "medak",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-038",
+    "mandal_name": "Kulcharam (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Medak",
+    "district_id": "medak",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-039",
+    "mandal_name": "Shankarampet (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Medak",
+    "district_id": "medak",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-040",
+    "mandal_name": "Narsapoor (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Medak",
+    "district_id": "medak",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-041",
+    "mandal_name": "Toopran (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Medak",
+    "district_id": "medak",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-042",
+    "mandal_name": "Gambhiraopet (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Rajanna Siricilla",
+    "district_id": "rajanna_siricilla",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-043",
+    "mandal_name": "Vemulawada (U)",
+    "mandal_name_telugu": "",
+    "district_name": "Rajanna Siricilla",
+    "district_id": "rajanna_siricilla",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-044",
+    "mandal_name": "Konaraopet (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Rajanna Siricilla",
+    "district_id": "rajanna_siricilla",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-045",
+    "mandal_name": "Chandurthi (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Rajanna Siricilla",
+    "district_id": "rajanna_siricilla",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-046",
+    "mandal_name": "Thimmapoor (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Karimnagar",
+    "district_id": "karimnagar",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-047",
+    "mandal_name": "Duggondi (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Warangal",
+    "district_id": "warangal",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-048",
+    "mandal_name": "Khanapur (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Warangal",
+    "district_id": "warangal",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-049",
+    "mandal_name": "Dharmasagar (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Hanumakonda",
+    "district_id": "hanumakonda",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-050",
+    "mandal_name": "Hasanparthy (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Hanumakonda",
+    "district_id": "hanumakonda",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-051",
+    "mandal_name": "Nadikuda (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Hanumakonda",
+    "district_id": "hanumakonda",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-052",
+    "mandal_name": "Kazipet (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Hanumakonda",
+    "district_id": "hanumakonda",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-053",
+    "mandal_name": "Elkathurthy (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Hanumakonda",
+    "district_id": "hanumakonda",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-054",
+    "mandal_name": "Parkal (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Hanumakonda",
+    "district_id": "hanumakonda",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-055",
+    "mandal_name": "Kamalapur (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Hanumakonda",
+    "district_id": "hanumakonda",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-056",
+    "mandal_name": "Kesamudram (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Mahabubabad",
+    "district_id": "mahabubabad",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-057",
+    "mandal_name": "Yerrupalem (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Khammam",
+    "district_id": "khammam",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-058",
+    "mandal_name": "Tirumalayapalem (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Khammam",
+    "district_id": "khammam",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-059",
+    "mandal_name": "Kusumanchi (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Khammam",
+    "district_id": "khammam",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-060",
+    "mandal_name": "Cherla (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Kothagudem",
+    "district_id": "kothagudem",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-061",
+    "mandal_name": "Allapalli (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Kothagudem",
+    "district_id": "kothagudem",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-062",
+    "mandal_name": "Palwancha (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Kothagudem",
+    "district_id": "kothagudem",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-063",
+    "mandal_name": "Dummugudem (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Kothagudem",
+    "district_id": "kothagudem",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-064",
+    "mandal_name": "Gurrampode (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Nalgonda",
+    "district_id": "nalgonda",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-065",
+    "mandal_name": "Chinthapally (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Nalgonda",
+    "district_id": "nalgonda",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-066",
+    "mandal_name": "Konda Mallepally (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Nalgonda",
+    "district_id": "nalgonda",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-067",
+    "mandal_name": "Gattuppal (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Nalgonda",
+    "district_id": "nalgonda",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-068",
+    "mandal_name": "Chandur (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Nalgonda",
+    "district_id": "nalgonda",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-069",
+    "mandal_name": "Shaligouraram (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Nalgonda",
+    "district_id": "nalgonda",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-070",
+    "mandal_name": "Anumula (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Nalgonda",
+    "district_id": "nalgonda",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-071",
+    "mandal_name": "Narkatpally (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Nalgonda",
+    "district_id": "nalgonda",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-072",
+    "mandal_name": "Palakurthi (KM)",
+    "mandal_name_telugu": "",
+    "district_name": "Janagaon",
+    "district_id": "janagaon",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-073",
+    "mandal_name": "Tharigoppula (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Janagaon",
+    "district_id": "janagaon",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-074",
+    "mandal_name": "Ghatkesar (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Medchal Malkajgiri",
+    "district_id": "medchal_malkajgiri",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-075",
+    "mandal_name": "Peddemul (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Vikarabad",
+    "district_id": "vikarabad",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-076",
+    "mandal_name": "Pudur (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Vikarabad",
+    "district_id": "vikarabad",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-077",
+    "mandal_name": "Raikode (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Sangareddy",
+    "district_id": "sangareddy",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-078",
+    "mandal_name": "Manoor (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Sangareddy",
+    "district_id": "sangareddy",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  },
+  {
+    "id": "mnd-079",
+    "mandal_name": "Manopad (M)",
+    "mandal_name_telugu": "",
+    "district_name": "Jogulamba Gadwal",
+    "district_id": "jogulamba_gadwal",
+    "status": "Active",
+    "created_at": "2026-09-05T00:00:00Z"
+  }
+]

@@ -14,7 +14,15 @@ if ROOT_DIR not in sys.path:
 from core.database import (
     get_db_status,
     get_districts,
+    get_district,
+    add_district,
     update_district_master,
+    delete_district,
+    get_mandals,
+    get_mandal,
+    add_mandal,
+    update_mandal,
+    delete_mandal,
     get_villages,
     get_village,
     add_village,
@@ -28,6 +36,7 @@ from core.database import (
     add_representative,
     update_representative,
     delete_representative,
+    get_master_catalog,
     authenticate_user,
     create_auth_token,
     verify_auth_token
@@ -53,11 +62,39 @@ class LoginRequest(BaseModel):
     username: str
     password: str
 
+class DistrictCreateRequest(BaseModel):
+    name: str
+    district_id: Optional[str] = None
+    non_cadastral_target: Optional[int] = 0
+    cadastral_target: Optional[int] = 70
+    status: Optional[str] = "Active"
+
+class DistrictUpdateRequest(BaseModel):
+    non_cadastral_target: Optional[int] = None
+    cadastral_target: Optional[int] = None
+    status: Optional[str] = None
+    updated_by: Optional[str] = "Admin"
+    user_role: Optional[str] = "admin"
+
+class MandalCreateRequest(BaseModel):
+    district_name: str
+    mandal_name: str
+    mandal_name_telugu: Optional[str] = ""
+    status: Optional[str] = "Active"
+
+class MandalUpdateRequest(BaseModel):
+    mandal_name: Optional[str] = None
+    mandal_name_telugu: Optional[str] = None
+    district_name: Optional[str] = None
+    status: Optional[str] = None
+
 class VillageCreateRequest(BaseModel):
     district_name: str
     category: str
     village_name: str
+    village_name_telugu: Optional[str] = ""
     mandal_name: str
+    mandal_id: Optional[str] = None
     extent_raw: Optional[str] = ""
     gt_status: Optional[str] = "Completed"
     shapefile_status: Optional[str] = "Pending"
@@ -70,7 +107,9 @@ class VillageCreateRequest(BaseModel):
 class VillageUpdateRequest(BaseModel):
     category: Optional[str] = None
     village_name: Optional[str] = None
+    village_name_telugu: Optional[str] = None
     mandal_name: Optional[str] = None
+    mandal_id: Optional[str] = None
     extent_raw: Optional[str] = None
     gt_status: Optional[str] = None
     shapefile_status: Optional[str] = None
@@ -209,6 +248,22 @@ def list_audit_logs(
 def list_districts():
     return get_districts()
 
+@router.post("/districts", status_code=status.HTTP_201_CREATED)
+def create_district(
+    payload: DistrictCreateRequest,
+    user: Dict[str, Any] = Depends(require_user)
+):
+    if user.get("role") != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Permission denied: Administrator privileges required to create a new district master record."
+        )
+    try:
+        res = add_district(payload.dict(), user_name=user["name"], user_role=user["role"])
+        return res
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+
 @router.put("/districts/{district_id}")
 def edit_district_master(
     district_id: str,
@@ -230,6 +285,94 @@ def edit_district_master(
     if not res:
         raise HTTPException(status_code=404, detail="District not found")
     return res
+
+@router.delete("/districts/{district_id}")
+def remove_district(
+    district_id: str,
+    user: Dict[str, Any] = Depends(require_user)
+):
+    if user.get("role") != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Permission denied: Administrator privileges required to delete a district."
+        )
+    try:
+        success = delete_district(district_id, user_name=user["name"], user_role=user["role"])
+        if not success:
+            raise HTTPException(status_code=404, detail="District not found")
+        return {"success": True, "message": "District successfully removed"}
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+
+# Mandals Master
+@router.get("/mandals")
+def list_mandals(
+    district: Optional[str] = Query(None),
+    search: Optional[str] = Query(None)
+):
+    return get_mandals(district=district, search=search)
+
+@router.get("/mandals/{mandal_id}")
+def get_mandal_by_id(mandal_id: str):
+    m = get_mandal(mandal_id)
+    if not m:
+        raise HTTPException(status_code=404, detail="Mandal not found")
+    return m
+
+@router.post("/mandals", status_code=status.HTTP_201_CREATED)
+def create_mandal(
+    payload: MandalCreateRequest,
+    user: Dict[str, Any] = Depends(require_user)
+):
+    if user.get("role") != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Permission denied: Administrator privileges required to create a new mandal."
+        )
+    try:
+        return add_mandal(payload.dict(), user_name=user["name"], user_role=user["role"])
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+
+@router.put("/mandals/{mandal_id}")
+def edit_mandal(
+    mandal_id: str,
+    payload: MandalUpdateRequest,
+    user: Dict[str, Any] = Depends(require_user)
+):
+    if user.get("role") != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Permission denied: Administrator privileges required to edit mandal details."
+        )
+    updates = {k: v for k, v in payload.dict().items() if v is not None}
+    res = update_mandal(mandal_id, updates, user_name=user["name"], user_role=user["role"])
+    if not res:
+        raise HTTPException(status_code=404, detail="Mandal not found")
+    return res
+
+@router.delete("/mandals/{mandal_id}")
+def remove_mandal(
+    mandal_id: str,
+    user: Dict[str, Any] = Depends(require_user)
+):
+    if user.get("role") != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Permission denied: Administrator privileges required to delete a mandal."
+        )
+    try:
+        success = delete_mandal(mandal_id, user_name=user["name"], user_role=user["role"])
+        if not success:
+            raise HTTPException(status_code=404, detail="Mandal not found")
+        return {"success": True, "message": "Mandal successfully removed"}
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+
+# Master Catalog
+@router.get("/master-catalog")
+def get_catalog():
+    return get_master_catalog()
 
 # Representatives Master
 @router.get("/representatives")

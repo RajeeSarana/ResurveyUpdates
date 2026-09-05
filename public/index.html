@@ -666,37 +666,54 @@
     <!-- ========================================================================================= -->
     <div id="tab-master" class="hidden space-y-4">
       <!-- Subtabs for Master Data -->
-      <div class="flex items-center space-x-2 border-b border-slate-200 pb-2">
-        <button onclick="switchMasterSubTab('districts')" id="subtab-districts" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow transition">
-          <i class="fa-solid fa-landmark mr-1.5"></i>District Targets Master (32)
+      <div class="flex items-center space-x-2 border-b border-slate-200 pb-2 overflow-x-auto scrollbar-none">
+        <button onclick="switchMasterSubTab('districts')" id="subtab-districts" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow transition whitespace-nowrap">
+          <i class="fa-solid fa-landmark mr-1.5"></i>Districts Master (<span id="distMasterCountBadge">32</span>)
         </button>
-        <button onclick="switchMasterSubTab('reps')" id="subtab-reps" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition">
-          <i class="fa-solid fa-users-gear mr-1.5"></i>Representatives Directory (<span id="repsCountBadge">68</span>)
+        <button onclick="switchMasterSubTab('mandals')" id="subtab-mandals" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition whitespace-nowrap">
+          <i class="fa-solid fa-building-columns mr-1.5"></i>Mandals Master (<span id="mandalMasterCountBadge">79</span>)
+        </button>
+        <button onclick="switchMasterSubTab('villages')" id="subtab-villages" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition whitespace-nowrap">
+          <i class="fa-solid fa-tree-city mr-1.5"></i>Villages Master (<span id="villageMasterCountBadge">90</span>)
+        </button>
+        <button onclick="switchMasterSubTab('reps')" id="subtab-reps" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition whitespace-nowrap">
+          <i class="fa-solid fa-users-gear mr-1.5"></i>Representatives (<span id="repsCountBadge">68</span>)
+        </button>
+        <button onclick="switchMasterSubTab('catalog')" id="subtab-catalog" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition whitespace-nowrap">
+          <i class="fa-solid fa-boxes-stacked mr-1.5"></i>Master Catalog <span class="ml-1 bg-indigo-100 text-indigo-800 text-[10px] px-1.5 py-0.5 rounded-full font-bold">4 Extensible</span>
         </button>
       </div>
 
       <!-- Master Sub-Panel 1: District Targets Master -->
       <div id="master-panel-districts" class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden space-y-4 p-4">
-        <div class="flex items-center justify-between">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider">District Targets Configuration</h4>
-            <p class="text-xs text-slate-500">Configure baseline Non-Cadastral and Cadastral targets per district (Admin Only)</p>
+            <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Districts Baseline Targets & Administration Master</h4>
+            <p class="text-xs text-slate-500">Configure territorial records, baseline Non-Cadastral & Cadastral targets per district (Admin Only)</p>
           </div>
-          <span class="text-xs bg-slate-100 text-slate-700 px-2.5 py-1 rounded font-medium">32 Districts Configured</span>
+          <div class="flex items-center space-x-2">
+            <input type="text" id="districtMasterSearch" placeholder="Search districts..." oninput="renderDistrictMasterTable()" class="py-1.5 px-2.5 text-xs bg-slate-50 border border-slate-200 rounded-lg w-40 sm:w-48" />
+            <button onclick="openAddDistrictModal()" id="btnAddDistrict" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg shadow transition flex items-center space-x-1.5 whitespace-nowrap">
+              <i class="fa-solid fa-plus"></i>
+              <span>Add District</span>
+            </button>
+          </div>
         </div>
 
         <div class="overflow-x-auto">
           <table class="min-w-full divide-y divide-slate-200 text-left text-xs">
             <thead class="bg-slate-100 text-slate-600 font-semibold uppercase tracking-wider">
               <tr>
-                <th class="py-2.5 px-3 w-12">#</th>
+                <th class="py-2.5 px-3 w-10 text-center">#</th>
                 <th class="py-2.5 px-3">District Name</th>
-                <th class="py-2.5 px-3 text-center">Non-Cadastral Target</th>
-                <th class="py-2.5 px-3 text-center">Cadastral Target</th>
-                <th class="py-2.5 px-3 text-center">Total Completed</th>
-                <th class="py-2.5 px-3 text-center">Assigned Reps</th>
+                <th class="py-2.5 px-3">District Code</th>
+                <th class="py-2.5 px-3 text-center text-emerald-700">Non-Cadastral Target</th>
+                <th class="py-2.5 px-3 text-center text-blue-700">Cadastral Target</th>
+                <th class="py-2.5 px-3 text-center">Total Target</th>
+                <th class="py-2.5 px-3 text-center">Mandals</th>
+                <th class="py-2.5 px-3 text-center">Villages</th>
                 <th class="py-2.5 px-3 text-center">Status</th>
-                <th class="py-2.5 px-3 text-center no-print w-24">Action</th>
+                <th class="py-2.5 px-3 text-center no-print w-28">Action</th>
               </tr>
             </thead>
             <tbody id="districtMasterTableBody" class="divide-y divide-slate-100">
@@ -705,7 +722,95 @@
         </div>
       </div>
 
-      <!-- Master Sub-Panel 2: Representatives Directory -->
+      <!-- Master Sub-Panel 2: Mandals Master -->
+      <div id="master-panel-mandals" class="hidden bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden space-y-4 p-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Mandals Sub-District Master Registry</h4>
+            <p class="text-xs text-slate-500">Official mandal units linked to parent districts with Telugu script & village counts (Admin Only)</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <select id="mandalDistrictFilter" onchange="renderMandalMasterTable()" class="py-1.5 px-2.5 text-xs bg-slate-50 border border-slate-200 rounded-lg">
+              <option value="all">All Districts</option>
+            </select>
+            <input type="text" id="mandalSearch" placeholder="Search mandals..." oninput="renderMandalMasterTable()" class="py-1.5 px-2.5 text-xs bg-slate-50 border border-slate-200 rounded-lg w-36 sm:w-44" />
+            <button onclick="openAddMandalModal()" id="btnAddMandal" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg shadow transition flex items-center space-x-1.5 whitespace-nowrap">
+              <i class="fa-solid fa-plus"></i>
+              <span>Add Mandal</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-slate-200 text-left text-xs">
+            <thead class="bg-slate-100 text-slate-600 font-semibold uppercase tracking-wider">
+              <tr>
+                <th class="py-2.5 px-3 w-10 text-center">#</th>
+                <th class="py-2.5 px-3">Mandal ID</th>
+                <th class="py-2.5 px-3">Mandal Name</th>
+                <th class="py-2.5 px-3">Telugu Script</th>
+                <th class="py-2.5 px-3">Parent District</th>
+                <th class="py-2.5 px-3 text-center">Linked Villages</th>
+                <th class="py-2.5 px-3 text-center">Status</th>
+                <th class="py-2.5 px-3 text-center no-print w-28">Action</th>
+              </tr>
+            </thead>
+            <tbody id="mandalMasterTableBody" class="divide-y divide-slate-100">
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Master Sub-Panel 3: Villages Master -->
+      <div id="master-panel-villages" class="hidden bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden space-y-4 p-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Revenue Villages Master Registry & Extents</h4>
+            <p class="text-xs text-slate-500">Master repository of surveyed revenue villages, Acre-Gunta measurements, and verification stages</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <select id="villageMasterDistrictFilter" onchange="onVillageMasterDistrictChange()" class="py-1.5 px-2.5 text-xs bg-slate-50 border border-slate-200 rounded-lg">
+              <option value="all">All Districts</option>
+            </select>
+            <select id="villageMasterMandalFilter" onchange="renderVillageMasterTable()" class="py-1.5 px-2.5 text-xs bg-slate-50 border border-slate-200 rounded-lg">
+              <option value="all">All Mandals</option>
+            </select>
+            <select id="villageMasterCategoryFilter" onchange="renderVillageMasterTable()" class="py-1.5 px-2.5 text-xs bg-slate-50 border border-slate-200 rounded-lg">
+              <option value="all">All Categories</option>
+              <option value="Non-Cadastral">Non-Cadastral</option>
+              <option value="Cadastral">Cadastral</option>
+            </select>
+            <input type="text" id="villageMasterSearch" placeholder="Search villages..." oninput="renderVillageMasterTable()" class="py-1.5 px-2.5 text-xs bg-slate-50 border border-slate-200 rounded-lg w-36" />
+            <button onclick="openAddVillageModal()" id="btnAddVillageMaster" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg shadow transition flex items-center space-x-1.5 whitespace-nowrap">
+              <i class="fa-solid fa-plus"></i>
+              <span>Add Village</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-slate-200 text-left text-xs">
+            <thead class="bg-slate-100 text-slate-600 font-semibold uppercase tracking-wider">
+              <tr>
+                <th class="py-2.5 px-3 w-10 text-center">#</th>
+                <th class="py-2.5 px-3">Village ID</th>
+                <th class="py-2.5 px-3">Village Name</th>
+                <th class="py-2.5 px-3">Mandal</th>
+                <th class="py-2.5 px-3">District</th>
+                <th class="py-2.5 px-3 text-center">Category</th>
+                <th class="py-2.5 px-3 text-right">Extent (Ac-Gt)</th>
+                <th class="py-2.5 px-3 text-center">GT Status</th>
+                <th class="py-2.5 px-3 text-center">QC Status</th>
+                <th class="py-2.5 px-3 text-center no-print w-28">Action</th>
+              </tr>
+            </thead>
+            <tbody id="villageMasterTableBody" class="divide-y divide-slate-100">
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Master Sub-Panel 4: Representatives Directory -->
       <div id="master-panel-reps" class="hidden bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden space-y-4 p-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
@@ -746,6 +851,43 @@
           </table>
         </div>
       </div>
+
+      <!-- Master Sub-Panel 5: Extensible Master Catalog -->
+      <div id="master-panel-catalog" class="hidden space-y-6">
+        <!-- Active Master Datasets Overview -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-4 space-y-3">
+          <div class="flex items-center justify-between">
+            <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center space-x-2">
+              <i class="fa-solid fa-circle-check text-emerald-600"></i>
+              <span>Active Core Master Datasets (Live in System)</span>
+            </h4>
+            <span class="text-[11px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full">4 Active Registries</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3" id="activeMasterCardsContainer">
+            <!-- Dynamic active cards -->
+          </div>
+        </div>
+
+        <!-- Upcoming & Extensible Master Datasets (Phase 2 Configurable) -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-4 space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+            <div>
+              <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center space-x-2">
+                <i class="fa-solid fa-puzzle-piece text-indigo-600"></i>
+                <span>Extensible Master Datasets (Architecture Configurable)</span>
+              </h4>
+              <p class="text-xs text-slate-500">Modular schema architecture ready to be activated on requirement: Survey Agencies, DGPS/Drone Equipment, Revenue Divisions, and Gazette Notifications.</p>
+            </div>
+            <span class="text-xs bg-indigo-50 text-indigo-700 border border-indigo-200 font-semibold px-3 py-1 rounded-lg self-start sm:self-auto">
+              Ready for Phase 2 Rollout
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" id="extensibleMasterCardsContainer">
+            <!-- Dynamic extensible cards rendered by JavaScript -->
+          </div>
+        </div>
+      </div>
     </div>
 
   </main>
@@ -768,10 +910,36 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label class="block font-semibold text-slate-700 mb-1">District *</label>
-            <select id="formDistrict" required class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500">
+            <select id="formDistrict" required onchange="updateFormMandalDropdown()" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500">
             </select>
           </div>
 
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Mandal * <span class="text-slate-400 font-normal">(Cascades with District)</span></label>
+            <select id="formMandalSelect" required onchange="handleFormMandalSelectChange()" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500">
+              <option value="">Select District first...</option>
+            </select>
+            <input type="text" id="formMandalCustom" placeholder="Type new mandal name..." 
+              class="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg mt-1.5 hidden focus:ring-2 focus:ring-emerald-500" />
+            <input type="hidden" id="formMandalName" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Village Name (English) *</label>
+            <input type="text" id="formVillageName" required placeholder="e.g. Dhanapur (V)" 
+              class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500" />
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Village Name (Telugu Script - Optional)</label>
+            <input type="text" id="formVillageNameTelugu" placeholder="e.g. ధనాపూర్ or బాబాపూర్" 
+              class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 telugu-text" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label class="block font-semibold text-slate-700 mb-1">Village Category *</label>
             <select id="formCategory" required class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500">
@@ -779,21 +947,6 @@
               <option value="Cadastral">Cadastral (70 Target)</option>
             </select>
           </div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block font-semibold text-slate-700 mb-1">Village Name * (English / Telugu)</label>
-            <input type="text" id="formVillageName" required placeholder="e.g. Dhanapur (V) or బాబాపూర్" 
-              class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500" />
-          </div>
-
-          <div>
-            <label class="block font-semibold text-slate-700 mb-1">Mandal Name *</label>
-            <input type="text" id="formMandalName" required placeholder="e.g. Asifabad (M)" 
-              class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500" />
-          </div>
-        </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
@@ -1008,6 +1161,116 @@
         <div class="flex justify-end space-x-3 pt-3 border-t">
           <button type="button" onclick="closeDistrictEditModal()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg">Cancel</button>
           <button type="submit" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-medium shadow">Save Targets</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================================= -->
+  <!-- MODAL: CREATE DISTRICT MASTER                                                             -->
+  <!-- ========================================================================================= -->
+  <div id="districtCreateModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 space-y-4">
+      <div class="flex items-center justify-between border-b pb-3">
+        <h3 class="text-sm font-bold text-slate-900 flex items-center space-x-2">
+          <i class="fa-solid fa-landmark text-emerald-600"></i>
+          <span>Create New District Master Record</span>
+        </h3>
+        <button onclick="closeDistrictCreateModal()" class="text-slate-400 hover:text-slate-600">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form id="districtCreateForm" onsubmit="handleDistrictCreateSubmit(event)" class="space-y-4 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">District Name *</label>
+          <input type="text" id="createDistrictName" required placeholder="e.g. Medchal-Malkajgiri" 
+            class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500" />
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">District Code / ID (Optional)</label>
+          <input type="text" id="createDistrictId" placeholder="e.g. medchal (leave blank to auto-derive)" 
+            class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Non-Cadastral Target</label>
+            <input type="number" id="createDistrictNonCadTarget" required min="0" value="0"
+              class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500" />
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Cadastral Target</label>
+            <input type="number" id="createDistrictCadTarget" required min="0" value="70"
+              class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Administrative Status</label>
+          <select id="createDistrictStatus" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500">
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+
+        <div class="flex justify-end space-x-3 pt-3 border-t">
+          <button type="button" onclick="closeDistrictCreateModal()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg">Cancel</button>
+          <button type="submit" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-medium shadow">Create District</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================================= -->
+  <!-- MODAL: ADD / EDIT MANDAL MASTER                                                           -->
+  <!-- ========================================================================================= -->
+  <div id="mandalModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 space-y-4">
+      <div class="flex items-center justify-between border-b pb-3">
+        <h3 class="text-sm font-bold text-slate-900 flex items-center space-x-2">
+          <i class="fa-solid fa-building-columns text-emerald-600"></i>
+          <span id="mandalModalTitle">Add Mandal Master Record</span>
+        </h3>
+        <button onclick="closeMandalModal()" class="text-slate-400 hover:text-slate-600">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form id="mandalForm" onsubmit="handleMandalFormSubmit(event)" class="space-y-4 text-xs">
+        <input type="hidden" id="formMandalId" />
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Parent District *</label>
+          <select id="formMandalParentDistrict" required class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500">
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Mandal Name (English) *</label>
+          <input type="text" id="formMandalNameInput" required placeholder="e.g. Asifabad (M)" 
+            class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500" />
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Mandal Name (Telugu Script - Optional)</label>
+          <input type="text" id="formMandalTeluguInput" placeholder="e.g. ఆసిఫాబాద్ or భీంగల్" 
+            class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 telugu-text" />
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Status</label>
+          <select id="formMandalStatus" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500">
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </div>
+
+        <div class="flex justify-end space-x-3 pt-3 border-t">
+          <button type="button" onclick="closeMandalModal()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg">Cancel</button>
+          <button type="submit" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-medium shadow" id="btnSaveMandal">Save Mandal</button>
         </div>
       </form>
     </div>
@@ -1262,9 +1525,11 @@
   <script>
     // State management
     let allDistricts = [];
+    let allMandals = [];
     let allVillages = [];
     let allRepresentatives = [];
     let allAuditLogs = [];
+    let masterCatalogData = null;
     let currentTab = 'all';
     let currentQcFilter = 'Pending QC';
     let currentActiveMainTab = 'tab-overview';
@@ -1281,10 +1546,12 @@
       await loadAuthenticatedSession();
       await checkDbStatus();
       await fetchDistricts();
+      await fetchMandals();
       await fetchVillages();
       await fetchDashboardStats();
       await fetchRepresentatives();
       await fetchAuditLogs();
+      await fetchMasterCatalog();
     });
 
     // Helper: headers with Bearer token
@@ -1460,22 +1727,30 @@
     }
 
     function switchMasterSubTab(sub) {
-      const panelDistricts = document.getElementById('master-panel-districts');
-      const panelReps = document.getElementById('master-panel-reps');
-      const btnDistricts = document.getElementById('subtab-districts');
-      const btnReps = document.getElementById('subtab-reps');
+      const tabs = ['districts', 'mandals', 'villages', 'reps', 'catalog'];
+      tabs.forEach(t => {
+        const panel = document.getElementById(`master-panel-${t}`);
+        const btn = document.getElementById(`subtab-${t}`);
+        if (!panel || !btn) return;
+        if (t === sub) {
+          panel.classList.remove('hidden');
+          btn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow transition whitespace-nowrap';
+        } else {
+          panel.classList.add('hidden');
+          btn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition whitespace-nowrap';
+        }
+      });
 
       if (sub === 'districts') {
-        panelDistricts.classList.remove('hidden');
-        panelReps.classList.add('hidden');
-        btnDistricts.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow transition';
-        btnReps.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition';
-      } else {
-        panelDistricts.classList.add('hidden');
-        panelReps.classList.remove('hidden');
-        btnReps.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow transition';
-        btnDistricts.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition';
+        renderDistrictMasterTable();
+      } else if (sub === 'mandals') {
+        renderMandalMasterTable();
+      } else if (sub === 'villages') {
+        renderVillageMasterTable();
+      } else if (sub === 'reps') {
         renderRepresentatives();
+      } else if (sub === 'catalog') {
+        renderMasterCatalog();
       }
     }
 
@@ -1485,48 +1760,115 @@
         const res = await fetch('/districts');
         allDistricts = await res.json();
         
+        const distBadge = document.getElementById('distMasterCountBadge');
+        if (distBadge) distBadge.textContent = allDistricts.length;
+
         const filterSelect = document.getElementById('districtFilter');
         const formSelect = document.getElementById('formDistrict');
         const auditSelect = document.getElementById('auditDistrictFilter');
         const switchSelect = document.getElementById('switchDistrictSelect');
         const repDistSelect = document.getElementById('formRepDistrict');
+        const mDistFilter = document.getElementById('mandalDistrictFilter');
+        const vMasterDistFilter = document.getElementById('villageMasterDistrictFilter');
+        const mandalParentDist = document.getElementById('formMandalParentDistrict');
         
-        filterSelect.innerHTML = '<option value="all">All Districts (32 Districts)</option>';
-        auditSelect.innerHTML = '<option value="all">All Districts</option>';
-        formSelect.innerHTML = '';
-        switchSelect.innerHTML = '';
-        repDistSelect.innerHTML = '<option value="All">All Districts (HQ)</option>';
+        if (filterSelect) filterSelect.innerHTML = '<option value="all">All Districts (32 Districts)</option>';
+        if (auditSelect) auditSelect.innerHTML = '<option value="all">All Districts</option>';
+        if (formSelect) formSelect.innerHTML = '<option value="">Select District...</option>';
+        if (switchSelect) switchSelect.innerHTML = '';
+        if (repDistSelect) repDistSelect.innerHTML = '<option value="All">All Districts (HQ)</option>';
+        if (mDistFilter) mDistFilter.innerHTML = '<option value="all">All Districts</option>';
+        if (vMasterDistFilter) vMasterDistFilter.innerHTML = '<option value="all">All Districts</option>';
+        if (mandalParentDist) mandalParentDist.innerHTML = '<option value="">Select Parent District...</option>';
 
         allDistricts.forEach(d => {
-          const opt1 = document.createElement('option');
-          opt1.value = d.name;
-          opt1.textContent = `${d.name} (NC: ${d.non_cadastral_target}, Cad: ${d.cadastral_target})`;
-          filterSelect.appendChild(opt1);
+          const optText = `${d.name} (NC: ${d.non_cadastral_target}, Cad: ${d.cadastral_target})`;
+          
+          if (filterSelect) {
+            const opt = document.createElement('option');
+            opt.value = d.name;
+            opt.textContent = optText;
+            filterSelect.appendChild(opt);
+          }
 
-          const optAudit = document.createElement('option');
-          optAudit.value = d.name;
-          optAudit.textContent = d.name;
-          auditSelect.appendChild(optAudit);
+          if (auditSelect) {
+            const optAudit = document.createElement('option');
+            optAudit.value = d.name;
+            optAudit.textContent = d.name;
+            auditSelect.appendChild(optAudit);
+          }
 
-          const optForm = document.createElement('option');
-          optForm.value = d.name;
-          optForm.textContent = d.name;
-          formSelect.appendChild(optForm);
+          if (formSelect) {
+            const optForm = document.createElement('option');
+            optForm.value = d.name;
+            optForm.textContent = d.name;
+            formSelect.appendChild(optForm);
+          }
 
-          const optSwitch = document.createElement('option');
-          optSwitch.value = d.name;
-          optSwitch.textContent = `${d.name} Representative`;
-          switchSelect.appendChild(optSwitch);
+          if (switchSelect) {
+            const optSwitch = document.createElement('option');
+            optSwitch.value = d.name;
+            optSwitch.textContent = `${d.name} Representative`;
+            switchSelect.appendChild(optSwitch);
+          }
 
-          const optRep = document.createElement('option');
-          optRep.value = d.name;
-          optRep.textContent = d.name;
-          repDistSelect.appendChild(optRep);
+          if (repDistSelect) {
+            const optRep = document.createElement('option');
+            optRep.value = d.name;
+            optRep.textContent = d.name;
+            repDistSelect.appendChild(optRep);
+          }
+
+          if (mDistFilter) {
+            const optM = document.createElement('option');
+            optM.value = d.name;
+            optM.textContent = d.name;
+            mDistFilter.appendChild(optM);
+          }
+
+          if (vMasterDistFilter) {
+            const optV = document.createElement('option');
+            optV.value = d.name;
+            optV.textContent = d.name;
+            vMasterDistFilter.appendChild(optV);
+          }
+
+          if (mandalParentDist) {
+            const optMP = document.createElement('option');
+            optMP.value = d.name;
+            optMP.textContent = d.name;
+            mandalParentDist.appendChild(optMP);
+          }
         });
 
         renderDistrictMasterTable();
+        onVillageMasterDistrictChange();
       } catch (e) {
         console.error('Error loading districts:', e);
+      }
+    }
+
+    async function fetchMandals() {
+      try {
+        const res = await fetch('/mandals');
+        allMandals = await res.json();
+        const badge = document.getElementById('mandalMasterCountBadge');
+        if (badge) badge.textContent = allMandals.length;
+        renderMandalMasterTable();
+        onVillageMasterDistrictChange();
+        updateFormMandalDropdown();
+      } catch (e) {
+        console.error('Error loading mandals:', e);
+      }
+    }
+
+    async function fetchMasterCatalog() {
+      try {
+        const res = await fetch('/master-catalog');
+        masterCatalogData = await res.json();
+        renderMasterCatalog();
+      } catch (e) {
+        console.error('Error loading master catalog:', e);
       }
     }
 
@@ -2352,35 +2694,133 @@
       if (!tbody) return;
       tbody.innerHTML = '';
 
-      allDistricts.forEach((d, idx) => {
+      const search = (document.getElementById('districtMasterSearch')?.value || '').toLowerCase().trim();
+      let districts = allDistricts;
+      if (search) {
+        districts = districts.filter(d => d.name.toLowerCase().includes(search) || (d.district_id || '').toLowerCase().includes(search));
+      }
+
+      const isAdmin = currentUser && currentUser.role === 'admin';
+
+      if (districts.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="10" class="py-6 text-center text-slate-400">No districts match search.</td></tr>';
+        return;
+      }
+
+      districts.forEach((d, idx) => {
         const tr = document.createElement('tr');
         tr.className = 'hover:bg-slate-50 transition';
-        const dReps = allRepresentatives.filter(r => r.assigned_district === d.name);
-
-        const canEditTarget = currentUser && currentUser.role === 'admin';
+        const dMandals = allMandals.filter(m => m.district_name.toLowerCase() === d.name.toLowerCase());
+        const dVillages = allVillages.filter(v => v.district_name.toLowerCase() === d.name.toLowerCase());
+        const dId = d.district_id || d.id || d.name.toLowerCase().replace(/ /g, '_');
 
         tr.innerHTML = `
-          <td class="py-2.5 px-3 text-slate-400 font-mono">${idx + 1}</td>
+          <td class="py-2.5 px-3 text-slate-400 font-mono text-center">${idx + 1}</td>
           <td class="py-2.5 px-3 font-bold text-slate-900">${d.name}</td>
+          <td class="py-2.5 px-3 font-mono text-[11px] text-slate-500">${dId}</td>
           <td class="py-2.5 px-3 text-center font-bold text-emerald-700">${d.non_cadastral_target}</td>
           <td class="py-2.5 px-3 text-center font-bold text-blue-700">${d.cadastral_target}</td>
-          <td class="py-2.5 px-3 text-center font-semibold text-slate-800">${d.total_completed || 0}</td>
+          <td class="py-2.5 px-3 text-center font-semibold text-slate-800">${(d.non_cadastral_target || 0) + (d.cadastral_target || 0)}</td>
           <td class="py-2.5 px-3 text-center">
-            <span class="bg-teal-50 text-teal-800 px-2 py-0.5 rounded font-bold text-[11px]">${dReps.length} Reps</span>
+            <span class="bg-indigo-50 text-indigo-700 font-bold px-2 py-0.5 rounded text-[11px]">${dMandals.length}</span>
           </td>
           <td class="py-2.5 px-3 text-center">
-            <span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full text-[10px] font-bold">Active</span>
+            <span class="bg-emerald-50 text-emerald-800 font-bold px-2 py-0.5 rounded text-[11px]">${dVillages.length}</span>
+          </td>
+          <td class="py-2.5 px-3 text-center">
+            <span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full text-[10px] font-bold">${d.status || 'Active'}</span>
           </td>
           <td class="py-2.5 px-3 text-center no-print">
-            ${canEditTarget ? `
-            <button onclick="openDistrictEditModal('${d.id || d.name}')" class="text-emerald-700 hover:text-emerald-900 font-semibold text-xs flex items-center space-x-1 mx-auto">
-              <i class="fa-solid fa-pen-to-square"></i>
-              <span>Edit Target</span>
-            </button>` : '<span class="text-slate-400 italic text-[10px]">Admin Only</span>'}
+            <div class="flex items-center justify-center space-x-1">
+              ${isAdmin ? `
+              <button onclick="openDistrictEditModal('${dId}')" title="Edit Targets" class="text-emerald-700 hover:text-emerald-900 p-1.5 rounded hover:bg-emerald-50">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+              <button onclick="handleDeleteDistrictClick('${dId}')" title="Delete District" class="text-rose-500 hover:text-rose-700 p-1.5 rounded hover:bg-rose-50">
+                <i class="fa-solid fa-trash"></i>
+              </button>` : '<span class="text-slate-400 italic text-[10px]">Admin Only</span>'}
+            </div>
           </td>
         `;
         tbody.appendChild(tr);
       });
+    }
+
+    function openAddDistrictModal() {
+      if (!currentUser || currentUser.role !== 'admin') {
+        alert('Administrator privileges required to register new district master records.');
+        openLoginModal();
+        return;
+      }
+      document.getElementById('createDistrictName').value = '';
+      document.getElementById('createDistrictId').value = '';
+      document.getElementById('createDistrictNonCadTarget').value = 0;
+      document.getElementById('createDistrictCadTarget').value = 70;
+      document.getElementById('createDistrictStatus').value = 'Active';
+      document.getElementById('districtCreateModal').classList.remove('hidden');
+    }
+
+    function closeDistrictCreateModal() {
+      document.getElementById('districtCreateModal').classList.add('hidden');
+    }
+
+    async function handleDistrictCreateSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('createDistrictName').value.trim();
+      const code = document.getElementById('createDistrictId').value.trim();
+      const nc = parseInt(document.getElementById('createDistrictNonCadTarget').value, 10) || 0;
+      const cad = parseInt(document.getElementById('createDistrictCadTarget').value, 10) || 0;
+      const status = document.getElementById('createDistrictStatus').value;
+
+      try {
+        const res = await fetch('/districts', {
+          method: 'POST',
+          headers: getAuthHeaders(),
+          body: JSON.stringify({
+            name: name,
+            district_id: code || undefined,
+            non_cadastral_target: nc,
+            cadastral_target: cad,
+            status: status
+          })
+        });
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.detail || 'Failed to create district');
+        }
+        closeDistrictCreateModal();
+        await fetchDistricts();
+        await fetchDashboardStats();
+        await fetchAuditLogs();
+        alert(`District '${name}' successfully registered in Master Records!`);
+      } catch (err) {
+        alert('Error: ' + err.message);
+      }
+    }
+
+    async function handleDeleteDistrictClick(districtId) {
+      if (!currentUser || currentUser.role !== 'admin') {
+        alert('Administrator privileges required to delete districts.');
+        return;
+      }
+      if (!confirm(`Are you sure you want to remove district '${districtId}' from the Master Registry?\nNote: Deletion will be rejected if mandals or villages are linked.`)) return;
+
+      try {
+        const res = await fetch(`/districts/${districtId}`, {
+          method: 'DELETE',
+          headers: getAuthHeaders()
+        });
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.detail || 'Delete failed');
+        }
+        await fetchDistricts();
+        await fetchDashboardStats();
+        await fetchAuditLogs();
+        alert('District removed successfully. Action logged.');
+      } catch (err) {
+        alert('Cannot Delete District: ' + err.message);
+      }
     }
 
     function openDistrictEditModal(districtId) {
@@ -2390,10 +2830,10 @@
         return;
       }
 
-      const d = allDistricts.find(item => item.id === districtId || item.name === districtId);
+      const d = allDistricts.find(item => item.id === districtId || item.name === districtId || item.district_id === districtId);
       if (!d) return;
 
-      document.getElementById('editDistrictId').value = d.id || d.name;
+      document.getElementById('editDistrictId').value = d.district_id || d.id || d.name;
       document.getElementById('editDistrictName').value = d.name;
       document.getElementById('editDistrictNonCadTarget').value = d.non_cadastral_target;
       document.getElementById('editDistrictCadTarget').value = d.cadastral_target;
@@ -2433,6 +2873,433 @@
         alert('District targets successfully updated by: ' + currentUser.name);
       } catch (err) {
         alert('Error: ' + err.message);
+      }
+    }
+
+    // Master Data Hub Logic: Mandals Master
+    function renderMandalMasterTable() {
+      const tbody = document.getElementById('mandalMasterTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      const distFilter = document.getElementById('mandalDistrictFilter')?.value || 'all';
+      const search = (document.getElementById('mandalSearch')?.value || '').toLowerCase().trim();
+
+      let mandals = allMandals;
+      if (distFilter !== 'all') {
+        mandals = mandals.filter(m => m.district_name.toLowerCase() === distFilter.toLowerCase());
+      }
+      if (search) {
+        mandals = mandals.filter(m => 
+          m.mandal_name.toLowerCase().includes(search) || 
+          (m.mandal_name_telugu && m.mandal_name_telugu.toLowerCase().includes(search)) ||
+          m.district_name.toLowerCase().includes(search) ||
+          m.id.toLowerCase().includes(search)
+        );
+      }
+
+      const isAdmin = currentUser && currentUser.role === 'admin';
+
+      if (mandals.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" class="py-6 text-center text-slate-400">No mandals found matching selection.</td></tr>';
+        return;
+      }
+
+      mandals.forEach((m, idx) => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50 transition';
+        const vCount = allVillages.filter(v => v.district_name.toLowerCase() === m.district_name.toLowerCase() && v.mandal_name.toLowerCase() === m.mandal_name.toLowerCase()).length;
+
+        tr.innerHTML = `
+          <td class="py-2.5 px-3 text-slate-400 font-mono text-center">${idx + 1}</td>
+          <td class="py-2.5 px-3 font-mono text-[11px] text-slate-500">${m.id}</td>
+          <td class="py-2.5 px-3 font-bold text-slate-900">${m.mandal_name}</td>
+          <td class="py-2.5 px-3 telugu-text font-medium text-slate-700">${m.mandal_name_telugu || '<span class="text-slate-300">-</span>'}</td>
+          <td class="py-2.5 px-3 font-semibold text-slate-800">${m.district_name}</td>
+          <td class="py-2.5 px-3 text-center">
+            <span class="bg-emerald-50 text-emerald-800 font-bold px-2 py-0.5 rounded text-[11px]">${vCount} Villages</span>
+          </td>
+          <td class="py-2.5 px-3 text-center">
+            <span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full text-[10px] font-bold">${m.status || 'Active'}</span>
+          </td>
+          <td class="py-2.5 px-3 text-center no-print">
+            <div class="flex items-center justify-center space-x-1">
+              ${isAdmin ? `
+              <button onclick="openEditMandalModal('${m.id}')" title="Edit Mandal" class="text-slate-600 hover:text-emerald-700 p-1.5 rounded hover:bg-emerald-50">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+              <button onclick="handleDeleteMandalClick('${m.id}')" title="Delete Mandal" class="text-slate-400 hover:text-rose-600 p-1.5 rounded hover:bg-rose-50">
+                <i class="fa-solid fa-trash"></i>
+              </button>` : '<span class="text-slate-400 italic text-[10px]">Admin Only</span>'}
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function openAddMandalModal() {
+      if (!currentUser || currentUser.role !== 'admin') {
+        alert('Administrator privileges required to add mandal records.');
+        openLoginModal();
+        return;
+      }
+      document.getElementById('mandalModalTitle').textContent = 'Add Mandal Master Record';
+      document.getElementById('btnSaveMandal').textContent = 'Create Mandal';
+      document.getElementById('formMandalId').value = '';
+      document.getElementById('formMandalNameInput').value = '';
+      document.getElementById('formMandalTeluguInput').value = '';
+      document.getElementById('formMandalStatus').value = 'Active';
+      const curDist = document.getElementById('mandalDistrictFilter')?.value;
+      if (curDist && curDist !== 'all') {
+        document.getElementById('formMandalParentDistrict').value = curDist;
+      } else if (allDistricts.length > 0) {
+        document.getElementById('formMandalParentDistrict').value = allDistricts[0].name;
+      }
+      document.getElementById('mandalModal').classList.remove('hidden');
+    }
+
+    function openEditMandalModal(mandalId) {
+      if (!currentUser || currentUser.role !== 'admin') {
+        alert('Administrator privileges required to edit mandal records.');
+        openLoginModal();
+        return;
+      }
+      const m = allMandals.find(item => item.id === mandalId);
+      if (!m) return;
+      document.getElementById('mandalModalTitle').textContent = `Edit Mandal: ${m.mandal_name}`;
+      document.getElementById('btnSaveMandal').textContent = 'Save Changes';
+      document.getElementById('formMandalId').value = m.id;
+      document.getElementById('formMandalParentDistrict').value = m.district_name;
+      document.getElementById('formMandalNameInput').value = m.mandal_name;
+      document.getElementById('formMandalTeluguInput').value = m.mandal_name_telugu || '';
+      document.getElementById('formMandalStatus').value = m.status || 'Active';
+      document.getElementById('mandalModal').classList.remove('hidden');
+    }
+
+    function closeMandalModal() {
+      document.getElementById('mandalModal').classList.add('hidden');
+    }
+
+    async function handleMandalFormSubmit(e) {
+      e.preventDefault();
+      const mId = document.getElementById('formMandalId').value;
+      const parentDist = document.getElementById('formMandalParentDistrict').value;
+      const mName = document.getElementById('formMandalNameInput').value.trim();
+      const mTelugu = document.getElementById('formMandalTeluguInput').value.trim();
+      const status = document.getElementById('formMandalStatus').value;
+
+      try {
+        if (mId) {
+          const res = await fetch(`/mandals/${mId}`, {
+            method: 'PUT',
+            headers: getAuthHeaders(),
+            body: JSON.stringify({
+              district_name: parentDist,
+              mandal_name: mName,
+              mandal_name_telugu: mTelugu,
+              status: status
+            })
+          });
+          if (!res.ok) {
+            const err = await res.json();
+            throw new Error(err.detail || 'Update failed');
+          }
+        } else {
+          const res = await fetch('/mandals', {
+            method: 'POST',
+            headers: getAuthHeaders(),
+            body: JSON.stringify({
+              district_name: parentDist,
+              mandal_name: mName,
+              mandal_name_telugu: mTelugu,
+              status: status
+            })
+          });
+          if (!res.ok) {
+            const err = await res.json();
+            throw new Error(err.detail || 'Creation failed');
+          }
+        }
+
+        closeMandalModal();
+        await fetchMandals();
+        await fetchAuditLogs();
+        alert(`Mandal '${mName}' saved successfully!`);
+      } catch (err) {
+        alert('Error: ' + err.message);
+      }
+    }
+
+    async function handleDeleteMandalClick(mandalId) {
+      if (!currentUser || currentUser.role !== 'admin') {
+        alert('Administrator privileges required to delete mandals.');
+        return;
+      }
+      if (!confirm('Are you sure you want to delete this mandal from master records?\nNote: Deletion will be blocked if villages are linked.')) return;
+
+      try {
+        const res = await fetch(`/mandals/${mandalId}`, {
+          method: 'DELETE',
+          headers: getAuthHeaders()
+        });
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.detail || 'Delete failed');
+        }
+        await fetchMandals();
+        await fetchAuditLogs();
+        alert('Mandal removed successfully.');
+      } catch (err) {
+        alert('Cannot Delete Mandal: ' + err.message);
+      }
+    }
+
+    // Master Data Hub Logic: Villages Master
+    function onVillageMasterDistrictChange() {
+      const dist = document.getElementById('villageMasterDistrictFilter')?.value || 'all';
+      const mandalFilter = document.getElementById('villageMasterMandalFilter');
+      if (!mandalFilter) return;
+
+      mandalFilter.innerHTML = '<option value="all">All Mandals</option>';
+      let mandals = allMandals;
+      if (dist !== 'all') {
+        mandals = mandals.filter(m => m.district_name.toLowerCase() === dist.toLowerCase());
+      }
+      mandals.forEach(m => {
+        const opt = document.createElement('option');
+        opt.value = m.mandal_name;
+        opt.textContent = m.mandal_name;
+        mandalFilter.appendChild(opt);
+      });
+      renderVillageMasterTable();
+    }
+
+    function renderVillageMasterTable() {
+      const tbody = document.getElementById('villageMasterTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      const dist = document.getElementById('villageMasterDistrictFilter')?.value || 'all';
+      const mnd = document.getElementById('villageMasterMandalFilter')?.value || 'all';
+      const cat = document.getElementById('villageMasterCategoryFilter')?.value || 'all';
+      const search = (document.getElementById('villageMasterSearch')?.value || '').toLowerCase().trim();
+
+      let villages = allVillages;
+      if (dist !== 'all') villages = villages.filter(v => v.district_name.toLowerCase() === dist.toLowerCase());
+      if (mnd !== 'all') villages = villages.filter(v => (v.mandal_name || '').toLowerCase() === mnd.toLowerCase());
+      if (cat !== 'all') villages = villages.filter(v => v.category === cat);
+      if (search) {
+        villages = villages.filter(v => 
+          v.village_name.toLowerCase().includes(search) || 
+          (v.village_name_telugu && v.village_name_telugu.toLowerCase().includes(search)) ||
+          v.mandal_name.toLowerCase().includes(search) ||
+          v.district_name.toLowerCase().includes(search) ||
+          v.id.toLowerCase().includes(search)
+        );
+      }
+
+      const badge = document.getElementById('villageMasterCountBadge');
+      if (badge) badge.textContent = villages.length;
+
+      const isAdmin = currentUser && currentUser.role === 'admin';
+
+      if (villages.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="10" class="py-6 text-center text-slate-400">No villages match selection.</td></tr>';
+        return;
+      }
+
+      villages.forEach((v, idx) => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50 transition';
+
+        const catBadge = v.category === 'Non-Cadastral'
+          ? '<span class="bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded font-bold text-[10px]">NC</span>'
+          : '<span class="bg-blue-50 text-blue-800 px-2 py-0.5 rounded font-bold text-[10px]">Cadastral</span>';
+
+        const qcBadge = v.verification_status === 'Verified'
+          ? '<span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold text-[10px]">Verified</span>'
+          : v.verification_status === 'Returned for Correction'
+          ? '<span class="bg-rose-100 text-rose-800 px-2 py-0.5 rounded font-bold text-[10px]">Returned</span>'
+          : '<span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-bold text-[10px]">Pending QC</span>';
+
+        tr.innerHTML = `
+          <td class="py-2.5 px-3 text-slate-400 font-mono text-center">${idx + 1}</td>
+          <td class="py-2.5 px-3 font-mono text-[11px] text-slate-500">${v.id}</td>
+          <td class="py-2.5 px-3 font-bold text-slate-900">
+            ${v.village_name}
+            ${v.village_name_telugu ? `<div class="telugu-text text-[11px] text-slate-600 font-normal">${v.village_name_telugu}</div>` : ''}
+          </td>
+          <td class="py-2.5 px-3 font-medium text-slate-700">${v.mandal_name}</td>
+          <td class="py-2.5 px-3 font-semibold text-slate-800">${v.district_name}</td>
+          <td class="py-2.5 px-3 text-center">${catBadge}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-semibold text-slate-900">${v.extent_raw || '0-00'}</td>
+          <td class="py-2.5 px-3 text-center">
+            <span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[10px]">${v.gt_status || 'Completed'}</span>
+          </td>
+          <td class="py-2.5 px-3 text-center">${qcBadge}</td>
+          <td class="py-2.5 px-3 text-center no-print">
+            <div class="flex items-center justify-center space-x-1">
+              <button onclick="openEditVillageModal('${v.id}')" title="Edit Master Record" class="text-slate-600 hover:text-emerald-700 p-1.5 rounded hover:bg-emerald-50">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+              ${isAdmin ? `
+              <button onclick="confirmDeleteVillage('${v.id}')" title="Delete Village" class="text-slate-400 hover:text-rose-600 p-1.5 rounded hover:bg-rose-50">
+                <i class="fa-solid fa-trash"></i>
+              </button>` : ''}
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function updateFormMandalDropdown() {
+      const dist = document.getElementById('formDistrict')?.value;
+      const mandalSelect = document.getElementById('formMandalSelect');
+      const customInput = document.getElementById('formMandalCustom');
+      if (!mandalSelect) return;
+
+      mandalSelect.innerHTML = '';
+      if (!dist) {
+        mandalSelect.innerHTML = '<option value="">Select District first...</option>';
+        return;
+      }
+
+      const distMandals = allMandals.filter(m => m.district_name.toLowerCase() === dist.toLowerCase());
+      mandalSelect.innerHTML = `<option value="">Select Mandal in ${dist} (${distMandals.length} available)...</option>`;
+      
+      distMandals.forEach(m => {
+        const opt = document.createElement('option');
+        opt.value = m.mandal_name;
+        opt.textContent = m.mandal_name + (m.mandal_name_telugu ? ` (${m.mandal_name_telugu})` : '');
+        mandalSelect.appendChild(opt);
+      });
+
+      const optCustom = document.createElement('option');
+      optCustom.value = '__custom__';
+      optCustom.textContent = '+ Type New / Custom Mandal...';
+      mandalSelect.appendChild(optCustom);
+
+      if (customInput) customInput.classList.add('hidden');
+      const hiddenInput = document.getElementById('formMandalName');
+      if (hiddenInput) hiddenInput.value = mandalSelect.value;
+    }
+
+    function handleFormMandalSelectChange() {
+      const mandalSelect = document.getElementById('formMandalSelect');
+      const customInput = document.getElementById('formMandalCustom');
+      const hiddenInput = document.getElementById('formMandalName');
+      if (!mandalSelect || !customInput || !hiddenInput) return;
+
+      if (mandalSelect.value === '__custom__') {
+        customInput.classList.remove('hidden');
+        customInput.focus();
+        hiddenInput.value = customInput.value;
+      } else {
+        customInput.classList.add('hidden');
+        hiddenInput.value = mandalSelect.value;
+      }
+    }
+
+    function renderMasterCatalog() {
+      if (!masterCatalogData) return;
+
+      // Render Active Cards
+      const activeContainer = document.getElementById('activeMasterCardsContainer');
+      if (activeContainer && masterCatalogData.active_entities) {
+        activeContainer.innerHTML = '';
+        masterCatalogData.active_entities.forEach(ent => {
+          const card = document.createElement('div');
+          card.className = 'p-3.5 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-slate-50 transition space-y-2';
+          card.innerHTML = `
+            <div class="flex items-center justify-between">
+              <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center">
+                <i class="fa-solid ${ent.icon}"></i>
+              </div>
+              <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full">
+                ${ent.count} Records
+              </span>
+            </div>
+            <div>
+              <div class="font-bold text-xs text-slate-900">${ent.name}</div>
+              <p class="text-[11px] text-slate-500 line-clamp-2 mt-0.5">${ent.description}</p>
+            </div>
+            <div class="pt-2 border-t border-slate-200/60 flex items-center justify-between">
+              <span class="text-[10px] text-emerald-700 font-bold flex items-center">
+                <i class="fa-solid fa-circle-check mr-1 text-[9px]"></i>Active Table
+              </span>
+              <button onclick="switchMasterSubTab('${ent.entity_key}')" class="text-xs font-semibold text-emerald-700 hover:text-emerald-900 hover:underline">
+                Manage &rarr;
+              </button>
+            </div>
+          `;
+          activeContainer.appendChild(card);
+        });
+      }
+
+      // Render Extensible Cards
+      const extContainer = document.getElementById('extensibleMasterCardsContainer');
+      if (extContainer && masterCatalogData.extensible_entities) {
+        extContainer.innerHTML = '';
+        masterCatalogData.extensible_entities.forEach(ent => {
+          const card = document.createElement('div');
+          card.className = 'p-4 rounded-xl border border-slate-200 bg-white shadow-sm space-y-3';
+          
+          let schemaRows = '';
+          (ent.proposed_schema || []).forEach(f => {
+            schemaRows += `
+              <tr class="border-b border-slate-100 last:border-0">
+                <td class="py-1 font-mono font-bold text-slate-800 text-[11px]">${f.name}</td>
+                <td class="py-1 text-slate-600 text-[10px]">${f.type}</td>
+                <td class="py-1 text-right">
+                  ${f.required ? '<span class="text-rose-600 font-bold text-[10px]">Required</span>' : '<span class="text-slate-400 text-[10px]">Optional</span>'}
+                </td>
+              </tr>
+            `;
+          });
+
+          card.innerHTML = `
+            <div class="flex items-start justify-between">
+              <div class="flex items-center space-x-2.5">
+                <div class="w-9 h-9 rounded-lg bg-indigo-50 text-indigo-700 flex items-center justify-center text-base border border-indigo-100">
+                  <i class="fa-solid ${ent.icon}"></i>
+                </div>
+                <div>
+                  <h5 class="font-bold text-xs text-slate-900">${ent.name}</h5>
+                  <span class="text-[10px] text-indigo-700 bg-indigo-50 border border-indigo-200 font-semibold px-2 py-0.2 rounded-full">
+                    ${ent.phase}
+                  </span>
+                </div>
+              </div>
+              <span class="text-[10px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-medium">${ent.status}</span>
+            </div>
+
+            <p class="text-xs text-slate-600">${ent.description}</p>
+
+            <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+              <div class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1 flex items-center justify-between">
+                <span>Proposed Data Schema</span>
+                <span class="text-slate-400 font-normal">${(ent.proposed_schema || []).length} Fields</span>
+              </div>
+              <table class="w-full text-left text-xs">
+                <tbody>
+                  ${schemaRows}
+                </tbody>
+              </table>
+            </div>
+
+            <div class="flex items-center justify-between pt-1">
+              <span class="text-[11px] text-indigo-700 bg-indigo-50 border border-indigo-200 px-2.5 py-1 rounded-lg font-medium flex items-center">
+                <i class="fa-solid fa-code mr-1.5"></i>Schema Defined & DB Ready
+              </span>
+              <button onclick="alert('Master entity ${ent.name} schema is registered in the backend catalog. When required in Phase 2, click to instantiate!')" class="text-xs text-slate-600 hover:text-slate-900 border border-slate-200 hover:bg-slate-50 px-2.5 py-1 rounded-lg transition font-medium">
+                View Spec
+              </button>
+            </div>
+          `;
+          extContainer.appendChild(card);
+        });
       }
     }
 
@@ -2617,10 +3484,15 @@
     }
 
     function openAddVillageModal() {
-      document.getElementById('modalTitle').textContent = 'Add Village Resurvey Record';
+      if (!currentUser || (currentUser.role !== 'admin' && currentUser.role !== 'district_rep')) {
+        promptLoginRequired('sign in to add village records');
+        return;
+      }
+
+      document.getElementById('modalTitle').textContent = 'Add Village Master Survey Record';
       document.getElementById('formVillageId').value = '';
       document.getElementById('formVillageName').value = '';
-      document.getElementById('formMandalName').value = '';
+      document.getElementById('formVillageNameTelugu').value = '';
       document.getElementById('formExtentRaw').value = '';
       document.getElementById('formShapefileStatus').value = 'Pending';
       document.getElementById('formSentCSO').checked = false;
@@ -2630,7 +3502,11 @@
       
       if (currentUser && currentUser.role === 'district_rep' && currentUser.district !== 'All') {
         document.getElementById('formDistrict').value = currentUser.district;
+      } else if (allDistricts.length > 0) {
+        document.getElementById('formDistrict').value = allDistricts[0].name;
       }
+
+      updateFormMandalDropdown();
       document.getElementById('villageModal').classList.remove('hidden');
     }
 
@@ -2652,9 +3528,27 @@
       document.getElementById('modalTitle').textContent = `Edit Record: ${v.village_name} (${v.district_name})`;
       document.getElementById('formVillageId').value = v.id;
       document.getElementById('formDistrict').value = v.district_name;
+      updateFormMandalDropdown();
+
+      const mandalSelect = document.getElementById('formMandalSelect');
+      const customInput = document.getElementById('formMandalCustom');
+      const hiddenInput = document.getElementById('formMandalName');
+
+      if (Array.from(mandalSelect.options).some(o => o.value === v.mandal_name)) {
+        mandalSelect.value = v.mandal_name;
+        if (customInput) customInput.classList.add('hidden');
+      } else {
+        mandalSelect.value = '__custom__';
+        if (customInput) {
+          customInput.classList.remove('hidden');
+          customInput.value = v.mandal_name || '';
+        }
+      }
+      if (hiddenInput) hiddenInput.value = v.mandal_name || '';
+
       document.getElementById('formCategory').value = v.category;
       document.getElementById('formVillageName').value = v.village_name;
-      document.getElementById('formMandalName').value = v.mandal_name;
+      document.getElementById('formVillageNameTelugu').value = v.village_name_telugu || '';
       document.getElementById('formExtentRaw').value = v.extent_raw || '';
       document.getElementById('formGtStatus').value = v.gt_status || 'Completed';
       document.getElementById('formShapefileStatus').value = v.shapefile_status || 'Pending';
@@ -2673,17 +3567,28 @@
     async function handleVillageFormSubmit(e) {
       e.preventDefault();
       const id = document.getElementById('formVillageId').value;
+
+      let mandalVal = document.getElementById('formMandalSelect')?.value;
+      if (mandalVal === '__custom__') {
+        mandalVal = document.getElementById('formMandalCustom')?.value.trim();
+      }
+      if (!mandalVal) {
+        alert('Please select or specify a Mandal name.');
+        return;
+      }
+
       const payload = {
         district_name: document.getElementById('formDistrict').value,
         category: document.getElementById('formCategory').value,
-        village_name: document.getElementById('formVillageName').value,
-        mandal_name: document.getElementById('formMandalName').value,
-        extent_raw: document.getElementById('formExtentRaw').value,
+        village_name: document.getElementById('formVillageName').value.trim(),
+        village_name_telugu: document.getElementById('formVillageNameTelugu')?.value.trim() || '',
+        mandal_name: mandalVal,
+        extent_raw: document.getElementById('formExtentRaw').value.trim(),
         gt_status: document.getElementById('formGtStatus').value,
         shapefile_status: document.getElementById('formShapefileStatus').value,
         sent_to_cso: document.getElementById('formSentCSO').checked,
         workflow_stage: document.getElementById('formWorkflowStage').value,
-        remarks: document.getElementById('formRemarks').value
+        remarks: document.getElementById('formRemarks').value.trim()
       };
 
       try {
@@ -2713,6 +3618,7 @@
         await fetchVillages();
         await fetchDashboardStats();
         await fetchAuditLogs();
+        renderVillageMasterTable();
         alert(`Village record successfully saved.\nAudit trail recorded under: ${currentUser.name}`);
       } catch (err) {
         alert('Error: ' + err.message);
@@ -2730,6 +3636,7 @@
           await fetchVillages();
           await fetchDashboardStats();
           await fetchAuditLogs();
+          renderVillageMasterTable();
           alert('Village record deleted. Action logged.');
         } else {
           const err = await res.json();

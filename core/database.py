@@ -8,6 +8,7 @@ logger = logging.getLogger(__name__)
 
 DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data")
 DISTRICTS_FILE = os.path.join(DATA_DIR, "districts.json")
+MANDALS_FILE = os.path.join(DATA_DIR, "mandals.json")
 VILLAGES_FILE = os.path.join(DATA_DIR, "villages.json")
 USERS_FILE = os.path.join(DATA_DIR, "users.json")
 REPRESENTATIVES_FILE = os.path.join(DATA_DIR, "representatives.json")
@@ -45,6 +46,7 @@ def seed_mongo_from_files(db):
     try:
         for file_path, collection_name in [
             (DISTRICTS_FILE, "districts"),
+            (MANDALS_FILE, "mandals"),
             (VILLAGES_FILE, "villages"),
             (USERS_FILE, "users"),
             (REPRESENTATIVES_FILE, "representatives"),
@@ -142,6 +144,57 @@ def get_districts() -> List[Dict[str, Any]]:
         return list(mongo_db.districts.find({}, {"_id": 0}))
     return _load_json(DISTRICTS_FILE)
 
+def get_district(district_id: str) -> Optional[Dict[str, Any]]:
+    districts = get_districts()
+    d_low = district_id.lower().strip()
+    return next((d for d in districts if d.get("district_id", "").lower() == d_low or d.get("name", "").lower() == d_low), None)
+
+def add_district(
+    data: Dict[str, Any],
+    user_name: str = "Admin",
+    user_role: str = "admin"
+) -> Dict[str, Any]:
+    districts = _load_json(DISTRICTS_FILE)
+    name = data.get("name", "").strip()
+    if not name:
+        raise ValueError("District name cannot be empty.")
+    
+    # Check for duplicate
+    if any(d.get("name", "").lower() == name.lower() for d in districts):
+        raise ValueError(f"District '{name}' already exists in master records.")
+    
+    district_id = data.get("district_id") or name.lower().replace(" ", "_")
+    district_record = {
+        "district_id": district_id,
+        "name": name,
+        "non_cadastral_target": int(data.get("non_cadastral_target", 0) or 0),
+        "cadastral_target": int(data.get("cadastral_target", 70) or 70),
+        "status": data.get("status", "Active")
+    }
+    
+    if is_mongo and mongo_db is not None:
+        mongo_db.districts.insert_one(dict(district_record))
+        if "_id" in district_record:
+            del district_record["_id"]
+            
+    districts.append(district_record)
+    _save_json(DISTRICTS_FILE, districts)
+    
+    log_change(
+        record_id=district_record["district_id"],
+        village_name=f"District Master: {district_record['name']}",
+        district_name=district_record["name"],
+        user_name=user_name,
+        user_role=user_role,
+        action="District Master Created",
+        details=f"New district '{district_record['name']}' registered by {user_name}",
+        changes={
+            "non_cadastral_target": {"from": None, "to": district_record["non_cadastral_target"]},
+            "cadastral_target": {"from": None, "to": district_record["cadastral_target"]}
+        }
+    )
+    return district_record
+
 def update_district_master(
     district_id: str,
     updates: Dict[str, Any],
@@ -179,6 +232,207 @@ def update_district_master(
         )
         return target
     return None
+
+def delete_district(
+    district_id: str,
+    user_name: str = "Admin",
+    user_role: str = "admin"
+) -> bool:
+    districts = _load_json(DISTRICTS_FILE)
+    target = next((d for d in districts if d.get("district_id") == district_id or d.get("name").lower() == district_id.lower()), None)
+    if not target:
+        return False
+    
+    # Dependency check: check if any mandals or villages are linked
+    mandals = get_mandals(district=target["name"])
+    villages = get_villages(district=target["name"])
+    if mandals or villages:
+        raise ValueError(f"Cannot delete district '{target['name']}'. It contains {len(mandals)} mandals and {len(villages)} village survey records. Deactivate it instead.")
+    
+    if is_mongo and mongo_db is not None:
+        mongo_db.districts.delete_one({"district_id": target["district_id"]})
+    
+    districts = [d for d in districts if d.get("district_id") != target["district_id"]]
+    _save_json(DISTRICTS_FILE, districts)
+    
+    log_change(
+        record_id=target["district_id"],
+        village_name=f"District Master: {target['name']}",
+        district_name=target["name"],
+        user_name=user_name,
+        user_role=user_role,
+        action="District Master Deleted",
+        details=f"District '{target['name']}' removed from master registry by {user_name}",
+        changes={}
+    )
+    return True
+
+# ----------------- MANDALS MASTER -----------------
+def get_mandals(
+    district: Optional[str] = None,
+    search: Optional[str] = None
+) -> List[Dict[str, Any]]:
+    if is_mongo and mongo_db is not None:
+        query = {}
+        if district and district.lower() != "all":
+            query["district_name"] = {"$regex": f"^{district}$", "$options": "i"}
+        if search and search.strip():
+            s = search.strip()
+            query["$or"] = [
+                {"mandal_name": {"$regex": s, "$options": "i"}},
+                {"mandal_name_telugu": {"$regex": s, "$options": "i"}}
+            ]
+        return list(mongo_db.mandals.find(query, {"_id": 0}))
+
+    mandals = _load_json(MANDALS_FILE)
+    filtered = []
+    for m in mandals:
+        if district and district.lower() != "all":
+            if m.get("district_name", "").lower() != district.lower():
+                continue
+        if search and search.strip():
+            s = search.strip().lower()
+            m_name = m.get("mandal_name", "").lower()
+            m_tel = m.get("mandal_name_telugu", "").lower()
+            if s not in m_name and s not in m_tel:
+                continue
+        filtered.append(m)
+    return filtered
+
+def get_mandal(mandal_id: str) -> Optional[Dict[str, Any]]:
+    if is_mongo and mongo_db is not None:
+        return mongo_db.mandals.find_one({"id": mandal_id}, {"_id": 0})
+    for m in _load_json(MANDALS_FILE):
+        if m.get("id") == mandal_id:
+            return m
+    return None
+
+def add_mandal(
+    data: Dict[str, Any],
+    user_name: str = "Admin",
+    user_role: str = "admin"
+) -> Dict[str, Any]:
+    district_name = data.get("district_name", "").strip()
+    mandal_name = data.get("mandal_name", "").strip()
+    if not district_name or not mandal_name:
+        raise ValueError("District name and Mandal name are required.")
+
+    # Validate parent district exists
+    district_info = get_district(district_name)
+    if not district_info:
+        raise ValueError(f"Parent district '{district_name}' does not exist in master records.")
+
+    mandals = _load_json(MANDALS_FILE)
+    # Check duplicate in same district
+    for m in mandals:
+        if m.get("district_name", "").lower() == district_name.lower() and m.get("mandal_name", "").lower() == mandal_name.lower():
+            raise ValueError(f"Mandal '{mandal_name}' already exists under district '{district_name}'.")
+
+    mandal_id = data.get("id") or f"mnd-{int(datetime.utcnow().timestamp() * 1000)}"
+    mandal_record = {
+        "id": mandal_id,
+        "mandal_name": mandal_name,
+        "mandal_name_telugu": data.get("mandal_name_telugu", "").strip(),
+        "district_name": district_info["name"],
+        "district_id": district_info.get("district_id", district_name.lower().replace(" ", "_")),
+        "status": data.get("status", "Active"),
+        "created_at": datetime.utcnow().isoformat()
+    }
+
+    if is_mongo and mongo_db is not None:
+        mongo_db.mandals.insert_one(dict(mandal_record))
+        if "_id" in mandal_record:
+            del mandal_record["_id"]
+
+    mandals.append(mandal_record)
+    _save_json(MANDALS_FILE, mandals)
+
+    log_change(
+        record_id=mandal_record["id"],
+        village_name=f"Mandal Master: {mandal_record['mandal_name']}",
+        district_name=mandal_record["district_name"],
+        user_name=user_name,
+        user_role=user_role,
+        action="Mandal Master Created",
+        details=f"New mandal '{mandal_record['mandal_name']}' added under {mandal_record['district_name']} by {user_name}",
+        changes={
+            "mandal_name": {"from": None, "to": mandal_record["mandal_name"]},
+            "district_name": {"from": None, "to": mandal_record["district_name"]}
+        }
+    )
+    return mandal_record
+
+def update_mandal(
+    mandal_id: str,
+    updates: Dict[str, Any],
+    user_name: str = "Admin",
+    user_role: str = "admin"
+) -> Optional[Dict[str, Any]]:
+    mandals = _load_json(MANDALS_FILE)
+    target = None
+    for idx, m in enumerate(mandals):
+        if m.get("id") == mandal_id:
+            target = m
+            diff = {}
+            for k, v in updates.items():
+                if k in target and target[k] != v:
+                    diff[k] = {"from": target[k], "to": v}
+                target[k] = v
+            mandals[idx] = target
+            break
+
+    if target:
+        _save_json(MANDALS_FILE, mandals)
+        if is_mongo and mongo_db is not None:
+            mongo_db.mandals.update_one({"id": mandal_id}, {"$set": updates})
+
+        if diff:
+            log_change(
+                record_id=mandal_id,
+                village_name=f"Mandal Master: {target['mandal_name']}",
+                district_name=target["district_name"],
+                user_name=user_name,
+                user_role=user_role,
+                action="Mandal Master Updated",
+                details=f"Mandal '{target['mandal_name']}' updated by {user_name}",
+                changes=diff
+            )
+        return target
+    return None
+
+def delete_mandal(
+    mandal_id: str,
+    user_name: str = "Admin",
+    user_role: str = "admin"
+) -> bool:
+    mandals = _load_json(MANDALS_FILE)
+    target = next((m for m in mandals if m.get("id") == mandal_id), None)
+    if not target:
+        return False
+
+    # Dependency check: check if any villages belong to this mandal
+    villages = get_villages(district=target["district_name"])
+    m_villages = [v for v in villages if v.get("mandal_name", "").lower() == target["mandal_name"].lower()]
+    if m_villages:
+        raise ValueError(f"Cannot delete mandal '{target['mandal_name']}'. It contains {len(m_villages)} village survey records. Deactivate it instead.")
+
+    if is_mongo and mongo_db is not None:
+        mongo_db.mandals.delete_one({"id": mandal_id})
+
+    mandals = [m for m in mandals if m.get("id") != mandal_id]
+    _save_json(MANDALS_FILE, mandals)
+
+    log_change(
+        record_id=mandal_id,
+        village_name=f"Mandal Master: {target['mandal_name']}",
+        district_name=target["district_name"],
+        user_name=user_name,
+        user_role=user_role,
+        action="Mandal Master Deleted",
+        details=f"Mandal '{target['mandal_name']}' removed from master registry by {user_name}",
+        changes={}
+    )
+    return True
 
 # ----------------- REPRESENTATIVES MASTER -----------------
 def get_representatives(
@@ -604,6 +858,126 @@ def authenticate_user(username: str, password: str) -> Optional[Dict[str, Any]]:
                 del user_safe["password"]
             return user_safe
     return None
+
+# ----------------- EXTENSIBLE MASTER CATALOG -----------------
+def get_master_catalog() -> Dict[str, Any]:
+    districts = get_districts()
+    mandals = get_mandals()
+    villages = get_villages()
+    reps = get_representatives()
+
+    return {
+        "active_entities": [
+            {
+                "entity_key": "districts",
+                "name": "Districts Master",
+                "icon": "fa-landmark",
+                "count": len(districts),
+                "status": "Active",
+                "description": "Administrative district territorial records with Non-Cadastral and Cadastral baseline targets.",
+                "fields": ["district_id", "name", "non_cadastral_target", "cadastral_target", "status"]
+            },
+            {
+                "entity_key": "mandals",
+                "name": "Mandals Master",
+                "icon": "fa-building-columns",
+                "count": len(mandals),
+                "status": "Active",
+                "description": "Sub-district administrative units mapped to parent districts with Telugu nomenclature.",
+                "fields": ["id", "mandal_name", "mandal_name_telugu", "district_name", "district_id", "status"]
+            },
+            {
+                "entity_key": "villages",
+                "name": "Villages Master",
+                "icon": "fa-tree-city",
+                "count": len(villages),
+                "status": "Active",
+                "description": "Granular survey revenue village units tracking acreage, ground truthing, and shapefile certification.",
+                "fields": ["id", "village_name", "village_name_telugu", "mandal_name", "district_name", "category", "extent_raw", "status"]
+            },
+            {
+                "entity_key": "representatives",
+                "name": "Field Officers & QC Master",
+                "icon": "fa-users-gear",
+                "count": len(reps),
+                "status": "Active",
+                "description": "Designated field officers, district data entry representatives, and central office verification engineers.",
+                "fields": ["id", "name", "role", "designation", "assigned_district", "phone", "email", "status"]
+            }
+        ],
+        "extensible_entities": [
+            {
+                "entity_key": "survey_agencies",
+                "name": "Survey Agencies & Vendors Master",
+                "icon": "fa-briefcase",
+                "phase": "Phase 2 Ready",
+                "status": "Configurable",
+                "description": "Empaneled drone flight agencies, ground truthing vendors, GIS processing consortiums, and contact points.",
+                "proposed_schema": [
+                    {"name": "agency_id", "type": "String", "required": True},
+                    {"name": "agency_name", "type": "String", "required": True},
+                    {"name": "registration_no", "type": "String", "required": True},
+                    {"name": "gstin", "type": "String", "required": False},
+                    {"name": "empaneled_districts", "type": "Array<String>", "required": True},
+                    {"name": "allocated_villages_count", "type": "Integer", "required": False},
+                    {"name": "primary_contact_person", "type": "String", "required": True},
+                    {"name": "contact_phone", "type": "String", "required": True},
+                    {"name": "status", "type": "Enum (Active/Suspended/Completed)", "required": True}
+                ]
+            },
+            {
+                "entity_key": "survey_equipment",
+                "name": "Survey Instruments & Drone Master",
+                "icon": "fa-satellite-dish",
+                "phase": "Phase 2 Ready",
+                "status": "Configurable",
+                "description": "Master registry of DGPS base/rover units, Electronic Total Stations (ETS), and DGCA-certified drones.",
+                "proposed_schema": [
+                    {"name": "equipment_id", "type": "String", "required": True},
+                    {"name": "equipment_type", "type": "Enum (DGPS Base / DGPS Rover / ETS / Survey Drone)", "required": True},
+                    {"name": "make_model", "type": "String", "required": True},
+                    {"name": "serial_number", "type": "String", "required": True},
+                    {"name": "dgca_uin", "type": "String", "required": False},
+                    {"name": "calibration_expiry", "type": "Date", "required": True},
+                    {"name": "assigned_district", "type": "String", "required": True},
+                    {"name": "status", "type": "Enum (Operational/Under Maintenance/Decommissioned)", "required": True}
+                ]
+            },
+            {
+                "entity_key": "revenue_divisions",
+                "name": "Revenue Divisions Master",
+                "icon": "fa-sitemap",
+                "phase": "Phase 2 Ready",
+                "status": "Configurable",
+                "description": "Sub-collector and Revenue Divisional Officer (RDO) jurisdictions grouping mandals within districts.",
+                "proposed_schema": [
+                    {"name": "division_id", "type": "String", "required": True},
+                    {"name": "division_name", "type": "String", "required": True},
+                    {"name": "district_name", "type": "String", "required": True},
+                    {"name": "headquarters", "type": "String", "required": True},
+                    {"name": "rdo_officer_name", "type": "String", "required": False},
+                    {"name": "status", "type": "Enum (Active/Inactive)", "required": True}
+                ]
+            },
+            {
+                "entity_key": "gazette_notifications",
+                "name": "Statutory Survey Gazette Master",
+                "icon": "fa-scroll",
+                "phase": "Phase 2 Ready",
+                "status": "Configurable",
+                "description": "Statutory Section 6(1) and Section 13 survey notifications, Gazette notification dates, and GO references.",
+                "proposed_schema": [
+                    {"name": "notification_id", "type": "String", "required": True},
+                    {"name": "go_number", "type": "String", "required": True},
+                    {"name": "notification_date", "type": "Date", "required": True},
+                    {"name": "gazette_reference_no", "type": "String", "required": True},
+                    {"name": "district_name", "type": "String", "required": True},
+                    {"name": "applicable_category", "type": "Enum (Cadastral/Non-Cadastral)", "required": True},
+                    {"name": "status", "type": "Enum (Draft/Gazetted/Superseded)", "required": True}
+                ]
+            }
+        ]
+    }
 
 init_db()
 
