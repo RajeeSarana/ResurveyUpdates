@@ -1,7 +1,7 @@
 import os
 import sys
 from typing import Optional, Dict, Any
-from fastapi import FastAPI, HTTPException, Depends, Query, status
+from fastapi import FastAPI, HTTPException, Depends, Query, status, APIRouter
 from fastapi.responses import StreamingResponse, FileResponse, HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
@@ -38,13 +38,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Schemas
 class LoginRequest(BaseModel):
     username: str
     password: str
 
 class VillageCreateRequest(BaseModel):
     district_name: str
-    category: str  # "Non-Cadastral" or "Cadastral"
+    category: str
     village_name: str
     mandal_name: str
     extent_raw: Optional[str] = ""
@@ -88,11 +89,14 @@ def calculate_acres(val: Optional[str]) -> float:
     except Exception:
         return 0.0
 
-@app.get("/api/status")
+# Router that works both with /api and direct path
+router = APIRouter()
+
+@router.get("/status")
 def get_system_status():
     return get_db_status()
 
-@app.post("/api/auth/login")
+@router.post("/auth/login")
 def login(creds: LoginRequest):
     user = authenticate_user(creds.username, creds.password)
     if not user:
@@ -106,15 +110,15 @@ def login(creds: LoginRequest):
         "user": user
     }
 
-@app.get("/api/dashboard/stats")
+@router.get("/dashboard/stats")
 def get_stats():
     return get_dashboard_stats()
 
-@app.get("/api/districts")
+@router.get("/districts")
 def list_districts():
     return get_districts()
 
-@app.get("/api/villages")
+@router.get("/villages")
 def list_villages(
     district: Optional[str] = Query(None),
     category: Optional[str] = Query(None),
@@ -128,20 +132,20 @@ def list_villages(
         search=search
     )
 
-@app.get("/api/villages/{village_id}")
+@router.get("/villages/{village_id}")
 def get_village_by_id(village_id: str):
     v = get_village(village_id)
     if not v:
         raise HTTPException(status_code=404, detail="Village record not found")
     return v
 
-@app.post("/api/villages", status_code=status.HTTP_201_CREATED)
+@router.post("/villages", status_code=status.HTTP_201_CREATED)
 def create_village(payload: VillageCreateRequest):
     data = payload.dict()
     data["extent_acres_float"] = calculate_acres(data.get("extent_raw"))
     return add_village(data)
 
-@app.put("/api/villages/{village_id}")
+@router.put("/villages/{village_id}")
 def edit_village(village_id: str, payload: VillageUpdateRequest):
     existing = get_village(village_id)
     if not existing:
@@ -154,14 +158,14 @@ def edit_village(village_id: str, payload: VillageUpdateRequest):
     updated = update_village(village_id, updates)
     return updated
 
-@app.delete("/api/villages/{village_id}")
+@router.delete("/villages/{village_id}")
 def remove_village(village_id: str):
     success = delete_village(village_id)
     if not success:
         raise HTTPException(status_code=404, detail="Village record not found")
     return {"success": True, "message": "Village record deleted"}
 
-@app.get("/api/export/excel")
+@router.get("/export/excel")
 def export_excel():
     excel_stream = generate_resurvey_excel()
     return StreamingResponse(
@@ -172,6 +176,11 @@ def export_excel():
         }
     )
 
+# Register router at /api prefix AND root prefix for universal compatibility
+app.include_router(router, prefix="/api")
+app.include_router(router, prefix="")
+
+# Serve index.html if root requested
 PUBLIC_DIR = os.path.join(ROOT_DIR, "public")
 if os.path.exists(PUBLIC_DIR):
     @app.get("/")
