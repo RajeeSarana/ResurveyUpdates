@@ -841,13 +841,14 @@
                 <th class="py-2.5 px-3">Role</th>
                 <th class="py-2.5 px-3">Assigned District</th>
                 <th class="py-2.5 px-3">Designation</th>
+                <th class="py-2.5 px-3">Officer Password</th>
                 <th class="py-2.5 px-3">Password Status</th>
                 <th class="py-2.5 px-3">Account Status</th>
                 <th class="py-2.5 px-3 text-right">Actions</th>
               </tr>
             </thead>
             <tbody id="userMasterTableBody" class="divide-y divide-slate-100">
-              <tr><td colspan="9" class="py-6 text-center text-slate-400">Loading user directory...</td></tr>
+              <tr><td colspan="10" class="py-6 text-center text-slate-400">Loading user directory...</td></tr>
             </tbody>
           </table>
         </div>
@@ -1695,6 +1696,86 @@
   </div>
 
   <!-- ========================================================================================= -->
+  <!-- MODAL: OFFICER SELF-SERVICE PROFILE SETTINGS                                             -->
+  <!-- ========================================================================================= -->
+  <div id="myProfileModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b pb-3">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center">
+            <i class="fa-solid fa-id-card text-base"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-slate-900">Officer Profile &amp; Contact Information</h3>
+            <p class="text-[11px] text-slate-500">Manage your officer identity, login ID, and contact points</p>
+          </div>
+        </div>
+        <button onclick="closeMyProfileModal()" class="text-slate-400 hover:text-slate-600">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Informational Role & District Pill -->
+      <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between text-xs">
+        <div>
+          <span class="text-slate-400 block text-[10px] uppercase font-bold">Assigned Role</span>
+          <span id="profileRoleBadge" class="font-bold text-slate-800 capitalize">-</span>
+        </div>
+        <div class="text-right">
+          <span class="text-slate-400 block text-[10px] uppercase font-bold">Territorial Jurisdiction</span>
+          <span id="profileDistrictBadge" class="font-bold text-emerald-700">-</span>
+        </div>
+      </div>
+
+      <form onsubmit="handleMyProfileSubmit(event)" class="space-y-3.5 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Username / Officer ID *</label>
+          <input type="text" id="profileUsername" required pattern="^[a-zA-Z0-9_]{3,30}$" 
+            placeholder="e.g. asifabad_rep1, ramesh_reddy" 
+            class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 font-mono text-xs font-semibold" />
+          <p class="text-[10px] text-slate-400 mt-0.5">Your unique sign-in identifier (3-30 letters, digits, or underscores). Updates automatically sync to User Data.</p>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Officer Full Name *</label>
+          <input type="text" id="profileName" required placeholder="e.g. S. Ramesh Reddy" 
+            class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 font-medium" />
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Official Designation</label>
+          <input type="text" id="profileDesignation" placeholder="e.g. District Survey Coordinator / Assistant Director" 
+            class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Phone Number</label>
+            <input type="text" id="profilePhone" placeholder="+91 98480 12345" 
+              class="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 font-mono" />
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Email Address</label>
+            <input type="email" id="profileEmail" placeholder="officer@telangana.gov.in" 
+              class="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500" />
+          </div>
+        </div>
+
+        <div id="profileErrorMessage" class="hidden p-2.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-[11px] font-medium"></div>
+
+        <div class="flex justify-end space-x-3 pt-3 border-t">
+          <button type="button" onclick="closeMyProfileModal()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg">Cancel</button>
+          <button type="submit" id="btnSaveProfile" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-semibold shadow flex items-center space-x-1.5">
+            <i class="fa-solid fa-floppy-disk"></i>
+            <span>Save Profile Details</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================================= -->
   <!-- MODAL: ALL 32 DISTRICTS TARGETS MATRIX                                                    -->
   <!-- ========================================================================================= -->
   <div id="districtsModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
@@ -1892,7 +1973,7 @@
       document.title = 'ResurveyUpdates - Officer Sign In';
     }
 
-    function showAuthenticatedPortal() {
+    async function showAuthenticatedPortal() {
       const gateway = document.getElementById('loginGateway');
       const app = document.getElementById('authenticatedApp');
       if (gateway) gateway.classList.add('hidden');
@@ -1900,6 +1981,9 @@
       document.title = 'ResurveyUpdates - Monitoring & Verification Portal';
       renderAuthHeaderUI();
       applyRoleBasedNavigation(currentUser);
+      if (currentUser && currentUser.role === 'admin') {
+        await fetchUsers();
+      }
     }
 
     function applyRoleBasedNavigation(user) {
@@ -2100,7 +2184,11 @@
                 ${currentUser.designation || currentUser.role.replace('_', ' ')}
               </div>
             </div>
-            <button onclick="openChangePasswordModal()" title="Change Account Password" class="ml-2 text-xs bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-200 border border-emerald-400/30 px-2 py-1 rounded transition flex items-center space-x-1">
+            <button onclick="openMyProfileModal()" title="View & Edit Officer Profile" class="ml-2 text-xs bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-100 border border-emerald-400/30 px-2.5 py-1 rounded transition flex items-center space-x-1">
+              <i class="fa-solid fa-id-badge text-[10px]"></i>
+              <span class="hidden sm:inline">My Profile</span>
+            </button>
+            <button onclick="openChangePasswordModal()" title="Change Account Password" class="ml-1 text-xs bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-200 border border-emerald-400/30 px-2 py-1 rounded transition flex items-center space-x-1">
               <i class="fa-solid fa-key text-[10px]"></i>
               <span class="hidden sm:inline">Password</span>
             </button>
@@ -2223,7 +2311,11 @@
       });
 
       if (sub === 'users') {
-        renderUserMasterTable();
+        if (allUsers.length === 0) {
+          fetchUsers();
+        } else {
+          renderUserMasterTable();
+        }
       } else if (sub === 'districts') {
         renderDistrictMasterTable();
       } else if (sub === 'mandals') {
@@ -4289,6 +4381,25 @@
       }
     }
 
+    function copyToClipboard(text) {
+      if (!text) return;
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(() => {
+          alert('Officer password copied to clipboard:\n' + text);
+        }).catch(() => {
+          prompt('Copy officer password:', text);
+        });
+      } else {
+        const temp = document.createElement('textarea');
+        temp.value = text;
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand('copy');
+        document.body.removeChild(temp);
+        alert('Officer password copied to clipboard:\n' + text);
+      }
+    }
+
     function renderUserMasterTable() {
       const tbody = document.getElementById('userMasterTableBody');
       if (!tbody) return;
@@ -4310,7 +4421,7 @@
       });
 
       if (filtered.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="9" class="py-6 text-center text-slate-400">No user accounts found matching selected criteria.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="10" class="py-6 text-center text-slate-400">No user accounts found matching selected criteria.</td></tr>';
         return;
       }
 
@@ -4339,6 +4450,8 @@
           ? '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-800">Inactive</span>'
           : '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700">Active</span>';
 
+        const rawPassword = u.password || '-';
+
         return `
           <tr class="hover:bg-slate-50/80 transition">
             <td class="py-2.5 px-3 text-slate-400 font-mono text-center">${idx + 1}</td>
@@ -4353,6 +4466,14 @@
             <td class="py-2.5 px-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase ${rolePill}">${roleLabel}</span></td>
             <td class="py-2.5 px-3 font-semibold text-slate-800">${u.district}</td>
             <td class="py-2.5 px-3 text-slate-600">${u.designation || '-'}</td>
+            <td class="py-2.5 px-3">
+              <div class="flex items-center space-x-1.5">
+                <span class="font-mono font-bold text-amber-950 bg-amber-50/90 border border-amber-300 px-2 py-0.5 rounded text-[11px] select-all shadow-xs">${rawPassword}</span>
+                <button onclick="copyToClipboard('${rawPassword}')" title="Copy unmasked password" class="p-1 text-slate-400 hover:text-emerald-600 rounded transition">
+                  <i class="fa-solid fa-copy text-xs"></i>
+                </button>
+              </div>
+            </td>
             <td class="py-2.5 px-3">${pwdBadge}</td>
             <td class="py-2.5 px-3">${statusBadge}</td>
             <td class="py-2.5 px-3 text-right whitespace-nowrap">
@@ -4374,46 +4495,84 @@
       }).join('');
     }
 
+    function ensureUserDistrictDropdown() {
+      const distSelect = document.getElementById('formUserDistrict');
+      if (!distSelect) return;
+      if (distSelect.options.length <= 1 && allDistricts && allDistricts.length > 0) {
+        distSelect.innerHTML = '<option value="All">All Districts (HQ)</option>';
+        allDistricts.forEach(d => {
+          const opt = document.createElement('option');
+          opt.value = d.name;
+          opt.textContent = d.name;
+          distSelect.appendChild(opt);
+        });
+      }
+    }
+
     function openAddUserModal() {
-      document.getElementById('formUserIsEdit').value = 'false';
-      document.getElementById('userModalTitle').textContent = 'Create Officer User Account';
-      const uInput = document.getElementById('formUserUsername');
-      uInput.value = '';
-      uInput.disabled = false;
-      document.getElementById('formUserName').value = '';
-      document.getElementById('formUserRole').value = 'district_rep';
-      document.getElementById('formUserDistrict').value = 'All';
-      document.getElementById('formUserDesignation').value = '';
-      document.getElementById('formUserPhone').value = '';
-      document.getElementById('formUserEmail').value = '';
-      document.getElementById('formUserDefaultPassword').value = 'Welcome@2026';
-      document.getElementById('formUserStatus').value = 'Active';
-      document.getElementById('defaultPasswordContainer').classList.remove('hidden');
-      document.getElementById('userModal').classList.remove('hidden');
+      try {
+        ensureUserDistrictDropdown();
+        document.getElementById('formUserIsEdit').value = 'false';
+        document.getElementById('userModalTitle').textContent = 'Create Officer User Account';
+        const uInput = document.getElementById('formUserUsername');
+        uInput.value = '';
+        uInput.disabled = false;
+        document.getElementById('formUserName').value = '';
+        document.getElementById('formUserRole').value = 'district_rep';
+        document.getElementById('formUserDistrict').value = 'All';
+        document.getElementById('formUserDesignation').value = '';
+        document.getElementById('formUserPhone').value = '';
+        document.getElementById('formUserEmail').value = '';
+        document.getElementById('formUserDefaultPassword').value = 'Welcome@2026';
+        document.getElementById('formUserStatus').value = 'Active';
+        document.getElementById('defaultPasswordContainer').classList.remove('hidden');
+        
+        const modal = document.getElementById('userModal');
+        modal.classList.remove('hidden');
+        modal.style.display = 'flex';
+      } catch (err) {
+        console.error('Error opening user modal:', err);
+        alert('Could not open Create User modal: ' + err.message);
+      }
     }
 
     function openEditUserModal(username) {
-      const u = allUsers.find(x => x.username.toLowerCase() === username.toLowerCase());
-      if (!u) return;
+      try {
+        const u = allUsers.find(x => x.username.toLowerCase() === username.toLowerCase());
+        if (!u) {
+          alert('User not found: ' + username);
+          return;
+        }
 
-      document.getElementById('formUserIsEdit').value = 'true';
-      document.getElementById('userModalTitle').textContent = `Edit Officer: ${u.username}`;
-      const uInput = document.getElementById('formUserUsername');
-      uInput.value = u.username;
-      uInput.disabled = true;
-      document.getElementById('formUserName').value = u.name || '';
-      document.getElementById('formUserRole').value = u.role || 'district_rep';
-      document.getElementById('formUserDistrict').value = u.district || 'All';
-      document.getElementById('formUserDesignation').value = u.designation || '';
-      document.getElementById('formUserPhone').value = u.phone || '';
-      document.getElementById('formUserEmail').value = u.email || '';
-      document.getElementById('formUserStatus').value = u.status || 'Active';
-      document.getElementById('defaultPasswordContainer').classList.add('hidden');
-      document.getElementById('userModal').classList.remove('hidden');
+        ensureUserDistrictDropdown();
+        document.getElementById('formUserIsEdit').value = 'true';
+        document.getElementById('userModalTitle').textContent = `Edit Officer Profile: ${u.username}`;
+        const uInput = document.getElementById('formUserUsername');
+        uInput.value = u.username;
+        uInput.disabled = false; // Allow Admin to update username if desired
+        document.getElementById('formUserName').value = u.name || '';
+        document.getElementById('formUserRole').value = u.role || 'district_rep';
+        document.getElementById('formUserDistrict').value = u.district || 'All';
+        document.getElementById('formUserDesignation').value = u.designation || '';
+        document.getElementById('formUserPhone').value = u.phone || '';
+        document.getElementById('formUserEmail').value = u.email || '';
+        document.getElementById('formUserStatus').value = u.status || 'Active';
+        document.getElementById('defaultPasswordContainer').classList.add('hidden');
+        
+        const modal = document.getElementById('userModal');
+        modal.classList.remove('hidden');
+        modal.style.display = 'flex';
+      } catch (err) {
+        console.error('Error opening edit user modal:', err);
+      }
     }
 
     function closeUserModal() {
-      document.getElementById('userModal').classList.add('hidden');
+      const modal = document.getElementById('userModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.style.display = 'none';
+      }
     }
 
     async function handleUserSubmit(e) {
@@ -4434,7 +4593,7 @@
           res = await fetch(`/users/${username}`, {
             method: 'PUT',
             headers: getAuthHeaders(),
-            body: JSON.stringify({ name, role, district, designation, phone, email, status: statusVal })
+            body: JSON.stringify({ new_username: username, name, role, district, designation, phone, email, status: statusVal })
           });
         } else {
           const default_password = document.getElementById('formUserDefaultPassword').value.trim();
@@ -4535,6 +4694,96 @@ This will revoke their access to the portal.`)) {
         }
       } catch (err) {
         alert('Network error deleting user: ' + err.message);
+      }
+    }
+
+
+    // =========================================================================================
+    // OFFICER SELF-SERVICE PROFILE FUNCTIONS
+    // =========================================================================================
+    function openMyProfileModal() {
+      if (!currentUser) return;
+      document.getElementById('profileUsername').value = currentUser.username || '';
+      document.getElementById('profileName').value = currentUser.name || '';
+      document.getElementById('profileDesignation').value = currentUser.designation || '';
+      document.getElementById('profilePhone').value = currentUser.phone || '';
+      document.getElementById('profileEmail').value = currentUser.email || '';
+      
+      const roleLabel = (currentUser.role || '').replace('_', ' ');
+      document.getElementById('profileRoleBadge').textContent = roleLabel;
+      document.getElementById('profileDistrictBadge').textContent = currentUser.district === 'All' ? 'All Districts (HQ)' : currentUser.district;
+      
+      const errBox = document.getElementById('profileErrorMessage');
+      if (errBox) errBox.classList.add('hidden');
+
+      const modal = document.getElementById('myProfileModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.style.display = 'flex';
+      }
+    }
+
+    function closeMyProfileModal() {
+      const modal = document.getElementById('myProfileModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.style.display = 'none';
+      }
+    }
+
+    async function handleMyProfileSubmit(e) {
+      e.preventDefault();
+      const username = document.getElementById('profileUsername').value.trim().toLowerCase();
+      const name = document.getElementById('profileName').value.trim();
+      const designation = document.getElementById('profileDesignation').value.trim();
+      const phone = document.getElementById('profilePhone').value.trim();
+      const email = document.getElementById('profileEmail').value.trim();
+      const errBox = document.getElementById('profileErrorMessage');
+      const btn = document.getElementById('btnSaveProfile');
+
+      if (errBox) errBox.classList.add('hidden');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Saving...</span>';
+      }
+
+      try {
+        const res = await fetch('/auth/profile', {
+          method: 'PUT',
+          headers: getAuthHeaders(),
+          body: JSON.stringify({ username, name, designation, phone, email })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          if (data.token) {
+            authToken = data.token;
+            localStorage.setItem('resurvey_auth_token', authToken);
+          }
+          if (data.user) {
+            currentUser = data.user;
+          }
+          renderAuthHeaderUI();
+          closeMyProfileModal();
+          alert(`Officer profile updated successfully!\nName: ${currentUser.name}\nUsername: ${currentUser.username}`);
+          if (currentUser.role === 'admin') {
+            await fetchUsers();
+          }
+        } else {
+          if (errBox) {
+            errBox.textContent = data.detail || 'Failed to update profile.';
+            errBox.classList.remove('hidden');
+          }
+        }
+      } catch (err) {
+        if (errBox) {
+          errBox.textContent = 'Network error: ' + err.message;
+          errBox.classList.remove('hidden');
+        }
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i><span>Save Profile Details</span>';
+        }
       }
     }
 

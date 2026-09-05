@@ -1,5 +1,232 @@
 [
   {
+    "id": "log-1788600030637",
+    "timestamp": "2026-09-05T14:50:30.637438",
+    "record_id": "user-test_rep_khammam",
+    "village_name": "Account: test_rep_khammam",
+    "district_name": "Khammam",
+    "user_name": "Project Administrator",
+    "user_role": "admin",
+    "action": "User Account Deleted",
+    "details": "Administrator 'Project Administrator' deleted user account 'test_rep_khammam'.",
+    "changes": {
+      "deleted_user": "test_rep_khammam"
+    }
+  },
+  {
+    "id": "log-1788600030610",
+    "timestamp": "2026-09-05T14:50:30.610721",
+    "record_id": "user-test_rep_khammam",
+    "village_name": "Account: test_rep_khammam",
+    "district_name": "Khammam",
+    "user_name": "Project Administrator",
+    "user_role": "admin",
+    "action": "User Account Updated",
+    "details": "Admin 'Project Administrator' updated details for user 'test_rep_khammam' -> 'test_rep_khammam': {'designation': 'Senior District Surveyor', 'status': 'Active', 'updated_at': '2026-09-05T14:50:30.608835'}",
+    "changes": {
+      "designation": "Senior District Surveyor",
+      "status": "Active",
+      "updated_at": "2026-09-05T14:50:30.608835",
+      "username": "test_rep_khammam"
+    }
+  },
+  {
+    "id": "log-1788600030584",
+    "timestamp": "2026-09-05T14:50:30.584118",
+    "record_id": "user-test_rep_khammam",
+    "village_name": "Account: test_rep_khammam",
+    "district_name": "Khammam",
+    "user_name": "Project Administrator",
+    "user_role": "admin",
+    "action": "Password Reset by Admin",
+    "details": "Administrator 'Project Administrator' reset password for user 'test_rep_khammam' to temporary default.",
+    "changes": {
+      "is_default_password": true
+    }
+  },
+  {
+    "id": "log-1788600030558",
+    "timestamp": "2026-09-05T14:50:30.558293",
+    "record_id": "user-test_rep_khammam",
+    "village_name": "Account: test_rep_khammam",
+    "district_name": "Khammam",
+    "user_name": "K. Venkatesh",
+    "user_role": "district_rep",
+    "action": "Password Changed by User",
+    "details": "User 'test_rep_khammam' successfully updated their personal account password.",
+    "changes": {
+      "is_default_password": false
+    }
+  },
+  {
+    "id": "log-1788600030512",
+    "timestamp": "2026-09-05T14:50:30.512908",
+    "record_id": "user-test_rep_khammam",
+    "village_name": "Account: test_rep_khammam",
+    "district_name": "Khammam",
+    "user_name": "Project Administrator",
+    "user_role": "admin",
+    "action": "User Account Created",
+    "details": "Created officer account 'test_rep_khammam' (Role: district_rep, District: Khammam) with default password.",
+    "changes": {
+      "role": "district_rep",
+      "district": "Khammam",
+      "status": "Active"
+    }
+  },
+  {
+    "id": "log-1788600001678",
+    "timestamp": "2026-09-05T14:50:01.678343",
+    "record_id": "user-asifabad_rep1",
+    "village_name": "Account: asifabad_rep1",
+    "district_name": "Asifabad",
+    "user_name": "Project Administrator",
+    "user_role": "admin",
+    "action": "Password Reset by Admin",
+    "details": "Administrator 'Project Administrator' reset password for user 'asifabad_rep1' to temporary default.",
+    "changes": {
+      "is_default_password": true
+    }
+  },
+  {
+    "id": "log-1788600001644",
+    "timestamp": "2026-09-05T14:50:01.644536",
+    "record_id": "user-asifabad_rep1",
+    "village_name": "Account: asifabad_rep1",
+    "district_name": "Asifabad",
+    "user_name": "Sri K. Ramesh Reddy (Lead Officer)",
+    "user_role": "district_rep",
+    "action": "Password Changed by User",
+    "details": "User 'asifabad_rep1' successfully updated their personal account password.",
+    "changes": {
+      "is_default_password": false
+    }
+  },
+  {
+    "id": "log-1788600001618",
+    "timestamp": "2026-09-05T14:50:01.618463",
+    "record_id": "user-asifabad_rep1",
+    "village_name": "Account: asifabad_rep1",
+    "district_name": "Asifabad",
+    "user_name": "Sri K. Ramesh Reddy (Lead Officer)",
+    "user_role": "district_rep",
+    "action": "User Profile Updated",
+    "details": "Officer updated personal profile: ID=asifabad_rep1, Name=Sri K. Ramesh Reddy (Lead Officer), Contact=+91 98480 12345",
+    "changes": {
+      "old_username": "asifabad_leadrep",
+      "new_username": "asifabad_rep1",
+      "name": "Sri K. Ramesh Reddy (Lead Officer)"
+    }
+  },
+  {
+    "id": "log-1788600001587",
+    "timestamp": "2026-09-05T14:50:01.587939",
+    "record_id": "user-asifabad_leadrep",
+    "village_name": "Account: asifabad_leadrep",
+    "district_name": "Asifabad",
+    "user_name": "Sri K. Ramesh Reddy (Lead Officer)",
+    "user_role": "district_rep",
+    "action": "User Profile Updated",
+    "details": "Officer updated personal profile: ID=asifabad_leadrep, Name=Sri K. Ramesh Reddy (Lead Officer), Contact=+91 98480 12345",
+    "changes": {
+      "old_username": "asifabad_rep1",
+      "new_username": "asifabad_leadrep",
+      "name": "Sri K. Ramesh Reddy (Lead Officer)"
+    }
+  },
+  {
+    "id": "log-1788600001565",
+    "timestamp": "2026-09-05T14:50:01.565351",
+    "record_id": "user-asifabad_rep1",
+    "village_name": "Account: asifabad_rep1",
+    "district_name": "Asifabad",
+    "user_name": "Sri K. Ramesh Reddy (Lead Officer)",
+    "user_role": "district_rep",
+    "action": "User Profile Updated",
+    "details": "Officer updated personal profile: ID=asifabad_rep1, Name=Sri K. Ramesh Reddy (Lead Officer), Contact=+91 98480 12345",
+    "changes": {
+      "old_username": "asifabad_rep1",
+      "new_username": "asifabad_rep1",
+      "name": "Sri K. Ramesh Reddy (Lead Officer)"
+    }
+  },
+  {
+    "id": "log-1788599887186",
+    "timestamp": "2026-09-05T14:48:07.186899",
+    "record_id": "user-asifabad_rep1",
+    "village_name": "Account: asifabad_rep1",
+    "district_name": "Asifabad",
+    "user_name": "Project Administrator",
+    "user_role": "admin",
+    "action": "Password Reset by Admin",
+    "details": "Administrator 'Project Administrator' reset password for user 'asifabad_rep1' to temporary default.",
+    "changes": {
+      "is_default_password": true
+    }
+  },
+  {
+    "id": "log-1788599887167",
+    "timestamp": "2026-09-05T14:48:07.167956",
+    "record_id": "user-asifabad_rep1",
+    "village_name": "Account: asifabad_rep1",
+    "district_name": "Asifabad",
+    "user_name": "Sri K. Ramesh Reddy (Lead Officer)",
+    "user_role": "district_rep",
+    "action": "Password Changed by User",
+    "details": "User 'asifabad_rep1' successfully updated their personal account password.",
+    "changes": {
+      "is_default_password": false
+    }
+  },
+  {
+    "id": "log-1788599887152",
+    "timestamp": "2026-09-05T14:48:07.152585",
+    "record_id": "user-asifabad_rep1",
+    "village_name": "Account: asifabad_rep1",
+    "district_name": "Asifabad",
+    "user_name": "Sri K. Ramesh Reddy (Lead Officer)",
+    "user_role": "district_rep",
+    "action": "User Profile Updated",
+    "details": "Officer updated personal profile: ID=asifabad_rep1, Name=Sri K. Ramesh Reddy (Lead Officer), Contact=+91 98480 12345",
+    "changes": {
+      "old_username": "asifabad_leadrep",
+      "new_username": "asifabad_rep1",
+      "name": "Sri K. Ramesh Reddy (Lead Officer)"
+    }
+  },
+  {
+    "id": "log-1788599887134",
+    "timestamp": "2026-09-05T14:48:07.134649",
+    "record_id": "user-asifabad_leadrep",
+    "village_name": "Account: asifabad_leadrep",
+    "district_name": "Asifabad",
+    "user_name": "Sri K. Ramesh Reddy (Lead Officer)",
+    "user_role": "district_rep",
+    "action": "User Profile Updated",
+    "details": "Officer updated personal profile: ID=asifabad_leadrep, Name=Sri K. Ramesh Reddy (Lead Officer), Contact=+91 98480 12345",
+    "changes": {
+      "old_username": "asifabad_rep1",
+      "new_username": "asifabad_leadrep",
+      "name": "Sri K. Ramesh Reddy (Lead Officer)"
+    }
+  },
+  {
+    "id": "log-1788599887118",
+    "timestamp": "2026-09-05T14:48:07.118325",
+    "record_id": "user-asifabad_rep1",
+    "village_name": "Account: asifabad_rep1",
+    "district_name": "Asifabad",
+    "user_name": "Sri K. Ramesh Reddy (Lead Officer)",
+    "user_role": "district_rep",
+    "action": "User Profile Updated",
+    "details": "Officer updated personal profile: ID=asifabad_rep1, Name=Sri K. Ramesh Reddy (Lead Officer), Contact=+91 98480 12345",
+    "changes": {
+      "old_username": "asifabad_rep1",
+      "new_username": "asifabad_rep1",
+      "name": "Sri K. Ramesh Reddy (Lead Officer)"
+    }
+  },
+  {
     "id": "log-1788598261474",
     "timestamp": "2026-09-05T14:21:01.474676",
     "record_id": "user-test_rep_khammam",

@@ -34,10 +34,16 @@
   {
     "username": "asifabad_rep1",
     "password": "rep123",
-    "name": "Asifabad District Lead Rep (Primary)",
+    "name": "Sri K. Ramesh Reddy (Lead Officer)",
     "role": "district_rep",
     "district": "Asifabad",
-    "designation": "Asifabad District Survey Coordinator"
+    "designation": "Assistant Director of Survey & Land Records",
+    "phone": "+91 98480 12345",
+    "email": "k.ramesh@telangana.gov.in",
+    "profile_updated_at": "2026-09-05T14:50:01.615539",
+    "is_default_password": true,
+    "password_updated_at": "2026-09-05T14:50:01.675678",
+    "status": "Active"
   },
   {
     "username": "asifabad_rep",

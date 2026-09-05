@@ -44,6 +44,7 @@ from core.database import (
     get_user,
     add_user,
     update_user,
+    update_user_profile,
     reset_user_password,
     change_user_password,
     delete_user
@@ -143,6 +144,7 @@ class UserCreateRequest(BaseModel):
     status: Optional[str] = "Active"
 
 class UserUpdateRequest(BaseModel):
+    new_username: Optional[str] = None
     name: Optional[str] = None
     role: Optional[str] = None
     district: Optional[str] = None
@@ -150,6 +152,13 @@ class UserUpdateRequest(BaseModel):
     phone: Optional[str] = None
     email: Optional[str] = None
     status: Optional[str] = None
+
+class UserProfileUpdateRequest(BaseModel):
+    username: Optional[str] = None
+    name: Optional[str] = None
+    phone: Optional[str] = None
+    email: Optional[str] = None
+    designation: Optional[str] = None
 
 class AdminPasswordResetRequest(BaseModel):
     new_password: str
@@ -277,6 +286,25 @@ def user_change_password(
             new_password=payload.new_password
         )
         return {"success": True, "message": "Password successfully updated. Please use your new password for subsequent logins."}
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+
+@router.put("/auth/profile")
+def update_self_profile(
+    payload: UserProfileUpdateRequest,
+    user: Dict[str, Any] = Depends(require_user)
+):
+    try:
+        current_username = user["username"]
+        updates = {k: v for k, v in payload.dict().items() if v is not None}
+        updated_user = update_user_profile(current_username, updates)
+        new_token = create_auth_token(updated_user)
+        return {
+            "success": True,
+            "token": new_token,
+            "user": updated_user,
+            "message": "Your profile information has been successfully updated."
+        }
     except ValueError as e:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
 
@@ -494,7 +522,7 @@ def list_users(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Permission denied: Administrator privileges required to access User Management."
         )
-    return get_users(district=district, role=role, search=search)
+    return get_users(district=district, role=role, search=search, include_passwords=True)
 
 @router.get("/users/{username}")
 def get_user_details(

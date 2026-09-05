@@ -865,7 +865,8 @@ def authenticate_user(username: str, password: str) -> Optional[Dict[str, Any]]:
 def get_users(
     district: Optional[str] = None,
     role: Optional[str] = None,
-    search: Optional[str] = None
+    search: Optional[str] = None,
+    include_passwords: bool = True
 ) -> List[Dict[str, Any]]:
     users = _load_json(USERS_FILE)
     result = []
@@ -891,7 +892,7 @@ def get_users(
                 continue
 
         safe_u = dict(u)
-        if "password" in safe_u:
+        if not include_passwords and "password" in safe_u:
             del safe_u["password"]
         if "status" not in safe_u:
             safe_u["status"] = "Active"
@@ -972,37 +973,101 @@ def update_user(username: str, updates: Dict[str, Any], admin_name: str, admin_r
     users = _load_json(USERS_FILE)
     u_lower = username.lower().strip()
     
-    for idx, u in enumerate(users):
-        if u.get("username", "").lower() == u_lower:
-            old_summary = f"Role: {u.get('role')}, District: {u.get('district')}, Status: {u.get('status', 'Active')}"
-            
-            allowed_fields = ["name", "role", "district", "designation", "phone", "email", "status"]
-            filtered_updates = {k: v for k, v in updates.items() if k in allowed_fields and v is not None}
-            filtered_updates["updated_at"] = datetime.utcnow().isoformat()
-            
-            users[idx].update(filtered_updates)
-            _save_json(USERS_FILE, users)
-            
-            if is_mongo and mongo_db is not None:
-                mongo_db.users.update_one({"username": u_lower}, {"$set": filtered_updates})
-            
-            new_summary = f"Role: {users[idx].get('role')}, District: {users[idx].get('district')}, Status: {users[idx].get('status')}"
-            log_change(
-                record_id=f"user-{username}",
-                village_name=f"Account: {username}",
-                district_name=users[idx].get("district", "All"),
-                user_name=admin_name,
-                user_role=admin_role,
-                action="User Account Updated",
-                details=f"Updated details for user '{username}': {filtered_updates}",
-                changes=filtered_updates
-            )
-            
-            safe_u = dict(users[idx])
-            if "password" in safe_u:
-                del safe_u["password"]
-            return safe_u
-    return None
+    target_idx = next((i for i, u in enumerate(users) if u.get("username", "").lower() == u_lower), None)
+    if target_idx is None:
+        return None
+
+    # Support username rename if new_username is specified
+    new_username = (updates.get("new_username") or updates.get("username") or "").lower().strip()
+    old_username = users[target_idx]["username"]
+    final_username = old_username
+
+    if new_username and new_username != u_lower:
+        if not re.match(r"^[a-z0-9_]{3,30}$", new_username):
+            raise ValueError("Username must be 3-30 characters with lowercase letters, digits, or underscores only.")
+        if any(u.get("username", "").lower() == new_username for i, u in enumerate(users) if i != target_idx):
+            raise ValueError(f"Username '{new_username}' is already taken.")
+        users[target_idx]["username"] = new_username
+        final_username = new_username
+
+    allowed_fields = ["name", "role", "district", "designation", "phone", "email", "status"]
+    filtered_updates = {k: v for k, v in updates.items() if k in allowed_fields and v is not None}
+    filtered_updates["updated_at"] = datetime.utcnow().isoformat()
+    
+    users[target_idx].update(filtered_updates)
+    _save_json(USERS_FILE, users)
+    
+    if is_mongo and mongo_db is not None:
+        mongo_db.users.update_one({"username": u_lower}, {"$set": {**filtered_updates, "username": final_username}})
+    
+    log_change(
+        record_id=f"user-{final_username}",
+        village_name=f"Account: {final_username}",
+        district_name=users[target_idx].get("district", "All"),
+        user_name=admin_name,
+        user_role=admin_role,
+        action="User Account Updated",
+        details=f"Admin '{admin_name}' updated details for user '{old_username}' -> '{final_username}': {filtered_updates}",
+        changes={**filtered_updates, "username": final_username}
+    )
+    
+    safe_u = dict(users[target_idx])
+    return safe_u
+
+def update_user_profile(current_username: str, updates: Dict[str, Any]) -> Dict[str, Any]:
+    users = _load_json(USERS_FILE)
+    u_lower = current_username.lower().strip()
+    
+    target_idx = next((i for i, u in enumerate(users) if u.get("username", "").lower() == u_lower), None)
+    if target_idx is None:
+        raise ValueError("User account not found.")
+
+    new_username = (updates.get("username") or updates.get("new_username") or "").lower().strip()
+    old_username = users[target_idx]["username"]
+    final_username = old_username
+
+    if new_username and new_username != u_lower:
+        if not re.match(r"^[a-z0-9_]{3,30}$", new_username):
+            raise ValueError("Username must be 3-30 characters with lowercase letters, digits, or underscores only.")
+        if any(u.get("username", "").lower() == new_username for i, u in enumerate(users) if i != target_idx):
+            raise ValueError(f"Username '{new_username}' is already taken. Please choose another username.")
+        users[target_idx]["username"] = new_username
+        final_username = new_username
+
+    # Update personal details: name, phone, email, designation
+    for field in ["name", "phone", "email", "designation"]:
+        if field in updates and updates[field] is not None:
+            users[target_idx][field] = str(updates[field]).strip()
+
+    users[target_idx]["profile_updated_at"] = datetime.utcnow().isoformat()
+    _save_json(USERS_FILE, users)
+
+    if is_mongo and mongo_db is not None:
+        mongo_db.users.update_one(
+            {"username": u_lower},
+            {"$set": {
+                "username": final_username,
+                "name": users[target_idx].get("name", ""),
+                "phone": users[target_idx].get("phone", ""),
+                "email": users[target_idx].get("email", ""),
+                "designation": users[target_idx].get("designation", ""),
+                "profile_updated_at": users[target_idx]["profile_updated_at"]
+            }}
+        )
+
+    log_change(
+        record_id=f"user-{final_username}",
+        village_name=f"Account: {final_username}",
+        district_name=users[target_idx].get("district", "All"),
+        user_name=users[target_idx].get("name", final_username),
+        user_role=users[target_idx].get("role", "user"),
+        action="User Profile Updated",
+        details=f"Officer updated personal profile: ID={final_username}, Name={users[target_idx].get('name')}, Contact={users[target_idx].get('phone')}",
+        changes={"old_username": old_username, "new_username": final_username, "name": users[target_idx].get("name")}
+    )
+
+    safe_u = dict(users[target_idx])
+    return safe_u
 
 def reset_user_password(username: str, new_password: str, admin_name: str, admin_role: str) -> bool:
     if not new_password or len(new_password.strip()) < 4:
