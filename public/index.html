@@ -506,7 +506,7 @@
 
     async function checkDbStatus() {
       try {
-        const res = await fetch('/api/status');
+        const res = await fetch('/status');
         const data = await res.json();
         const text = document.getElementById('dbEngineText');
         if (data.is_mongodb) {
@@ -521,7 +521,7 @@
 
     async function fetchDistricts() {
       try {
-        const res = await fetch('/api/districts');
+        const res = await fetch('/districts');
         allDistricts = await res.json();
         
         const filterSelect = document.getElementById('districtFilter');
@@ -548,7 +548,7 @@
 
     async function fetchVillages() {
       try {
-        const res = await fetch('/api/villages');
+        const res = await fetch('/villages');
         allVillages = await res.json();
         updateTabCounts();
         applyFilters();
@@ -559,7 +559,7 @@
 
     async function fetchDashboardStats() {
       try {
-        const res = await fetch('/api/dashboard/stats');
+        const res = await fetch('/dashboard/stats');
         const stats = await res.json();
 
         document.getElementById('kpiDistricts').textContent = stats.total_districts;
@@ -890,14 +890,14 @@
 
       try {
         if (id) {
-          const res = await fetch(`/api/villages/${id}`, {
+          const res = await fetch(`/villages/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
           });
           if (!res.ok) throw new Error('Update failed');
         } else {
-          const res = await fetch('/api/villages', {
+          const res = await fetch('/villages', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
@@ -916,7 +916,7 @@
     async function confirmDeleteVillage(id) {
       if (!confirm('Are you sure you want to delete this village record?')) return;
       try {
-        const res = await fetch(`/api/villages/${id}`, { method: 'DELETE' });
+        const res = await fetch(`/villages/${id}`, { method: 'DELETE' });
         if (res.ok) {
           await fetchVillages();
           await fetchDashboardStats();
@@ -942,7 +942,7 @@
 
     async function quickLogin(username, password) {
       try {
-        const res = await fetch('/api/auth/login', {
+        const res = await fetch('/auth/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, password })
@@ -965,7 +965,7 @@
     }
 
     function downloadExcel() {
-      window.location.href = '/api/export/excel';
+      window.location.href = '/export/excel';
     }
   </script>
 </body>
