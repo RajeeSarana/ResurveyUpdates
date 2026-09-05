@@ -1,3 +1,4 @@
+import math
 import os
 import re
 import json
@@ -14,6 +15,8 @@ VILLAGES_FILE = os.path.join(DATA_DIR, "villages.json")
 USERS_FILE = os.path.join(DATA_DIR, "users.json")
 REPRESENTATIVES_FILE = os.path.join(DATA_DIR, "representatives.json")
 AUDIT_LOGS_FILE = os.path.join(DATA_DIR, "audit_logs.json")
+MASTER_VILLAGES_FILE = os.path.join(DATA_DIR, "master_villages.json")
+MASTER_MANDALS_FILE = os.path.join(DATA_DIR, "master_mandals.json")
 
 MONGODB_URI = os.getenv("MONGODB_URI")
 DB_NAME = os.getenv("MONGODB_DB", "resurvey_portal")
@@ -1179,6 +1182,81 @@ def delete_user(username: str, admin_name: str, admin_role: str) -> bool:
         return True
     return False
 
+
+# ----------------- STATE TERRITORIAL MASTER REGISTRY (10,888 VILLAGES / 604 MANDALS) -----------------
+def get_master_villages(
+    district: Optional[str] = None,
+    mandal: Optional[str] = None,
+    category: Optional[str] = None,
+    is_picked: Optional[bool] = None,
+    search: Optional[str] = None,
+    page: int = 1,
+    limit: int = 50
+) -> Dict[str, Any]:
+    all_villages = _load_json(MASTER_VILLAGES_FILE)
+    filtered = all_villages
+
+    d_clean = district.lower().strip() if district and district.lower() != "all" else None
+    m_clean = mandal.lower().strip() if mandal and mandal.lower() != "all" else None
+    c_clean = category.lower().strip() if category and category.lower() != "all" else None
+    s_clean = search.lower().strip() if search else None
+
+    if d_clean:
+        filtered = [v for v in filtered if v.get("district_name", "").lower() == d_clean]
+    if m_clean:
+        filtered = [v for v in filtered if v.get("mandal_name", "").lower() == m_clean]
+    if c_clean:
+        filtered = [v for v in filtered if v.get("category", "").lower() == c_clean]
+    if is_picked is not None:
+        filtered = [v for v in filtered if v.get("is_picked_for_resurvey") == is_picked]
+    if s_clean:
+        filtered = [
+            v for v in filtered
+            if s_clean in v.get("village_name", "").lower()
+            or s_clean in v.get("mandal_name", "").lower()
+            or s_clean in v.get("district_name", "").lower()
+        ]
+
+    total_matches = len(filtered)
+    total_pages = max(1, math.ceil(total_matches / limit)) if limit > 0 else 1
+    safe_page = max(1, min(page, total_pages))
+    offset = (safe_page - 1) * limit
+    slice_data = filtered[offset : offset + limit]
+
+    return {
+        "data": slice_data,
+        "total": total_matches,
+        "page": safe_page,
+        "limit": limit,
+        "total_pages": total_pages,
+        "summary": {
+            "total_state_villages": len(all_villages),
+            "total_non_cadastral": 373,
+            "total_cadastral": 10515,
+            "total_picked_for_resurvey": 2609,
+            "total_non_survey_phase": 8279
+        }
+    }
+
+def get_master_mandals(
+    district: Optional[str] = None,
+    search: Optional[str] = None
+) -> List[Dict[str, Any]]:
+    mandals = _load_json(MASTER_MANDALS_FILE)
+    filtered = mandals
+    d_clean = district.lower().strip() if district and district.lower() != "all" else None
+    s_clean = search.lower().strip() if search else None
+
+    if d_clean:
+        filtered = [m for m in filtered if m.get("district_name", "").lower() == d_clean]
+    if s_clean:
+        filtered = [
+            m for m in filtered
+            if s_clean in m.get("mandal_name", "").lower()
+            or s_clean in m.get("district_name", "").lower()
+        ]
+    return sorted(filtered, key=lambda x: (x.get("district_name", ""), x.get("mandal_name", "")))
+
 # ----------------- EXTENSIBLE MASTER CATALOG -----------------
 def get_master_catalog() -> Dict[str, Any]:
     districts = get_districts()
@@ -1199,21 +1277,21 @@ def get_master_catalog() -> Dict[str, Any]:
             },
             {
                 "entity_key": "mandals",
-                "name": "Mandals Master",
+                "name": "State Mandals Registry",
                 "icon": "fa-building-columns",
-                "count": len(mandals),
+                "count": 604,
                 "status": "Active",
-                "description": "Sub-district administrative units mapped to parent districts with Telugu nomenclature.",
-                "fields": ["id", "mandal_name", "mandal_name_telugu", "district_name", "district_id", "status"]
+                "description": "Comprehensive statewide directory of all 604 administrative mandals mapped to their 32 parent districts.",
+                "fields": ["id", "mandal_name", "district_name", "total_villages", "resurvey_villages_count", "status"]
             },
             {
                 "entity_key": "villages",
-                "name": "Villages Master",
+                "name": "Revenue Villages Registry",
                 "icon": "fa-tree-city",
-                "count": len(villages),
+                "count": 10888,
                 "status": "Active",
-                "description": "Granular survey revenue village units tracking acreage, ground truthing, and shapefile certification.",
-                "fields": ["id", "village_name", "village_name_telugu", "mandal_name", "district_name", "category", "extent_raw", "status"]
+                "description": "Complete state territorial registry of 10,888 revenue villages (373 Non-Cadastral + 10,515 Cadastral; 2,609 Picked for Resurvey).",
+                "fields": ["id", "village_name", "mandal_name", "district_name", "category", "is_picked_for_resurvey", "resurvey_phase"]
             },
             {
                 "entity_key": "representatives",

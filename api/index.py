@@ -37,6 +37,8 @@ from core.database import (
     update_representative,
     delete_representative,
     get_master_catalog,
+    get_master_villages,
+    get_master_mandals,
     authenticate_user,
     create_auth_token,
     verify_auth_token,
@@ -608,6 +610,35 @@ def remove_user(
         return {"success": True, "message": f"User '{username}' successfully deleted"}
     except ValueError as e:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+
+
+# ----------------- STATE TERRITORIAL MASTER DIRECTORY (10,888 VILLAGES / 604 MANDALS) -----------------
+@router.get("/master/villages")
+def list_master_villages(
+    district: Optional[str] = Query(None),
+    mandal: Optional[str] = Query(None),
+    category: Optional[str] = Query(None),
+    is_picked: Optional[bool] = Query(None),
+    search: Optional[str] = Query(None),
+    page: int = Query(1, ge=1),
+    limit: int = Query(50, ge=1, le=500)
+):
+    return get_master_villages(
+        district=district,
+        mandal=mandal,
+        category=category,
+        is_picked=is_picked,
+        search=search,
+        page=page,
+        limit=limit
+    )
+
+@router.get("/master/mandals")
+def list_master_mandals(
+    district: Optional[str] = Query(None),
+    search: Optional[str] = Query(None)
+):
+    return get_master_mandals(district=district, search=search)
 
 # Villages Operations & Verification
 @router.get("/villages")

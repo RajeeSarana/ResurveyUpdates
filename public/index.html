@@ -208,9 +208,9 @@
         </button>
 
         <button onclick="switchMainTab('tab-villages')" id="nav-tab-villages" class="tab-btn px-3 py-2 rounded-t-lg flex items-center space-x-1.5 whitespace-nowrap">
-          <i class="fa-solid fa-table-list text-sm"></i>
-          <span>Village Survey Explorer</span>
-          <span id="navVillageCountBadge" class="ml-1 bg-emerald-100 text-emerald-800 text-[10px] font-bold px-1.5 py-0.5 rounded-full">90</span>
+          <i class="fa-solid fa-list-check text-sm text-emerald-300"></i>
+          <span>Resurvey Operations &amp; Status</span>
+          <span id="navVillageCountBadge" class="ml-1 bg-emerald-100 text-emerald-800 text-[10px] font-bold px-1.5 py-0.5 rounded-full" title="Active Survey Submissions">90</span>
         </button>
 
         <button onclick="switchMainTab('tab-qc')" id="nav-tab-qc" class="tab-btn px-3 py-2 rounded-t-lg flex items-center space-x-1.5 whitespace-nowrap">
@@ -231,7 +231,8 @@
 
         <button onclick="switchMainTab('tab-master')" id="nav-tab-master" class="tab-btn px-3 py-2 rounded-t-lg flex items-center space-x-1.5 whitespace-nowrap">
           <i class="fa-solid fa-database text-sm text-emerald-400"></i>
-          <span>Master Data Hub</span>
+          <span>State Master Directory</span>
+          <span class="ml-1 bg-teal-800 text-emerald-200 text-[10px] font-bold px-1.5 py-0.5 rounded-full border border-teal-600">10,888</span>
         </button>
       </div>
     </nav>
@@ -444,6 +445,24 @@
     <!-- VIEW TAB 2: VILLAGE SURVEY EXPLORER                                                       -->
     <!-- ========================================================================================= -->
     <div id="tab-villages" class="hidden space-y-4">
+      <!-- Operations Header Banner -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-4 flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <div>
+          <h3 class="text-sm font-bold text-slate-900 flex items-center space-x-2">
+            <i class="fa-solid fa-list-check text-emerald-600"></i>
+            <span>Resurvey Operations &amp; Survey Submissions Status</span>
+            <span class="ml-2 bg-emerald-50 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-200">Active Field Progress</span>
+          </h3>
+          <p class="text-xs text-slate-500 mt-0.5">Tracking Ground Truthing (GT), Shapefile generation, CSO delivery, and Central QC Verification for ongoing resurvey submissions. For the permanent official territorial master of all 10,888 villages, view the <a href="javascript:void(0)" onclick="switchMainTab('tab-master')" class="text-emerald-700 underline font-semibold">State Master Directory &rarr;</a></p>
+        </div>
+        <div class="flex items-center space-x-2 no-print" id="villageActionsContainer">
+          <button onclick="handleAddVillageClick()" id="btnAddVillage" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3.5 py-2 rounded-lg shadow flex items-center space-x-1.5 transition">
+            <i class="fa-solid fa-plus"></i>
+            <span>Add Survey Submission</span>
+          </button>
+        </div>
+      </div>
+
       <section class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
         <!-- Explorer Toolbar -->
         <div class="p-4 sm:p-5 border-b border-slate-200 space-y-4">
@@ -473,12 +492,10 @@
               </button>
             </div>
 
-            <!-- Add Record Button -->
-            <div class="flex items-center space-x-2 no-print" id="villageActionsContainer">
-              <button onclick="handleAddVillageClick()" id="btnAddVillage" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3.5 py-2 rounded-lg shadow flex items-center space-x-1.5 transition">
-                <i class="fa-solid fa-plus"></i>
-                <span>Add Village Survey Data</span>
-              </button>
+            <!-- Active Field Submissions Status Indicator -->
+            <div class="flex items-center space-x-2">
+              <span class="text-xs text-slate-500 hidden sm:inline">Active Progress:</span>
+              <span class="bg-teal-50 text-teal-800 text-[11px] font-bold px-2.5 py-1 rounded-lg border border-teal-200">90 Submissions Tracked</span>
             </div>
           </div>
 
@@ -776,22 +793,52 @@
     </div>
 
     <!-- ========================================================================================= -->
-    <!-- VIEW TAB 6: MASTER DATA HUB (DISTRICTS & REPRESENTATIVES)                                  -->
+    <!-- VIEW TAB 6: STATE TERRITORIAL MASTER DIRECTORY (32 DIST, 604 MANDALS, 10,888 VILLAGES)    -->
     <!-- ========================================================================================= -->
     <div id="tab-master" class="hidden space-y-4">
-      <!-- Subtabs for Master Data -->
+      <!-- Master Directory Executive Header Banner -->
+      <div class="bg-gradient-to-r from-teal-950 via-teal-900 to-emerald-900 rounded-xl p-4 text-white shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="bg-emerald-500/30 text-emerald-200 border border-emerald-400/40 text-[10px] font-extrabold uppercase px-2 py-0.5 rounded tracking-wider">Official State Registry</span>
+            <span class="text-xs text-emerald-200">Government of Telangana — Territorial Master Directory</span>
+          </div>
+          <h2 class="text-lg font-black tracking-tight mt-1 text-white">32 Districts • 604 Mandals • 10,888 Revenue Villages</h2>
+          <p class="text-xs text-emerald-100/80 mt-0.5">Definitive territorial master directory with resurvey target categorization: 373 Non-Cadastral (100% picked) &amp; 2,236 Cadastral picked (Total 2,609 Resurvey Target villages).</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 text-xs">
+          <div class="bg-teal-950/70 border border-emerald-700/60 rounded-lg px-3 py-2 text-center min-w-[85px]">
+            <div class="text-[10px] uppercase font-bold text-emerald-300">Total Villages</div>
+            <div class="text-base font-extrabold text-white">10,888</div>
+          </div>
+          <div class="bg-teal-950/70 border border-emerald-700/60 rounded-lg px-3 py-2 text-center min-w-[85px]">
+            <div class="text-[10px] uppercase font-bold text-emerald-300">Resurvey Target</div>
+            <div class="text-base font-extrabold text-emerald-400">2,609</div>
+          </div>
+          <div class="bg-teal-950/70 border border-emerald-700/60 rounded-lg px-3 py-2 text-center min-w-[85px]">
+            <div class="text-[10px] uppercase font-bold text-slate-300">Non-Survey</div>
+            <div class="text-base font-extrabold text-slate-300">8,279</div>
+          </div>
+          <div class="bg-teal-950/70 border border-emerald-700/60 rounded-lg px-3 py-2 text-center min-w-[75px]">
+            <div class="text-[10px] uppercase font-bold text-teal-300">Mandals</div>
+            <div class="text-base font-extrabold text-teal-200">604</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subtabs for Master Directory -->
       <div class="flex items-center space-x-2 border-b border-slate-200 pb-2 overflow-x-auto scrollbar-none">
-        <button onclick="switchMasterSubTab('users')" id="subtab-users" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow transition whitespace-nowrap">
-          <i class="fa-solid fa-user-shield mr-1.5"></i>User Accounts (<span id="userMasterCountBadge">...</span>)
-        </button>
-        <button onclick="switchMasterSubTab('districts')" id="subtab-districts" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition whitespace-nowrap">
-          <i class="fa-solid fa-landmark mr-1.5"></i>Districts Master (<span id="distMasterCountBadge">32</span>)
+        <button onclick="switchMasterSubTab('districts')" id="subtab-districts" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow transition whitespace-nowrap">
+          <i class="fa-solid fa-landmark mr-1.5"></i>Districts Directory (<span id="distMasterCountBadge">32</span>)
         </button>
         <button onclick="switchMasterSubTab('mandals')" id="subtab-mandals" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition whitespace-nowrap">
-          <i class="fa-solid fa-building-columns mr-1.5"></i>Mandals Master (<span id="mandalMasterCountBadge">79</span>)
+          <i class="fa-solid fa-building-columns mr-1.5"></i>State Mandals (<span id="mandalMasterCountBadge">604</span>)
         </button>
         <button onclick="switchMasterSubTab('villages')" id="subtab-villages" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition whitespace-nowrap">
-          <i class="fa-solid fa-tree-city mr-1.5"></i>Villages Master (<span id="villageMasterCountBadge">90</span>)
+          <i class="fa-solid fa-tree-city mr-1.5"></i>Revenue Villages Registry (<span id="villageMasterCountBadge">10,888</span>)
+        </button>
+        <button onclick="switchMasterSubTab('users')" id="subtab-users" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition whitespace-nowrap">
+          <i class="fa-solid fa-user-shield mr-1.5"></i>User Accounts (<span id="userMasterCountBadge">...</span>)
         </button>
         <button onclick="switchMasterSubTab('reps')" id="subtab-reps" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition whitespace-nowrap">
           <i class="fa-solid fa-users-gear mr-1.5"></i>Representatives (<span id="repsCountBadge">68</span>)
@@ -801,8 +848,8 @@
         </button>
       </div>
 
-      <!-- Master Sub-Panel 0: User Accounts & Governance Master -->
-      <div id="master-panel-users" class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden space-y-4 p-4">
+      <!-- Master Sub-Panel 0: User Accounts & Governance Master (Hidden by default when opening Directory) -->
+      <div id="master-panel-users" class="hidden bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden space-y-4 p-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center space-x-1.5">
@@ -854,12 +901,15 @@
         </div>
       </div>
 
-      <!-- Master Sub-Panel 1: District Targets Master -->
-      <div id="master-panel-districts" class="hidden bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden space-y-4 p-4">
+      <!-- Master Sub-Panel 1: District Targets Master (Active by default) -->
+      <div id="master-panel-districts" class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden space-y-4 p-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Districts Baseline Targets & Administration Master</h4>
-            <p class="text-xs text-slate-500">Configure territorial records, baseline Non-Cadastral & Cadastral targets per district (Admin Only)</p>
+            <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center space-x-2">
+              <i class="fa-solid fa-landmark text-emerald-600"></i>
+              <span>Districts Directory &amp; Territorial Targets Master (32 Districts)</span>
+            </h4>
+            <p class="text-xs text-slate-500">Official 32 territorial districts of Telangana with total mandals (604), master villages (10,888), and resurvey targets.</p>
           </div>
           <div class="flex items-center space-x-2">
             <input type="text" id="districtMasterSearch" placeholder="Search districts..." oninput="renderDistrictMasterTable()" class="py-1.5 px-2.5 text-xs bg-slate-50 border border-slate-200 rounded-lg w-40 sm:w-48" />
@@ -870,38 +920,44 @@
           </div>
         </div>
 
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto border border-slate-100 rounded-lg">
           <table class="min-w-full divide-y divide-slate-200 text-left text-xs">
-            <thead class="bg-slate-100 text-slate-600 font-semibold uppercase tracking-wider">
+            <thead class="bg-slate-100 text-slate-700 font-semibold uppercase tracking-wider text-[11px]">
               <tr>
-                <th class="py-2.5 px-3 w-10 text-center">#</th>
-                <th class="py-2.5 px-3">District Name</th>
-                <th class="py-2.5 px-3">District Code</th>
-                <th class="py-2.5 px-3 text-center text-emerald-700">Non-Cadastral Target</th>
-                <th class="py-2.5 px-3 text-center text-blue-700">Cadastral Target</th>
-                <th class="py-2.5 px-3 text-center">Total Target</th>
-                <th class="py-2.5 px-3 text-center">Mandals</th>
-                <th class="py-2.5 px-3 text-center">Villages</th>
-                <th class="py-2.5 px-3 text-center">Status</th>
-                <th class="py-2.5 px-3 text-center no-print w-28">Action</th>
+                <th class="py-3 px-3 w-10 text-center">#</th>
+                <th class="py-3 px-3">District Name</th>
+                <th class="py-3 px-3">Code</th>
+                <th class="py-3 px-3 text-center bg-slate-200/60 font-bold">Mandals (Master)</th>
+                <th class="py-3 px-3 text-center bg-slate-200/60 font-bold">Villages (Master)</th>
+                <th class="py-3 px-3 text-center text-emerald-800 bg-emerald-50 font-bold">NC Target</th>
+                <th class="py-3 px-3 text-center text-blue-800 bg-blue-50 font-bold">Cadastral Target</th>
+                <th class="py-3 px-3 text-center font-extrabold text-slate-900 bg-emerald-100/50">Total Resurvey Target</th>
+                <th class="py-3 px-3 text-center text-teal-800 font-bold">Survey Submissions</th>
+                <th class="py-3 px-3 text-center">Status</th>
+                <th class="py-3 px-3 text-center no-print w-24">Action</th>
               </tr>
             </thead>
             <tbody id="districtMasterTableBody" class="divide-y divide-slate-100">
             </tbody>
+            <tfoot id="districtMasterTableFoot" class="bg-slate-100 font-bold text-slate-800 border-t-2 border-slate-300 text-[11px]">
+            </tfoot>
           </table>
         </div>
       </div>
 
-      <!-- Master Sub-Panel 2: Mandals Master -->
+      <!-- Master Sub-Panel 2: Mandals Master (604 Mandals) -->
       <div id="master-panel-mandals" class="hidden bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden space-y-4 p-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Mandals Sub-District Master Registry</h4>
-            <p class="text-xs text-slate-500">Official mandal units linked to parent districts with Telugu script & village counts (Admin Only)</p>
+            <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center space-x-2">
+              <i class="fa-solid fa-building-columns text-emerald-600"></i>
+              <span>State Mandals Sub-District Registry (604 Mandals)</span>
+            </h4>
+            <p class="text-xs text-slate-500">Official administrative mandals linked to 32 parent districts with total villages and resurvey targets.</p>
           </div>
           <div class="flex flex-wrap items-center gap-2">
             <select id="mandalDistrictFilter" onchange="renderMandalMasterTable()" class="py-1.5 px-2.5 text-xs bg-slate-50 border border-slate-200 rounded-lg">
-              <option value="all">All Districts</option>
+              <option value="all">All Districts (32)</option>
             </select>
             <input type="text" id="mandalSearch" placeholder="Search mandals..." oninput="renderMandalMasterTable()" class="py-1.5 px-2.5 text-xs bg-slate-50 border border-slate-200 rounded-lg w-36 sm:w-44" />
             <button onclick="openAddMandalModal()" id="btnAddMandal" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg shadow transition flex items-center space-x-1.5 whitespace-nowrap">
@@ -911,18 +967,19 @@
           </div>
         </div>
 
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto border border-slate-100 rounded-lg">
           <table class="min-w-full divide-y divide-slate-200 text-left text-xs">
-            <thead class="bg-slate-100 text-slate-600 font-semibold uppercase tracking-wider">
+            <thead class="bg-slate-100 text-slate-700 font-semibold uppercase tracking-wider text-[11px]">
               <tr>
-                <th class="py-2.5 px-3 w-10 text-center">#</th>
-                <th class="py-2.5 px-3">Mandal ID</th>
-                <th class="py-2.5 px-3">Mandal Name</th>
-                <th class="py-2.5 px-3">Telugu Script</th>
-                <th class="py-2.5 px-3">Parent District</th>
-                <th class="py-2.5 px-3 text-center">Linked Villages</th>
-                <th class="py-2.5 px-3 text-center">Status</th>
-                <th class="py-2.5 px-3 text-center no-print w-28">Action</th>
+                <th class="py-3 px-3 w-10 text-center">#</th>
+                <th class="py-3 px-3">Mandal ID</th>
+                <th class="py-3 px-3">Mandal Name</th>
+                <th class="py-3 px-3">Parent District</th>
+                <th class="py-3 px-3 text-center bg-slate-200/60 font-bold">Total Villages</th>
+                <th class="py-3 px-3 text-center text-emerald-800 bg-emerald-50 font-bold">Picked for Resurvey</th>
+                <th class="py-3 px-3 text-center">Resurvey Ratio</th>
+                <th class="py-3 px-3 text-center">Status</th>
+                <th class="py-3 px-3 text-center no-print w-28">Action</th>
               </tr>
             </thead>
             <tbody id="mandalMasterTableBody" class="divide-y divide-slate-100">
@@ -931,52 +988,114 @@
         </div>
       </div>
 
-      <!-- Master Sub-Panel 3: Villages Master -->
+      <!-- Master Sub-Panel 3: Revenue Villages Registry (10,888 Records) -->
       <div id="master-panel-villages" class="hidden bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden space-y-4 p-4">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
           <div>
-            <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Revenue Villages Master Registry & Extents</h4>
-            <p class="text-xs text-slate-500">Master repository of surveyed revenue villages, Acre-Gunta measurements, and verification stages</p>
+            <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center space-x-2">
+              <i class="fa-solid fa-tree-city text-emerald-600"></i>
+              <span>Official Revenue Villages Registry</span>
+              <span id="villageMasterTotalBadge" class="bg-emerald-100 text-emerald-800 text-[10px] font-extrabold px-2 py-0.5 rounded-full border border-emerald-300">10,888 Villages</span>
+            </h4>
+            <p class="text-xs text-slate-500">State Territorial Master Directory: 373 Non-Cadastral (100% picked), 2,236 Cadastral Picked, and 8,279 Non-Survey Phase villages.</p>
           </div>
           <div class="flex flex-wrap items-center gap-2">
-            <select id="villageMasterDistrictFilter" onchange="onVillageMasterDistrictChange()" class="py-1.5 px-2.5 text-xs bg-slate-50 border border-slate-200 rounded-lg">
-              <option value="all">All Districts</option>
-            </select>
-            <select id="villageMasterMandalFilter" onchange="renderVillageMasterTable()" class="py-1.5 px-2.5 text-xs bg-slate-50 border border-slate-200 rounded-lg">
-              <option value="all">All Mandals</option>
-            </select>
-            <select id="villageMasterCategoryFilter" onchange="renderVillageMasterTable()" class="py-1.5 px-2.5 text-xs bg-slate-50 border border-slate-200 rounded-lg">
-              <option value="all">All Categories</option>
-              <option value="Non-Cadastral">Non-Cadastral</option>
-              <option value="Cadastral">Cadastral</option>
-            </select>
-            <input type="text" id="villageMasterSearch" placeholder="Search villages..." oninput="renderVillageMasterTable()" class="py-1.5 px-2.5 text-xs bg-slate-50 border border-slate-200 rounded-lg w-36" />
-            <button onclick="openAddVillageModal()" id="btnAddVillageMaster" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg shadow transition flex items-center space-x-1.5 whitespace-nowrap">
-              <i class="fa-solid fa-plus"></i>
-              <span>Add Village</span>
-            </button>
+            <span class="text-xs font-semibold text-slate-500">Target Breakdown:</span>
+            <span class="bg-emerald-50 text-emerald-800 border border-emerald-200 text-[10px] font-bold px-2 py-0.5 rounded">NC Target: 373</span>
+            <span class="bg-blue-50 text-blue-800 border border-blue-200 text-[10px] font-bold px-2 py-0.5 rounded">Cadastral Picked: 2,236</span>
+            <span class="bg-slate-100 text-slate-700 border border-slate-200 text-[10px] font-bold px-2 py-0.5 rounded">Non-Survey: 8,279</span>
           </div>
         </div>
 
-        <div class="overflow-x-auto">
+        <!-- Filter Bar -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-2 bg-slate-50 p-3 rounded-lg border border-slate-200 text-xs">
+          <!-- District Filter -->
+          <div>
+            <label class="block text-[10px] font-bold text-slate-600 uppercase mb-1">District</label>
+            <select id="villageMasterDistrictFilter" onchange="onVillageMasterDistrictChange()" class="w-full py-1.5 px-2 bg-white border border-slate-200 rounded-lg text-xs">
+              <option value="all">All Districts (32)</option>
+            </select>
+          </div>
+          
+          <!-- Mandal Filter -->
+          <div>
+            <label class="block text-[10px] font-bold text-slate-600 uppercase mb-1">Mandal</label>
+            <select id="villageMasterMandalFilter" onchange="fetchMasterVillages(1)" class="w-full py-1.5 px-2 bg-white border border-slate-200 rounded-lg text-xs">
+              <option value="all">All Mandals (604)</option>
+            </select>
+          </div>
+
+          <!-- Category Filter -->
+          <div>
+            <label class="block text-[10px] font-bold text-slate-600 uppercase mb-1">Category</label>
+            <select id="villageMasterCategoryFilter" onchange="fetchMasterVillages(1)" class="w-full py-1.5 px-2 bg-white border border-slate-200 rounded-lg text-xs">
+              <option value="all">All Categories</option>
+              <option value="Non-Cadastral">Non-Cadastral (373)</option>
+              <option value="Cadastral">Cadastral (10,515)</option>
+            </select>
+          </div>
+
+          <!-- Resurvey Selection Filter -->
+          <div>
+            <label class="block text-[10px] font-bold text-slate-600 uppercase mb-1">Resurvey Status</label>
+            <select id="villageMasterPickedFilter" onchange="fetchMasterVillages(1)" class="w-full py-1.5 px-2 bg-white border border-slate-200 rounded-lg text-xs">
+              <option value="all">All Villages (10,888)</option>
+              <option value="true">Picked for Resurvey (2,609)</option>
+              <option value="false">Non-Survey Phase (8,279)</option>
+            </select>
+          </div>
+
+          <!-- Search Input -->
+          <div>
+            <label class="block text-[10px] font-bold text-slate-600 uppercase mb-1">Search Village</label>
+            <input type="text" id="villageMasterSearch" placeholder="Search village name..." oninput="debounceVillageMasterSearch()" class="w-full py-1.5 px-2 bg-white border border-slate-200 rounded-lg text-xs" />
+          </div>
+
+          <!-- Page Size -->
+          <div>
+            <label class="block text-[10px] font-bold text-slate-600 uppercase mb-1">Rows per page</label>
+            <select id="villageMasterLimit" onchange="fetchMasterVillages(1)" class="w-full py-1.5 px-2 bg-white border border-slate-200 rounded-lg text-xs">
+              <option value="50" selected>50 rows</option>
+              <option value="100">100 rows</option>
+              <option value="200">200 rows</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Villages Table -->
+        <div class="overflow-x-auto border border-slate-100 rounded-lg">
           <table class="min-w-full divide-y divide-slate-200 text-left text-xs">
-            <thead class="bg-slate-100 text-slate-600 font-semibold uppercase tracking-wider">
+            <thead class="bg-slate-100 text-slate-700 font-semibold uppercase tracking-wider text-[11px]">
               <tr>
-                <th class="py-2.5 px-3 w-10 text-center">#</th>
-                <th class="py-2.5 px-3">Village ID</th>
+                <th class="py-2.5 px-3 w-12 text-center">#</th>
                 <th class="py-2.5 px-3">Village Name</th>
                 <th class="py-2.5 px-3">Mandal</th>
                 <th class="py-2.5 px-3">District</th>
                 <th class="py-2.5 px-3 text-center">Category</th>
+                <th class="py-2.5 px-3 text-center">Resurvey Target</th>
+                <th class="py-2.5 px-3 text-center">Survey Progress</th>
                 <th class="py-2.5 px-3 text-right">Extent (Ac-Gt)</th>
-                <th class="py-2.5 px-3 text-center">GT Status</th>
-                <th class="py-2.5 px-3 text-center">QC Status</th>
                 <th class="py-2.5 px-3 text-center no-print w-28">Action</th>
               </tr>
             </thead>
             <tbody id="villageMasterTableBody" class="divide-y divide-slate-100">
+              <tr><td colspan="9" class="py-8 text-center text-slate-400">Loading master village records...</td></tr>
             </tbody>
           </table>
+        </div>
+
+        <!-- Pagination Bar -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 text-xs text-slate-600" id="villageMasterPaginationBar">
+          <div id="villageMasterPageInfo">
+            Showing 1 to 50 of 10,888 villages
+          </div>
+          <div class="flex items-center space-x-1" id="villageMasterPaginationControls">
+            <button onclick="changeMasterVillagePage(1)" id="btnMasterFirstPage" class="px-2.5 py-1 rounded border border-slate-200 hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed">First</button>
+            <button onclick="changeMasterVillagePage(currentMasterVillagePage - 1)" id="btnMasterPrevPage" class="px-2.5 py-1 rounded border border-slate-200 hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed">Previous</button>
+            <span class="px-3 py-1 font-bold text-slate-800" id="villageMasterPageNumber">Page 1 of 218</span>
+            <button onclick="changeMasterVillagePage(currentMasterVillagePage + 1)" id="btnMasterNextPage" class="px-2.5 py-1 rounded border border-slate-200 hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed">Next</button>
+            <button onclick="changeMasterVillagePage(totalMasterVillagePages)" id="btnMasterLastPage" class="px-2.5 py-1 rounded border border-slate-200 hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed">Last</button>
+          </div>
         </div>
       </div>
 
@@ -2296,7 +2415,7 @@
     }
 
     function switchMasterSubTab(sub) {
-      const tabs = ['users', 'districts', 'mandals', 'villages', 'reps', 'catalog'];
+      const tabs = ['districts', 'mandals', 'villages', 'users', 'reps', 'catalog'];
       tabs.forEach(t => {
         const panel = document.getElementById(`master-panel-${t}`);
         const btn = document.getElementById(`subtab-${t}`);
@@ -2310,18 +2429,18 @@
         }
       });
 
-      if (sub === 'users') {
+      if (sub === 'districts') {
+        renderDistrictMasterTable();
+      } else if (sub === 'mandals') {
+        renderMandalMasterTable();
+      } else if (sub === 'villages') {
+        fetchMasterVillages(currentMasterVillagePage || 1);
+      } else if (sub === 'users') {
         if (allUsers.length === 0) {
           fetchUsers();
         } else {
           renderUserMasterTable();
         }
-      } else if (sub === 'districts') {
-        renderDistrictMasterTable();
-      } else if (sub === 'mandals') {
-        renderMandalMasterTable();
-      } else if (sub === 'villages') {
-        renderVillageMasterTable();
       } else if (sub === 'reps') {
         renderRepresentatives();
       } else if (sub === 'catalog') {
@@ -2450,7 +2569,7 @@
 
     async function fetchMandals() {
       try {
-        const res = await fetch('/mandals');
+        const res = await fetch('/master/mandals');
         allMandals = await res.json();
         const badge = document.getElementById('mandalMasterCountBadge');
         if (badge) badge.textContent = allMandals.length;
@@ -3288,9 +3407,10 @@
       });
     }
 
-    // Master Data Hub Logic: District Targets Master
+    // State Master Directory: Districts Table with Master Mandals & Villages
     function renderDistrictMasterTable() {
       const tbody = document.getElementById('districtMasterTableBody');
+      const tfoot = document.getElementById('districtMasterTableFoot');
       if (!tbody) return;
       tbody.innerHTML = '';
 
@@ -3303,9 +3423,17 @@
       const isAdmin = currentUser && currentUser.role === 'admin';
 
       if (districts.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="10" class="py-6 text-center text-slate-400">No districts match search.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="11" class="py-6 text-center text-slate-400">No districts match search.</td></tr>';
+        if (tfoot) tfoot.innerHTML = '';
         return;
       }
+
+      let sumMandals = 0;
+      let sumVillages = 0;
+      let sumNcTarget = 0;
+      let sumCadTarget = 0;
+      let sumTotalTarget = 0;
+      let sumSubmissions = 0;
 
       districts.forEach((d, idx) => {
         const tr = document.createElement('tr');
@@ -3314,18 +3442,35 @@
         const dVillages = allVillages.filter(v => v.district_name.toLowerCase() === d.name.toLowerCase());
         const dId = d.district_id || d.id || d.name.toLowerCase().replace(/ /g, '_');
 
+        const mandalsCount = d.total_mandals || dMandals.length;
+        const villagesCount = d.total_villages || 0;
+        const ncTarget = d.non_cadastral_target || 0;
+        const cadTarget = d.cadastral_target || 0;
+        const totalTarget = d.total_resurvey_target || (ncTarget + cadTarget);
+        const submissionsCount = dVillages.length;
+
+        sumMandals += mandalsCount;
+        sumVillages += villagesCount;
+        sumNcTarget += ncTarget;
+        sumCadTarget += cadTarget;
+        sumTotalTarget += totalTarget;
+        sumSubmissions += submissionsCount;
+
         tr.innerHTML = `
           <td class="py-2.5 px-3 text-slate-400 font-mono text-center">${idx + 1}</td>
           <td class="py-2.5 px-3 font-bold text-slate-900">${d.name}</td>
           <td class="py-2.5 px-3 font-mono text-[11px] text-slate-500">${dId}</td>
-          <td class="py-2.5 px-3 text-center font-bold text-emerald-700">${d.non_cadastral_target}</td>
-          <td class="py-2.5 px-3 text-center font-bold text-blue-700">${d.cadastral_target}</td>
-          <td class="py-2.5 px-3 text-center font-semibold text-slate-800">${(d.non_cadastral_target || 0) + (d.cadastral_target || 0)}</td>
-          <td class="py-2.5 px-3 text-center">
-            <span class="bg-indigo-50 text-indigo-700 font-bold px-2 py-0.5 rounded text-[11px]">${dMandals.length}</span>
+          <td class="py-2.5 px-3 text-center bg-slate-50 font-bold text-slate-700">
+            <span class="bg-indigo-50 text-indigo-700 font-bold px-2 py-0.5 rounded text-[11px]">${mandalsCount}</span>
           </td>
+          <td class="py-2.5 px-3 text-center bg-slate-50 font-bold text-slate-700">
+            <span class="bg-slate-100 text-slate-800 font-bold px-2 py-0.5 rounded text-[11px]">${villagesCount.toLocaleString()}</span>
+          </td>
+          <td class="py-2.5 px-3 text-center font-bold text-emerald-700 bg-emerald-50/50">${ncTarget}</td>
+          <td class="py-2.5 px-3 text-center font-bold text-blue-700 bg-blue-50/50">${cadTarget}</td>
+          <td class="py-2.5 px-3 text-center font-extrabold text-slate-900 bg-emerald-100/40">${totalTarget}</td>
           <td class="py-2.5 px-3 text-center">
-            <span class="bg-emerald-50 text-emerald-800 font-bold px-2 py-0.5 rounded text-[11px]">${dVillages.length}</span>
+            <span class="bg-teal-50 text-teal-800 font-bold px-2 py-0.5 rounded text-[11px]">${submissionsCount} active</span>
           </td>
           <td class="py-2.5 px-3 text-center">
             <span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full text-[10px] font-bold">${d.status || 'Active'}</span>
@@ -3344,6 +3489,22 @@
         `;
         tbody.appendChild(tr);
       });
+
+      if (tfoot) {
+        tfoot.innerHTML = `
+          <tr class="bg-slate-100 border-t-2 border-slate-300 font-bold text-slate-900">
+            <td class="py-3 px-3 text-center" colspan="3">STATE TOTAL (${districts.length} Districts)</td>
+            <td class="py-3 px-3 text-center text-indigo-800">${sumMandals}</td>
+            <td class="py-3 px-3 text-center text-slate-800">${sumVillages.toLocaleString()}</td>
+            <td class="py-3 px-3 text-center text-emerald-800">${sumNcTarget}</td>
+            <td class="py-3 px-3 text-center text-blue-800">${sumCadTarget}</td>
+            <td class="py-3 px-3 text-center text-emerald-900 text-sm font-black">${sumTotalTarget}</td>
+            <td class="py-3 px-3 text-center text-teal-800">${sumSubmissions} active</td>
+            <td class="py-3 px-3 text-center"><span class="bg-emerald-200 text-emerald-900 text-[10px] px-2 py-0.5 rounded font-bold">100% Active</span></td>
+            <td class="py-3 px-3 text-center no-print">-</td>
+          </tr>
+        `;
+      }
     }
 
     function openAddDistrictModal() {
@@ -3494,43 +3655,62 @@
           m.mandal_name.toLowerCase().includes(search) || 
           (m.mandal_name_telugu && m.mandal_name_telugu.toLowerCase().includes(search)) ||
           m.district_name.toLowerCase().includes(search) ||
-          m.id.toLowerCase().includes(search)
+          (m.id && m.id.toLowerCase().includes(search)) ||
+          (m.mandal_id && m.mandal_id.toLowerCase().includes(search))
         );
       }
+
+      const badge = document.getElementById('mandalMasterCountBadge');
+      if (badge) badge.textContent = mandals.length;
 
       const isAdmin = currentUser && currentUser.role === 'admin';
 
       if (mandals.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8" class="py-6 text-center text-slate-400">No mandals found matching selection.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="9" class="py-6 text-center text-slate-400">No mandals found matching selection.</td></tr>';
         return;
       }
 
       mandals.forEach((m, idx) => {
         const tr = document.createElement('tr');
         tr.className = 'hover:bg-slate-50 transition';
-        const vCount = allVillages.filter(v => v.district_name.toLowerCase() === m.district_name.toLowerCase() && v.mandal_name.toLowerCase() === m.mandal_name.toLowerCase()).length;
+        const vTotal = m.total_villages || 0;
+        const vResurvey = m.resurvey_villages_count || 0;
+        const ratio = vTotal > 0 ? Math.round((vResurvey / vTotal) * 100) : 0;
 
         tr.innerHTML = `
           <td class="py-2.5 px-3 text-slate-400 font-mono text-center">${idx + 1}</td>
-          <td class="py-2.5 px-3 font-mono text-[11px] text-slate-500">${m.id}</td>
-          <td class="py-2.5 px-3 font-bold text-slate-900">${m.mandal_name}</td>
-          <td class="py-2.5 px-3 telugu-text font-medium text-slate-700">${m.mandal_name_telugu || '<span class="text-slate-300">-</span>'}</td>
+          <td class="py-2.5 px-3 font-mono text-[11px] text-slate-500">${m.mandal_id || m.id}</td>
+          <td class="py-2.5 px-3 font-bold text-slate-900">
+            ${m.mandal_name}
+            ${m.mandal_name_telugu ? `<span class="telugu-text text-[11px] text-slate-500 ml-1">(${m.mandal_name_telugu})</span>` : ''}
+          </td>
           <td class="py-2.5 px-3 font-semibold text-slate-800">${m.district_name}</td>
+          <td class="py-2.5 px-3 text-center bg-slate-50">
+            <span class="bg-slate-100 text-slate-800 font-bold px-2 py-0.5 rounded text-[11px]">${vTotal} Villages</span>
+          </td>
+          <td class="py-2.5 px-3 text-center bg-emerald-50/50">
+            <span class="bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded text-[11px]">${vResurvey} Picked</span>
+          </td>
           <td class="py-2.5 px-3 text-center">
-            <span class="bg-emerald-50 text-emerald-800 font-bold px-2 py-0.5 rounded text-[11px]">${vCount} Villages</span>
+            <div class="flex items-center justify-center space-x-1.5">
+              <span class="text-xs font-semibold text-slate-700">${ratio}%</span>
+              <div class="w-12 bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                <div class="bg-emerald-500 h-full" style="width: ${ratio}%"></div>
+              </div>
+            </div>
           </td>
           <td class="py-2.5 px-3 text-center">
             <span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full text-[10px] font-bold">${m.status || 'Active'}</span>
           </td>
           <td class="py-2.5 px-3 text-center no-print">
             <div class="flex items-center justify-center space-x-1">
+              <button onclick="viewMandalVillages('${encodeURIComponent(m.district_name)}', '${encodeURIComponent(m.mandal_name)}')" title="View Master Villages" class="text-emerald-700 hover:text-emerald-900 p-1 text-xs font-semibold hover:underline whitespace-nowrap">
+                Villages &rarr;
+              </button>
               ${isAdmin ? `
               <button onclick="openEditMandalModal('${m.id}')" title="Edit Mandal" class="text-slate-600 hover:text-emerald-700 p-1.5 rounded hover:bg-emerald-50">
                 <i class="fa-solid fa-pen-to-square"></i>
-              </button>
-              <button onclick="handleDeleteMandalClick('${m.id}')" title="Delete Mandal" class="text-slate-400 hover:text-rose-600 p-1.5 rounded hover:bg-rose-50">
-                <i class="fa-solid fa-trash"></i>
-              </button>` : '<span class="text-slate-400 italic text-[10px]">Admin Only</span>'}
+              </button>` : ''}
             </div>
           </td>
         `;
@@ -3655,7 +3835,11 @@
       }
     }
 
-    // Master Data Hub Logic: Villages Master
+    // State Master Directory: Revenue Villages Registry (10,888 Villages)
+    let currentMasterVillagePage = 1;
+    let totalMasterVillagePages = 1;
+    let masterVillageSearchTimer = null;
+
     function onVillageMasterDistrictChange() {
       const dist = document.getElementById('villageMasterDistrictFilter')?.value || 'all';
       const mandalFilter = document.getElementById('villageMasterMandalFilter');
@@ -3666,92 +3850,201 @@
       if (dist !== 'all') {
         mandals = mandals.filter(m => m.district_name.toLowerCase() === dist.toLowerCase());
       }
+      mandals.sort((a, b) => a.mandal_name.localeCompare(b.mandal_name));
       mandals.forEach(m => {
         const opt = document.createElement('option');
         opt.value = m.mandal_name;
         opt.textContent = m.mandal_name;
         mandalFilter.appendChild(opt);
       });
-      renderVillageMasterTable();
+      fetchMasterVillages(1);
     }
 
-    function renderVillageMasterTable() {
+    function viewMandalVillages(encodedDistrict, encodedMandal) {
+      const district = decodeURIComponent(encodedDistrict);
+      const mandal = decodeURIComponent(encodedMandal);
+      switchMasterSubTab('villages');
+      const distSelect = document.getElementById('villageMasterDistrictFilter');
+      if (distSelect) {
+        distSelect.value = district;
+        onVillageMasterDistrictChange();
+      }
+      const mndSelect = document.getElementById('villageMasterMandalFilter');
+      if (mndSelect) {
+        mndSelect.value = mandal;
+      }
+      fetchMasterVillages(1);
+    }
+
+    async function fetchMasterVillages(page = 1) {
+      currentMasterVillagePage = page;
+      const dist = document.getElementById('villageMasterDistrictFilter')?.value || 'all';
+      const mnd = document.getElementById('villageMasterMandalFilter')?.value || 'all';
+      const cat = document.getElementById('villageMasterCategoryFilter')?.value || 'all';
+      const picked = document.getElementById('villageMasterPickedFilter')?.value || 'all';
+      const search = (document.getElementById('villageMasterSearch')?.value || '').trim();
+      const limit = parseInt(document.getElementById('villageMasterLimit')?.value || '50', 10);
+
+      const tbody = document.getElementById('villageMasterTableBody');
+      if (tbody) {
+        tbody.innerHTML = '<tr><td colspan="9" class="py-8 text-center text-slate-400"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Loading master villages from State Directory (10,888 total)...</td></tr>';
+      }
+
+      const params = new URLSearchParams();
+      params.set('page', page);
+      params.set('limit', limit);
+      if (dist !== 'all') params.set('district', dist);
+      if (mnd !== 'all') params.set('mandal', mnd);
+      if (cat !== 'all') params.set('category', cat);
+      if (picked === 'true') params.set('is_picked', 'true');
+      if (picked === 'false') params.set('is_picked', 'false');
+      if (search) params.set('search', search);
+
+      try {
+        const res = await fetch('/master/villages?' + params.toString());
+        const data = await res.json();
+        totalMasterVillagePages = data.total_pages || 1;
+        renderVillageMasterRows(data.data, data.total, data.page, data.limit);
+      } catch (err) {
+        console.error('Error fetching master villages:', err);
+        if (tbody) {
+          tbody.innerHTML = `<tr><td colspan="9" class="py-8 text-center text-rose-500 font-semibold">Error loading master villages: ${err.message}</td></tr>`;
+        }
+      }
+    }
+
+    function renderVillageMasterRows(villages, total, page, limit) {
       const tbody = document.getElementById('villageMasterTableBody');
       if (!tbody) return;
       tbody.innerHTML = '';
 
-      const dist = document.getElementById('villageMasterDistrictFilter')?.value || 'all';
-      const mnd = document.getElementById('villageMasterMandalFilter')?.value || 'all';
-      const cat = document.getElementById('villageMasterCategoryFilter')?.value || 'all';
-      const search = (document.getElementById('villageMasterSearch')?.value || '').toLowerCase().trim();
+      const badge = document.getElementById('villageMasterCountBadge');
+      if (badge) badge.textContent = total.toLocaleString();
 
-      let villages = allVillages;
-      if (dist !== 'all') villages = villages.filter(v => v.district_name.toLowerCase() === dist.toLowerCase());
-      if (mnd !== 'all') villages = villages.filter(v => (v.mandal_name || '').toLowerCase() === mnd.toLowerCase());
-      if (cat !== 'all') villages = villages.filter(v => v.category === cat);
-      if (search) {
-        villages = villages.filter(v => 
-          v.village_name.toLowerCase().includes(search) || 
-          (v.village_name_telugu && v.village_name_telugu.toLowerCase().includes(search)) ||
-          v.mandal_name.toLowerCase().includes(search) ||
-          v.district_name.toLowerCase().includes(search) ||
-          v.id.toLowerCase().includes(search)
-        );
+      const totalBadge = document.getElementById('villageMasterTotalBadge');
+      if (totalBadge) totalBadge.textContent = `${total.toLocaleString()} Records`;
+
+      // Update pagination info
+      const startIdx = total > 0 ? (page - 1) * limit + 1 : 0;
+      const endIdx = Math.min(page * limit, total);
+      const pageInfo = document.getElementById('villageMasterPageInfo');
+      if (pageInfo) {
+        pageInfo.innerHTML = `Showing <strong class="text-slate-900">${startIdx.toLocaleString()}</strong> to <strong class="text-slate-900">${endIdx.toLocaleString()}</strong> of <strong class="text-slate-900">${total.toLocaleString()}</strong> villages`;
+      }
+      const pageNumber = document.getElementById('villageMasterPageNumber');
+      if (pageNumber) {
+        pageNumber.textContent = `Page ${page} of ${totalMasterVillagePages}`;
       }
 
-      const badge = document.getElementById('villageMasterCountBadge');
-      if (badge) badge.textContent = villages.length;
+      const btnFirst = document.getElementById('btnMasterFirstPage');
+      const btnPrev = document.getElementById('btnMasterPrevPage');
+      const btnNext = document.getElementById('btnMasterNextPage');
+      const btnLast = document.getElementById('btnMasterLastPage');
 
-      const isAdmin = currentUser && currentUser.role === 'admin';
+      if (btnFirst) btnFirst.disabled = page <= 1;
+      if (btnPrev) btnPrev.disabled = page <= 1;
+      if (btnNext) btnNext.disabled = page <= 1;
+      if (btnLast) btnLast.disabled = page >= totalMasterVillagePages;
 
-      if (villages.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="10" class="py-6 text-center text-slate-400">No villages match selection.</td></tr>';
+      if (!villages || villages.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" class="py-8 text-center text-slate-400">No villages match the selected filters.</td></tr>';
         return;
       }
 
       villages.forEach((v, idx) => {
         const tr = document.createElement('tr');
-        tr.className = 'hover:bg-slate-50 transition';
+        tr.className = 'hover:bg-slate-50 transition text-xs';
+        const globalIdx = (page - 1) * limit + idx + 1;
 
         const catBadge = v.category === 'Non-Cadastral'
-          ? '<span class="bg-emerald-50 text-emerald-800 px-2 py-0.5 rounded font-bold text-[10px]">NC</span>'
-          : '<span class="bg-blue-50 text-blue-800 px-2 py-0.5 rounded font-bold text-[10px]">Cadastral</span>';
+          ? '<span class="bg-emerald-100 text-emerald-800 border border-emerald-300 px-2 py-0.5 rounded font-bold text-[10px]">NC (100% Target)</span>'
+          : '<span class="bg-blue-50 text-blue-800 border border-blue-200 px-2 py-0.5 rounded font-medium text-[10px]">Cadastral</span>';
 
-        const qcBadge = v.verification_status === 'Verified'
-          ? '<span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold text-[10px]">Verified</span>'
-          : v.verification_status === 'Returned for Correction'
-          ? '<span class="bg-rose-100 text-rose-800 px-2 py-0.5 rounded font-bold text-[10px]">Returned</span>'
-          : '<span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-bold text-[10px]">Pending QC</span>';
+        const pickedBadge = v.is_picked_for_resurvey
+          ? '<span class="inline-flex items-center bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold px-2 py-0.5 rounded text-[10px]"><i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i>Picked for Resurvey</span>'
+          : '<span class="inline-flex items-center bg-slate-100 text-slate-600 border border-slate-200 font-normal px-2 py-0.5 rounded text-[10px]"><i class="fa-solid fa-clock text-slate-400 mr-1"></i>Non-Survey Phase</span>';
+
+        // Check operational correlation with active survey
+        let opsBadge = '';
+        if (v.gt_status === 'Completed') {
+          const qcText = v.verification_status || 'Verified';
+          const color = qcText === 'Verified' ? 'text-emerald-700 bg-emerald-50 border-emerald-200' : 'text-amber-700 bg-amber-50 border-amber-200';
+          opsBadge = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold border ${color}"><i class="fa-solid fa-circle-check mr-1"></i>GT Done • ${qcText}</span>`;
+        } else {
+          opsBadge = '<span class="text-slate-400 italic text-[10px]">Pending Survey Submission</span>';
+        }
 
         tr.innerHTML = `
-          <td class="py-2.5 px-3 text-slate-400 font-mono text-center">${idx + 1}</td>
-          <td class="py-2.5 px-3 font-mono text-[11px] text-slate-500">${v.id}</td>
+          <td class="py-2.5 px-3 text-slate-400 font-mono text-center">${globalIdx}</td>
           <td class="py-2.5 px-3 font-bold text-slate-900">
             ${v.village_name}
-            ${v.village_name_telugu ? `<div class="telugu-text text-[11px] text-slate-600 font-normal">${v.village_name_telugu}</div>` : ''}
+            ${v.village_name_telugu ? `<div class="telugu-text text-[11px] text-slate-500 font-normal">${v.village_name_telugu}</div>` : ''}
           </td>
           <td class="py-2.5 px-3 font-medium text-slate-700">${v.mandal_name}</td>
           <td class="py-2.5 px-3 font-semibold text-slate-800">${v.district_name}</td>
           <td class="py-2.5 px-3 text-center">${catBadge}</td>
-          <td class="py-2.5 px-3 text-right font-mono font-semibold text-slate-900">${v.extent_raw || '0-00'}</td>
-          <td class="py-2.5 px-3 text-center">
-            <span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[10px]">${v.gt_status || 'Completed'}</span>
-          </td>
-          <td class="py-2.5 px-3 text-center">${qcBadge}</td>
+          <td class="py-2.5 px-3 text-center">${pickedBadge}</td>
+          <td class="py-2.5 px-3 text-center">${opsBadge}</td>
+          <td class="py-2.5 px-3 text-right font-mono font-semibold text-slate-700">${v.extent_raw || '0-00'}</td>
           <td class="py-2.5 px-3 text-center no-print">
-            <div class="flex items-center justify-center space-x-1">
-              <button onclick="openEditVillageModal('${v.id}')" title="Edit Master Record" class="text-slate-600 hover:text-emerald-700 p-1.5 rounded hover:bg-emerald-50">
-                <i class="fa-solid fa-pen-to-square"></i>
-              </button>
-              ${isAdmin ? `
-              <button onclick="confirmDeleteVillage('${v.id}')" title="Delete Village" class="text-slate-400 hover:text-rose-600 p-1.5 rounded hover:bg-rose-50">
-                <i class="fa-solid fa-trash"></i>
-              </button>` : ''}
-            </div>
+            <button onclick="startSurveyEntryForVillage('${encodeURIComponent(v.village_name)}', '${encodeURIComponent(v.mandal_name)}', '${encodeURIComponent(v.district_name)}', '${v.category}')" class="text-emerald-700 hover:text-emerald-900 font-semibold text-[11px] hover:underline whitespace-nowrap">
+              <i class="fa-solid fa-pen-to-square mr-1"></i>Survey Data
+            </button>
           </td>
         `;
         tbody.appendChild(tr);
       });
+    }
+
+    function debounceVillageMasterSearch() {
+      clearTimeout(masterVillageSearchTimer);
+      masterVillageSearchTimer = setTimeout(() => {
+        fetchMasterVillages(1);
+      }, 300);
+    }
+
+    function changeMasterVillagePage(newPage) {
+      if (newPage < 1 || newPage > totalMasterVillagePages) return;
+      fetchMasterVillages(newPage);
+    }
+
+    function startSurveyEntryForVillage(encodedVName, encodedMName, encodedDName, category) {
+      const vName = decodeURIComponent(encodedVName);
+      const mName = decodeURIComponent(encodedMName);
+      const dName = decodeURIComponent(encodedDName);
+
+      // Check if active survey record already exists
+      const existing = allVillages.find(v => 
+        v.district_name.toLowerCase() === dName.toLowerCase() && 
+        v.village_name.toLowerCase() === vName.toLowerCase()
+      );
+
+      if (existing) {
+        openEditVillageModal(existing.id);
+      } else {
+        openAddVillageModal();
+        const distSelect = document.getElementById('formDistrict');
+        if (distSelect) {
+          distSelect.value = dName;
+          updateFormMandalDropdown();
+        }
+        const mandalSelect = document.getElementById('formMandalSelect');
+        if (mandalSelect) {
+          mandalSelect.value = mName;
+        }
+        const vNameInput = document.getElementById('formVillageName');
+        if (vNameInput) {
+          vNameInput.value = vName;
+        }
+        const catSelect = document.getElementById('formCategory');
+        if (catSelect && category) {
+          catSelect.value = category;
+        }
+      }
+    }
+
+    function renderVillageMasterTable() {
+      fetchMasterVillages(1);
     }
 
     function updateFormMandalDropdown() {
