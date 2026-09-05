@@ -12,7 +12,10 @@
     "id": "vlg-001",
     "gt_status": "Completed",
     "extent_acres_float": 1376.975,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Asifabad",
@@ -27,7 +30,10 @@
     "id": "vlg-002",
     "gt_status": "Completed",
     "extent_acres_float": 560.0,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Mancherial",
@@ -42,7 +48,10 @@
     "id": "vlg-003",
     "gt_status": "Completed",
     "extent_acres_float": 593.125,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Peddapally",
@@ -57,7 +66,10 @@
     "id": "vlg-004",
     "gt_status": "Completed",
     "extent_acres_float": 521.125,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Mulugu",
@@ -72,7 +84,10 @@
     "id": "vlg-005",
     "gt_status": "Completed",
     "extent_acres_float": 652.0,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Returned for Correction",
+    "verified_by": "Central QC Team",
+    "qc_notes": "(1) Village sent to CSO. Shape file Error"
   },
   {
     "district_name": "Mulugu",
@@ -87,7 +102,10 @@
     "id": "vlg-006",
     "gt_status": "Completed",
     "extent_acres_float": 10300.0,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Pending QC",
+    "verified_by": null,
+    "qc_notes": null
   },
   {
     "district_name": "Adilabad",
@@ -102,7 +120,10 @@
     "id": "vlg-007",
     "gt_status": "Completed",
     "extent_acres_float": 687.8,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Returned for Correction",
+    "verified_by": "Central QC Team",
+    "qc_notes": "villages data Sent to CSO. Shape file Error"
   },
   {
     "district_name": "Adilabad",
@@ -117,7 +138,10 @@
     "id": "vlg-008",
     "gt_status": "Completed",
     "extent_acres_float": 0.0,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Adilabad",
@@ -132,7 +156,10 @@
     "id": "vlg-009",
     "gt_status": "Completed",
     "extent_acres_float": 85.95,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Adilabad",
@@ -147,7 +174,10 @@
     "id": "vlg-010",
     "gt_status": "Completed",
     "extent_acres_float": 280.225,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Adilabad",
@@ -162,7 +192,10 @@
     "id": "vlg-011",
     "gt_status": "Completed",
     "extent_acres_float": 149.625,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Nirmal",
@@ -177,7 +210,10 @@
     "id": "vlg-012",
     "gt_status": "Completed",
     "extent_acres_float": 743.65,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Pending QC",
+    "verified_by": null,
+    "qc_notes": null
   },
   {
     "district_name": "Nirmal",
@@ -192,7 +228,10 @@
     "id": "vlg-013",
     "gt_status": "Completed",
     "extent_acres_float": 545.025,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Pending QC",
+    "verified_by": null,
+    "qc_notes": null
   },
   {
     "district_name": "Nirmal",
@@ -207,7 +246,10 @@
     "id": "vlg-014",
     "gt_status": "Completed",
     "extent_acres_float": 872.55,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Pending QC",
+    "verified_by": null,
+    "qc_notes": null
   },
   {
     "district_name": "Nirmal",
@@ -222,7 +264,10 @@
     "id": "vlg-015",
     "gt_status": "Completed",
     "extent_acres_float": 853.0,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Pending QC",
+    "verified_by": null,
+    "qc_notes": null
   },
   {
     "district_name": "Nizamabad",
@@ -237,7 +282,10 @@
     "id": "vlg-016",
     "gt_status": "Completed",
     "extent_acres_float": 153.425,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Pending QC",
+    "verified_by": null,
+    "qc_notes": null
   },
   {
     "district_name": "Nizamabad",
@@ -252,7 +300,10 @@
     "id": "vlg-017",
     "gt_status": "Completed",
     "extent_acres_float": 94.475,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Pending QC",
+    "verified_by": null,
+    "qc_notes": null
   },
   {
     "district_name": "Nizamabad",
@@ -267,7 +318,10 @@
     "id": "vlg-018",
     "gt_status": "Completed",
     "extent_acres_float": 186.2,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Returned for Correction",
+    "verified_by": "Central QC Team",
+    "qc_notes": "Shape file Error"
   },
   {
     "district_name": "Nizamabad",
@@ -282,7 +336,10 @@
     "id": "vlg-019",
     "gt_status": "Completed",
     "extent_acres_float": 131.8,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Pending QC",
+    "verified_by": null,
+    "qc_notes": null
   },
   {
     "district_name": "Jagitial",
@@ -297,7 +354,10 @@
     "id": "vlg-020",
     "gt_status": "Completed",
     "extent_acres_float": 246.075,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Returned for Correction",
+    "verified_by": "Central QC Team",
+    "qc_notes": "Shape file Error. Correction work is going on as per CSO instructions"
   },
   {
     "district_name": "Jagitial",
@@ -312,7 +372,10 @@
     "id": "vlg-021",
     "gt_status": "Completed",
     "extent_acres_float": 65.325,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Returned for Correction",
+    "verified_by": "Central QC Team",
+    "qc_notes": "Shape file Error. 9(2) notice to be given"
   },
   {
     "district_name": "Jagitial",
@@ -327,7 +390,10 @@
     "id": "vlg-022",
     "gt_status": "Completed",
     "extent_acres_float": 120.0,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Pending QC",
+    "verified_by": null,
+    "qc_notes": null
   },
   {
     "district_name": "Kamareddy",
@@ -342,7 +408,10 @@
     "id": "vlg-023",
     "gt_status": "Completed",
     "extent_acres_float": 557.95,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Returned for Correction",
+    "verified_by": "Central QC Team",
+    "qc_notes": "Shape file Error. Record work is going on."
   },
   {
     "district_name": "Kamareddy",
@@ -357,7 +426,10 @@
     "id": "vlg-024",
     "gt_status": "Completed",
     "extent_acres_float": 678.2,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Kamareddy",
@@ -372,7 +444,10 @@
     "id": "vlg-025",
     "gt_status": "Completed",
     "extent_acres_float": 731.75,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Kamareddy",
@@ -387,7 +462,10 @@
     "id": "vlg-026",
     "gt_status": "Completed",
     "extent_acres_float": 182.125,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Siddipet",
@@ -402,7 +480,10 @@
     "id": "vlg-027",
     "gt_status": "Completed",
     "extent_acres_float": 539.0,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Siddipet",
@@ -417,7 +498,10 @@
     "id": "vlg-028",
     "gt_status": "Completed",
     "extent_acres_float": 1050.4,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Siddipet",
@@ -432,7 +516,10 @@
     "id": "vlg-029",
     "gt_status": "Completed",
     "extent_acres_float": 903.0,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Siddipet",
@@ -447,7 +534,10 @@
     "id": "vlg-030",
     "gt_status": "Completed",
     "extent_acres_float": 710.975,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Siddipet",
@@ -462,7 +552,10 @@
     "id": "vlg-031",
     "gt_status": "Completed",
     "extent_acres_float": 1084.675,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Siddipet",
@@ -477,7 +570,10 @@
     "id": "vlg-032",
     "gt_status": "Completed",
     "extent_acres_float": 842.0,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Siddipet",
@@ -492,7 +588,10 @@
     "id": "vlg-033",
     "gt_status": "Completed",
     "extent_acres_float": 1741.0,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Returned for Correction",
+    "verified_by": "Central QC Team",
+    "qc_notes": "Shape file Error"
   },
   {
     "district_name": "Siddipet",
@@ -507,7 +606,10 @@
     "id": "vlg-034",
     "gt_status": "Completed",
     "extent_acres_float": 1732.0,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Siddipet",
@@ -522,7 +624,10 @@
     "id": "vlg-035",
     "gt_status": "Completed",
     "extent_acres_float": 54.0,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Siddipet",
@@ -537,7 +642,10 @@
     "id": "vlg-036",
     "gt_status": "Completed",
     "extent_acres_float": 121.725,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Medak",
@@ -552,7 +660,10 @@
     "id": "vlg-037",
     "gt_status": "Completed",
     "extent_acres_float": 175.0,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Medak",
@@ -567,7 +678,10 @@
     "id": "vlg-038",
     "gt_status": "Completed",
     "extent_acres_float": 161.0,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Medak",
@@ -582,7 +696,10 @@
     "id": "vlg-039",
     "gt_status": "Completed",
     "extent_acres_float": 305.0,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Medak",
@@ -597,7 +714,10 @@
     "id": "vlg-040",
     "gt_status": "Completed",
     "extent_acres_float": 651.0,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Medak",
@@ -612,7 +732,10 @@
     "id": "vlg-041",
     "gt_status": "Completed",
     "extent_acres_float": 2638.0,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Returned for Correction",
+    "verified_by": "Central QC Team",
+    "qc_notes": "Shape file Error"
   },
   {
     "district_name": "Medak",
@@ -627,7 +750,10 @@
     "id": "vlg-042",
     "gt_status": "Completed",
     "extent_acres_float": 126.0,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Medak",
@@ -642,7 +768,10 @@
     "id": "vlg-043",
     "gt_status": "Completed",
     "extent_acres_float": 539.275,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Medak",
@@ -657,7 +786,10 @@
     "id": "vlg-044",
     "gt_status": "Completed",
     "extent_acres_float": 711.65,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Medak",
@@ -672,7 +804,10 @@
     "id": "vlg-045",
     "gt_status": "Completed",
     "extent_acres_float": 837.0,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Medak",
@@ -687,7 +822,10 @@
     "id": "vlg-046",
     "gt_status": "Completed",
     "extent_acres_float": 1919.0,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Rajanna Siricilla",
@@ -702,7 +840,10 @@
     "id": "vlg-047",
     "gt_status": "Completed",
     "extent_acres_float": 147.475,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Rajanna Siricilla",
@@ -717,7 +858,10 @@
     "id": "vlg-048",
     "gt_status": "Completed",
     "extent_acres_float": 347.025,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Rajanna Siricilla",
@@ -732,7 +876,10 @@
     "id": "vlg-049",
     "gt_status": "Completed",
     "extent_acres_float": 155.175,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Rajanna Siricilla",
@@ -747,7 +894,10 @@
     "id": "vlg-050",
     "gt_status": "Completed",
     "extent_acres_float": 707.075,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Karimnagar",
@@ -762,7 +912,10 @@
     "id": "vlg-051",
     "gt_status": "Completed",
     "extent_acres_float": 1768.45,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Warangal",
@@ -777,7 +930,10 @@
     "id": "vlg-052",
     "gt_status": "Completed",
     "extent_acres_float": 289.05,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Pending QC",
+    "verified_by": null,
+    "qc_notes": null
   },
   {
     "district_name": "Warangal",
@@ -792,7 +948,10 @@
     "id": "vlg-053",
     "gt_status": "Completed",
     "extent_acres_float": 452.325,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Pending QC",
+    "verified_by": null,
+    "qc_notes": null
   },
   {
     "district_name": "Hanumakonda",
@@ -807,7 +966,10 @@
     "id": "vlg-054",
     "gt_status": "Completed",
     "extent_acres_float": 1568.675,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Returned for Correction",
+    "verified_by": "Central QC Team",
+    "qc_notes": "Shape file Error. Record work is going on."
   },
   {
     "district_name": "Hanumakonda",
@@ -822,7 +984,10 @@
     "id": "vlg-055",
     "gt_status": "Completed",
     "extent_acres_float": 3442.475,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Hanumakonda",
@@ -837,7 +1002,10 @@
     "id": "vlg-056",
     "gt_status": "Completed",
     "extent_acres_float": 556.25,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Returned for Correction",
+    "verified_by": "Central QC Team",
+    "qc_notes": "Shape file Error"
   },
   {
     "district_name": "Hanumakonda",
@@ -852,7 +1020,10 @@
     "id": "vlg-057",
     "gt_status": "Completed",
     "extent_acres_float": 1540.325,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Hanumakonda",
@@ -867,7 +1038,10 @@
     "id": "vlg-058",
     "gt_status": "Completed",
     "extent_acres_float": 896.475,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Hanumakonda",
@@ -882,7 +1056,10 @@
     "id": "vlg-059",
     "gt_status": "Completed",
     "extent_acres_float": 810.475,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Hanumakonda",
@@ -897,7 +1074,10 @@
     "id": "vlg-060",
     "gt_status": "Completed",
     "extent_acres_float": 799.8,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Mahabubabad",
@@ -912,7 +1092,10 @@
     "id": "vlg-061",
     "gt_status": "Completed",
     "extent_acres_float": 1857.0,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Khammam",
@@ -927,7 +1110,10 @@
     "id": "vlg-062",
     "gt_status": "Completed",
     "extent_acres_float": 852.3,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Khammam",
@@ -942,7 +1128,10 @@
     "id": "vlg-063",
     "gt_status": "Completed",
     "extent_acres_float": 3789.775,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Returned for Correction",
+    "verified_by": "Central QC Team",
+    "qc_notes": "Shape file Error"
   },
   {
     "district_name": "Khammam",
@@ -957,7 +1146,10 @@
     "id": "vlg-064",
     "gt_status": "Completed",
     "extent_acres_float": 1253.475,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Kothagudem",
@@ -972,7 +1164,10 @@
     "id": "vlg-065",
     "gt_status": "Completed",
     "extent_acres_float": 0.0,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Kothagudem",
@@ -987,7 +1182,10 @@
     "id": "vlg-066",
     "gt_status": "Completed",
     "extent_acres_float": 153.0,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Kothagudem",
@@ -1002,7 +1200,10 @@
     "id": "vlg-067",
     "gt_status": "Completed",
     "extent_acres_float": 84.6,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Kothagudem",
@@ -1017,7 +1218,10 @@
     "id": "vlg-068",
     "gt_status": "Completed",
     "extent_acres_float": 619.375,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Kothagudem",
@@ -1032,7 +1236,10 @@
     "id": "vlg-069",
     "gt_status": "Completed",
     "extent_acres_float": 225.0,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Kothagudem",
@@ -1047,7 +1254,10 @@
     "id": "vlg-070",
     "gt_status": "Completed",
     "extent_acres_float": 0.0,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Nalgonda",
@@ -1062,7 +1272,10 @@
     "id": "vlg-071",
     "gt_status": "Completed",
     "extent_acres_float": 364.65,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Nalgonda",
@@ -1077,7 +1290,10 @@
     "id": "vlg-072",
     "gt_status": "Completed",
     "extent_acres_float": 277.15,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Nalgonda",
@@ -1092,7 +1308,10 @@
     "id": "vlg-073",
     "gt_status": "Completed",
     "extent_acres_float": 423.325,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Nalgonda",
@@ -1107,7 +1326,10 @@
     "id": "vlg-074",
     "gt_status": "Completed",
     "extent_acres_float": 484.875,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Nalgonda",
@@ -1122,7 +1344,10 @@
     "id": "vlg-075",
     "gt_status": "Completed",
     "extent_acres_float": 538.5,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Nalgonda",
@@ -1137,7 +1362,10 @@
     "id": "vlg-076",
     "gt_status": "Completed",
     "extent_acres_float": 274.9,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Nalgonda",
@@ -1152,7 +1380,10 @@
     "id": "vlg-077",
     "gt_status": "Completed",
     "extent_acres_float": 500.625,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Nalgonda",
@@ -1167,7 +1398,10 @@
     "id": "vlg-078",
     "gt_status": "Completed",
     "extent_acres_float": 301.55,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Pending QC",
+    "verified_by": null,
+    "qc_notes": null
   },
   {
     "district_name": "Janagaon",
@@ -1182,7 +1416,10 @@
     "id": "vlg-079",
     "gt_status": "Completed",
     "extent_acres_float": 757.2,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Pending QC",
+    "verified_by": null,
+    "qc_notes": null
   },
   {
     "district_name": "Janagaon",
@@ -1197,7 +1434,10 @@
     "id": "vlg-080",
     "gt_status": "Completed",
     "extent_acres_float": 866.05,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Pending QC",
+    "verified_by": null,
+    "qc_notes": null
   },
   {
     "district_name": "Medchal Malkajgiri",
@@ -1212,7 +1452,10 @@
     "id": "vlg-081",
     "gt_status": "Completed",
     "extent_acres_float": 367.425,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Returned for Correction",
+    "verified_by": "Central QC Team",
+    "qc_notes": "Shape file Error"
   },
   {
     "district_name": "Medchal Malkajgiri",
@@ -1227,7 +1470,10 @@
     "id": "vlg-082",
     "gt_status": "Completed",
     "extent_acres_float": 75.875,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Vikarabad",
@@ -1242,7 +1488,10 @@
     "id": "vlg-083",
     "gt_status": "Completed",
     "extent_acres_float": 584.8,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Verified",
+    "verified_by": "K. Ravinder Reddy (Lead QC)",
+    "qc_notes": "Verified and approved for Central Office submission."
   },
   {
     "district_name": "Vikarabad",
@@ -1257,7 +1506,10 @@
     "id": "vlg-084",
     "gt_status": "Completed",
     "extent_acres_float": 358.75,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Returned for Correction",
+    "verified_by": "Central QC Team",
+    "qc_notes": "Shape file Error"
   },
   {
     "district_name": "Sangareddy",
@@ -1272,7 +1524,10 @@
     "id": "vlg-085",
     "gt_status": "Completed",
     "extent_acres_float": 584.45,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Pending QC",
+    "verified_by": null,
+    "qc_notes": null
   },
   {
     "district_name": "Sangareddy",
@@ -1287,7 +1542,10 @@
     "id": "vlg-086",
     "gt_status": "Completed",
     "extent_acres_float": 629.475,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Pending QC",
+    "verified_by": null,
+    "qc_notes": null
   },
   {
     "district_name": "Sangareddy",
@@ -1302,7 +1560,10 @@
     "id": "vlg-087",
     "gt_status": "Completed",
     "extent_acres_float": 1187.3,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Returned for Correction",
+    "verified_by": "Central QC Team",
+    "qc_notes": "Shape file Error"
   },
   {
     "district_name": "Jogulamba Gadwal",
@@ -1317,7 +1578,10 @@
     "id": "vlg-088",
     "gt_status": "Completed",
     "extent_acres_float": 424.45,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Pending QC",
+    "verified_by": null,
+    "qc_notes": null
   },
   {
     "district_name": "Jogulamba Gadwal",
@@ -1332,7 +1596,10 @@
     "id": "vlg-089",
     "gt_status": "Completed",
     "extent_acres_float": 153.0,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Pending QC",
+    "verified_by": null,
+    "qc_notes": null
   },
   {
     "id": "vlg-090",
@@ -1347,6 +1614,9 @@
     "workflow_stage": "Shapefile Review",
     "remarks": "Palvancha(M), Sarekal (V) - Shape file Error reported",
     "extent_acres_float": 84.6,
-    "updated_by": "System Seed"
+    "updated_by": "System Seed",
+    "verification_status": "Returned for Correction",
+    "verified_by": "Central QC Team",
+    "qc_notes": "Palvancha(M), Sarekal (V) - Shape file Error reported"
   }
 ]

@@ -1,6 +1,6 @@
 import os
 import sys
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 from fastapi import FastAPI, HTTPException, Depends, Query, status, APIRouter
 from fastapi.responses import StreamingResponse, FileResponse, HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
@@ -14,12 +14,20 @@ if ROOT_DIR not in sys.path:
 from core.database import (
     get_db_status,
     get_districts,
+    update_district_master,
     get_villages,
     get_village,
     add_village,
     update_village,
+    verify_village,
     delete_village,
     get_dashboard_stats,
+    get_executive_summary,
+    get_audit_logs,
+    get_representatives,
+    add_representative,
+    update_representative,
+    delete_representative,
     authenticate_user
 )
 from core.export_service import generate_resurvey_excel
@@ -27,7 +35,7 @@ from core.export_service import generate_resurvey_excel
 app = FastAPI(
     title="Resurvey Updates Monitoring API",
     description="Portal for Cadastral & Non-Cadastral Village Progress Tracking",
-    version="1.0.0"
+    version="2.0.0"
 )
 
 app.add_middleware(
@@ -54,7 +62,8 @@ class VillageCreateRequest(BaseModel):
     sent_to_cso: Optional[bool] = False
     workflow_stage: Optional[str] = "Ground Truthing"
     remarks: Optional[str] = ""
-    updated_by: Optional[str] = "Field Member"
+    updated_by: Optional[str] = "District Rep"
+    user_role: Optional[str] = "district_rep"
 
 class VillageUpdateRequest(BaseModel):
     category: Optional[str] = None
@@ -66,7 +75,37 @@ class VillageUpdateRequest(BaseModel):
     sent_to_cso: Optional[bool] = None
     workflow_stage: Optional[str] = None
     remarks: Optional[str] = None
-    updated_by: Optional[str] = None
+    updated_by: Optional[str] = "District Rep"
+    user_role: Optional[str] = "district_rep"
+
+class VerificationRequest(BaseModel):
+    status: str  # "Verified" or "Returned for Correction"
+    qc_user: Optional[str] = "Lead QC Engineer"
+    notes: Optional[str] = ""
+
+class RepresentativeCreateRequest(BaseModel):
+    name: str
+    role: str  # "district_rep", "qc_engineer", "executive", "admin"
+    designation: str
+    assigned_district: str
+    phone: Optional[str] = ""
+    email: Optional[str] = ""
+    status: Optional[str] = "Active"
+
+class RepresentativeUpdateRequest(BaseModel):
+    name: Optional[str] = None
+    role: Optional[str] = None
+    designation: Optional[str] = None
+    assigned_district: Optional[str] = None
+    phone: Optional[str] = None
+    email: Optional[str] = None
+    status: Optional[str] = None
+
+class DistrictUpdateRequest(BaseModel):
+    non_cadastral_target: Optional[int] = None
+    cadastral_target: Optional[int] = None
+    updated_by: Optional[str] = "Admin"
+    user_role: Optional[str] = "admin"
 
 def calculate_acres(val: Optional[str]) -> float:
     if not val or not str(val).strip():
@@ -89,9 +128,9 @@ def calculate_acres(val: Optional[str]) -> float:
     except Exception:
         return 0.0
 
-# Router that works both with /api and direct path
 router = APIRouter()
 
+# System & Auth
 @router.get("/status")
 def get_system_status():
     return get_db_status()
@@ -110,25 +149,83 @@ def login(creds: LoginRequest):
         "user": user
     }
 
+# Dashboard & Executive Summaries
 @router.get("/dashboard/stats")
 def get_stats():
     return get_dashboard_stats()
 
+@router.get("/executive/summary")
+def get_exec_summary():
+    return get_executive_summary()
+
+# Audit Logs
+@router.get("/audit-logs")
+def list_audit_logs(
+    record_id: Optional[str] = Query(None),
+    district: Optional[str] = Query(None),
+    limit: int = Query(100)
+):
+    return get_audit_logs(record_id=record_id, district=district, limit=limit)
+
+# District Master
 @router.get("/districts")
 def list_districts():
     return get_districts()
 
+@router.put("/districts/{district_id}")
+def edit_district_master(district_id: str, payload: DistrictUpdateRequest):
+    updates = {k: v for k, v in payload.dict().items() if v is not None and k not in ["updated_by", "user_role"]}
+    res = update_district_master(
+        district_id=district_id,
+        updates=updates,
+        user_name=payload.updated_by or "Admin",
+        user_role=payload.user_role or "admin"
+    )
+    if not res:
+        raise HTTPException(status_code=404, detail="District not found")
+    return res
+
+# Representatives Master
+@router.get("/representatives")
+def list_representatives(
+    district: Optional[str] = Query(None),
+    role: Optional[str] = Query(None)
+):
+    return get_representatives(district=district, role=role)
+
+@router.post("/representatives", status_code=status.HTTP_201_CREATED)
+def create_representative(payload: RepresentativeCreateRequest):
+    return add_representative(payload.dict())
+
+@router.put("/representatives/{rep_id}")
+def edit_representative(rep_id: str, payload: RepresentativeUpdateRequest):
+    updates = {k: v for k, v in payload.dict().items() if v is not None}
+    res = update_representative(rep_id, updates)
+    if not res:
+        raise HTTPException(status_code=404, detail="Representative not found")
+    return res
+
+@router.delete("/representatives/{rep_id}")
+def remove_representative(rep_id: str):
+    success = delete_representative(rep_id)
+    if not success:
+        raise HTTPException(status_code=404, detail="Representative not found")
+    return {"success": True, "message": "Representative removed"}
+
+# Villages Operations & Verification
 @router.get("/villages")
 def list_villages(
     district: Optional[str] = Query(None),
     category: Optional[str] = Query(None),
     shapefile_status: Optional[str] = Query(None),
+    verification_status: Optional[str] = Query(None),
     search: Optional[str] = Query(None)
 ):
     return get_villages(
         district=district,
         category=category,
         shapefile_status=shapefile_status,
+        verification_status=verification_status,
         search=search
     )
 
@@ -142,8 +239,10 @@ def get_village_by_id(village_id: str):
 @router.post("/villages", status_code=status.HTTP_201_CREATED)
 def create_village(payload: VillageCreateRequest):
     data = payload.dict()
+    u_name = data.pop("updated_by", "District Rep")
+    u_role = data.pop("user_role", "district_rep")
     data["extent_acres_float"] = calculate_acres(data.get("extent_raw"))
-    return add_village(data)
+    return add_village(data, user_name=u_name, user_role=u_role)
 
 @router.put("/villages/{village_id}")
 def edit_village(village_id: str, payload: VillageUpdateRequest):
@@ -151,16 +250,32 @@ def edit_village(village_id: str, payload: VillageUpdateRequest):
     if not existing:
         raise HTTPException(status_code=404, detail="Village record not found")
     
-    updates = {k: v for k, v in payload.dict().items() if v is not None}
+    data = payload.dict()
+    u_name = data.pop("updated_by", "District Rep")
+    u_role = data.pop("user_role", "district_rep")
+    updates = {k: v for k, v in data.items() if v is not None}
+    
     if "extent_raw" in updates:
         updates["extent_acres_float"] = calculate_acres(updates["extent_raw"])
         
-    updated = update_village(village_id, updates)
+    updated = update_village(village_id, updates, user_name=u_name, user_role=u_role)
     return updated
 
+@router.post("/villages/{village_id}/verify")
+def verify_village_record(village_id: str, payload: VerificationRequest):
+    res = verify_village(
+        village_id=village_id,
+        status=payload.status,
+        qc_user=payload.qc_user or "Lead QC Engineer",
+        notes=payload.notes
+    )
+    if not res:
+        raise HTTPException(status_code=404, detail="Village record not found")
+    return res
+
 @router.delete("/villages/{village_id}")
-def remove_village(village_id: str):
-    success = delete_village(village_id)
+def remove_village(village_id: str, user_name: str = Query("Admin")):
+    success = delete_village(village_id, user_name=user_name)
     if not success:
         raise HTTPException(status_code=404, detail="Village record not found")
     return {"success": True, "message": "Village record deleted"}
@@ -176,11 +291,9 @@ def export_excel():
         }
     )
 
-# Register router at /api prefix AND root prefix for universal compatibility
 app.include_router(router, prefix="/api")
 app.include_router(router, prefix="")
 
-# Serve index.html if root requested
 PUBLIC_DIR = os.path.join(ROOT_DIR, "public")
 if os.path.exists(PUBLIC_DIR):
     @app.get("/")

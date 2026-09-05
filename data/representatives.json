@@ -1,0 +1,682 @@
+[
+  {
+    "id": "rep-admin-01",
+    "name": "Project Administrator",
+    "role": "admin",
+    "designation": "Central Systems Administrator",
+    "assigned_district": "All",
+    "phone": "+91 98480 00001",
+    "email": "admin.central@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-qc-01",
+    "name": "K. Ravinder Reddy",
+    "role": "qc_engineer",
+    "designation": "Lead QC & Verification Engineer",
+    "assigned_district": "All",
+    "phone": "+91 98480 00011",
+    "email": "qc.ravinder@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-qc-02",
+    "name": "P. Sneha Lata",
+    "role": "qc_engineer",
+    "designation": "Shapefile & GIS Quality Analyst",
+    "assigned_district": "All",
+    "phone": "+91 98480 00012",
+    "email": "qc.sneha@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-exec-01",
+    "name": "V. S. Murthy",
+    "role": "executive",
+    "designation": "Executive Project Director",
+    "assigned_district": "All",
+    "phone": "+91 98480 00099",
+    "email": "exec.murthy@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-asifabad-01",
+    "name": "Asifabad District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Asifabad District Survey Coordinator",
+    "assigned_district": "Asifabad",
+    "phone": "+91 984801 1101",
+    "email": "rep1.asifabad@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-asifabad-02",
+    "name": "Asifabad Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Asifabad Field Operations Assistant",
+    "assigned_district": "Asifabad",
+    "phone": "+91 984801 1102",
+    "email": "rep2.asifabad@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-mancherial-01",
+    "name": "Mancherial District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Mancherial District Survey Coordinator",
+    "assigned_district": "Mancherial",
+    "phone": "+91 984802 1101",
+    "email": "rep1.mancherial@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-mancherial-02",
+    "name": "Mancherial Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Mancherial Field Operations Assistant",
+    "assigned_district": "Mancherial",
+    "phone": "+91 984802 1102",
+    "email": "rep2.mancherial@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-peddapally-01",
+    "name": "Peddapally District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Peddapally District Survey Coordinator",
+    "assigned_district": "Peddapally",
+    "phone": "+91 984803 1101",
+    "email": "rep1.peddapally@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-peddapally-02",
+    "name": "Peddapally Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Peddapally Field Operations Assistant",
+    "assigned_district": "Peddapally",
+    "phone": "+91 984803 1102",
+    "email": "rep2.peddapally@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-bhupapally-01",
+    "name": "Bhupapally District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Bhupapally District Survey Coordinator",
+    "assigned_district": "Bhupapally",
+    "phone": "+91 984804 1101",
+    "email": "rep1.bhupapally@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-bhupapally-02",
+    "name": "Bhupapally Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Bhupapally Field Operations Assistant",
+    "assigned_district": "Bhupapally",
+    "phone": "+91 984804 1102",
+    "email": "rep2.bhupapally@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-mulugu-01",
+    "name": "Mulugu District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Mulugu District Survey Coordinator",
+    "assigned_district": "Mulugu",
+    "phone": "+91 984805 1101",
+    "email": "rep1.mulugu@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-mulugu-02",
+    "name": "Mulugu Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Mulugu Field Operations Assistant",
+    "assigned_district": "Mulugu",
+    "phone": "+91 984805 1102",
+    "email": "rep2.mulugu@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-adilabad-01",
+    "name": "Adilabad District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Adilabad District Survey Coordinator",
+    "assigned_district": "Adilabad",
+    "phone": "+91 984806 1101",
+    "email": "rep1.adilabad@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-adilabad-02",
+    "name": "Adilabad Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Adilabad Field Operations Assistant",
+    "assigned_district": "Adilabad",
+    "phone": "+91 984806 1102",
+    "email": "rep2.adilabad@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-nirmal-01",
+    "name": "Nirmal District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Nirmal District Survey Coordinator",
+    "assigned_district": "Nirmal",
+    "phone": "+91 984807 1101",
+    "email": "rep1.nirmal@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-nirmal-02",
+    "name": "Nirmal Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Nirmal Field Operations Assistant",
+    "assigned_district": "Nirmal",
+    "phone": "+91 984807 1102",
+    "email": "rep2.nirmal@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-nizamabad-01",
+    "name": "Nizamabad District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Nizamabad District Survey Coordinator",
+    "assigned_district": "Nizamabad",
+    "phone": "+91 984808 1101",
+    "email": "rep1.nizamabad@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-nizamabad-02",
+    "name": "Nizamabad Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Nizamabad Field Operations Assistant",
+    "assigned_district": "Nizamabad",
+    "phone": "+91 984808 1102",
+    "email": "rep2.nizamabad@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-jagitial-01",
+    "name": "Jagitial District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Jagitial District Survey Coordinator",
+    "assigned_district": "Jagitial",
+    "phone": "+91 984809 1101",
+    "email": "rep1.jagitial@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-jagitial-02",
+    "name": "Jagitial Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Jagitial Field Operations Assistant",
+    "assigned_district": "Jagitial",
+    "phone": "+91 984809 1102",
+    "email": "rep2.jagitial@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-kamareddy-01",
+    "name": "Kamareddy District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Kamareddy District Survey Coordinator",
+    "assigned_district": "Kamareddy",
+    "phone": "+91 984810 1101",
+    "email": "rep1.kamareddy@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-kamareddy-02",
+    "name": "Kamareddy Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Kamareddy Field Operations Assistant",
+    "assigned_district": "Kamareddy",
+    "phone": "+91 984810 1102",
+    "email": "rep2.kamareddy@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-siddipet-01",
+    "name": "Siddipet District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Siddipet District Survey Coordinator",
+    "assigned_district": "Siddipet",
+    "phone": "+91 984811 1101",
+    "email": "rep1.siddipet@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-siddipet-02",
+    "name": "Siddipet Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Siddipet Field Operations Assistant",
+    "assigned_district": "Siddipet",
+    "phone": "+91 984811 1102",
+    "email": "rep2.siddipet@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-medak-01",
+    "name": "Medak District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Medak District Survey Coordinator",
+    "assigned_district": "Medak",
+    "phone": "+91 984812 1101",
+    "email": "rep1.medak@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-medak-02",
+    "name": "Medak Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Medak Field Operations Assistant",
+    "assigned_district": "Medak",
+    "phone": "+91 984812 1102",
+    "email": "rep2.medak@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-rajanna_siricilla-01",
+    "name": "Rajanna Siricilla District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Rajanna Siricilla District Survey Coordinator",
+    "assigned_district": "Rajanna Siricilla",
+    "phone": "+91 984813 1101",
+    "email": "rep1.rajanna_siricilla@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-rajanna_siricilla-02",
+    "name": "Rajanna Siricilla Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Rajanna Siricilla Field Operations Assistant",
+    "assigned_district": "Rajanna Siricilla",
+    "phone": "+91 984813 1102",
+    "email": "rep2.rajanna_siricilla@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-karimnagar-01",
+    "name": "Karimnagar District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Karimnagar District Survey Coordinator",
+    "assigned_district": "Karimnagar",
+    "phone": "+91 984814 1101",
+    "email": "rep1.karimnagar@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-karimnagar-02",
+    "name": "Karimnagar Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Karimnagar Field Operations Assistant",
+    "assigned_district": "Karimnagar",
+    "phone": "+91 984814 1102",
+    "email": "rep2.karimnagar@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-warangal-01",
+    "name": "Warangal District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Warangal District Survey Coordinator",
+    "assigned_district": "Warangal",
+    "phone": "+91 984815 1101",
+    "email": "rep1.warangal@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-warangal-02",
+    "name": "Warangal Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Warangal Field Operations Assistant",
+    "assigned_district": "Warangal",
+    "phone": "+91 984815 1102",
+    "email": "rep2.warangal@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-hanumakonda-01",
+    "name": "Hanumakonda District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Hanumakonda District Survey Coordinator",
+    "assigned_district": "Hanumakonda",
+    "phone": "+91 984816 1101",
+    "email": "rep1.hanumakonda@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-hanumakonda-02",
+    "name": "Hanumakonda Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Hanumakonda Field Operations Assistant",
+    "assigned_district": "Hanumakonda",
+    "phone": "+91 984816 1102",
+    "email": "rep2.hanumakonda@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-mahabubabad-01",
+    "name": "Mahabubabad District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Mahabubabad District Survey Coordinator",
+    "assigned_district": "Mahabubabad",
+    "phone": "+91 984817 1101",
+    "email": "rep1.mahabubabad@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-mahabubabad-02",
+    "name": "Mahabubabad Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Mahabubabad Field Operations Assistant",
+    "assigned_district": "Mahabubabad",
+    "phone": "+91 984817 1102",
+    "email": "rep2.mahabubabad@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-khammam-01",
+    "name": "Khammam District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Khammam District Survey Coordinator",
+    "assigned_district": "Khammam",
+    "phone": "+91 984818 1101",
+    "email": "rep1.khammam@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-khammam-02",
+    "name": "Khammam Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Khammam Field Operations Assistant",
+    "assigned_district": "Khammam",
+    "phone": "+91 984818 1102",
+    "email": "rep2.khammam@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-kothagudem-01",
+    "name": "Kothagudem District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Kothagudem District Survey Coordinator",
+    "assigned_district": "Kothagudem",
+    "phone": "+91 984819 1101",
+    "email": "rep1.kothagudem@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-kothagudem-02",
+    "name": "Kothagudem Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Kothagudem Field Operations Assistant",
+    "assigned_district": "Kothagudem",
+    "phone": "+91 984819 1102",
+    "email": "rep2.kothagudem@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-nalgonda-01",
+    "name": "Nalgonda District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Nalgonda District Survey Coordinator",
+    "assigned_district": "Nalgonda",
+    "phone": "+91 984820 1101",
+    "email": "rep1.nalgonda@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-nalgonda-02",
+    "name": "Nalgonda Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Nalgonda Field Operations Assistant",
+    "assigned_district": "Nalgonda",
+    "phone": "+91 984820 1102",
+    "email": "rep2.nalgonda@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-yadadri_bhuvanagiri-01",
+    "name": "Yadadri Bhuvanagiri District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Yadadri Bhuvanagiri District Survey Coordinator",
+    "assigned_district": "Yadadri Bhuvanagiri",
+    "phone": "+91 984821 1101",
+    "email": "rep1.yadadri_bhuvanagiri@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-yadadri_bhuvanagiri-02",
+    "name": "Yadadri Bhuvanagiri Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Yadadri Bhuvanagiri Field Operations Assistant",
+    "assigned_district": "Yadadri Bhuvanagiri",
+    "phone": "+91 984821 1102",
+    "email": "rep2.yadadri_bhuvanagiri@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-suryapet-01",
+    "name": "Suryapet District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Suryapet District Survey Coordinator",
+    "assigned_district": "Suryapet",
+    "phone": "+91 984822 1101",
+    "email": "rep1.suryapet@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-suryapet-02",
+    "name": "Suryapet Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Suryapet Field Operations Assistant",
+    "assigned_district": "Suryapet",
+    "phone": "+91 984822 1102",
+    "email": "rep2.suryapet@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-janagaon-01",
+    "name": "Janagaon District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Janagaon District Survey Coordinator",
+    "assigned_district": "Janagaon",
+    "phone": "+91 984823 1101",
+    "email": "rep1.janagaon@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-janagaon-02",
+    "name": "Janagaon Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Janagaon Field Operations Assistant",
+    "assigned_district": "Janagaon",
+    "phone": "+91 984823 1102",
+    "email": "rep2.janagaon@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-rangareddy-01",
+    "name": "Rangareddy District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Rangareddy District Survey Coordinator",
+    "assigned_district": "Rangareddy",
+    "phone": "+91 984824 1101",
+    "email": "rep1.rangareddy@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-rangareddy-02",
+    "name": "Rangareddy Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Rangareddy Field Operations Assistant",
+    "assigned_district": "Rangareddy",
+    "phone": "+91 984824 1102",
+    "email": "rep2.rangareddy@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-medchal_malkajgiri-01",
+    "name": "Medchal Malkajgiri District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Medchal Malkajgiri District Survey Coordinator",
+    "assigned_district": "Medchal Malkajgiri",
+    "phone": "+91 984825 1101",
+    "email": "rep1.medchal_malkajgiri@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-medchal_malkajgiri-02",
+    "name": "Medchal Malkajgiri Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Medchal Malkajgiri Field Operations Assistant",
+    "assigned_district": "Medchal Malkajgiri",
+    "phone": "+91 984825 1102",
+    "email": "rep2.medchal_malkajgiri@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-vikarabad-01",
+    "name": "Vikarabad District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Vikarabad District Survey Coordinator",
+    "assigned_district": "Vikarabad",
+    "phone": "+91 984826 1101",
+    "email": "rep1.vikarabad@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-vikarabad-02",
+    "name": "Vikarabad Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Vikarabad Field Operations Assistant",
+    "assigned_district": "Vikarabad",
+    "phone": "+91 984826 1102",
+    "email": "rep2.vikarabad@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-sangareddy-01",
+    "name": "Sangareddy District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Sangareddy District Survey Coordinator",
+    "assigned_district": "Sangareddy",
+    "phone": "+91 984827 1101",
+    "email": "rep1.sangareddy@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-sangareddy-02",
+    "name": "Sangareddy Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Sangareddy Field Operations Assistant",
+    "assigned_district": "Sangareddy",
+    "phone": "+91 984827 1102",
+    "email": "rep2.sangareddy@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-mahabubnagar-01",
+    "name": "Mahabubnagar District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Mahabubnagar District Survey Coordinator",
+    "assigned_district": "Mahabubnagar",
+    "phone": "+91 984828 1101",
+    "email": "rep1.mahabubnagar@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-mahabubnagar-02",
+    "name": "Mahabubnagar Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Mahabubnagar Field Operations Assistant",
+    "assigned_district": "Mahabubnagar",
+    "phone": "+91 984828 1102",
+    "email": "rep2.mahabubnagar@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-narayanapet-01",
+    "name": "Narayanapet District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Narayanapet District Survey Coordinator",
+    "assigned_district": "Narayanapet",
+    "phone": "+91 984829 1101",
+    "email": "rep1.narayanapet@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-narayanapet-02",
+    "name": "Narayanapet Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Narayanapet Field Operations Assistant",
+    "assigned_district": "Narayanapet",
+    "phone": "+91 984829 1102",
+    "email": "rep2.narayanapet@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-wanaparthy-01",
+    "name": "Wanaparthy District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Wanaparthy District Survey Coordinator",
+    "assigned_district": "Wanaparthy",
+    "phone": "+91 984830 1101",
+    "email": "rep1.wanaparthy@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-wanaparthy-02",
+    "name": "Wanaparthy Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Wanaparthy Field Operations Assistant",
+    "assigned_district": "Wanaparthy",
+    "phone": "+91 984830 1102",
+    "email": "rep2.wanaparthy@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-nagarkurnool-01",
+    "name": "Nagarkurnool District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Nagarkurnool District Survey Coordinator",
+    "assigned_district": "Nagarkurnool",
+    "phone": "+91 984831 1101",
+    "email": "rep1.nagarkurnool@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-nagarkurnool-02",
+    "name": "Nagarkurnool Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Nagarkurnool Field Operations Assistant",
+    "assigned_district": "Nagarkurnool",
+    "phone": "+91 984831 1102",
+    "email": "rep2.nagarkurnool@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-jogulamba_gadwal-01",
+    "name": "Jogulamba Gadwal District Lead Rep (Primary)",
+    "role": "district_rep",
+    "designation": "Jogulamba Gadwal District Survey Coordinator",
+    "assigned_district": "Jogulamba Gadwal",
+    "phone": "+91 984832 1101",
+    "email": "rep1.jogulamba_gadwal@project.org",
+    "status": "Active"
+  },
+  {
+    "id": "rep-jogulamba_gadwal-02",
+    "name": "Jogulamba Gadwal Field Assistant (Secondary)",
+    "role": "district_rep",
+    "designation": "Jogulamba Gadwal Field Operations Assistant",
+    "assigned_district": "Jogulamba Gadwal",
+    "phone": "+91 984832 1102",
+    "email": "rep2.jogulamba_gadwal@project.org",
+    "status": "Active"
+  }
+]

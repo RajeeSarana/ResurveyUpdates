@@ -1,42 +1,56 @@
 [
   {
     "username": "admin",
-    "name": "Project Admin (Central Coordinator)",
+    "name": "Project Administrator",
     "role": "admin",
     "password": "admin",
     "district": "All"
   },
   {
-    "username": "asifabad_officer",
-    "name": "Asifabad District Nodal Officer",
-    "role": "district_officer",
+    "username": "qc_lead",
+    "name": "K. Ravinder Reddy (Lead QC Engineer)",
+    "role": "qc_engineer",
+    "password": "pass",
+    "district": "All"
+  },
+  {
+    "username": "executive_dir",
+    "name": "V. S. Murthy (Executive Director)",
+    "role": "executive",
+    "password": "pass",
+    "district": "All"
+  },
+  {
+    "username": "asifabad_rep",
+    "name": "Asifabad District Rep 1",
+    "role": "district_rep",
     "password": "pass",
     "district": "Asifabad"
   },
   {
-    "username": "nizamabad_officer",
-    "name": "Nizamabad District Nodal Officer",
-    "role": "district_officer",
+    "username": "nizamabad_rep",
+    "name": "Nizamabad District Rep 1",
+    "role": "district_rep",
     "password": "pass",
     "district": "Nizamabad"
   },
   {
-    "username": "medak_officer",
-    "name": "Medak District Nodal Officer",
-    "role": "district_officer",
+    "username": "medak_rep",
+    "name": "Medak District Rep 1",
+    "role": "district_rep",
     "password": "pass",
     "district": "Medak"
   },
   {
-    "username": "siddipet_officer",
-    "name": "Siddipet District Nodal Officer",
-    "role": "district_officer",
+    "username": "siddipet_rep",
+    "name": "Siddipet District Rep 1",
+    "role": "district_rep",
     "password": "pass",
     "district": "Siddipet"
   },
   {
     "username": "viewer",
-    "name": "Guest Auditor (View Only)",
+    "name": "Public Auditor / Guest",
     "role": "viewer",
     "password": "guest",
     "district": "All"
