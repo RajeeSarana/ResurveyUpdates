@@ -1,7 +1,7 @@
 import os
 import sys
 from typing import Optional, Dict, Any, List
-from fastapi import FastAPI, HTTPException, Depends, Query, status, APIRouter
+from fastapi import FastAPI, HTTPException, Depends, Query, status, APIRouter, Header
 from fastapi.responses import StreamingResponse, FileResponse, HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
@@ -28,7 +28,9 @@ from core.database import (
     add_representative,
     update_representative,
     delete_representative,
-    authenticate_user
+    authenticate_user,
+    create_auth_token,
+    verify_auth_token
 )
 from core.export_service import generate_resurvey_excel
 
@@ -128,6 +130,32 @@ def calculate_acres(val: Optional[str]) -> float:
     except Exception:
         return 0.0
 
+def get_current_user(
+    authorization: Optional[str] = Header(None),
+    x_auth_token: Optional[str] = Header(None)
+) -> Optional[Dict[str, Any]]:
+    token = None
+    if authorization and authorization.startswith("Bearer "):
+        token = authorization.split("Bearer ")[1].strip()
+    elif x_auth_token:
+        token = x_auth_token.strip()
+    
+    if token:
+        return verify_auth_token(token)
+    return None
+
+def require_user(
+    authorization: Optional[str] = Header(None),
+    x_auth_token: Optional[str] = Header(None)
+) -> Dict[str, Any]:
+    user = get_current_user(authorization, x_auth_token)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Authentication required. Please log in with your officer credentials to perform this operation."
+        )
+    return user
+
 router = APIRouter()
 
 # System & Auth
@@ -143,11 +171,20 @@ def login(creds: LoginRequest):
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid username or password"
         )
+    token = create_auth_token(user)
     return {
         "success": True,
-        "token": f"token-{user['username']}",
+        "token": token,
         "user": user
     }
+
+@router.post("/auth/logout")
+def logout():
+    return {"success": True, "message": "Successfully logged out"}
+
+@router.get("/auth/me")
+def get_me(user: Dict[str, Any] = Depends(require_user)):
+    return {"user": user}
 
 # Dashboard & Executive Summaries
 @router.get("/dashboard/stats")
@@ -173,13 +210,22 @@ def list_districts():
     return get_districts()
 
 @router.put("/districts/{district_id}")
-def edit_district_master(district_id: str, payload: DistrictUpdateRequest):
+def edit_district_master(
+    district_id: str,
+    payload: DistrictUpdateRequest,
+    user: Dict[str, Any] = Depends(require_user)
+):
+    if user.get("role") != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Permission denied: Administrator privileges required to modify district baseline targets."
+        )
     updates = {k: v for k, v in payload.dict().items() if v is not None and k not in ["updated_by", "user_role"]}
     res = update_district_master(
         district_id=district_id,
         updates=updates,
-        user_name=payload.updated_by or "Admin",
-        user_role=payload.user_role or "admin"
+        user_name=user["name"],
+        user_role=user["role"]
     )
     if not res:
         raise HTTPException(status_code=404, detail="District not found")
@@ -194,11 +240,28 @@ def list_representatives(
     return get_representatives(district=district, role=role)
 
 @router.post("/representatives", status_code=status.HTTP_201_CREATED)
-def create_representative(payload: RepresentativeCreateRequest):
+def create_representative(
+    payload: RepresentativeCreateRequest,
+    user: Dict[str, Any] = Depends(require_user)
+):
+    if user.get("role") != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Permission denied: Administrator privileges required to add representatives."
+        )
     return add_representative(payload.dict())
 
 @router.put("/representatives/{rep_id}")
-def edit_representative(rep_id: str, payload: RepresentativeUpdateRequest):
+def edit_representative(
+    rep_id: str,
+    payload: RepresentativeUpdateRequest,
+    user: Dict[str, Any] = Depends(require_user)
+):
+    if user.get("role") != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Permission denied: Administrator privileges required to edit representatives."
+        )
     updates = {k: v for k, v in payload.dict().items() if v is not None}
     res = update_representative(rep_id, updates)
     if not res:
@@ -206,7 +269,15 @@ def edit_representative(rep_id: str, payload: RepresentativeUpdateRequest):
     return res
 
 @router.delete("/representatives/{rep_id}")
-def remove_representative(rep_id: str):
+def remove_representative(
+    rep_id: str,
+    user: Dict[str, Any] = Depends(require_user)
+):
+    if user.get("role") != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Permission denied: Administrator privileges required to remove representatives."
+        )
     success = delete_representative(rep_id)
     if not success:
         raise HTTPException(status_code=404, detail="Representative not found")
@@ -237,36 +308,85 @@ def get_village_by_id(village_id: str):
     return v
 
 @router.post("/villages", status_code=status.HTTP_201_CREATED)
-def create_village(payload: VillageCreateRequest):
+def create_village(
+    payload: VillageCreateRequest,
+    user: Dict[str, Any] = Depends(require_user)
+):
+    if user.get("role") not in ["admin", "district_rep"]:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Permission denied: Only designated District Representatives and Administrators can add survey records."
+        )
+
+    # If district representative, enforce assigned district match
+    if user.get("role") == "district_rep":
+        assigned_district = (user.get("district") or "").lower()
+        if assigned_district != "all" and payload.district_name.lower() != assigned_district:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=f"Permission denied: You are assigned to {user.get('district')} district and cannot submit records for {payload.district_name}."
+            )
+
     data = payload.dict()
-    u_name = data.pop("updated_by", "District Rep")
-    u_role = data.pop("user_role", "district_rep")
+    data.pop("updated_by", None)
+    data.pop("user_role", None)
     data["extent_acres_float"] = calculate_acres(data.get("extent_raw"))
-    return add_village(data, user_name=u_name, user_role=u_role)
+    return add_village(data, user_name=user["name"], user_role=user["role"])
 
 @router.put("/villages/{village_id}")
-def edit_village(village_id: str, payload: VillageUpdateRequest):
+def edit_village(
+    village_id: str,
+    payload: VillageUpdateRequest,
+    user: Dict[str, Any] = Depends(require_user)
+):
+    if user.get("role") not in ["admin", "district_rep"]:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Permission denied: Only designated District Representatives and Administrators can modify village records."
+        )
+
     existing = get_village(village_id)
     if not existing:
         raise HTTPException(status_code=404, detail="Village record not found")
-    
+
+    # If district representative, enforce assigned district match
+    if user.get("role") == "district_rep":
+        assigned_district = (user.get("district") or "").lower()
+        existing_district = (existing.get("district_name") or "").lower()
+        if assigned_district != "all" and existing_district != assigned_district:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=f"Permission denied: You are assigned to {user.get('district')} district and cannot modify records for {existing.get('district_name')}."
+            )
+
     data = payload.dict()
-    u_name = data.pop("updated_by", "District Rep")
-    u_role = data.pop("user_role", "district_rep")
+    data.pop("updated_by", None)
+    data.pop("user_role", None)
     updates = {k: v for k, v in data.items() if v is not None}
     
     if "extent_raw" in updates:
         updates["extent_acres_float"] = calculate_acres(updates["extent_raw"])
         
-    updated = update_village(village_id, updates, user_name=u_name, user_role=u_role)
+    updated = update_village(village_id, updates, user_name=user["name"], user_role=user["role"])
     return updated
 
 @router.post("/villages/{village_id}/verify")
-def verify_village_record(village_id: str, payload: VerificationRequest):
+def verify_village_record(
+    village_id: str,
+    payload: VerificationRequest,
+    user: Dict[str, Any] = Depends(require_user)
+):
+    if user.get("role") not in ["admin", "qc_engineer"]:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Permission denied: Only Central QC Verification Engineers and Administrators can certify or return records."
+        )
+
+    qc_inspector = f"{user['name']} ({user.get('designation') or 'Central QC'})"
     res = verify_village(
         village_id=village_id,
         status=payload.status,
-        qc_user=payload.qc_user or "Lead QC Engineer",
+        qc_user=qc_inspector,
         notes=payload.notes
     )
     if not res:
@@ -274,8 +394,16 @@ def verify_village_record(village_id: str, payload: VerificationRequest):
     return res
 
 @router.delete("/villages/{village_id}")
-def remove_village(village_id: str, user_name: str = Query("Admin")):
-    success = delete_village(village_id, user_name=user_name)
+def remove_village(
+    village_id: str,
+    user: Dict[str, Any] = Depends(require_user)
+):
+    if user.get("role") != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Permission denied: Administrator privileges required to delete village records."
+        )
+    success = delete_village(village_id, user_name=user["name"])
     if not success:
         raise HTTPException(status_code=404, detail="Village record not found")
     return {"success": True, "message": "Village record deleted"}

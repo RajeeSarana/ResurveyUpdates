@@ -47,14 +47,14 @@
             <div class="flex items-center space-x-2">
               <span class="text-xs uppercase tracking-widest text-emerald-300 font-semibold">Field Operations Portal</span>
               <span class="text-xs bg-emerald-400/20 text-emerald-200 px-2 py-0.5 rounded-full border border-emerald-400/30">ResurveyUpdates</span>
-              <span class="text-xs bg-teal-500/30 text-teal-200 px-2 py-0.5 rounded-full border border-teal-400/30 hidden md:inline">RBAC & QC Active</span>
+              <span class="text-xs bg-teal-500/30 text-teal-200 px-2 py-0.5 rounded-full border border-teal-400/30 hidden md:inline">Authenticated Sessions</span>
             </div>
             <h1 class="text-lg sm:text-xl font-bold tracking-tight text-white">Resurvey Monitoring & Verification Portal</h1>
             <p class="text-xs text-slate-300 hidden sm:block">100% Completed Villages Tracking (Cadastral & Non-Cadastral) as on 04.09.2026</p>
           </div>
         </div>
 
-        <!-- Controls: User Role & Actions -->
+        <!-- Controls: User Role, Login/Logout & Actions -->
         <div class="flex items-center space-x-3 no-print">
           <!-- DB Engine Badge -->
           <div id="dbStatusBadge" class="hidden sm:flex items-center space-x-2 bg-emerald-950/60 border border-emerald-500/30 px-3 py-1.5 rounded-lg text-xs">
@@ -65,32 +65,19 @@
             <span class="text-emerald-200 font-medium" id="dbEngineText">MongoDB Atlas Ready</span>
           </div>
 
-          <!-- User Role Pill & Switcher -->
-          <div class="flex items-center space-x-2 bg-white/10 px-3 py-1.5 rounded-lg border border-white/15">
-            <div class="w-8 h-8 rounded-full bg-emerald-500/30 flex items-center justify-center border border-emerald-400/40">
-              <i class="fa-solid fa-user-shield text-emerald-200 text-sm" id="userRoleIcon"></i>
-            </div>
-            <div class="text-left">
-              <div class="text-xs font-bold text-white flex items-center space-x-1.5">
-                <span id="currentUserName">Project Administrator</span>
-                <span id="userDistrictBadge" class="text-[10px] bg-emerald-950/80 text-emerald-300 px-1.5 py-0.2 rounded border border-emerald-500/30 font-normal">All Districts</span>
-              </div>
-              <div class="text-[10px] text-emerald-300 font-medium" id="currentUserRoleTitle">Full Administrator (Admin)</div>
-            </div>
-            <button onclick="openLoginModal()" class="ml-2 text-xs bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-2.5 py-1 rounded shadow transition flex items-center space-x-1">
-              <i class="fa-solid fa-arrow-right-arrow-left text-[10px]"></i>
-              <span class="hidden md:inline">Switch Role</span>
-            </button>
+          <!-- AUTH CONTAINER: LOGGED IN vs LOGGED OUT -->
+          <div id="authContainer" class="flex items-center">
+            <!-- Rendered dynamically by JavaScript based on authToken -->
           </div>
 
           <!-- Excel Export -->
-          <button onclick="downloadExcel()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium px-3.5 py-2 rounded-lg shadow flex items-center space-x-2 transition">
+          <button onclick="downloadExcel()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium px-3 py-2 rounded-lg shadow flex items-center space-x-1.5 transition">
             <i class="fa-solid fa-file-excel text-emerald-200"></i>
             <span class="hidden md:inline">Export Excel</span>
           </button>
 
           <!-- Print Button -->
-          <button onclick="window.print()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium px-3.5 py-2 rounded-lg border border-slate-600 shadow flex items-center space-x-2 transition">
+          <button onclick="window.print()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium px-3 py-2 rounded-lg border border-slate-600 shadow flex items-center space-x-1.5 transition">
             <i class="fa-solid fa-print"></i>
             <span class="hidden md:inline">Print</span>
           </button>
@@ -139,16 +126,18 @@
   <!-- MAIN VIEWPORT CONTAINER -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full space-y-6">
 
-    <!-- ROLE NOTIFICATION BANNER -->
+    <!-- ROLE / SESSION NOTIFICATION BANNER -->
     <div id="roleAlertBanner" class="p-3.5 rounded-xl border flex items-center justify-between text-xs transition bg-blue-50 border-blue-200 text-blue-900">
       <div class="flex items-center space-x-3">
-        <i class="fa-solid fa-circle-info text-blue-600 text-base" id="roleAlertIcon"></i>
+        <i class="fa-solid fa-shield-halved text-blue-600 text-base" id="roleAlertIcon"></i>
         <div>
-          <span class="font-bold" id="roleAlertTitle">Logged in as Project Administrator:</span>
-          <span class="ml-1 text-slate-700" id="roleAlertMessage">Full access granted across all 32 districts, verification actions, targets modification, and representative master data.</span>
+          <span class="font-bold" id="roleAlertTitle">Session Status:</span>
+          <span class="ml-1 text-slate-700" id="roleAlertMessage">Loading session...</span>
         </div>
       </div>
-      <button onclick="openLoginModal()" class="text-blue-700 hover:text-blue-900 font-semibold underline underline-offset-2 ml-4 whitespace-nowrap">Change Role</button>
+      <div id="bannerActionBtn">
+        <!-- Rendered dynamically: 'Sign In' or 'Switch Account' -->
+      </div>
     </div>
 
     <!-- ========================================================================================= -->
@@ -372,7 +361,7 @@
 
             <!-- Add Record Button -->
             <div class="flex items-center space-x-2 no-print" id="villageActionsContainer">
-              <button onclick="openAddVillageModal()" id="btnAddVillage" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3.5 py-2 rounded-lg shadow flex items-center space-x-1.5 transition">
+              <button onclick="handleAddVillageClick()" id="btnAddVillage" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3.5 py-2 rounded-lg shadow flex items-center space-x-1.5 transition">
                 <i class="fa-solid fa-plus"></i>
                 <span>Add Village Survey Data</span>
               </button>
@@ -486,7 +475,7 @@
             Current Verification Queue: <span id="qcQueueTitle" class="text-amber-700">Pending Review</span>
           </div>
           <div class="text-xs text-slate-500">
-            Click <strong class="text-slate-800">Review & Verify</strong> to certify GIS shapefile and attributes.
+            Requires Central QC Inspector or Administrator credentials to certify records.
           </div>
         </div>
 
@@ -731,7 +720,7 @@
               <option value="executive">Executives</option>
               <option value="admin">Administrators</option>
             </select>
-            <button onclick="openAddRepModal()" id="btnAddRep" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg shadow transition flex items-center space-x-1.5">
+            <button onclick="handleAddRepClick()" id="btnAddRep" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg shadow transition flex items-center space-x-1.5">
               <i class="fa-solid fa-user-plus"></i>
               <span>Add Officer</span>
             </button>
@@ -884,7 +873,7 @@
       <div class="flex items-center justify-between border-b pb-3">
         <div class="flex items-center space-x-2">
           <i class="fa-solid fa-stamp text-emerald-600 text-lg"></i>
-          <h3 class="text-base font-bold text-slate-900">QC Verification & Approval</h3>
+          <h3 class="text-base font-bold text-slate-900">QC Verification & Certification</h3>
         </div>
         <button onclick="closeQcModal()" class="text-slate-400 hover:text-slate-600 text-lg">
           <i class="fa-solid fa-xmark"></i>
@@ -1138,85 +1127,122 @@
   </div>
 
   <!-- ========================================================================================= -->
-  <!-- MODAL: LOGIN / USER ROLE SWITCHER                                                         -->
+  <!-- MODAL: LOGIN / USER AUTHENTICATION                                                        -->
   <!-- ========================================================================================= -->
   <div id="loginModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 space-y-4 max-h-[90vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b pb-3">
-        <h3 class="text-sm font-bold text-slate-900">Switch User Role & Access Tier</h3>
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-lock text-emerald-600"></i>
+          <h3 class="text-sm font-bold text-slate-900">Officer Sign In & Authentication</h3>
+        </div>
         <button onclick="closeLoginModal()" class="text-slate-400 hover:text-slate-600">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <p class="text-xs text-slate-500">
-        Select a role to test role-based permissions and data-entry boundaries:
-      </p>
+      <!-- Login Tabs: Standard Login vs 1-Click Demo -->
+      <div class="flex rounded-lg bg-slate-100 p-1 text-xs font-semibold">
+        <button onclick="switchLoginTab('form')" id="btnTabLoginForm" class="flex-1 py-1.5 rounded-md bg-white text-slate-900 shadow-sm transition">
+          Officer Login
+        </button>
+        <button onclick="switchLoginTab('quick')" id="btnTabLoginQuick" class="flex-1 py-1.5 rounded-md text-slate-600 hover:text-slate-900 transition">
+          1-Click Demo Accounts
+        </button>
+      </div>
 
-      <div class="space-y-2 text-xs">
+      <!-- Tab 1: Standard Username/Password Form -->
+      <div id="panelLoginForm" class="space-y-3 text-xs">
+        <form id="customLoginForm" onsubmit="handleCustomLogin(event)" class="space-y-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Username / Officer ID *</label>
+            <input type="text" id="loginUsernameInput" required placeholder="e.g. admin, qc_lead, asifabad_rep1" 
+              class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 font-medium" />
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Password *</label>
+            <input type="password" id="loginPasswordInput" required placeholder="Enter password" 
+              class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 font-medium" />
+          </div>
+
+          <div id="loginErrorMessage" class="hidden p-2 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-[11px] font-medium"></div>
+
+          <button type="submit" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-semibold shadow transition flex items-center justify-center space-x-2">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            <span>Sign In to Portal</span>
+          </button>
+        </form>
+
+        <div class="pt-2 text-[11px] text-slate-400 text-center border-t border-slate-100">
+          Default evaluation credentials: password is <code class="bg-slate-100 text-slate-700 px-1 py-0.5 rounded font-mono">pass</code>, <code class="bg-slate-100 text-slate-700 px-1 py-0.5 rounded font-mono">admin</code>, or <code class="bg-slate-100 text-slate-700 px-1 py-0.5 rounded font-mono">rep123</code>.
+        </div>
+      </div>
+
+      <!-- Tab 2: 1-Click Demo Accounts -->
+      <div id="panelLoginQuick" class="hidden space-y-2 text-xs">
+        <p class="text-[11px] text-slate-500 mb-2">Select an official identity to authenticate instantly with real cryptographic tokens:</p>
+
         <!-- 1. System Administrator -->
-        <button onclick="quickLogin('admin', 'admin')" class="w-full text-left p-3 rounded-lg border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/30 flex items-center justify-between transition">
+        <button onclick="executeQuickLogin('admin', 'admin')" class="w-full text-left p-2.5 rounded-lg border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/30 flex items-center justify-between transition">
           <div>
             <div class="font-bold text-slate-900 flex items-center space-x-1.5">
               <span>Project Administrator</span>
               <span class="text-[10px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-bold">Admin</span>
             </div>
-            <div class="text-[11px] text-slate-500 mt-0.5">Full System Access across all 32 districts, Target editing, Rep management, Deletions</div>
+            <div class="text-[10px] text-slate-500">Full Access (All 32 districts, Targets, Users, Deletions)</div>
           </div>
           <i class="fa-solid fa-chevron-right text-slate-400 text-xs"></i>
         </button>
 
         <!-- 2. Central QC Engineer -->
-        <button onclick="quickLogin('qc_lead', 'qc123')" class="w-full text-left p-3 rounded-lg border border-slate-200 hover:border-amber-500 hover:bg-amber-50/30 flex items-center justify-between transition">
+        <button onclick="executeQuickLogin('qc_lead', 'pass')" class="w-full text-left p-2.5 rounded-lg border border-slate-200 hover:border-amber-500 hover:bg-amber-50/30 flex items-center justify-between transition">
           <div>
             <div class="font-bold text-slate-900 flex items-center space-x-1.5">
-              <span>Central QC Engineer</span>
-              <span class="text-[10px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded font-bold">Central Office QC</span>
+              <span>Central QC Lead Engineer</span>
+              <span class="text-[10px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded font-bold">Central QC</span>
             </div>
-            <div class="text-[11px] text-slate-500 mt-0.5">Verification Desk: certify field correctness, approve or return records with review remarks</div>
+            <div class="text-[10px] text-slate-500">K. Ravinder Reddy (Certify readiness, approve/return with remarks)</div>
           </div>
           <i class="fa-solid fa-chevron-right text-slate-400 text-xs"></i>
         </button>
 
         <!-- 3. Executive Manager -->
-        <button onclick="quickLogin('executive_dir', 'exec123')" class="w-full text-left p-3 rounded-lg border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/30 flex items-center justify-between transition">
+        <button onclick="executeQuickLogin('executive_dir', 'pass')" class="w-full text-left p-2.5 rounded-lg border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/30 flex items-center justify-between transition">
           <div>
             <div class="font-bold text-slate-900 flex items-center space-x-1.5">
-              <span>Executive Manager</span>
+              <span>Executive Project Director</span>
               <span class="text-[10px] bg-indigo-100 text-indigo-800 px-1.5 py-0.5 rounded font-bold">Top Management</span>
             </div>
-            <div class="text-[11px] text-slate-500 mt-0.5">Executive Briefing: Statewide compliance scorecards, top performers & priority radar</div>
+            <div class="text-[10px] text-slate-500">V. S. Murthy (Statewide compliance scorecards & executive radar)</div>
           </div>
           <i class="fa-solid fa-chevron-right text-slate-400 text-xs"></i>
         </button>
 
         <!-- 4. District Representative Dropdown Picker -->
-        <div class="p-3 rounded-lg border border-slate-200 bg-slate-50/50 space-y-2">
-          <div class="flex items-center justify-between">
-            <div class="font-bold text-slate-900 flex items-center space-x-1.5">
-              <span>District Representative (1-2 per District)</span>
-              <span class="text-[10px] bg-teal-100 text-teal-800 px-1.5 py-0.5 rounded font-bold">Field Rep</span>
-            </div>
+        <div class="p-2.5 rounded-lg border border-slate-200 bg-slate-50/50 space-y-2">
+          <div class="font-bold text-slate-900 flex items-center space-x-1.5">
+            <span>District Representative (32 Districts)</span>
+            <span class="text-[10px] bg-teal-100 text-teal-800 px-1.5 py-0.5 rounded font-bold">Field Rep</span>
           </div>
-          <p class="text-[11px] text-slate-500">Select any district to act as its designated nodal representative:</p>
           <div class="flex space-x-2">
             <select id="switchDistrictSelect" class="flex-1 p-2 bg-white border border-slate-200 rounded-lg text-xs font-medium">
               <!-- Dynamically populated 32 districts -->
             </select>
-            <button onclick="loginAsDistrictRep()" class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-3 py-2 rounded-lg text-xs transition">
-              Select
+            <button onclick="executeDistrictRepLogin()" class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-3 py-1.5 rounded-lg text-xs transition">
+              Sign In
             </button>
           </div>
         </div>
 
-        <!-- 5. Public Auditor / Viewer -->
-        <button onclick="quickLogin('viewer', 'guest')" class="w-full text-left p-3 rounded-lg border border-slate-200 hover:border-slate-400 hover:bg-slate-100/50 flex items-center justify-between transition">
+        <!-- 5. Public Auditor / Guest -->
+        <button onclick="executeQuickLogin('viewer', 'guest')" class="w-full text-left p-2.5 rounded-lg border border-slate-200 hover:border-slate-400 hover:bg-slate-100/50 flex items-center justify-between transition">
           <div>
             <div class="font-bold text-slate-800 flex items-center space-x-1.5">
               <span>Public Auditor / Guest</span>
               <span class="text-[10px] bg-slate-200 text-slate-700 px-1.5 py-0.5 rounded font-bold">Viewer</span>
             </div>
-            <div class="text-[11px] text-slate-500 mt-0.5">Read-only transparency view</div>
+            <div class="text-[10px] text-slate-500">Read-only transparency view</div>
           </div>
           <i class="fa-solid fa-chevron-right text-slate-400 text-xs"></i>
         </button>
@@ -1243,47 +1269,149 @@
     let currentQcFilter = 'Pending QC';
     let currentActiveMainTab = 'tab-overview';
     
-    // User session state (persisted in localStorage)
-    let currentUser = {
-      username: 'admin',
-      name: 'Project Administrator',
-      role: 'admin',
-      district: 'All',
-      designation: 'Central Systems Administrator'
-    };
+    // Authenticated session state (token + user)
+    let authToken = localStorage.getItem('resurvey_auth_token') || null;
+    let currentUser = null;
 
     let barChartInstance = null;
     let donutChartInstance = null;
 
     // Initialization
     document.addEventListener('DOMContentLoaded', async () => {
-      loadSavedUserSession();
+      await loadAuthenticatedSession();
       await checkDbStatus();
       await fetchDistricts();
       await fetchVillages();
       await fetchDashboardStats();
       await fetchRepresentatives();
       await fetchAuditLogs();
-      updateUserRoleUI();
     });
 
-    function loadSavedUserSession() {
-      try {
-        const saved = localStorage.getItem('resurvey_user_session');
-        if (saved) {
-          currentUser = JSON.parse(saved);
-        }
-      } catch (e) {
-        console.warn('Session load error', e);
+    // Helper: headers with Bearer token
+    function getAuthHeaders() {
+      const headers = { 'Content-Type': 'application/json' };
+      if (authToken) {
+        headers['Authorization'] = 'Bearer ' + authToken;
       }
+      return headers;
     }
 
-    function saveUserSession() {
-      try {
-        localStorage.setItem('resurvey_user_session', JSON.stringify(currentUser));
-      } catch (e) {
-        console.warn('Session save error', e);
+    async function loadAuthenticatedSession() {
+      if (authToken) {
+        try {
+          const res = await fetch('/auth/me', { headers: getAuthHeaders() });
+          if (res.ok) {
+            const data = await res.json();
+            currentUser = data.user;
+          } else {
+            // Token expired or invalid
+            authToken = null;
+            currentUser = null;
+            localStorage.removeItem('resurvey_auth_token');
+          }
+        } catch (e) {
+          console.warn('Session verification error', e);
+        }
       }
+      renderAuthHeaderUI();
+    }
+
+    function renderAuthHeaderUI() {
+      const authContainer = document.getElementById('authContainer');
+      const roleBanner = document.getElementById('roleAlertBanner');
+      const roleTitle = document.getElementById('roleAlertTitle');
+      const roleMsg = document.getElementById('roleAlertMessage');
+      const bannerBtn = document.getElementById('bannerActionBtn');
+      const roleIcon = document.getElementById('roleAlertIcon');
+
+      if (currentUser && authToken) {
+        // Authenticated State
+        let roleBadgeColor = 'text-emerald-300';
+        let rolePillClass = 'bg-emerald-100 text-emerald-800';
+        let roleIconClass = 'fa-solid fa-user-shield text-emerald-200';
+
+        if (currentUser.role === 'qc_engineer') {
+          roleBadgeColor = 'text-amber-300';
+          rolePillClass = 'bg-amber-100 text-amber-800';
+          roleIconClass = 'fa-solid fa-clipboard-check text-amber-200';
+          roleBanner.className = 'p-3.5 rounded-xl border flex items-center justify-between text-xs bg-amber-50 border-amber-200 text-amber-950';
+          roleTitle.textContent = `Authenticated: Central QC Engineer (${currentUser.name})`;
+          roleMsg.textContent = 'Authorized to review field submissions across all 32 districts, verify GIS readiness, and approve or return records with QC notes.';
+        } else if (currentUser.role === 'district_rep') {
+          roleBadgeColor = 'text-teal-300';
+          rolePillClass = 'bg-teal-100 text-teal-800';
+          roleIconClass = 'fa-solid fa-user text-teal-200';
+          roleBanner.className = 'p-3.5 rounded-xl border flex items-center justify-between text-xs bg-teal-50 border-teal-200 text-teal-950';
+          roleTitle.textContent = `Authenticated: ${currentUser.district} Representative (${currentUser.name})`;
+          roleMsg.textContent = `You are authorized to submit and modify survey records for ${currentUser.district} district. All actions are logged under your official identity.`;
+        } else if (currentUser.role === 'executive') {
+          roleBadgeColor = 'text-indigo-300';
+          rolePillClass = 'bg-indigo-100 text-indigo-800';
+          roleIconClass = 'fa-solid fa-briefcase text-indigo-200';
+          roleBanner.className = 'p-3.5 rounded-xl border flex items-center justify-between text-xs bg-indigo-50 border-indigo-200 text-indigo-950';
+          roleTitle.textContent = `Authenticated: Executive Leadership (${currentUser.name})`;
+          roleMsg.textContent = 'Periodic monitoring mode: high-level performance scorecards, target compliance rankings, and risk radar.';
+        } else if (currentUser.role === 'admin') {
+          roleBanner.className = 'p-3.5 rounded-xl border flex items-center justify-between text-xs bg-emerald-50 border-emerald-200 text-emerald-950';
+          roleTitle.textContent = `Authenticated: System Administrator (${currentUser.name})`;
+          roleMsg.textContent = 'Full override access: modifying district targets, managing representatives, approving records, and full audit authority.';
+        } else {
+          roleBanner.className = 'p-3.5 rounded-xl border flex items-center justify-between text-xs bg-slate-100 border-slate-200 text-slate-800';
+          roleTitle.textContent = `Authenticated: Observer (${currentUser.name})`;
+          roleMsg.textContent = 'Read-only transparency view.';
+        }
+
+        authContainer.innerHTML = `
+          <div class="flex items-center space-x-2 bg-white/10 px-3 py-1.5 rounded-lg border border-white/15">
+            <div class="w-8 h-8 rounded-full bg-emerald-500/30 flex items-center justify-center border border-emerald-400/40">
+              <i class="${roleIconClass} text-sm"></i>
+            </div>
+            <div class="text-left">
+              <div class="text-xs font-bold text-white flex items-center space-x-1.5">
+                <span class="max-w-[140px] truncate">${currentUser.name}</span>
+                <span class="text-[10px] bg-emerald-950/80 ${roleBadgeColor} px-1.5 py-0.2 rounded border border-emerald-500/30 font-normal">
+                  ${currentUser.district === 'All' ? 'HQ' : currentUser.district}
+                </span>
+              </div>
+              <div class="text-[10px] ${roleBadgeColor} font-medium capitalize">
+                ${currentUser.designation || currentUser.role.replace('_', ' ')}
+              </div>
+            </div>
+            <button onclick="handleLogout()" title="Sign Out of Portal" class="ml-2 text-xs bg-rose-500/20 hover:bg-rose-500/30 text-rose-200 border border-rose-400/30 px-2 py-1 rounded transition flex items-center space-x-1">
+              <i class="fa-solid fa-right-from-bracket text-[10px]"></i>
+              <span class="hidden sm:inline">Logout</span>
+            </button>
+          </div>
+        `;
+
+        bannerBtn.innerHTML = `
+          <button onclick="openLoginModal()" class="text-xs font-semibold underline underline-offset-2 hover:opacity-80">
+            Switch Account
+          </button>
+        `;
+      } else {
+        // Unauthenticated / Guest State
+        roleBanner.className = 'p-3.5 rounded-xl border flex items-center justify-between text-xs bg-slate-100 border-slate-200 text-slate-700';
+        roleTitle.textContent = 'Public Read-Only Mode:';
+        roleMsg.textContent = 'You are browsing without an active officer session. Please sign in with your district or central office credentials to submit updates or certify data.';
+        roleIcon.className = 'fa-solid fa-lock text-slate-500 text-base';
+
+        authContainer.innerHTML = `
+          <button onclick="openLoginModal()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold text-xs px-3.5 py-2 rounded-lg shadow flex items-center space-x-1.5 transition">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            <span>Officer Sign In</span>
+          </button>
+        `;
+
+        bannerBtn.innerHTML = `
+          <button onclick="openLoginModal()" class="px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg shadow text-xs transition">
+            Sign In Now
+          </button>
+        `;
+      }
+
+      applyFilters();
+      renderQcQueue();
     }
 
     async function checkDbStatus() {
@@ -1322,7 +1450,6 @@
         }
       });
 
-      // Special actions on tab switch
       if (tabId === 'tab-qc') {
         renderQcQueue();
       } else if (tabId === 'tab-executive') {
@@ -1350,60 +1477,6 @@
         btnDistricts.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition';
         renderRepresentatives();
       }
-    }
-
-    // Role-based UI updates
-    function updateUserRoleUI() {
-      document.getElementById('currentUserName').textContent = currentUser.name;
-      document.getElementById('currentUserRoleTitle').textContent = `${currentUser.designation || currentUser.role.replace('_', ' ')}`;
-      document.getElementById('userDistrictBadge').textContent = currentUser.district === 'All' ? 'All Districts' : currentUser.district;
-      
-      const roleBanner = document.getElementById('roleAlertBanner');
-      const roleTitle = document.getElementById('roleAlertTitle');
-      const roleMsg = document.getElementById('roleAlertMessage');
-      const userIcon = document.getElementById('userRoleIcon');
-
-      // Customize UI per role
-      if (currentUser.role === 'admin') {
-        userIcon.className = 'fa-solid fa-user-shield text-emerald-200 text-sm';
-        roleBanner.className = 'p-3.5 rounded-xl border flex items-center justify-between text-xs bg-emerald-50 border-emerald-200 text-emerald-950';
-        roleTitle.textContent = 'System Administrator:';
-        roleMsg.textContent = 'Full override access across all 32 districts, targets master configuration, and representative directory.';
-      } else if (currentUser.role === 'qc_engineer') {
-        userIcon.className = 'fa-solid fa-clipboard-check text-amber-200 text-sm';
-        roleBanner.className = 'p-3.5 rounded-xl border flex items-center justify-between text-xs bg-amber-50 border-amber-200 text-amber-950';
-        roleTitle.textContent = 'Central QC Verification Engineer:';
-        roleMsg.textContent = 'Authorized to review field submissions, verify GIS readiness, and approve or return records with QC notes.';
-      } else if (currentUser.role === 'district_rep') {
-        userIcon.className = 'fa-solid fa-user text-teal-200 text-sm';
-        roleBanner.className = 'p-3.5 rounded-xl border flex items-center justify-between text-xs bg-teal-50 border-teal-200 text-teal-950';
-        roleTitle.textContent = `Designated Representative for ${currentUser.district}:`;
-        roleMsg.textContent = `Data entry and record modifications permitted for ${currentUser.district} district villages.`;
-      } else if (currentUser.role === 'executive') {
-        userIcon.className = 'fa-solid fa-briefcase text-indigo-200 text-sm';
-        roleBanner.className = 'p-3.5 rounded-xl border flex items-center justify-between text-xs bg-indigo-50 border-indigo-200 text-indigo-950';
-        roleTitle.textContent = 'Executive Leadership View:';
-        roleMsg.textContent = 'Periodic monitoring mode: high-level performance scorecards, target vs achieved compliance, and district radar.';
-      } else {
-        userIcon.className = 'fa-solid fa-eye text-slate-200 text-sm';
-        roleBanner.className = 'p-3.5 rounded-xl border flex items-center justify-between text-xs bg-slate-100 border-slate-200 text-slate-800';
-        roleTitle.textContent = 'Public Transparency Viewer:';
-        roleMsg.textContent = 'Read-only access to published resurvey progress metrics and certified villages.';
-      }
-
-      // Hide or show add village button based on role
-      const addBtn = document.getElementById('btnAddVillage');
-      if (addBtn) {
-        if (currentUser.role === 'admin' || currentUser.role === 'district_rep') {
-          addBtn.classList.remove('hidden');
-        } else {
-          addBtn.classList.add('hidden');
-        }
-      }
-
-      applyFilters();
-      renderQcQueue();
-      saveUserSession();
     }
 
     // Data Fetchers
@@ -1509,7 +1582,6 @@
         document.getElementById('kpiErrors').textContent = stats.shapefiles.error;
         document.getElementById('kpiTotalAcres').textContent = Number(stats.total_extent_acres).toLocaleString();
 
-        // Verification sub-bar
         const vVerified = stats.verification ? stats.verification.verified : 71;
         const vPending = stats.verification ? stats.verification.pending_qc : 15;
         const vReturned = stats.verification ? stats.verification.returned_for_correction : 4;
@@ -1554,7 +1626,6 @@
         document.getElementById('execCsoPct').textContent = `${sp.shapefile_readiness_pct}%`;
         document.getElementById('execCsoBar').style.width = `${Math.min(sp.shapefile_readiness_pct, 100)}%`;
 
-        // Render Top Performing Districts
         const topContainer = document.getElementById('execTopDistrictsList');
         topContainer.innerHTML = '';
         data.top_performing_districts.forEach((d, idx) => {
@@ -1576,7 +1647,6 @@
           topContainer.appendChild(div);
         });
 
-        // Render Attention Radar
         const attContainer = document.getElementById('execAttentionDistrictsList');
         attContainer.innerHTML = '';
         if (data.districts_needing_attention.length === 0) {
@@ -1599,7 +1669,6 @@
           });
         }
 
-        // Render Full Exec Matrix
         const matrixBody = document.getElementById('execMatrixTableBody');
         matrixBody.innerHTML = '';
         const statsRes = await fetch('/dashboard/stats');
@@ -1626,7 +1695,6 @@
       }
     }
 
-    // Overview Table Rendering
     function renderOverviewDistrictsTable(summary) {
       const tbody = document.getElementById('overviewDistrictsTableBody');
       if (!tbody) return;
@@ -1655,7 +1723,6 @@
       });
     }
 
-    // Chart.js Visualizations
     function renderCharts(stats) {
       const sortedDistricts = [...stats.districts_summary]
         .sort((a, b) => b.total_gt_done - a.total_gt_done)
@@ -1745,7 +1812,6 @@
       });
     }
 
-    // Filter counts update
     function updateTabCounts() {
       document.getElementById('tabCountAll').textContent = allVillages.length;
       document.getElementById('tabCountNonCad').textContent = allVillages.filter(v => v.category === 'Non-Cadastral').length;
@@ -1853,7 +1919,6 @@
           ? '<span class="text-teal-600 font-bold"><i class="fa-solid fa-circle-check text-xs mr-1"></i>Yes</span>'
           : '<span class="text-slate-400">No</span>';
 
-        // Verification Status Badge
         let vBadge = '';
         const vStat = v.verification_status || 'Pending QC';
         if (vStat === 'Verified') {
@@ -1864,10 +1929,11 @@
           vBadge = '<span class="bg-amber-50 text-amber-700 border border-amber-200 px-2 py-0.5 rounded-full font-bold text-[10px]"><i class="fa-solid fa-clock mr-1"></i>Pending QC</span>';
         }
 
-        // Check user edit permissions
-        const canEdit = currentUser.role === 'admin' || (currentUser.role === 'district_rep' && (currentUser.district === 'All' || currentUser.district.toLowerCase() === v.district_name.toLowerCase()));
-        const canVerify = currentUser.role === 'admin' || currentUser.role === 'qc_engineer';
-        const canDelete = currentUser.role === 'admin';
+        // Determine button actions based on authenticated user
+        const isAuth = !!currentUser;
+        const canEdit = isAuth && (currentUser.role === 'admin' || (currentUser.role === 'district_rep' && (currentUser.district === 'All' || currentUser.district.toLowerCase() === v.district_name.toLowerCase())));
+        const canVerify = isAuth && (currentUser.role === 'admin' || currentUser.role === 'qc_engineer');
+        const canDelete = isAuth && currentUser.role === 'admin';
 
         tr.innerHTML = `
           <td class="py-3 px-3 text-slate-400 font-mono text-center">${idx + 1}</td>
@@ -1897,16 +1963,19 @@
             ${v.qc_notes ? `<div class="text-[10px] text-amber-800 font-medium mt-0.5"><i class="fa-solid fa-comment-dots mr-1"></i>QC: ${v.qc_notes}</div>` : ''}
           </td>
           <td class="py-3 px-3 text-center no-print space-x-1">
-            <!-- View History Diff Button -->
+            <!-- View History Diff Button (Available to all) -->
             <button onclick="openHistoryModal('${v.id}')" title="View Change Audit History" class="text-cyan-600 hover:text-cyan-800 p-1.5 rounded hover:bg-cyan-50 transition">
               <i class="fa-solid fa-clock-rotate-left"></i>
             </button>
 
-            <!-- Edit Button (Role Aware) -->
+            <!-- Edit Button -->
             ${canEdit ? `
             <button onclick="openEditVillageModal('${v.id}')" title="Edit Village Record" class="text-emerald-600 hover:text-emerald-800 p-1.5 rounded hover:bg-emerald-50 transition">
               <i class="fa-solid fa-pen-to-square"></i>
-            </button>` : ''}
+            </button>` : (!isAuth ? `
+            <button onclick="promptLoginRequired('sign in to edit records')" title="Sign in to edit" class="text-slate-300 hover:text-slate-500 p-1.5">
+              <i class="fa-solid fa-lock"></i>
+            </button>` : '')}
 
             <!-- QC Review Button -->
             ${canVerify ? `
@@ -2002,6 +2071,8 @@
           vBadge = '<span class="bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 rounded font-bold">Pending QC</span>';
         }
 
+        const canVerify = currentUser && (currentUser.role === 'admin' || currentUser.role === 'qc_engineer');
+
         tr.innerHTML = `
           <td class="py-2.5 px-3 text-slate-400 font-mono text-center">${idx + 1}</td>
           <td class="py-2.5 px-3">
@@ -2026,18 +2097,53 @@
             <div class="text-[10px] text-slate-500 italic">${v.qc_notes || 'No remarks added'}</div>
           </td>
           <td class="py-2.5 px-3 text-center no-print">
+            ${canVerify ? `
             <button onclick="openQcModal('${v.id}')" class="bg-amber-600 hover:bg-amber-700 text-white px-2.5 py-1 rounded text-xs font-semibold shadow transition flex items-center space-x-1 mx-auto">
               <i class="fa-solid fa-stamp text-[10px]"></i>
               <span>Review & Verify</span>
-            </button>
+            </button>` : `
+            <button onclick="promptLoginRequired('sign in as Central QC Engineer to certify records')" class="text-slate-400 hover:text-slate-600 px-2 py-1 text-xs">
+              <i class="fa-solid fa-lock mr-1"></i>Verify
+            </button>`}
           </td>
         `;
         tbody.appendChild(tr);
       });
     }
 
+    function promptLoginRequired(actionDesc) {
+      alert(`Authentication Required: Please ${actionDesc}.`);
+      openLoginModal();
+    }
+
+    function handleAddVillageClick() {
+      if (!currentUser) {
+        promptLoginRequired('sign in as a District Representative or Administrator to submit new village records');
+        return;
+      }
+      if (currentUser.role !== 'admin' && currentUser.role !== 'district_rep') {
+        alert('Permission Denied: Only designated District Representatives and Administrators can add survey data.');
+        return;
+      }
+      openAddVillageModal();
+    }
+
+    function handleAddRepClick() {
+      if (!currentUser || currentUser.role !== 'admin') {
+        alert('Administrator privileges required to add representatives.');
+        openLoginModal();
+        return;
+      }
+      openAddRepModal();
+    }
+
     // QC Verification Modal Handlers
     function openQcModal(villageId) {
+      if (!currentUser || (currentUser.role !== 'admin' && currentUser.role !== 'qc_engineer')) {
+        promptLoginRequired('sign in as a Central QC Verification Engineer to review records');
+        return;
+      }
+
       const v = allVillages.find(item => item.id === villageId);
       if (!v) return;
 
@@ -2073,21 +2179,23 @@
       try {
         const res = await fetch(`/villages/${villageId}/verify`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: getAuthHeaders(),
           body: JSON.stringify({
             status: statusChoice,
-            qc_user: `${currentUser.name} (${currentUser.designation || 'QC Lead'})`,
             notes: notes
           })
         });
 
-        if (!res.ok) throw new Error('Verification submission failed');
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.detail || 'Verification submission failed');
+        }
 
         closeQcModal();
         await fetchVillages();
         await fetchDashboardStats();
         await fetchAuditLogs();
-        alert(`Record successfully certified: ${statusChoice}`);
+        alert(`Record successfully certified: ${statusChoice}\nAudit trail recorded under: ${currentUser.name}`);
       } catch (err) {
         alert('Error: ' + err.message);
       }
@@ -2118,7 +2226,6 @@
           const card = document.createElement('div');
           card.className = 'p-3.5 rounded-xl border border-slate-200 bg-slate-50/50 space-y-2 text-xs';
 
-          // Changes Diff Table
           let diffHtml = '';
           if (log.changes && Object.keys(log.changes).length > 0) {
             diffHtml = `
@@ -2250,6 +2357,8 @@
         tr.className = 'hover:bg-slate-50 transition';
         const dReps = allRepresentatives.filter(r => r.assigned_district === d.name);
 
+        const canEditTarget = currentUser && currentUser.role === 'admin';
+
         tr.innerHTML = `
           <td class="py-2.5 px-3 text-slate-400 font-mono">${idx + 1}</td>
           <td class="py-2.5 px-3 font-bold text-slate-900">${d.name}</td>
@@ -2263,11 +2372,11 @@
             <span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full text-[10px] font-bold">Active</span>
           </td>
           <td class="py-2.5 px-3 text-center no-print">
-            ${currentUser.role === 'admin' ? `
+            ${canEditTarget ? `
             <button onclick="openDistrictEditModal('${d.id || d.name}')" class="text-emerald-700 hover:text-emerald-900 font-semibold text-xs flex items-center space-x-1 mx-auto">
               <i class="fa-solid fa-pen-to-square"></i>
               <span>Edit Target</span>
-            </button>` : '<span class="text-slate-400 italic text-[10px]">Read-Only</span>'}
+            </button>` : '<span class="text-slate-400 italic text-[10px]">Admin Only</span>'}
           </td>
         `;
         tbody.appendChild(tr);
@@ -2275,6 +2384,12 @@
     }
 
     function openDistrictEditModal(districtId) {
+      if (!currentUser || currentUser.role !== 'admin') {
+        alert('Administrator privileges required to modify district targets.');
+        openLoginModal();
+        return;
+      }
+
       const d = allDistricts.find(item => item.id === districtId || item.name === districtId);
       if (!d) return;
 
@@ -2299,22 +2414,23 @@
       try {
         const res = await fetch(`/districts/${distId}`, {
           method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
+          headers: getAuthHeaders(),
           body: JSON.stringify({
             non_cadastral_target: nc,
-            cadastral_target: cad,
-            updated_by: currentUser.name,
-            user_role: currentUser.role
+            cadastral_target: cad
           })
         });
 
-        if (!res.ok) throw new Error('District update failed');
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.detail || 'District update failed');
+        }
 
         closeDistrictEditModal();
         await fetchDistricts();
         await fetchDashboardStats();
         await fetchAuditLogs();
-        alert('District targets successfully updated.');
+        alert('District targets successfully updated by: ' + currentUser.name);
       } catch (err) {
         alert('Error: ' + err.message);
       }
@@ -2337,6 +2453,8 @@
         return;
       }
 
+      const isAdmin = currentUser && currentUser.role === 'admin';
+
       reps.forEach((r, idx) => {
         const tr = document.createElement('tr');
         tr.className = 'hover:bg-slate-50 transition';
@@ -2358,13 +2476,13 @@
             <span class="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded text-[10px] font-bold">Active</span>
           </td>
           <td class="py-2.5 px-3 text-center no-print space-x-1">
-            ${currentUser.role === 'admin' ? `
+            ${isAdmin ? `
             <button onclick="openEditRepModal('${r.id}')" title="Edit Officer" class="text-slate-500 hover:text-emerald-700 p-1">
               <i class="fa-solid fa-pen-to-square"></i>
             </button>
             <button onclick="confirmDeleteRep('${r.id}')" title="Remove Officer" class="text-slate-400 hover:text-rose-600 p-1">
               <i class="fa-solid fa-trash"></i>
-            </button>` : '<span class="text-slate-400 italic text-[10px]">Read-Only</span>'}
+            </button>` : '<span class="text-slate-400 italic text-[10px]">Admin Only</span>'}
           </td>
         `;
         tbody.appendChild(tr);
@@ -2384,6 +2502,10 @@
     }
 
     function openEditRepModal(repId) {
+      if (!currentUser || currentUser.role !== 'admin') {
+        alert('Administrator privileges required.');
+        return;
+      }
       const r = allRepresentatives.find(item => item.id === repId);
       if (!r) return;
 
@@ -2419,22 +2541,29 @@
         if (repId) {
           const res = await fetch(`/representatives/${repId}`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getAuthHeaders(),
             body: JSON.stringify(payload)
           });
-          if (!res.ok) throw new Error('Update representative failed');
+          if (!res.ok) {
+            const err = await res.json();
+            throw new Error(err.detail || 'Update representative failed');
+          }
         } else {
           const res = await fetch('/representatives', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getAuthHeaders(),
             body: JSON.stringify(payload)
           });
-          if (!res.ok) throw new Error('Creation of representative failed');
+          if (!res.ok) {
+            const err = await res.json();
+            throw new Error(err.detail || 'Creation of representative failed');
+          }
         }
 
         closeRepModal();
         await fetchRepresentatives();
         renderDistrictMasterTable();
+        alert('Representative directory updated successfully.');
       } catch (err) {
         alert('Error: ' + err.message);
       }
@@ -2443,12 +2572,16 @@
     async function confirmDeleteRep(repId) {
       if (!confirm('Are you sure you want to remove this representative from master data?')) return;
       try {
-        const res = await fetch(`/representatives/${repId}`, { method: 'DELETE' });
+        const res = await fetch(`/representatives/${repId}`, {
+          method: 'DELETE',
+          headers: getAuthHeaders()
+        });
         if (res.ok) {
           await fetchRepresentatives();
           renderDistrictMasterTable();
         } else {
-          alert('Delete failed');
+          const err = await res.json();
+          alert('Delete failed: ' + (err.detail || 'Error'));
         }
       } catch (e) {
         alert('Error deleting: ' + e.message);
@@ -2495,17 +2628,28 @@
       document.getElementById('formRemarks').value = '';
       previewAcreage();
       
-      if (currentUser.role === 'district_rep' && currentUser.district !== 'All') {
+      if (currentUser && currentUser.role === 'district_rep' && currentUser.district !== 'All') {
         document.getElementById('formDistrict').value = currentUser.district;
       }
       document.getElementById('villageModal').classList.remove('hidden');
     }
 
     function openEditVillageModal(id) {
+      if (!currentUser) {
+        promptLoginRequired('sign in to edit village records');
+        return;
+      }
+
       const v = allVillages.find(item => item.id === id);
       if (!v) return;
 
-      document.getElementById('modalTitle').textContent = `Edit Record: ${v.village_name}`;
+      // Check permission
+      if (currentUser.role !== 'admin' && (currentUser.district !== 'All' && currentUser.district.toLowerCase() !== v.district_name.toLowerCase())) {
+        alert(`Permission Denied: You are assigned to ${currentUser.district} and cannot edit records in ${v.district_name}.`);
+        return;
+      }
+
+      document.getElementById('modalTitle').textContent = `Edit Record: ${v.village_name} (${v.district_name})`;
       document.getElementById('formVillageId').value = v.id;
       document.getElementById('formDistrict').value = v.district_name;
       document.getElementById('formCategory').value = v.category;
@@ -2539,47 +2683,57 @@
         shapefile_status: document.getElementById('formShapefileStatus').value,
         sent_to_cso: document.getElementById('formSentCSO').checked,
         workflow_stage: document.getElementById('formWorkflowStage').value,
-        remarks: document.getElementById('formRemarks').value,
-        updated_by: currentUser.name,
-        user_role: currentUser.role
+        remarks: document.getElementById('formRemarks').value
       };
 
       try {
         if (id) {
           const res = await fetch(`/villages/${id}`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getAuthHeaders(),
             body: JSON.stringify(payload)
           });
-          if (!res.ok) throw new Error('Update failed');
+          if (!res.ok) {
+            const err = await res.json();
+            throw new Error(err.detail || 'Update failed');
+          }
         } else {
           const res = await fetch('/villages', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getAuthHeaders(),
             body: JSON.stringify(payload)
           });
-          if (!res.ok) throw new Error('Creation failed');
+          if (!res.ok) {
+            const err = await res.json();
+            throw new Error(err.detail || 'Creation failed');
+          }
         }
 
         closeVillageModal();
         await fetchVillages();
         await fetchDashboardStats();
         await fetchAuditLogs();
+        alert(`Village record successfully saved.\nAudit trail recorded under: ${currentUser.name}`);
       } catch (err) {
-        alert('Error saving record: ' + err.message);
+        alert('Error: ' + err.message);
       }
     }
 
     async function confirmDeleteVillage(id) {
-      if (!confirm('Are you sure you want to delete this village record? This action will be logged in the audit trail.')) return;
+      if (!confirm('Are you sure you want to delete this village record? This action is permanently recorded in the audit trail.')) return;
       try {
-        const res = await fetch(`/villages/${id}?user_name=${encodeURIComponent(currentUser.name)}`, { method: 'DELETE' });
+        const res = await fetch(`/villages/${id}`, {
+          method: 'DELETE',
+          headers: getAuthHeaders()
+        });
         if (res.ok) {
           await fetchVillages();
           await fetchDashboardStats();
           await fetchAuditLogs();
+          alert('Village record deleted. Action logged.');
         } else {
-          alert('Delete failed.');
+          const err = await res.json();
+          alert('Delete failed: ' + (err.detail || 'Error'));
         }
       } catch (e) {
         alert('Error deleting: ' + e.message);
@@ -2591,6 +2745,7 @@
     }
 
     function openLoginModal() {
+      document.getElementById('loginErrorMessage').classList.add('hidden');
       document.getElementById('loginModal').classList.remove('hidden');
     }
 
@@ -2598,7 +2753,33 @@
       document.getElementById('loginModal').classList.add('hidden');
     }
 
-    async function quickLogin(username, password) {
+    function switchLoginTab(tab) {
+      const btnForm = document.getElementById('btnTabLoginForm');
+      const btnQuick = document.getElementById('btnTabLoginQuick');
+      const panelForm = document.getElementById('panelLoginForm');
+      const panelQuick = document.getElementById('panelLoginQuick');
+
+      if (tab === 'form') {
+        btnForm.className = 'flex-1 py-1.5 rounded-md bg-white text-slate-900 shadow-sm transition';
+        btnQuick.className = 'flex-1 py-1.5 rounded-md text-slate-600 hover:text-slate-900 transition';
+        panelForm.classList.remove('hidden');
+        panelQuick.classList.add('hidden');
+      } else {
+        btnQuick.className = 'flex-1 py-1.5 rounded-md bg-white text-slate-900 shadow-sm transition';
+        btnForm.className = 'flex-1 py-1.5 rounded-md text-slate-600 hover:text-slate-900 transition';
+        panelQuick.classList.remove('hidden');
+        panelForm.classList.add('hidden');
+      }
+    }
+
+    async function handleCustomLogin(e) {
+      e.preventDefault();
+      const username = document.getElementById('loginUsernameInput').value.trim();
+      const password = document.getElementById('loginPasswordInput').value.trim();
+      const errBox = document.getElementById('loginErrorMessage');
+
+      errBox.classList.add('hidden');
+
       try {
         const res = await fetch('/auth/login', {
           method: 'POST',
@@ -2606,37 +2787,64 @@
           body: JSON.stringify({ username, password })
         });
         const data = await res.json();
-        if (data.success) {
+        if (res.ok && data.success) {
+          authToken = data.token;
           currentUser = data.user;
-          updateUserRoleUI();
+          localStorage.setItem('resurvey_auth_token', authToken);
+          renderAuthHeaderUI();
           closeLoginModal();
-          
-          if (currentUser.role === 'district_rep' && currentUser.district !== 'All') {
-            document.getElementById('districtFilter').value = currentUser.district;
-            applyFilters();
-          }
+          alert(`Welcome back, ${currentUser.name}!\nYou are signed in as ${currentUser.designation || currentUser.role}.`);
+        } else {
+          errBox.textContent = data.detail || 'Invalid username or password';
+          errBox.classList.remove('hidden');
         }
-      } catch (e) {
-        alert('Login failed: ' + e.message);
+      } catch (err) {
+        errBox.textContent = 'Connection error: ' + err.message;
+        errBox.classList.remove('hidden');
       }
     }
 
-    function loginAsDistrictRep() {
-      const selectedDistrict = document.getElementById('switchDistrictSelect').value;
-      const rep = allRepresentatives.find(r => r.assigned_district === selectedDistrict && r.role === 'district_rep');
-      
-      currentUser = {
-        username: `${selectedDistrict.toLowerCase()}_rep`,
-        name: rep ? rep.name : `${selectedDistrict} Representative`,
-        role: 'district_rep',
-        district: selectedDistrict,
-        designation: rep ? rep.designation : `Designated Nodal Representative (${selectedDistrict})`
-      };
+    async function executeQuickLogin(username, password) {
+      try {
+        const res = await fetch('/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          authToken = data.token;
+          currentUser = data.user;
+          localStorage.setItem('resurvey_auth_token', authToken);
+          renderAuthHeaderUI();
+          closeLoginModal();
+          alert(`Authenticated as: ${currentUser.name} (${currentUser.role})`);
+        } else {
+          alert('Login failed: ' + (data.detail || 'Invalid credentials'));
+        }
+      } catch (e) {
+        alert('Login error: ' + e.message);
+      }
+    }
 
-      updateUserRoleUI();
-      closeLoginModal();
-      document.getElementById('districtFilter').value = selectedDistrict;
-      applyFilters();
+    async function executeDistrictRepLogin() {
+      const selectedDistrict = document.getElementById('switchDistrictSelect').value;
+      const slug = selectedDistrict.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const username = `${slug}_rep1`;
+      await executeQuickLogin(username, 'rep123');
+    }
+
+    async function handleLogout() {
+      if (!confirm('Are you sure you want to sign out of the portal?')) return;
+      try {
+        await fetch('/auth/logout', { method: 'POST', headers: getAuthHeaders() });
+      } catch (e) {}
+
+      authToken = null;
+      currentUser = null;
+      localStorage.removeItem('resurvey_auth_token');
+      renderAuthHeaderUI();
+      alert('You have successfully logged out. Reverted to Public Read-Only Mode.');
     }
 
     function downloadExcel() {

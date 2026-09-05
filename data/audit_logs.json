@@ -1,5 +1,64 @@
 [
   {
+    "id": "log-1788580294509",
+    "timestamp": "2026-09-05T09:21:34.509634",
+    "record_id": "vlg-001",
+    "village_name": "Dhanapur (V)",
+    "district_name": "Asifabad",
+    "user_name": "K. Ravinder Reddy (Lead QC & Verification Engineer)",
+    "user_role": "qc_engineer",
+    "action": "QC Verification: Verified",
+    "details": "QC Review completed: Verified. Notes: GIS boundaries checked and certified",
+    "changes": {
+      "verification_status": {
+        "from": "Verified",
+        "to": "Verified"
+      },
+      "qc_notes": {
+        "from": "Verified and approved for Central Office submission.",
+        "to": "GIS boundaries checked and certified"
+      }
+    }
+  },
+  {
+    "id": "log-1788580294502",
+    "timestamp": "2026-09-05T09:21:34.502080",
+    "record_id": "vlg-001",
+    "village_name": "Dhanapur (V)",
+    "district_name": "Asifabad",
+    "user_name": "K. Ravinder Reddy (Lead QC & Verification Engineer)",
+    "user_role": "qc_engineer",
+    "action": "Updated",
+    "details": "Record updated by K. Ravinder Reddy (Lead QC & Verification Engineer) (qc_engineer): verified_by, qc_notes",
+    "changes": {
+      "verified_by": {
+        "from": "K. Ravinder Reddy (Lead QC)",
+        "to": "K. Ravinder Reddy (Lead QC & Verification Engineer)"
+      },
+      "qc_notes": {
+        "from": "Verified and approved for Central Office submission.",
+        "to": "GIS boundaries checked and certified"
+      }
+    }
+  },
+  {
+    "id": "log-1788580294458",
+    "timestamp": "2026-09-05T09:21:34.458482",
+    "record_id": "vlg-001",
+    "village_name": "Dhanapur (V)",
+    "district_name": "Asifabad",
+    "user_name": "Asifabad District Lead Rep (Primary)",
+    "user_role": "district_rep",
+    "action": "Updated",
+    "details": "Record updated by Asifabad District Lead Rep (Primary) (district_rep): workflow_stage",
+    "changes": {
+      "workflow_stage": {
+        "from": "Shapefile Sent to CSO",
+        "to": "Polygon Work"
+      }
+    }
+  },
+  {
     "id": "log-0001",
     "timestamp": "2026-09-04T09:30:00",
     "record_id": "vlg-001",
