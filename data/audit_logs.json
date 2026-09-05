@@ -1,5 +1,93 @@
 [
   {
+    "id": "log-1788598261474",
+    "timestamp": "2026-09-05T14:21:01.474676",
+    "record_id": "user-test_rep_khammam",
+    "village_name": "Account: test_rep_khammam",
+    "district_name": "Khammam",
+    "user_name": "Project Administrator",
+    "user_role": "admin",
+    "action": "User Account Deleted",
+    "details": "Administrator 'Project Administrator' deleted user account 'test_rep_khammam'.",
+    "changes": {
+      "deleted_user": "test_rep_khammam"
+    }
+  },
+  {
+    "id": "log-1788598261442",
+    "timestamp": "2026-09-05T14:21:01.442195",
+    "record_id": "user-test_rep_khammam",
+    "village_name": "Account: test_rep_khammam",
+    "district_name": "Khammam",
+    "user_name": "Project Administrator",
+    "user_role": "admin",
+    "action": "User Account Updated",
+    "details": "Updated details for user 'test_rep_khammam': {'designation': 'Senior District Surveyor', 'status': 'Active', 'updated_at': '2026-09-05T14:21:01.439865'}",
+    "changes": {
+      "designation": "Senior District Surveyor",
+      "status": "Active",
+      "updated_at": "2026-09-05T14:21:01.439865"
+    }
+  },
+  {
+    "id": "log-1788598261400",
+    "timestamp": "2026-09-05T14:21:01.400693",
+    "record_id": "user-test_rep_khammam",
+    "village_name": "Account: test_rep_khammam",
+    "district_name": "Khammam",
+    "user_name": "Project Administrator",
+    "user_role": "admin",
+    "action": "Password Reset by Admin",
+    "details": "Administrator 'Project Administrator' reset password for user 'test_rep_khammam' to temporary default.",
+    "changes": {
+      "is_default_password": true
+    }
+  },
+  {
+    "id": "log-1788598261350",
+    "timestamp": "2026-09-05T14:21:01.350141",
+    "record_id": "user-test_rep_khammam",
+    "village_name": "Account: test_rep_khammam",
+    "district_name": "Khammam",
+    "user_name": "K. Venkatesh",
+    "user_role": "district_rep",
+    "action": "Password Changed by User",
+    "details": "User 'test_rep_khammam' successfully updated their personal account password.",
+    "changes": {
+      "is_default_password": false
+    }
+  },
+  {
+    "id": "log-1788598261300",
+    "timestamp": "2026-09-05T14:21:01.300033",
+    "record_id": "user-test_rep_khammam",
+    "village_name": "Account: test_rep_khammam",
+    "district_name": "Khammam",
+    "user_name": "Project Administrator",
+    "user_role": "admin",
+    "action": "User Account Created",
+    "details": "Created officer account 'test_rep_khammam' (Role: district_rep, District: Khammam) with default password.",
+    "changes": {
+      "role": "district_rep",
+      "district": "Khammam",
+      "status": "Active"
+    }
+  },
+  {
+    "id": "log-1788598261282",
+    "timestamp": "2026-09-05T14:21:01.282625",
+    "record_id": "user-test_rep_khammam",
+    "village_name": "Account: test_rep_khammam",
+    "district_name": "Khammam",
+    "user_name": "Project Administrator",
+    "user_role": "admin",
+    "action": "User Account Deleted",
+    "details": "Administrator 'Project Administrator' deleted user account 'test_rep_khammam'.",
+    "changes": {
+      "deleted_user": "test_rep_khammam"
+    }
+  },
+  {
     "id": "log-1788580294509",
     "timestamp": "2026-09-05T09:21:34.509634",
     "record_id": "vlg-001",

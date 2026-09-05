@@ -39,7 +39,14 @@ from core.database import (
     get_master_catalog,
     authenticate_user,
     create_auth_token,
-    verify_auth_token
+    verify_auth_token,
+    get_users,
+    get_user,
+    add_user,
+    update_user,
+    reset_user_password,
+    change_user_password,
+    delete_user
 )
 from core.export_service import generate_resurvey_excel
 
@@ -123,6 +130,34 @@ class VerificationRequest(BaseModel):
     status: str  # "Verified" or "Returned for Correction"
     qc_user: Optional[str] = "Lead QC Engineer"
     notes: Optional[str] = ""
+
+class UserCreateRequest(BaseModel):
+    username: str
+    name: str
+    role: str = "district_rep"
+    district: str = "All"
+    designation: Optional[str] = ""
+    phone: Optional[str] = ""
+    email: Optional[str] = ""
+    default_password: Optional[str] = "Welcome@2026"
+    status: Optional[str] = "Active"
+
+class UserUpdateRequest(BaseModel):
+    name: Optional[str] = None
+    role: Optional[str] = None
+    district: Optional[str] = None
+    designation: Optional[str] = None
+    phone: Optional[str] = None
+    email: Optional[str] = None
+    status: Optional[str] = None
+
+class AdminPasswordResetRequest(BaseModel):
+    new_password: str
+
+class UserChangePasswordRequest(BaseModel):
+    current_password: str
+    new_password: str
+    confirm_password: str
 
 class RepresentativeCreateRequest(BaseModel):
     name: str
@@ -224,6 +259,26 @@ def logout():
 @router.get("/auth/me")
 def get_me(user: Dict[str, Any] = Depends(require_user)):
     return {"user": user}
+
+@router.post("/auth/change-password")
+def user_change_password(
+    payload: UserChangePasswordRequest,
+    user: Dict[str, Any] = Depends(require_user)
+):
+    if payload.new_password != payload.confirm_password:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="New password and confirmation password do not match."
+        )
+    try:
+        change_user_password(
+            username=user["username"],
+            current_password=payload.current_password,
+            new_password=payload.new_password
+        )
+        return {"success": True, "message": "Password successfully updated. Please use your new password for subsequent logins."}
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
 
 # Dashboard & Executive Summaries
 @router.get("/dashboard/stats")
@@ -425,6 +480,106 @@ def remove_representative(
     if not success:
         raise HTTPException(status_code=404, detail="Representative not found")
     return {"success": True, "message": "Representative removed"}
+
+# ----------------- USER MANAGEMENT & GOVERNANCE (ADMIN ONLY) -----------------
+@router.get("/users")
+def list_users(
+    district: Optional[str] = Query(None),
+    role: Optional[str] = Query(None),
+    search: Optional[str] = Query(None),
+    user: Dict[str, Any] = Depends(require_user)
+):
+    if user.get("role") != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Permission denied: Administrator privileges required to access User Management."
+        )
+    return get_users(district=district, role=role, search=search)
+
+@router.get("/users/{username}")
+def get_user_details(
+    username: str,
+    user: Dict[str, Any] = Depends(require_user)
+):
+    if user.get("role") != "admin" and user.get("username", "").lower() != username.lower():
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Permission denied: Cannot view other user account details."
+        )
+    u = get_user(username)
+    if not u:
+        raise HTTPException(status_code=404, detail="User not found")
+    return u
+
+@router.post("/users", status_code=status.HTTP_201_CREATED)
+def create_new_user(
+    payload: UserCreateRequest,
+    user: Dict[str, Any] = Depends(require_user)
+):
+    if user.get("role") != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Permission denied: Administrator privileges required to create user accounts."
+        )
+    try:
+        created = add_user(payload.dict(), admin_name=user["name"], admin_role=user["role"])
+        return created
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+
+@router.put("/users/{username}")
+def update_user_details(
+    username: str,
+    payload: UserUpdateRequest,
+    user: Dict[str, Any] = Depends(require_user)
+):
+    if user.get("role") != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Permission denied: Administrator privileges required to modify user accounts."
+        )
+    updates = {k: v for k, v in payload.dict().items() if v is not None}
+    res = update_user(username, updates, admin_name=user["name"], admin_role=user["role"])
+    if not res:
+        raise HTTPException(status_code=404, detail="User not found")
+    return res
+
+@router.post("/users/{username}/reset-password")
+def admin_reset_password(
+    username: str,
+    payload: AdminPasswordResetRequest,
+    user: Dict[str, Any] = Depends(require_user)
+):
+    if user.get("role") != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Permission denied: Administrator privileges required to reset passwords."
+        )
+    try:
+        success = reset_user_password(username, payload.new_password, admin_name=user["name"], admin_role=user["role"])
+        if not success:
+            raise HTTPException(status_code=404, detail="User not found")
+        return {"success": True, "message": f"Password successfully reset for user '{username}'"}
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+
+@router.delete("/users/{username}")
+def remove_user(
+    username: str,
+    user: Dict[str, Any] = Depends(require_user)
+):
+    if user.get("role") != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Permission denied: Administrator privileges required to delete users."
+        )
+    try:
+        success = delete_user(username, admin_name=user["name"], admin_role=user["role"])
+        if not success:
+            raise HTTPException(status_code=404, detail="User not found")
+        return {"success": True, "message": f"User '{username}' successfully deleted"}
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
 
 # Villages Operations & Verification
 @router.get("/villages")

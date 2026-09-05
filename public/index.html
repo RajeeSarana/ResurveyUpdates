@@ -67,7 +67,7 @@
 
     <!-- Gateway Center Body: Centered Login Card -->
     <main class="flex-1 flex items-center justify-center px-4 py-8 sm:py-12">
-      <div class="w-full max-w-lg bg-slate-900/90 border border-teal-700/40 rounded-2xl shadow-2xl p-6 sm:p-8 space-y-6 backdrop-blur-xl">
+      <div class="w-full max-w-md bg-slate-900/90 border border-teal-700/40 rounded-2xl shadow-2xl p-6 sm:p-8 space-y-6 backdrop-blur-xl">
         
         <!-- Card Header -->
         <div class="text-center space-y-2 border-b border-slate-800 pb-5">
@@ -76,36 +76,24 @@
           </div>
           <h2 class="text-xl font-bold text-white tracking-tight">Officer Sign In &amp; Access Gateway</h2>
           <p class="text-xs text-slate-400 max-w-sm mx-auto">
-            100% Completed Villages Tracking &amp; Cadastral Verification. Sign in with your official role credentials to enter your designated workspace.
+            Central Resurvey Operations Portal. Enter your assigned officer username and password to access your role-specific workspace.
           </p>
         </div>
 
-        <!-- Mode Toggle Tabs: Credentials vs 1-Click Role Access -->
-        <div class="flex rounded-xl bg-slate-950/70 p-1 border border-slate-800 text-xs font-semibold">
-          <button type="button" onclick="switchGatewayTab('form')" id="btnGatewayTabForm" class="flex-1 py-2 rounded-lg bg-emerald-600 text-white font-bold shadow transition">
-            <i class="fa-solid fa-key mr-1.5 text-xs"></i>
-            <span>Officer Sign In</span>
-          </button>
-          <button type="button" onclick="switchGatewayTab('quick')" id="btnGatewayTabQuick" class="flex-1 py-2 rounded-lg text-slate-400 hover:text-white font-medium transition">
-            <i class="fa-solid fa-users mr-1.5 text-xs"></i>
-            <span>1-Click Role Access (Demo)</span>
-          </button>
-        </div>
-
-        <!-- Panel 1: Standard Username/Password Credentials -->
-        <div id="panelGatewayForm" class="space-y-4">
+        <!-- Strict Username/Password Credentials Form -->
+        <div class="space-y-4">
           <form onsubmit="handleGatewayLogin(event)" class="space-y-4 text-xs">
             <div>
               <label class="block font-semibold text-slate-300 mb-1.5">Username / Officer ID *</label>
               <div class="relative">
                 <i class="fa-solid fa-user absolute left-3.5 top-3 text-slate-500"></i>
-                <input type="text" id="gatewayUsernameInput" required placeholder="e.g. admin, qc_lead, asifabad_rep1, executive_dir" 
+                <input type="text" id="gatewayUsernameInput" required placeholder="Enter username (e.g. admin, qc_lead, asifabad_rep1)" 
                   class="w-full pl-10 pr-3 py-2.5 bg-slate-950/70 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-xs font-medium" />
               </div>
             </div>
 
             <div>
-              <label class="block font-semibold text-slate-300 mb-1.5">Official Password *</label>
+              <label class="block font-semibold text-slate-300 mb-1.5">Account Password *</label>
               <div class="relative">
                 <i class="fa-solid fa-lock absolute left-3.5 top-3 text-slate-500"></i>
                 <input type="password" id="gatewayPasswordInput" required placeholder="Enter password" 
@@ -126,110 +114,12 @@
             </button>
           </form>
 
-          <div class="pt-3 text-[11px] text-slate-400 text-center border-t border-slate-800/80">
-            <span class="text-slate-400">Standard evaluation passwords:</span>
-            <code class="ml-1 bg-slate-800 text-emerald-300 px-1.5 py-0.5 rounded font-mono font-semibold">pass</code>,
-            <code class="ml-1 bg-slate-800 text-emerald-300 px-1.5 py-0.5 rounded font-mono font-semibold">admin</code>, or
-            <code class="ml-1 bg-slate-800 text-emerald-300 px-1.5 py-0.5 rounded font-mono font-semibold">rep123</code>
-          </div>
-        </div>
-
-        <!-- Panel 2: 1-Click Role Access (Instant Role Testing) -->
-        <div id="panelGatewayQuick" class="hidden space-y-3 text-xs">
-          <p class="text-[11px] text-slate-400">
-            Click any role to test its specific landing screen and view permissions:
-          </p>
-
-          <div class="space-y-2">
-            <!-- 1. System Administrator -->
-            <button type="button" onclick="executeQuickLogin('admin', 'admin')" class="w-full text-left p-3 rounded-xl border border-slate-700/80 bg-slate-950/50 hover:border-emerald-500 hover:bg-emerald-950/20 flex items-center justify-between transition group">
-              <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30">
-                  <i class="fa-solid fa-user-shield text-xs"></i>
-                </div>
-                <div>
-                  <div class="font-bold text-white flex items-center space-x-2">
-                    <span>System Administrator</span>
-                    <span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-500/30 font-semibold">All Modules</span>
-                  </div>
-                  <div class="text-[11px] text-slate-400">Overview Dashboard, Master Data Hub &amp; full authority</div>
-                </div>
-              </div>
-              <i class="fa-solid fa-chevron-right text-slate-500 group-hover:text-emerald-400 transition text-xs"></i>
-            </button>
-
-            <!-- 2. Central QC Engineer -->
-            <button type="button" onclick="executeQuickLogin('qc_lead', 'pass')" class="w-full text-left p-3 rounded-xl border border-slate-700/80 bg-slate-950/50 hover:border-amber-500 hover:bg-amber-950/20 flex items-center justify-between transition group">
-              <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-500/30">
-                  <i class="fa-solid fa-clipboard-check text-xs"></i>
-                </div>
-                <div>
-                  <div class="font-bold text-white flex items-center space-x-2">
-                    <span>Central QC Lead Engineer</span>
-                    <span class="text-[10px] bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded border border-amber-500/30 font-semibold">QC Desk</span>
-                  </div>
-                  <div class="text-[11px] text-slate-400">K. Ravinder Reddy &bull; Lands on QC Verification Desk</div>
-                </div>
-              </div>
-              <i class="fa-solid fa-chevron-right text-slate-500 group-hover:text-amber-400 transition text-xs"></i>
-            </button>
-
-            <!-- 3. Executive Director -->
-            <button type="button" onclick="executeQuickLogin('executive_dir', 'pass')" class="w-full text-left p-3 rounded-xl border border-slate-700/80 bg-slate-950/50 hover:border-indigo-500 hover:bg-indigo-950/20 flex items-center justify-between transition group">
-              <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center border border-indigo-500/30">
-                  <i class="fa-solid fa-briefcase text-xs"></i>
-                </div>
-                <div>
-                  <div class="font-bold text-white flex items-center space-x-2">
-                    <span>Executive Project Director</span>
-                    <span class="text-[10px] bg-indigo-500/20 text-indigo-300 px-1.5 py-0.5 rounded border border-indigo-500/30 font-semibold">Leadership</span>
-                  </div>
-                  <div class="text-[11px] text-slate-400">V. S. Murthy &bull; Lands on Executive Briefing &amp; KPI Radar</div>
-                </div>
-              </div>
-              <i class="fa-solid fa-chevron-right text-slate-500 group-hover:text-indigo-400 transition text-xs"></i>
-            </button>
-
-            <!-- 4. District Representative Dropdown Selector -->
-            <div class="p-3 rounded-xl border border-teal-700/50 bg-teal-950/30 space-y-2">
-              <div class="flex items-center space-x-2 text-teal-300 font-bold">
-                <i class="fa-solid fa-map-pin text-xs"></i>
-                <span>District Representative (32 Districts)</span>
-              </div>
-              <p class="text-[11px] text-slate-400">Lands on Village Survey Explorer pre-filtered to your district:</p>
-              <div class="flex space-x-2">
-                <select id="gatewayDistrictSelect" class="flex-1 p-2 bg-slate-950 border border-slate-700 rounded-lg text-xs text-white focus:outline-none focus:border-teal-500">
-                  <option value="Asifabad">Asifabad Representative</option>
-                  <option value="Adilabad">Adilabad Representative</option>
-                  <option value="Mancherial">Mancherial Representative</option>
-                  <option value="Nizamabad">Nizamabad Representative</option>
-                  <option value="Medak">Medak Representative</option>
-                  <option value="Siddipet">Siddipet Representative</option>
-                  <option value="Khammam">Khammam Representative</option>
-                  <option value="Karimnagar">Karimnagar Representative</option>
-                </select>
-                <button type="button" onclick="executeGatewayDistrictRepLogin()" class="bg-teal-600 hover:bg-teal-500 text-white font-bold px-3 py-2 rounded-lg text-xs transition shadow flex items-center space-x-1">
-                  <span>Sign In</span>
-                  <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                </button>
-              </div>
+          <div class="p-3 rounded-xl bg-slate-950/50 border border-slate-800 text-[11px] text-slate-400 flex items-start space-x-2">
+            <i class="fa-solid fa-circle-info text-teal-400 mt-0.5"></i>
+            <div>
+              <span class="text-slate-300 font-semibold">Credential Assistance:</span>
+              Accounts are provisioned by the Central System Administrator. If you have forgotten your password, contact Central Administration for a password reset.
             </div>
-
-            <!-- 5. Public Auditor / Guest -->
-            <button type="button" onclick="executeQuickLogin('viewer', 'guest')" class="w-full text-left p-2.5 rounded-xl border border-slate-800 bg-slate-950/30 hover:border-slate-600 flex items-center justify-between transition group">
-              <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 rounded-lg bg-slate-800 text-slate-400 flex items-center justify-center">
-                  <i class="fa-solid fa-eye text-xs"></i>
-                </div>
-                <div>
-                  <div class="font-bold text-slate-300">Public Auditor / Transparency Viewer</div>
-                  <div class="text-[10px] text-slate-500">Read-only statewide overview without editing access</div>
-                </div>
-              </div>
-              <i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-slate-400 transition text-xs"></i>
-            </button>
           </div>
         </div>
 
@@ -891,7 +781,10 @@
     <div id="tab-master" class="hidden space-y-4">
       <!-- Subtabs for Master Data -->
       <div class="flex items-center space-x-2 border-b border-slate-200 pb-2 overflow-x-auto scrollbar-none">
-        <button onclick="switchMasterSubTab('districts')" id="subtab-districts" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow transition whitespace-nowrap">
+        <button onclick="switchMasterSubTab('users')" id="subtab-users" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow transition whitespace-nowrap">
+          <i class="fa-solid fa-user-shield mr-1.5"></i>User Accounts (<span id="userMasterCountBadge">...</span>)
+        </button>
+        <button onclick="switchMasterSubTab('districts')" id="subtab-districts" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition whitespace-nowrap">
           <i class="fa-solid fa-landmark mr-1.5"></i>Districts Master (<span id="distMasterCountBadge">32</span>)
         </button>
         <button onclick="switchMasterSubTab('mandals')" id="subtab-mandals" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition whitespace-nowrap">
@@ -908,8 +801,60 @@
         </button>
       </div>
 
+      <!-- Master Sub-Panel 0: User Accounts & Governance Master -->
+      <div id="master-panel-users" class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden space-y-4 p-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center space-x-1.5">
+              <i class="fa-solid fa-user-lock text-emerald-600"></i>
+              <span>User Accounts &amp; Security Governance</span>
+            </h4>
+            <p class="text-xs text-slate-500">Create officer accounts with default passwords, manage district assignments, and reset forgotten passwords (Admin Only)</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <select id="userMasterDistrictFilter" onchange="renderUserMasterTable()" class="py-1.5 px-2.5 text-xs bg-slate-50 border border-slate-200 rounded-lg">
+              <option value="all">All Districts</option>
+            </select>
+            <select id="userMasterRoleFilter" onchange="renderUserMasterTable()" class="py-1.5 px-2.5 text-xs bg-slate-50 border border-slate-200 rounded-lg">
+              <option value="all">All Roles</option>
+              <option value="district_rep">District Representatives</option>
+              <option value="qc_engineer">Central QC Engineers</option>
+              <option value="executive">Executive Leadership</option>
+              <option value="admin">System Administrators</option>
+            </select>
+            <input type="text" id="userMasterSearch" placeholder="Search user or officer..." oninput="renderUserMasterTable()" class="py-1.5 px-2.5 text-xs bg-slate-50 border border-slate-200 rounded-lg w-36 sm:w-44" />
+            <button onclick="openAddUserModal()" id="btnAddUser" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg shadow transition flex items-center space-x-1.5 whitespace-nowrap">
+              <i class="fa-solid fa-user-plus"></i>
+              <span>Create User</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Users Table -->
+        <div class="overflow-x-auto border border-slate-100 rounded-lg">
+          <table class="min-w-full divide-y divide-slate-200 text-left text-xs">
+            <thead class="bg-slate-50 text-slate-600 font-semibold">
+              <tr>
+                <th class="py-2.5 px-3">#</th>
+                <th class="py-2.5 px-3">Username / Officer ID</th>
+                <th class="py-2.5 px-3">Officer Name &amp; Contact</th>
+                <th class="py-2.5 px-3">Role</th>
+                <th class="py-2.5 px-3">Assigned District</th>
+                <th class="py-2.5 px-3">Designation</th>
+                <th class="py-2.5 px-3">Password Status</th>
+                <th class="py-2.5 px-3">Account Status</th>
+                <th class="py-2.5 px-3 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="userMasterTableBody" class="divide-y divide-slate-100">
+              <tr><td colspan="9" class="py-6 text-center text-slate-400">Loading user directory...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <!-- Master Sub-Panel 1: District Targets Master -->
-      <div id="master-panel-districts" class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden space-y-4 p-4">
+      <div id="master-panel-districts" class="hidden bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden space-y-4 p-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Districts Baseline Targets & Administration Master</h4>
@@ -1569,6 +1514,187 @@
   </div>
 
   <!-- ========================================================================================= -->
+  <!-- MODAL: CREATE / EDIT USER ACCOUNT (ADMIN ONLY)                                            -->
+  <!-- ========================================================================================= -->
+  <div id="userModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b pb-3">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-user-gear text-emerald-600"></i>
+          <h3 class="text-sm font-bold text-slate-900" id="userModalTitle">Create Officer User Account</h3>
+        </div>
+        <button onclick="closeUserModal()" class="text-slate-400 hover:text-slate-600">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form id="userForm" onsubmit="handleUserSubmit(event)" class="space-y-3.5 text-xs">
+        <input type="hidden" id="formUserIsEdit" value="false" />
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Username / Officer Login ID *</label>
+          <input type="text" id="formUserUsername" required placeholder="e.g. asifabad_rep2, khammam_lead" 
+            class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 font-mono text-xs font-semibold" />
+          <p class="text-[10px] text-slate-400 mt-0.5">Unique lowercase ID used to sign in to the portal (alphanumeric &amp; underscores).</p>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Officer Full Name *</label>
+          <input type="text" id="formUserName" required placeholder="e.g. S. Ramesh Reddy" 
+            class="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 font-medium" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Role *</label>
+            <select id="formUserRole" required class="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 font-medium">
+              <option value="district_rep">District Representative</option>
+              <option value="qc_engineer">Central QC Engineer</option>
+              <option value="executive">Executive Leadership</option>
+              <option value="admin">System Administrator</option>
+              <option value="viewer">Public Viewer / Auditor</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Assigned District *</label>
+            <select id="formUserDistrict" required class="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 font-medium">
+              <option value="All">All Districts (HQ)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Official Designation</label>
+          <input type="text" id="formUserDesignation" placeholder="e.g. District Survey Coordinator / Deputy Inspector" 
+            class="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Phone Number</label>
+            <input type="text" id="formUserPhone" placeholder="+91 98480..." 
+              class="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg" />
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Email Address</label>
+            <input type="email" id="formUserEmail" placeholder="officer@project.org" 
+              class="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg" />
+          </div>
+        </div>
+
+        <div id="defaultPasswordContainer">
+          <label class="block font-semibold text-slate-700 mb-1">Initial Default Password *</label>
+          <input type="text" id="formUserDefaultPassword" value="Welcome@2026" required 
+            class="w-full p-2 bg-amber-50/60 border border-amber-300 rounded-lg font-mono text-xs font-semibold text-amber-900" />
+          <p class="text-[10px] text-amber-700 mt-0.5">The officer signs in with this default password and will be prompted to change it.</p>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Account Status</label>
+          <select id="formUserStatus" class="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg font-medium">
+            <option value="Active">Active (Permit Portal Login)</option>
+            <option value="Inactive">Inactive (Deactivated / Block Access)</option>
+          </select>
+        </div>
+
+        <div class="flex justify-end space-x-3 pt-3 border-t">
+          <button type="button" onclick="closeUserModal()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg">Cancel</button>
+          <button type="submit" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-medium shadow" id="btnSaveUser">Save Officer User</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================================= -->
+  <!-- MODAL: ADMIN PASSWORD RESET FOR OFFICER                                                   -->
+  <!-- ========================================================================================= -->
+  <div id="adminResetPasswordModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-100 space-y-4">
+      <div class="flex items-center justify-between border-b pb-3">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-key text-amber-600"></i>
+          <h3 class="text-sm font-bold text-slate-900">Reset Officer Password</h3>
+        </div>
+        <button onclick="closeAdminResetPasswordModal()" class="text-slate-400 hover:text-slate-600">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form onsubmit="handleAdminResetPasswordSubmit(event)" class="space-y-4 text-xs">
+        <input type="hidden" id="adminResetUsername" />
+
+        <div class="p-3 rounded-lg bg-amber-50 border border-amber-200 text-amber-950 space-y-1">
+          <div class="text-[11px] text-amber-700 font-semibold uppercase tracking-wider">Target Officer Account</div>
+          <div class="font-bold text-xs" id="adminResetTargetUser">loading...</div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">New Temporary Password *</label>
+          <div class="flex space-x-2">
+            <input type="text" id="adminResetNewPassword" required value="Reset@2026" 
+              class="flex-1 p-2.5 bg-slate-50 border border-slate-200 rounded-lg font-mono text-xs font-semibold focus:ring-2 focus:ring-amber-500" />
+            <button type="button" onclick="generateRandomTempPassword()" class="px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-medium" title="Generate New Password">
+              <i class="fa-solid fa-arrows-rotate"></i>
+            </button>
+          </div>
+          <p class="text-[10px] text-slate-500 mt-1">This overrides the existing password. Securely share this temporary password with the officer.</p>
+        </div>
+
+        <div class="flex justify-end space-x-3 pt-3 border-t">
+          <button type="button" onclick="closeAdminResetPasswordModal()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg">Cancel</button>
+          <button type="submit" class="px-4 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg font-semibold shadow">Confirm Password Reset</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================================= -->
+  <!-- MODAL: USER SELF-SERVICE CHANGE PASSWORD                                                  -->
+  <!-- ========================================================================================= -->
+  <div id="changePasswordModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-100 space-y-4">
+      <div class="flex items-center justify-between border-b pb-3">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-shield-halved text-emerald-600"></i>
+          <h3 class="text-sm font-bold text-slate-900">Change Account Password</h3>
+        </div>
+        <button onclick="closeChangePasswordModal()" class="text-slate-400 hover:text-slate-600">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form onsubmit="handleChangePasswordSubmit(event)" class="space-y-3.5 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Current Password *</label>
+          <input type="password" id="changeCurrentPassword" required placeholder="Enter current password" 
+            class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 font-medium" />
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">New Personal Password *</label>
+          <input type="password" id="changeNewPassword" required minlength="4" placeholder="At least 4 characters" 
+            class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 font-medium" />
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Confirm New Password *</label>
+          <input type="password" id="changeConfirmPassword" required minlength="4" placeholder="Re-enter new password" 
+            class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 font-medium" />
+        </div>
+
+        <div id="changePasswordErrorMessage" class="hidden p-2.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-[11px] font-medium"></div>
+
+        <div class="flex justify-end space-x-3 pt-3 border-t">
+          <button type="button" onclick="closeChangePasswordModal()" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg">Cancel</button>
+          <button type="submit" id="btnSubmitChangePassword" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-semibold shadow">Update Password</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================================= -->
   <!-- MODAL: ALL 32 DISTRICTS TARGETS MATRIX                                                    -->
   <!-- ========================================================================================= -->
   <div id="districtsModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
@@ -1628,15 +1754,7 @@
         </button>
       </div>
 
-      <!-- Login Tabs: Standard Login vs 1-Click Demo -->
-      <div class="flex rounded-lg bg-slate-100 p-1 text-xs font-semibold">
-        <button onclick="switchLoginTab('form')" id="btnTabLoginForm" class="flex-1 py-1.5 rounded-md bg-white text-slate-900 shadow-sm transition">
-          Officer Login
-        </button>
-        <button onclick="switchLoginTab('quick')" id="btnTabLoginQuick" class="flex-1 py-1.5 rounded-md text-slate-600 hover:text-slate-900 transition">
-          1-Click Demo Accounts
-        </button>
-      </div>
+<!-- Secure Officer Login Only -->
 
       <!-- Tab 1: Standard Username/Password Form -->
       <div id="panelLoginForm" class="space-y-3 text-xs">
@@ -1667,74 +1785,6 @@
       </div>
 
       <!-- Tab 2: 1-Click Demo Accounts -->
-      <div id="panelLoginQuick" class="hidden space-y-2 text-xs">
-        <p class="text-[11px] text-slate-500 mb-2">Select an official identity to authenticate instantly with real cryptographic tokens:</p>
-
-        <!-- 1. System Administrator -->
-        <button onclick="executeQuickLogin('admin', 'admin')" class="w-full text-left p-2.5 rounded-lg border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/30 flex items-center justify-between transition">
-          <div>
-            <div class="font-bold text-slate-900 flex items-center space-x-1.5">
-              <span>Project Administrator</span>
-              <span class="text-[10px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-bold">Admin</span>
-            </div>
-            <div class="text-[10px] text-slate-500">Full Access (All 32 districts, Targets, Users, Deletions)</div>
-          </div>
-          <i class="fa-solid fa-chevron-right text-slate-400 text-xs"></i>
-        </button>
-
-        <!-- 2. Central QC Engineer -->
-        <button onclick="executeQuickLogin('qc_lead', 'pass')" class="w-full text-left p-2.5 rounded-lg border border-slate-200 hover:border-amber-500 hover:bg-amber-50/30 flex items-center justify-between transition">
-          <div>
-            <div class="font-bold text-slate-900 flex items-center space-x-1.5">
-              <span>Central QC Lead Engineer</span>
-              <span class="text-[10px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded font-bold">Central QC</span>
-            </div>
-            <div class="text-[10px] text-slate-500">K. Ravinder Reddy (Certify readiness, approve/return with remarks)</div>
-          </div>
-          <i class="fa-solid fa-chevron-right text-slate-400 text-xs"></i>
-        </button>
-
-        <!-- 3. Executive Manager -->
-        <button onclick="executeQuickLogin('executive_dir', 'pass')" class="w-full text-left p-2.5 rounded-lg border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/30 flex items-center justify-between transition">
-          <div>
-            <div class="font-bold text-slate-900 flex items-center space-x-1.5">
-              <span>Executive Project Director</span>
-              <span class="text-[10px] bg-indigo-100 text-indigo-800 px-1.5 py-0.5 rounded font-bold">Top Management</span>
-            </div>
-            <div class="text-[10px] text-slate-500">V. S. Murthy (Statewide compliance scorecards & executive radar)</div>
-          </div>
-          <i class="fa-solid fa-chevron-right text-slate-400 text-xs"></i>
-        </button>
-
-        <!-- 4. District Representative Dropdown Picker -->
-        <div class="p-2.5 rounded-lg border border-slate-200 bg-slate-50/50 space-y-2">
-          <div class="font-bold text-slate-900 flex items-center space-x-1.5">
-            <span>District Representative (32 Districts)</span>
-            <span class="text-[10px] bg-teal-100 text-teal-800 px-1.5 py-0.5 rounded font-bold">Field Rep</span>
-          </div>
-          <div class="flex space-x-2">
-            <select id="switchDistrictSelect" class="flex-1 p-2 bg-white border border-slate-200 rounded-lg text-xs font-medium">
-              <!-- Dynamically populated 32 districts -->
-            </select>
-            <button onclick="executeDistrictRepLogin()" class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-3 py-1.5 rounded-lg text-xs transition">
-              Sign In
-            </button>
-          </div>
-        </div>
-
-        <!-- 5. Public Auditor / Guest -->
-        <button onclick="executeQuickLogin('viewer', 'guest')" class="w-full text-left p-2.5 rounded-lg border border-slate-200 hover:border-slate-400 hover:bg-slate-100/50 flex items-center justify-between transition">
-          <div>
-            <div class="font-bold text-slate-800 flex items-center space-x-1.5">
-              <span>Public Auditor / Guest</span>
-              <span class="text-[10px] bg-slate-200 text-slate-700 px-1.5 py-0.5 rounded font-bold">Viewer</span>
-            </div>
-            <div class="text-[10px] text-slate-500">Read-only transparency view</div>
-          </div>
-          <i class="fa-solid fa-chevron-right text-slate-400 text-xs"></i>
-        </button>
-      </div>
-
       <div class="pt-2">
         <button onclick="closeLoginModal()" class="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-medium">
           Cancel
@@ -1924,6 +1974,7 @@
     let allMandals = [];
     let allVillages = [];
     let allRepresentatives = [];
+    let allUsers = [];
     let allAuditLogs = [];
     let masterCatalogData = null;
     let currentTab = 'all';
@@ -1946,6 +1997,7 @@
       await fetchVillages();
       await fetchDashboardStats();
       await fetchRepresentatives();
+      await fetchUsers();
       await fetchAuditLogs();
       await fetchMasterCatalog();
     });
@@ -2048,7 +2100,11 @@
                 ${currentUser.designation || currentUser.role.replace('_', ' ')}
               </div>
             </div>
-            <button onclick="handleLogout()" title="Sign Out of Portal" class="ml-2 text-xs bg-rose-500/20 hover:bg-rose-500/30 text-rose-200 border border-rose-400/30 px-2 py-1 rounded transition flex items-center space-x-1">
+            <button onclick="openChangePasswordModal()" title="Change Account Password" class="ml-2 text-xs bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-200 border border-emerald-400/30 px-2 py-1 rounded transition flex items-center space-x-1">
+              <i class="fa-solid fa-key text-[10px]"></i>
+              <span class="hidden sm:inline">Password</span>
+            </button>
+            <button onclick="handleLogout()" title="Sign Out of Portal" class="ml-1 text-xs bg-rose-500/20 hover:bg-rose-500/30 text-rose-200 border border-rose-400/30 px-2 py-1 rounded transition flex items-center space-x-1">
               <i class="fa-solid fa-right-from-bracket text-[10px]"></i>
               <span class="hidden sm:inline">Logout</span>
             </button>
@@ -2152,7 +2208,7 @@
     }
 
     function switchMasterSubTab(sub) {
-      const tabs = ['districts', 'mandals', 'villages', 'reps', 'catalog'];
+      const tabs = ['users', 'districts', 'mandals', 'villages', 'reps', 'catalog'];
       tabs.forEach(t => {
         const panel = document.getElementById(`master-panel-${t}`);
         const btn = document.getElementById(`subtab-${t}`);
@@ -2166,7 +2222,9 @@
         }
       });
 
-      if (sub === 'districts') {
+      if (sub === 'users') {
+        renderUserMasterTable();
+      } else if (sub === 'districts') {
         renderDistrictMasterTable();
       } else if (sub === 'mandals') {
         renderMandalMasterTable();
@@ -2188,6 +2246,10 @@
         const distBadge = document.getElementById('distMasterCountBadge');
         if (distBadge) distBadge.textContent = allDistricts.length;
 
+        const userDistFilter = document.getElementById('userMasterDistrictFilter');
+        const formUserDist = document.getElementById('formUserDistrict');
+        if (userDistFilter) userDistFilter.innerHTML = '<option value="all">All Districts</option>';
+        if (formUserDist) formUserDist.innerHTML = '<option value="All">All Districts (HQ)</option>';
         const filterSelect = document.getElementById('districtFilter');
         const formSelect = document.getElementById('formDistrict');
         const auditSelect = document.getElementById('auditDistrictFilter');
@@ -2211,6 +2273,18 @@
         allDistricts.forEach(d => {
           const optText = `${d.name} (NC: ${d.non_cadastral_target}, Cad: ${d.cadastral_target})`;
           
+          if (userDistFilter) {
+            const optU = document.createElement('option');
+            optU.value = d.name;
+            optU.textContent = d.name;
+            userDistFilter.appendChild(optU);
+          }
+          if (formUserDist) {
+            const optFUD = document.createElement('option');
+            optFUD.value = d.name;
+            optFUD.textContent = d.name;
+            formUserDist.appendChild(optFUD);
+          }
           if (filterSelect) {
             const opt = document.createElement('option');
             opt.value = d.name;
@@ -4195,6 +4269,329 @@
 
     function downloadExcel() {
       window.location.href = '/export/excel';
+    }
+
+    // =========================================================================================
+    // USER MANAGEMENT & SECURITY GOVERNANCE
+    // =========================================================================================
+    async function fetchUsers() {
+      if (!currentUser || currentUser.role !== 'admin') return;
+      try {
+        const res = await fetch('/users', { headers: getAuthHeaders() });
+        if (res.ok) {
+          allUsers = await res.json();
+          const badge = document.getElementById('userMasterCountBadge');
+          if (badge) badge.textContent = allUsers.length;
+          renderUserMasterTable();
+        }
+      } catch (e) {
+        console.warn('Failed to fetch users', e);
+      }
+    }
+
+    function renderUserMasterTable() {
+      const tbody = document.getElementById('userMasterTableBody');
+      if (!tbody) return;
+
+      const distFilter = (document.getElementById('userMasterDistrictFilter')?.value || 'all').toLowerCase();
+      const roleFilter = (document.getElementById('userMasterRoleFilter')?.value || 'all').toLowerCase();
+      const search = (document.getElementById('userMasterSearch')?.value || '').toLowerCase().trim();
+
+      let filtered = allUsers.filter(u => {
+        if (distFilter !== 'all' && (u.district || '').toLowerCase() !== distFilter) return false;
+        if (roleFilter !== 'all' && (u.role || '').toLowerCase() !== roleFilter) return false;
+        if (search) {
+          const matchName = (u.name || '').toLowerCase().includes(search);
+          const matchUser = (u.username || '').toLowerCase().includes(search);
+          const matchDesig = (u.designation || '').toLowerCase().includes(search);
+          if (!matchName && !matchUser && !matchDesig) return false;
+        }
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" class="py-6 text-center text-slate-400">No user accounts found matching selected criteria.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = filtered.map((u, idx) => {
+        let rolePill = 'bg-slate-100 text-slate-800';
+        let roleLabel = u.role.replace('_', ' ');
+        if (u.role === 'admin') {
+          rolePill = 'bg-emerald-100 text-emerald-800 border border-emerald-300';
+          roleLabel = 'Administrator';
+        } else if (u.role === 'qc_engineer') {
+          rolePill = 'bg-amber-100 text-amber-800 border border-amber-300';
+          roleLabel = 'QC Engineer';
+        } else if (u.role === 'executive') {
+          rolePill = 'bg-indigo-100 text-indigo-800 border border-indigo-300';
+          roleLabel = 'Executive Director';
+        } else if (u.role === 'district_rep') {
+          rolePill = 'bg-teal-100 text-teal-800 border border-teal-300';
+          roleLabel = 'District Rep';
+        }
+
+        const pwdBadge = u.is_default_password
+          ? '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-300"><i class="fa-solid fa-triangle-exclamation mr-1 text-[9px]"></i>Default Password</span>'
+          : '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300"><i class="fa-solid fa-check mr-1 text-[9px]"></i>Personal Password</span>';
+
+        const statusBadge = u.status === 'Inactive'
+          ? '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-800">Inactive</span>'
+          : '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700">Active</span>';
+
+        return `
+          <tr class="hover:bg-slate-50/80 transition">
+            <td class="py-2.5 px-3 text-slate-400 font-mono text-center">${idx + 1}</td>
+            <td class="py-2.5 px-3 font-mono font-bold text-slate-900 flex items-center space-x-1.5">
+              <i class="fa-solid fa-user-circle text-slate-400"></i>
+              <span>${u.username}</span>
+            </td>
+            <td class="py-2.5 px-3">
+              <div class="font-bold text-slate-800">${u.name}</div>
+              <div class="text-[10px] text-slate-400">${u.phone || ''} ${u.email ? '• ' + u.email : ''}</div>
+            </td>
+            <td class="py-2.5 px-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase ${rolePill}">${roleLabel}</span></td>
+            <td class="py-2.5 px-3 font-semibold text-slate-800">${u.district}</td>
+            <td class="py-2.5 px-3 text-slate-600">${u.designation || '-'}</td>
+            <td class="py-2.5 px-3">${pwdBadge}</td>
+            <td class="py-2.5 px-3">${statusBadge}</td>
+            <td class="py-2.5 px-3 text-right whitespace-nowrap">
+              <div class="flex items-center justify-end space-x-1.5">
+                <button onclick="openAdminResetPasswordModal('${u.username}')" title="Reset Officer Password" class="px-2 py-1 bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200 rounded font-semibold text-[11px] transition flex items-center space-x-1">
+                  <i class="fa-solid fa-key text-[10px]"></i>
+                  <span>Reset</span>
+                </button>
+                <button onclick="openEditUserModal('${u.username}')" title="Edit User Details" class="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded transition">
+                  <i class="fa-solid fa-pen text-xs"></i>
+                </button>
+                <button onclick="handleDeleteUser('${u.username}')" title="Delete User Account" class="p-1.5 text-rose-500 hover:text-rose-700 hover:bg-rose-50 rounded transition">
+                  <i class="fa-solid fa-trash text-xs"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function openAddUserModal() {
+      document.getElementById('formUserIsEdit').value = 'false';
+      document.getElementById('userModalTitle').textContent = 'Create Officer User Account';
+      const uInput = document.getElementById('formUserUsername');
+      uInput.value = '';
+      uInput.disabled = false;
+      document.getElementById('formUserName').value = '';
+      document.getElementById('formUserRole').value = 'district_rep';
+      document.getElementById('formUserDistrict').value = 'All';
+      document.getElementById('formUserDesignation').value = '';
+      document.getElementById('formUserPhone').value = '';
+      document.getElementById('formUserEmail').value = '';
+      document.getElementById('formUserDefaultPassword').value = 'Welcome@2026';
+      document.getElementById('formUserStatus').value = 'Active';
+      document.getElementById('defaultPasswordContainer').classList.remove('hidden');
+      document.getElementById('userModal').classList.remove('hidden');
+    }
+
+    function openEditUserModal(username) {
+      const u = allUsers.find(x => x.username.toLowerCase() === username.toLowerCase());
+      if (!u) return;
+
+      document.getElementById('formUserIsEdit').value = 'true';
+      document.getElementById('userModalTitle').textContent = `Edit Officer: ${u.username}`;
+      const uInput = document.getElementById('formUserUsername');
+      uInput.value = u.username;
+      uInput.disabled = true;
+      document.getElementById('formUserName').value = u.name || '';
+      document.getElementById('formUserRole').value = u.role || 'district_rep';
+      document.getElementById('formUserDistrict').value = u.district || 'All';
+      document.getElementById('formUserDesignation').value = u.designation || '';
+      document.getElementById('formUserPhone').value = u.phone || '';
+      document.getElementById('formUserEmail').value = u.email || '';
+      document.getElementById('formUserStatus').value = u.status || 'Active';
+      document.getElementById('defaultPasswordContainer').classList.add('hidden');
+      document.getElementById('userModal').classList.remove('hidden');
+    }
+
+    function closeUserModal() {
+      document.getElementById('userModal').classList.add('hidden');
+    }
+
+    async function handleUserSubmit(e) {
+      e.preventDefault();
+      const isEdit = document.getElementById('formUserIsEdit').value === 'true';
+      const username = document.getElementById('formUserUsername').value.trim().toLowerCase();
+      const name = document.getElementById('formUserName').value.trim();
+      const role = document.getElementById('formUserRole').value;
+      const district = document.getElementById('formUserDistrict').value;
+      const designation = document.getElementById('formUserDesignation').value.trim();
+      const phone = document.getElementById('formUserPhone').value.trim();
+      const email = document.getElementById('formUserEmail').value.trim();
+      const statusVal = document.getElementById('formUserStatus').value;
+
+      try {
+        let res;
+        if (isEdit) {
+          res = await fetch(`/users/${username}`, {
+            method: 'PUT',
+            headers: getAuthHeaders(),
+            body: JSON.stringify({ name, role, district, designation, phone, email, status: statusVal })
+          });
+        } else {
+          const default_password = document.getElementById('formUserDefaultPassword').value.trim();
+          res = await fetch('/users', {
+            method: 'POST',
+            headers: getAuthHeaders(),
+            body: JSON.stringify({ username, name, role, district, designation, phone, email, default_password, status: statusVal })
+          });
+        }
+
+        if (res.ok) {
+          alert(isEdit ? 'User account updated successfully.' : `User created successfully!
+Username: ${username}
+Default Password: ${document.getElementById('formUserDefaultPassword').value}`);
+          closeUserModal();
+          await fetchUsers();
+        } else {
+          const err = await res.json();
+          alert('Error: ' + (err.detail || 'Could not save user'));
+        }
+      } catch (err) {
+        alert('Network error saving user: ' + err.message);
+      }
+    }
+
+    function openAdminResetPasswordModal(username) {
+      const u = allUsers.find(x => x.username.toLowerCase() === username.toLowerCase());
+      if (!u) return;
+
+      document.getElementById('adminResetUsername').value = u.username;
+      document.getElementById('adminResetTargetUser').textContent = `${u.name} (@${u.username}) • ${u.district}`;
+      document.getElementById('adminResetNewPassword').value = 'Reset@2026';
+      document.getElementById('adminResetPasswordModal').classList.remove('hidden');
+    }
+
+    function closeAdminResetPasswordModal() {
+      document.getElementById('adminResetPasswordModal').classList.add('hidden');
+    }
+
+    function generateRandomTempPassword() {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789!@#$';
+      let pwd = 'P@';
+      for (let i = 0; i < 6; i++) {
+        pwd += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      document.getElementById('adminResetNewPassword').value = pwd;
+    }
+
+    async function handleAdminResetPasswordSubmit(e) {
+      e.preventDefault();
+      const username = document.getElementById('adminResetUsername').value;
+      const new_password = document.getElementById('adminResetNewPassword').value.trim();
+
+      if (!new_password) {
+        alert('Please enter a new password.');
+        return;
+      }
+
+      try {
+        const res = await fetch(`/users/${username}/reset-password`, {
+          method: 'POST',
+          headers: getAuthHeaders(),
+          body: JSON.stringify({ new_password })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          alert(`Password for ${username} has been reset to:
+${new_password}
+
+Please securely provide this temporary password to the officer.`);
+          closeAdminResetPasswordModal();
+          await fetchUsers();
+        } else {
+          alert('Password reset failed: ' + (data.detail || 'Error'));
+        }
+      } catch (err) {
+        alert('Network error resetting password: ' + err.message);
+      }
+    }
+
+    async function handleDeleteUser(username) {
+      if (!confirm(`Are you sure you want to permanently delete officer user account '${username}'?
+This will revoke their access to the portal.`)) {
+        return;
+      }
+
+      try {
+        const res = await fetch(`/users/${username}`, {
+          method: 'DELETE',
+          headers: getAuthHeaders()
+        });
+        const data = await res.json();
+        if (res.ok) {
+          alert(`User account '${username}' has been deleted.`);
+          await fetchUsers();
+        } else {
+          alert('Deletion failed: ' + (data.detail || 'Error'));
+        }
+      } catch (err) {
+        alert('Network error deleting user: ' + err.message);
+      }
+    }
+
+    // User Self-Service Change Password
+    function openChangePasswordModal() {
+      document.getElementById('changeCurrentPassword').value = '';
+      document.getElementById('changeNewPassword').value = '';
+      document.getElementById('changeConfirmPassword').value = '';
+      document.getElementById('changePasswordErrorMessage').classList.add('hidden');
+      document.getElementById('changePasswordModal').classList.remove('hidden');
+    }
+
+    function closeChangePasswordModal() {
+      document.getElementById('changePasswordModal').classList.add('hidden');
+    }
+
+    async function handleChangePasswordSubmit(e) {
+      e.preventDefault();
+      const current_password = document.getElementById('changeCurrentPassword').value;
+      const new_password = document.getElementById('changeNewPassword').value;
+      const confirm_password = document.getElementById('changeConfirmPassword').value;
+      const errBox = document.getElementById('changePasswordErrorMessage');
+
+      errBox.classList.add('hidden');
+
+      if (new_password !== confirm_password) {
+        errBox.textContent = 'New password and confirmation password do not match.';
+        errBox.classList.remove('hidden');
+        return;
+      }
+
+      if (new_password.length < 4) {
+        errBox.textContent = 'New password must be at least 4 characters long.';
+        errBox.classList.remove('hidden');
+        return;
+      }
+
+      try {
+        const res = await fetch('/auth/change-password', {
+          method: 'POST',
+          headers: getAuthHeaders(),
+          body: JSON.stringify({ current_password, new_password, confirm_password })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          alert('Password successfully changed! Please use your new password next time you sign in.');
+          closeChangePasswordModal();
+          if (currentUser) currentUser.is_default_password = false;
+          renderAuthHeaderUI();
+        } else {
+          errBox.textContent = data.detail || 'Could not update password.';
+          errBox.classList.remove('hidden');
+        }
+      } catch (err) {
+        errBox.textContent = 'Network error: ' + err.message;
+        errBox.classList.remove('hidden');
+      }
     }
   </script>
 </body>

@@ -1,4 +1,5 @@
 import os
+import re
 import json
 import logging
 from typing import List, Dict, Any, Optional
@@ -848,16 +849,270 @@ def authenticate_user(username: str, password: str) -> Optional[Dict[str, Any]]:
     u_lower = username.lower().strip()
     user = next((u for u in users if u.get("username", "").lower() == u_lower), None)
     
-    # Check if user matches and password matches (with convenient fallbacks for testing)
+    # STRICT CREDENTIAL VERIFICATION: Exact password match against stored user record
     if user:
+        if user.get("status", "Active") == "Inactive":
+            return None
+        
         stored_pwd = user.get("password")
-        # Allow exact match or standard defaults
-        if password == stored_pwd or (password in ["admin", "admin123"] and user.get("role") == "admin") or (password in ["pass", "qc123"] and user.get("role") == "qc_engineer") or (password in ["pass", "exec123"] and user.get("role") == "executive") or (password in ["pass", "rep123"] and user.get("role") == "district_rep") or (password in ["guest", "pass"] and user.get("role") == "viewer"):
+        if stored_pwd and password == stored_pwd:
             user_safe = dict(user)
             if "password" in user_safe:
                 del user_safe["password"]
             return user_safe
     return None
+
+def get_users(
+    district: Optional[str] = None,
+    role: Optional[str] = None,
+    search: Optional[str] = None
+) -> List[Dict[str, Any]]:
+    users = _load_json(USERS_FILE)
+    result = []
+    
+    search_lower = search.lower().strip() if search else None
+    district_lower = district.lower().strip() if district and district.lower() != "all" else None
+    role_lower = role.lower().strip() if role and role.lower() != "all" else None
+
+    for u in users:
+        if district_lower:
+            u_dist = (u.get("district") or "").lower()
+            if u_dist != district_lower:
+                continue
+        if role_lower:
+            u_role = (u.get("role") or "").lower()
+            if u_role != role_lower:
+                continue
+        if search_lower:
+            name = (u.get("name") or "").lower()
+            uname = (u.get("username") or "").lower()
+            desig = (u.get("designation") or "").lower()
+            if search_lower not in name and search_lower not in uname and search_lower not in desig:
+                continue
+
+        safe_u = dict(u)
+        if "password" in safe_u:
+            del safe_u["password"]
+        if "status" not in safe_u:
+            safe_u["status"] = "Active"
+        if "is_default_password" not in safe_u:
+            safe_u["is_default_password"] = True
+        result.append(safe_u)
+
+    return sorted(result, key=lambda x: (x.get("district", ""), x.get("username", "")))
+
+def get_user(username: str) -> Optional[Dict[str, Any]]:
+    users = _load_json(USERS_FILE)
+    u_lower = username.lower().strip()
+    user = next((u for u in users if u.get("username", "").lower() == u_lower), None)
+    if user:
+        safe_u = dict(user)
+        if "password" in safe_u:
+            del safe_u["password"]
+        if "status" not in safe_u:
+            safe_u["status"] = "Active"
+        if "is_default_password" not in safe_u:
+            safe_u["is_default_password"] = True
+        return safe_u
+    return None
+
+def add_user(user_data: Dict[str, Any], admin_name: str, admin_role: str) -> Dict[str, Any]:
+    username = (user_data.get("username") or "").lower().strip()
+    if not username or not re.match(r"^[a-z0-9_]{3,30}$", username):
+        raise ValueError("Username must be 3-30 characters with lowercase letters, digits, or underscores only.")
+    
+    users = _load_json(USERS_FILE)
+    if any(u.get("username", "").lower() == username for u in users):
+        raise ValueError(f"User with username '{username}' already exists.")
+
+    default_password = user_data.get("default_password") or "Welcome@2026"
+    
+    new_user = {
+        "username": username,
+        "password": default_password,
+        "name": user_data.get("name", "").strip(),
+        "role": user_data.get("role", "district_rep"),
+        "district": user_data.get("district", "All"),
+        "designation": user_data.get("designation", "").strip(),
+        "phone": user_data.get("phone", "").strip(),
+        "email": user_data.get("email", "").strip(),
+        "status": user_data.get("status", "Active"),
+        "is_default_password": True,
+        "created_at": datetime.utcnow().isoformat(),
+        "created_by": admin_name,
+        "password_updated_at": None
+    }
+
+    if is_mongo and mongo_db is not None:
+        mongo_db.users.insert_one(dict(new_user))
+        if "_id" in new_user:
+            del new_user["_id"]
+
+    users.append(new_user)
+    _save_json(USERS_FILE, users)
+
+    # Log to audit trail
+    log_change(
+        record_id=f"user-{username}",
+        village_name=f"Account: {username}",
+        district_name=new_user["district"],
+        user_name=admin_name,
+        user_role=admin_role,
+        action="User Account Created",
+        details=f"Created officer account '{username}' (Role: {new_user['role']}, District: {new_user['district']}) with default password.",
+        changes={"role": new_user["role"], "district": new_user["district"], "status": new_user["status"]}
+    )
+
+    safe_u = dict(new_user)
+    del safe_u["password"]
+    safe_u["initial_password"] = default_password
+    return safe_u
+
+def update_user(username: str, updates: Dict[str, Any], admin_name: str, admin_role: str) -> Optional[Dict[str, Any]]:
+    users = _load_json(USERS_FILE)
+    u_lower = username.lower().strip()
+    
+    for idx, u in enumerate(users):
+        if u.get("username", "").lower() == u_lower:
+            old_summary = f"Role: {u.get('role')}, District: {u.get('district')}, Status: {u.get('status', 'Active')}"
+            
+            allowed_fields = ["name", "role", "district", "designation", "phone", "email", "status"]
+            filtered_updates = {k: v for k, v in updates.items() if k in allowed_fields and v is not None}
+            filtered_updates["updated_at"] = datetime.utcnow().isoformat()
+            
+            users[idx].update(filtered_updates)
+            _save_json(USERS_FILE, users)
+            
+            if is_mongo and mongo_db is not None:
+                mongo_db.users.update_one({"username": u_lower}, {"$set": filtered_updates})
+            
+            new_summary = f"Role: {users[idx].get('role')}, District: {users[idx].get('district')}, Status: {users[idx].get('status')}"
+            log_change(
+                record_id=f"user-{username}",
+                village_name=f"Account: {username}",
+                district_name=users[idx].get("district", "All"),
+                user_name=admin_name,
+                user_role=admin_role,
+                action="User Account Updated",
+                details=f"Updated details for user '{username}': {filtered_updates}",
+                changes=filtered_updates
+            )
+            
+            safe_u = dict(users[idx])
+            if "password" in safe_u:
+                del safe_u["password"]
+            return safe_u
+    return None
+
+def reset_user_password(username: str, new_password: str, admin_name: str, admin_role: str) -> bool:
+    if not new_password or len(new_password.strip()) < 4:
+        raise ValueError("Password must be at least 4 characters long.")
+
+    users = _load_json(USERS_FILE)
+    u_lower = username.lower().strip()
+    
+    for idx, u in enumerate(users):
+        if u.get("username", "").lower() == u_lower:
+            users[idx]["password"] = new_password.strip()
+            users[idx]["is_default_password"] = True
+            users[idx]["password_updated_at"] = datetime.utcnow().isoformat()
+            users[idx]["status"] = "Active"
+            
+            _save_json(USERS_FILE, users)
+            if is_mongo and mongo_db is not None:
+                mongo_db.users.update_one(
+                    {"username": u_lower},
+                    {"$set": {
+                        "password": new_password.strip(),
+                        "is_default_password": True,
+                        "password_updated_at": users[idx]["password_updated_at"],
+                        "status": "Active"
+                    }}
+                )
+            
+            log_change(
+                record_id=f"user-{username}",
+                village_name=f"Account: {username}",
+                district_name=users[idx].get("district", "All"),
+                user_name=admin_name,
+                user_role=admin_role,
+                action="Password Reset by Admin",
+                details=f"Administrator '{admin_name}' reset password for user '{username}' to temporary default.",
+                changes={"is_default_password": True}
+            )
+            return True
+    return False
+
+def change_user_password(username: str, current_password: str, new_password: str) -> bool:
+    if not new_password or len(new_password.strip()) < 4:
+        raise ValueError("New password must be at least 4 characters long.")
+
+    users = _load_json(USERS_FILE)
+    u_lower = username.lower().strip()
+    
+    for idx, u in enumerate(users):
+        if u.get("username", "").lower() == u_lower:
+            stored_pwd = u.get("password")
+            if stored_pwd != current_password:
+                raise ValueError("Current password is incorrect.")
+            
+            users[idx]["password"] = new_password.strip()
+            users[idx]["is_default_password"] = False
+            users[idx]["password_updated_at"] = datetime.utcnow().isoformat()
+            
+            _save_json(USERS_FILE, users)
+            if is_mongo and mongo_db is not None:
+                mongo_db.users.update_one(
+                    {"username": u_lower},
+                    {"$set": {
+                        "password": new_password.strip(),
+                        "is_default_password": False,
+                        "password_updated_at": users[idx]["password_updated_at"]
+                    }}
+                )
+            
+            log_change(
+                record_id=f"user-{username}",
+                village_name=f"Account: {username}",
+                district_name=users[idx].get("district", "All"),
+                user_name=users[idx].get("name", username),
+                user_role=users[idx].get("role", "user"),
+                action="Password Changed by User",
+                details=f"User '{username}' successfully updated their personal account password.",
+                changes={"is_default_password": False}
+            )
+            return True
+    raise ValueError("User not found.")
+
+def delete_user(username: str, admin_name: str, admin_role: str) -> bool:
+    u_lower = username.lower().strip()
+    if u_lower in ["admin", admin_name.lower()]:
+        raise ValueError("Cannot delete your own active administrator account.")
+        
+    users = _load_json(USERS_FILE)
+    init_len = len(users)
+    target_user = next((u for u in users if u.get("username", "").lower() == u_lower), None)
+    if not target_user:
+        return False
+
+    users = [u for u in users if u.get("username", "").lower() != u_lower]
+    if len(users) < init_len:
+        _save_json(USERS_FILE, users)
+        if is_mongo and mongo_db is not None:
+            mongo_db.users.delete_one({"username": u_lower})
+
+        log_change(
+            record_id=f"user-{username}",
+            village_name=f"Account: {username}",
+            district_name=target_user.get("district", "All"),
+            user_name=admin_name,
+            user_role=admin_role,
+            action="User Account Deleted",
+            details=f"Administrator '{admin_name}' deleted user account '{username}'.",
+            changes={"deleted_user": username}
+        )
+        return True
+    return False
 
 # ----------------- EXTENSIBLE MASTER CATALOG -----------------
 def get_master_catalog() -> Dict[str, Any]:
@@ -903,6 +1158,15 @@ def get_master_catalog() -> Dict[str, Any]:
                 "status": "Active",
                 "description": "Designated field officers, district data entry representatives, and central office verification engineers.",
                 "fields": ["id", "name", "role", "designation", "assigned_district", "phone", "email", "status"]
+            },
+            {
+                "entity_key": "users",
+                "name": "User Accounts & Officers",
+                "icon": "fa-user-lock",
+                "count": len(_load_json(USERS_FILE)),
+                "status": "Active",
+                "description": "Authenticated officer credentials, role permissions, district assignments, and password governance.",
+                "fields": ["username", "name", "role", "district", "designation", "status", "is_default_password"]
             }
         ],
         "extensible_entities": [
