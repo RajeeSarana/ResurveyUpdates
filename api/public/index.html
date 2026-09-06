@@ -1294,6 +1294,9 @@
         <input type="hidden" id="formVillageNameTelugu" />
         <input type="hidden" id="formCategory" />
         <input type="hidden" id="formExtentRaw" />
+        <input type="hidden" id="formSentCSO" />
+        <input type="hidden" id="formShapefileStatus" />
+        <input type="hidden" id="formWorkflowStage" />
 
         <!-- SECTION 1: MASTER VILLAGE INFORMATION (NON-EDITABLE DISPLAY) -->
         <div class="bg-gradient-to-r from-slate-50 via-slate-50/80 to-emerald-50/20 p-4 rounded-xl border border-slate-200/90 shadow-2xs">
@@ -1353,6 +1356,59 @@
                   <span class="text-[10px] text-slate-500 font-mono ml-1.5" id="dispExtentDecimal">Decimal: 0.00 ac</span>
                 </div>
                 <i class="fa-solid fa-lock text-slate-300 text-[10px]"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION: CSO TRANSMISSION & CENTRAL SURVEY OFFICE STATUS (NON-EDITABLE FOR REPRESENTATIVES) -->
+        <div class="bg-gradient-to-r from-blue-50/50 via-indigo-50/40 to-slate-50 p-4 rounded-xl border border-indigo-200/80 shadow-2xs space-y-3">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-2.5 border-b border-indigo-200/60 gap-1.5">
+            <div class="flex items-center space-x-2">
+              <span class="w-6 h-6 rounded-md bg-indigo-100 text-indigo-700 flex items-center justify-center text-xs shadow-2xs">
+                <i class="fa-solid fa-tower-broadcast"></i>
+              </span>
+              <span class="font-bold text-slate-800 text-xs sm:text-sm">CSO Transmission &amp; Central Survey Office Status</span>
+              <span class="text-[10px] bg-indigo-100/70 text-indigo-800 font-semibold px-2 py-0.5 rounded-full border border-indigo-200 flex items-center shadow-2xs">
+                <i class="fa-solid fa-lock mr-1 text-[9px] text-indigo-600"></i>Non-Editable (CSO End)
+              </span>
+            </div>
+            <span class="text-[11px] text-slate-500 italic">
+              Monitored by Central Survey Office &bull; Status visible for field representatives
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <!-- Transmission Status -->
+            <div class="bg-white p-3 rounded-lg border border-slate-200/90 shadow-2xs">
+              <div class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1 flex items-center justify-between">
+                <span>CSO Transmission</span>
+                <i class="fa-solid fa-lock text-slate-300 text-[10px]"></i>
+              </div>
+              <div class="flex items-center" id="dispCsoTransmission">
+                <span class="text-xs font-bold text-slate-700">Pending</span>
+              </div>
+            </div>
+
+            <!-- Shapefile Status at CSO -->
+            <div class="bg-white p-3 rounded-lg border border-slate-200/90 shadow-2xs">
+              <div class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1 flex items-center justify-between">
+                <span>Shape File Status (CSO)</span>
+                <i class="fa-solid fa-lock text-slate-300 text-[10px]"></i>
+              </div>
+              <div class="flex items-center" id="dispShapefileStatus">
+                <span class="text-xs font-bold text-slate-700">Pending</span>
+              </div>
+            </div>
+
+            <!-- Workflow Milestone -->
+            <div class="bg-white p-3 rounded-lg border border-slate-200/90 shadow-2xs">
+              <div class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1 flex items-center justify-between">
+                <span>CSO Workflow Milestone</span>
+                <i class="fa-solid fa-lock text-slate-300 text-[10px]"></i>
+              </div>
+              <div class="flex items-center truncate" id="dispWorkflowMilestone">
+                <span class="text-xs font-bold text-slate-800">Ground Truthing</span>
               </div>
             </div>
           </div>
@@ -5098,6 +5154,23 @@
       document.getElementById('formNotice92Date').value = '';
       toggleNoticeDateField('formNotice92Status', 'formNotice92Date', 'formNotice92DateHelp');
 
+      // CSO Transmission Status Defaults
+      const dispCsoAddEl = document.getElementById('dispCsoTransmission');
+      if (dispCsoAddEl) {
+        dispCsoAddEl.innerHTML = `<span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200"><i class="fa-regular fa-clock mr-1.5 text-slate-400"></i>Pending Transmission</span>`;
+      }
+      const dispSfAddEl = document.getElementById('dispShapefileStatus');
+      if (dispSfAddEl) {
+        dispSfAddEl.innerHTML = `<span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-slate-100 text-slate-600 border border-slate-200">Pending</span>`;
+      }
+      const dispWfAddEl = document.getElementById('dispWorkflowMilestone');
+      if (dispWfAddEl) {
+        dispWfAddEl.innerHTML = `<span class="inline-flex items-center text-xs font-semibold text-slate-800 bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-md truncate max-w-full"><i class="fa-solid fa-diagram-project mr-1.5 text-indigo-600"></i>Ground Truthing</span>`;
+      }
+      if (document.getElementById('formSentCSO')) document.getElementById('formSentCSO').value = 'false';
+      if (document.getElementById('formShapefileStatus')) document.getElementById('formShapefileStatus').value = 'Pending';
+      if (document.getElementById('formWorkflowStage')) document.getElementById('formWorkflowStage').value = 'Ground Truthing';
+
       document.getElementById('formGtStatus').value = 'Pending';
 
       document.getElementById('villageModal').classList.remove('hidden');
@@ -5150,6 +5223,32 @@
         : 'Decimal: 0.00 ac';
       document.getElementById('dispExtentDecimal').textContent = decExt;
 
+      // CSO Transmission Status (Non-editable for field representatives)
+      const isSentCSO = !!v.sent_to_cso;
+      const sfStatus = v.shapefile_status || 'Pending';
+      const wfStage = v.workflow_stage || (isSentCSO ? 'Shapefile Sent to CSO' : 'Ground Truthing');
+
+      const dispCsoEl = document.getElementById('dispCsoTransmission');
+      if (dispCsoEl) {
+        dispCsoEl.innerHTML = isSentCSO
+          ? `<span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-teal-50 text-teal-700 border border-teal-200"><i class="fa-solid fa-circle-check mr-1.5 text-teal-600"></i>Transmitted to CSO</span>`
+          : `<span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200"><i class="fa-regular fa-clock mr-1.5 text-slate-400"></i>Pending Transmission</span>`;
+      }
+      const dispSfEl = document.getElementById('dispShapefileStatus');
+      if (dispSfEl) {
+        if (sfStatus === 'Completed') {
+          dispSfEl.innerHTML = `<span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200"><i class="fa-solid fa-check mr-1.5 text-emerald-600"></i>Completed</span>`;
+        } else if (sfStatus === 'Error' || sfStatus === 'Rejected') {
+          dispSfEl.innerHTML = `<span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-rose-50 text-rose-700 border border-rose-200"><i class="fa-solid fa-triangle-exclamation mr-1.5 text-rose-600"></i>${sfStatus}</span>`;
+        } else {
+          dispSfEl.innerHTML = `<span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200"><i class="fa-solid fa-spinner fa-spin mr-1.5 text-amber-600"></i>${sfStatus}</span>`;
+        }
+      }
+      const dispWfEl = document.getElementById('dispWorkflowMilestone');
+      if (dispWfEl) {
+        dispWfEl.innerHTML = `<span class="inline-flex items-center text-xs font-semibold text-slate-800 bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-md truncate max-w-full"><i class="fa-solid fa-diagram-project mr-1.5 text-indigo-600"></i>${wfStage}</span>`;
+      }
+
       // Form hidden inputs
       document.getElementById('formDistrict').value = v.district_name;
       document.getElementById('formMandalName').value = v.mandal_name || '';
@@ -5157,6 +5256,9 @@
       document.getElementById('formVillageNameTelugu').value = v.village_name_telugu || '';
       document.getElementById('formCategory').value = v.category;
       document.getElementById('formExtentRaw').value = v.extent_raw || '';
+      if (document.getElementById('formSentCSO')) document.getElementById('formSentCSO').value = isSentCSO ? 'true' : 'false';
+      if (document.getElementById('formShapefileStatus')) document.getElementById('formShapefileStatus').value = sfStatus;
+      if (document.getElementById('formWorkflowStage')) document.getElementById('formWorkflowStage').value = wfStage;
 
       // Statutory Notification u/s 5
       document.getElementById('formGazetteUs5Status').value = v.gazette_us_5_status || 'Notice to be given';
@@ -5196,6 +5298,9 @@
         mandal_name: document.getElementById('formMandalName').value.trim(),
         extent_raw: document.getElementById('formExtentRaw').value.trim(),
         gt_status: document.getElementById('formGtStatus').value,
+        sent_to_cso: document.getElementById('formSentCSO') ? (document.getElementById('formSentCSO').value === 'true') : false,
+        shapefile_status: document.getElementById('formShapefileStatus')?.value || 'Pending',
+        workflow_stage: document.getElementById('formWorkflowStage')?.value || 'Ground Truthing',
         gazette_us_5_status: document.getElementById('formGazetteUs5Status').value,
         gazette_us_5_date: document.getElementById('formGazetteUs5Date').value,
         gazette_us_6_status: document.getElementById('formGazetteUs6Status').value,
