@@ -94,6 +94,17 @@ def _save_json(file_path: str, data: Any):
     try:
         with open(file_path, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
+        # Also sync to peer data directory if present (e.g. data/ <-> api/data/)
+        fname = os.path.basename(file_path)
+        base_parent = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        for alt_rel in [os.path.join("data", fname), os.path.join("api", "data", fname)]:
+            alt_path = os.path.join(base_parent, alt_rel)
+            if os.path.exists(os.path.dirname(alt_path)) and os.path.abspath(alt_path) != os.path.abspath(file_path):
+                try:
+                    with open(alt_path, 'w', encoding='utf-8') as f:
+                        json.dump(data, f, indent=2, ensure_ascii=False)
+                except Exception:
+                    pass
     except (OSError, PermissionError):
         if TMP_DATA_DIR:
             os.makedirs(TMP_DATA_DIR, exist_ok=True)
@@ -547,7 +558,10 @@ def get_villages(
     if district and district.lower() != "all":
         d_clean = district.lower().strip()
         master_records = _load_json(MASTER_VILLAGES_FILE)
-        survey_records = _load_json(VILLAGES_FILE)
+        if is_mongo and mongo_db is not None:
+            survey_records = list(mongo_db.villages.find({"district_name": {"$regex": f"^{d_clean}$", "$options": "i"}}, {"_id": 0}))
+        else:
+            survey_records = _load_json(VILLAGES_FILE)
         
         # Survey lookup by ID and normalized village_mandal key
         survey_by_id = {v["id"]: v for v in survey_records if v.get("id")}
@@ -600,7 +614,15 @@ def get_villages(
                 if v_copy.get("category", "") != category:
                     continue
             if shapefile_status and shapefile_status.lower() != "all":
-                if v_copy.get("shapefile_status", "") != shapefile_status:
+                sf_req = shapefile_status.lower().strip()
+                v_sf = (v_copy.get("shapefile_status") or "").lower().strip()
+                if sf_req in ["shapefile returned", "shapefilereturned"]:
+                    if v_sf not in ["shapefile returned", "shapefilereturned", "error"] and v_copy.get("verification_status") != "Returned for Correction":
+                        continue
+                elif sf_req == "error":
+                    if v_sf not in ["error", "shapefile returned", "shapefilereturned"]:
+                        continue
+                elif v_sf != sf_req:
                     continue
             if verification_status and verification_status.lower() != "all":
                 if v_copy.get("verification_status", "") != verification_status:
@@ -669,7 +691,15 @@ def get_villages(
             if r_copy.get("category", "") != category:
                 continue
         if shapefile_status and shapefile_status.lower() != "all":
-            if r_copy.get("shapefile_status", "") != shapefile_status:
+            sf_req = shapefile_status.lower().strip()
+            v_sf = (r_copy.get("shapefile_status") or "").lower().strip()
+            if sf_req in ["shapefile returned", "shapefilereturned"]:
+                if v_sf not in ["shapefile returned", "shapefilereturned", "error"] and r_copy.get("verification_status") != "Returned for Correction":
+                    continue
+            elif sf_req == "error":
+                if v_sf not in ["error", "shapefile returned", "shapefilereturned"]:
+                    continue
+            elif v_sf != sf_req:
                 continue
         if verification_status and verification_status.lower() != "all":
             if r_copy.get("verification_status", "") != verification_status:
@@ -722,8 +752,9 @@ def get_village(village_id: str) -> Optional[Dict[str, Any]]:
             p_val = bool(v_copy.get("is_picked_for_resurvey") or v_copy.get("picked_for_resurvey"))
             v_copy["is_picked_for_resurvey"] = p_val
             v_copy["picked_for_resurvey"] = p_val
-            # Check if survey operations exist in VILLAGES_FILE
-            for sv in _load_json(VILLAGES_FILE):
+            # Check if survey operations exist in VILLAGES_FILE or MongoDB
+            sv_list = list(mongo_db.villages.find({"id": village_id}, {"_id": 0})) if (is_mongo and mongo_db is not None) else _load_json(VILLAGES_FILE)
+            for sv in sv_list:
                 if sv.get("id") == village_id:
                     for k, val in sv.items():
                         if val is not None and k not in ["district_name", "mandal_name", "village_name", "village_name_telugu"]:
@@ -803,9 +834,14 @@ def update_village(
     updates["updated_at"] = datetime.utcnow().isoformat()
     updates["updated_by"] = user_name
 
-    # If edited by district rep, move back to Pending QC unless already verified
-    if user_role == "district_rep" and existing.get("verification_status") == "Returned for Correction":
-        updates["verification_status"] = "Pending QC"
+    # If record was previously returned for correction, submitting corrected data moves it back to Pending QC
+    if existing.get("verification_status") == "Returned for Correction":
+        if updates.get("shapefile_status") == "Completed":
+            updates["verification_status"] = "Pending QC"
+            updates["workflow_stage"] = "QC Resubmitted (Correction Done)"
+        elif user_role == "district_rep":
+            updates["verification_status"] = "Pending QC"
+            updates["workflow_stage"] = "QC Resubmitted"
 
     if is_mongo and mongo_db is not None:
         mongo_db.villages.update_one({"id": village_id}, {"$set": updates})
@@ -851,27 +887,38 @@ def update_village(
 
 def verify_village(
     village_id: str,
-    status: str,  # "Verified" or "Returned for Correction"
+    status: str,  # "Verified", "Returned for Correction", or "Shapefile Returned"
     qc_user: str = "Lead QC Engineer",
-    notes: Optional[str] = None
+    notes: Optional[str] = None,
+    shapefile_status: Optional[str] = None
 ) -> Optional[Dict[str, Any]]:
+    existing = get_village(village_id)
+    if not existing:
+        return None
+
     updates = {
-        "verification_status": status,
         "verified_by": qc_user,
         "verified_at": datetime.utcnow().isoformat(),
         "qc_notes": notes or ""
     }
     if status == "Verified":
+        updates["verification_status"] = "Verified"
         updates["sent_to_cso"] = True
-    elif status == "Returned for Correction":
-        updates["shapefile_status"] = "Error"
-
-    existing = get_village(village_id)
-    if not existing:
-        return None
+        updates["shapefile_status"] = shapefile_status or "Completed"
+        updates["workflow_stage"] = "QC Approved - Ready for CSO"
+    elif status in ["Returned for Correction", "Shapefile Returned"]:
+        updates["verification_status"] = "Returned for Correction"
+        updates["sent_to_cso"] = False
+        updates["shapefile_status"] = shapefile_status or "Shapefile Returned"
+        updates["workflow_stage"] = "Shapefile Returned for Correction"
+    else:
+        updates["verification_status"] = status
+        if shapefile_status:
+            updates["shapefile_status"] = shapefile_status
 
     diff = {
-        "verification_status": {"from": existing.get("verification_status"), "to": status},
+        "verification_status": {"from": existing.get("verification_status"), "to": updates.get("verification_status")},
+        "shapefile_status": {"from": existing.get("shapefile_status"), "to": updates.get("shapefile_status")},
         "qc_notes": {"from": existing.get("qc_notes"), "to": notes}
     }
 
@@ -883,8 +930,8 @@ def verify_village(
             district_name=updated.get("district_name", ""),
             user_name=qc_user,
             user_role="qc_engineer",
-            action="QC Verification: " + status,
-            details=f"QC Review completed: {status}. Notes: {notes or 'None'}",
+            action="QC Verification: " + updates["verification_status"],
+            details=f"QC Review completed: {updates['verification_status']}. Shapefile: {updates.get('shapefile_status')}. Notes: {notes or 'None'}",
             changes=diff
         )
     return updated
@@ -1328,15 +1375,15 @@ def get_dashboard_stats(district: Optional[str] = None) -> Dict[str, Any]:
     gt_non_cadastral = [v for v in picked_vlgs if v.get("category") == "Non-Cadastral" and v.get("gt_status") == "Completed"]
     gt_cadastral = [v for v in picked_vlgs if v.get("category") == "Cadastral" and v.get("gt_status") == "Completed"]
     
-    shapefile_completed = [v for v in picked_vlgs if v.get("shapefile_status") == "Completed"]
-    shapefile_error = [v for v in picked_vlgs if v.get("shapefile_status") == "Error"]
+    shapefile_completed = [v for v in picked_vlgs if v.get("shapefile_status") == "Completed" and v.get("verification_status") != "Returned for Correction"]
+    shapefile_error = [v for v in picked_vlgs if v.get("shapefile_status") in ["Error", "Shapefile Returned", "ShapefileReturned", "Returned"] or v.get("verification_status") == "Returned for Correction"]
     shapefile_in_progress = [v for v in picked_vlgs if v.get("shapefile_status") == "In Progress"]
-    sent_to_cso_count = [v for v in picked_vlgs if v.get("sent_to_cso") is True]
+    sent_to_cso_count = [v for v in picked_vlgs if v.get("sent_to_cso") is True and v.get("verification_status") != "Returned for Correction"]
 
     # Verification workflow counts
     verified_count = [v for v in picked_vlgs if v.get("verification_status") == "Verified"]
-    pending_qc_count = [v for v in picked_vlgs if v.get("verification_status") == "Pending QC"]
-    returned_count = [v for v in picked_vlgs if v.get("verification_status") == "Returned for Correction"]
+    pending_qc_count = [v for v in picked_vlgs if (v.get("verification_status") or "Pending QC") == "Pending QC"]
+    returned_count = [v for v in picked_vlgs if v.get("verification_status") in ["Returned for Correction", "Returned"]]
     
     total_acres = sum(v.get("extent_acres_float", 0.0) or 0.0 for v in picked_vlgs)
     
@@ -1347,8 +1394,8 @@ def get_dashboard_stats(district: Optional[str] = None) -> Dict[str, Any]:
         d_picked = [v for v in d_vlgs if v.get("is_picked_for_resurvey") or v.get("picked_for_resurvey")]
         d_non_cad_gt = [v for v in d_picked if v.get("category") == "Non-Cadastral" and v.get("gt_status") == "Completed"]
         d_cad_gt = [v for v in d_picked if v.get("category") == "Cadastral" and v.get("gt_status") == "Completed"]
-        d_sf_sent = [v for v in d_picked if v.get("sent_to_cso") is True or v.get("shapefile_status") == "Completed"]
-        d_sf_err = [v for v in d_picked if v.get("shapefile_status") == "Error"]
+        d_sf_sent = [v for v in d_picked if (v.get("sent_to_cso") is True or v.get("shapefile_status") == "Completed") and v.get("verification_status") != "Returned for Correction"]
+        d_sf_err = [v for v in d_picked if v.get("shapefile_status") in ["Error", "Shapefile Returned", "ShapefileReturned", "Returned"] or v.get("verification_status") == "Returned for Correction"]
         d_verified = [v for v in d_picked if v.get("verification_status") == "Verified"]
         d_acres = sum(v.get("extent_acres_float", 0.0) or 0.0 for v in d_picked)
         

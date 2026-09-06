@@ -188,6 +188,7 @@ class VerificationRequest(BaseModel):
     status: str  # "Verified" or "Returned for Correction"
     qc_user: Optional[str] = "Lead QC Engineer"
     notes: Optional[str] = ""
+    shapefile_status: Optional[str] = None
 
 class UserCreateRequest(BaseModel):
     username: str
@@ -893,7 +894,8 @@ def verify_village_record(
         village_id=village_id,
         status=payload.status,
         qc_user=qc_inspector,
-        notes=payload.notes
+        notes=payload.notes,
+        shapefile_status=payload.shapefile_status
     )
     if not res:
         raise HTTPException(status_code=404, detail="Village record not found")

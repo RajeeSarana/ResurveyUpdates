@@ -1727,15 +1727,18 @@
     "is_picked_for_resurvey": true,
     "resurvey_phase": "Phase 1 (Active Resurvey)",
     "gt_status": "Completed",
-    "shapefile_status": "Completed",
-    "sent_to_cso": true,
-    "verification_status": "Pending QC",
+    "shapefile_status": "Shapefile Returned",
+    "sent_to_cso": false,
+    "verification_status": "Returned for Correction",
     "extent_raw": "687-32",
     "extent_acres_float": 687.8,
-    "remarks": "Authorized update by Adilabad rep",
+    "remarks": "Boundary corrected and resubmitted",
     "picked_for_resurvey": true,
-    "workflow_stage": "Ground Truthing",
-    "updated_at": "2026-09-05T17:40:44.249700",
-    "updated_by": "Adilabad District Lead Rep (Primary)"
+    "workflow_stage": "Shapefile Returned for Correction",
+    "verified_by": "Project Administrator (Central Systems Administrator)",
+    "qc_notes": "Test Correction - boundary polygon mismatch found during central verification. Please correct.",
+    "updated_at": "2026-09-06T12:41:56.469039",
+    "updated_by": "Project Administrator (Central Systems Administrator)",
+    "verified_at": "2026-09-06T12:41:56.468438"
   }
 ]

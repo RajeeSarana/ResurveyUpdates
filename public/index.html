@@ -610,7 +610,7 @@
                 <i class="fa-solid fa-circle-check mr-1"></i>Verified (<span id="tabCountVerified">0</span>)
               </button>
               <button onclick="filterByTab('error')" id="tabError" class="px-3 py-1.5 rounded-md text-rose-700 hover:text-rose-800 transition">
-                <i class="fa-solid fa-triangle-exclamation mr-1"></i>Errors (<span id="tabCountError">0</span>)
+                <i class="fa-solid fa-arrow-rotate-left mr-1"></i>Returned / Errors (<span id="tabCountError">0</span>)
               </button>
               <button onclick="filterByTab('cso_done')" id="tabCsoDone" class="px-3 py-1.5 rounded-md hover:text-slate-900 transition">
                 CSO Sent (<span id="tabCountCso">0</span>)
@@ -677,6 +677,7 @@
                 <select id="shapefileFilter" onchange="applyFilters()" class="w-full py-2 px-3 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition">
                   <option value="all">All Shapefile Statuses</option>
                   <option value="Completed">Shape File Completed</option>
+                  <option value="Shapefile Returned">Shapefile Returned for Correction</option>
                   <option value="Error">Shape File Error</option>
                   <option value="In Progress">Shape File In Progress</option>
                   <option value="Pending">Shape File Pending</option>
@@ -1925,6 +1926,30 @@
           </div>
         </div>
 
+        <!-- DEDICATED QC RETURN FEEDBACK BANNER (DISPLAYED WHEN RETURNED FOR CORRECTION) -->
+        <div id="dispModalQcAlert" class="hidden p-3 bg-rose-50 border-l-4 border-rose-500 rounded-r-xl space-y-2 shadow-2xs">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2 text-rose-900 font-bold text-xs">
+              <i class="fa-solid fa-arrow-rotate-left text-rose-600 text-sm"></i>
+              <span>Shapefile Returned for Correction by Central QC</span>
+            </div>
+            <span class="text-[10px] bg-rose-200 text-rose-900 font-bold px-2 py-0.5 rounded shadow-2xs" id="dispModalQcInspector">QC Inspector</span>
+          </div>
+          <div class="text-xs text-rose-800 bg-white/90 border border-rose-200 rounded-lg p-2.5 font-medium leading-relaxed" id="dispModalQcRemarks">
+            "..."
+          </div>
+          <div class="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-rose-200/60">
+            <div class="text-[11px] text-slate-600 flex items-center space-x-1.5">
+              <i class="fa-solid fa-circle-info text-rose-500 text-xs"></i>
+              <span>Rectify the shapefile boundary / attribute data and save record to resubmit to Central QC.</span>
+            </div>
+            <label class="flex items-center space-x-2 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 px-3 py-1 rounded-lg cursor-pointer transition shadow-2xs">
+              <input type="checkbox" id="formResubmitCorrectedShapefile" onchange="onResubmitCheckboxChange()" class="rounded text-emerald-600 focus:ring-emerald-500 h-4 w-4" />
+              <span class="text-xs font-bold text-emerald-900">Mark Corrected &amp; Ready for Re-verification</span>
+            </label>
+          </div>
+        </div>
+
         <!-- SECTION 2: STATUTORY NOTIFICATIONS & OWNER NOTICES (ULTRA-COMPACT STRIP) -->
         <div class="bg-white px-3 py-2 rounded-xl border border-slate-200/90 shadow-2xs space-y-1.5">
           <div class="flex items-center justify-between pb-1 border-b border-slate-100">
@@ -2277,19 +2302,19 @@
         <div>
           <label class="block font-semibold text-slate-700 mb-1">Verification Decision *</label>
           <div class="grid grid-cols-2 gap-3">
-            <label class="flex items-center space-x-2 p-3 rounded-lg border border-slate-200 cursor-pointer hover:bg-emerald-50/50 has-[:checked]:border-emerald-600 has-[:checked]:bg-emerald-50">
+            <label class="flex items-center space-x-2 p-3 rounded-lg border border-slate-200 cursor-pointer hover:bg-emerald-50/50 has-[:checked]:border-emerald-600 has-[:checked]:bg-emerald-50 transition">
               <input type="radio" name="qcStatusChoice" value="Verified" checked class="text-emerald-600 focus:ring-emerald-500" />
               <div>
-                <div class="font-bold text-emerald-900">Approve / Verified</div>
-                <div class="text-[10px] text-emerald-700">Certify GIS readiness & send to CSO</div>
+                <div class="font-bold text-emerald-900 flex items-center gap-1"><i class="fa-solid fa-circle-check text-emerald-600 text-xs"></i>Approve / Verified</div>
+                <div class="text-[10px] text-emerald-700">Certify GIS readiness &amp; transmit to CSO</div>
               </div>
             </label>
 
-            <label class="flex items-center space-x-2 p-3 rounded-lg border border-slate-200 cursor-pointer hover:bg-rose-50/50 has-[:checked]:border-rose-600 has-[:checked]:bg-rose-50">
+            <label class="flex items-center space-x-2 p-3 rounded-lg border border-slate-200 cursor-pointer hover:bg-rose-50/50 has-[:checked]:border-rose-600 has-[:checked]:bg-rose-50 transition">
               <input type="radio" name="qcStatusChoice" value="Returned for Correction" class="text-rose-600 focus:ring-rose-500" />
               <div>
-                <div class="font-bold text-rose-900">Return for Correction</div>
-                <div class="text-[10px] text-rose-700">Flag defect for district rep</div>
+                <div class="font-bold text-rose-900 flex items-center gap-1"><i class="fa-solid fa-arrow-rotate-left text-rose-600 text-xs"></i>Shapefile Return for Correction</div>
+                <div class="text-[10px] text-rose-700">Flag defect &amp; return to district representative</div>
               </div>
             </label>
           </div>
@@ -4737,13 +4762,20 @@
       const elCad = document.getElementById('tabCountCad');
       if (elCad) elCad.textContent = scoped.filter(v => v.category === 'Cadastral').length;
       const elPending = document.getElementById('tabCountPendingQc');
-      if (elPending) elPending.textContent = scoped.filter(v => (v.verification_status || 'Pending QC') === 'Pending QC').length;
+      if (elPending) elPending.textContent = scoped.filter(v => (v.verification_status || 'Pending QC') === 'Pending QC' && v.verification_status !== 'Returned for Correction').length;
       const elVerified = document.getElementById('tabCountVerified');
       if (elVerified) elVerified.textContent = scoped.filter(v => v.verification_status === 'Verified').length;
       const elError = document.getElementById('tabCountError');
-      if (elError) elError.textContent = scoped.filter(v => v.shapefile_status === 'Error').length;
+      if (elError) {
+        elError.textContent = scoped.filter(v => 
+          v.shapefile_status === 'Error' || 
+          v.shapefile_status === 'Shapefile Returned' || 
+          v.shapefile_status === 'ShapefileReturned' || 
+          v.verification_status === 'Returned for Correction'
+        ).length;
+      }
       const elCso = document.getElementById('tabCountCso');
-      if (elCso) elCso.textContent = scoped.filter(v => v.sent_to_cso).length;
+      if (elCso) elCso.textContent = scoped.filter(v => v.sent_to_cso && v.verification_status !== 'Returned for Correction').length;
     }
 
     function filterByTab(tab) {
@@ -4781,11 +4813,11 @@
       }
       if (tab === 'error') {
         const eEl = document.getElementById('tabError');
-        if (eEl) eEl.className = 'px-3 py-1.5 rounded-md bg-rose-50 text-rose-800 border border-rose-200 shadow-sm font-semibold';
+        if (eEl) eEl.className = 'px-3 py-1.5 rounded-md bg-rose-50 text-rose-900 border border-rose-200 shadow-sm font-semibold';
       }
       if (tab === 'cso_done') {
-        const csoEl = document.getElementById('tabCsoDone');
-        if (csoEl) csoEl.className = 'px-3 py-1.5 rounded-md bg-white text-teal-800 shadow-sm font-semibold';
+        const cdEl = document.getElementById('tabCsoDone');
+        if (cdEl) cdEl.className = 'px-3 py-1.5 rounded-md bg-teal-50 text-teal-900 border border-teal-200 shadow-sm font-semibold';
       }
 
       applyFilters();
@@ -4811,10 +4843,16 @@
         if (currentTab === 'unpicked' && v.is_picked_for_resurvey) return false;
         if (currentTab === 'Non-Cadastral' && v.category !== 'Non-Cadastral') return false;
         if (currentTab === 'Cadastral' && v.category !== 'Cadastral') return false;
-        if (currentTab === 'pending_qc' && (v.verification_status || 'Pending QC') !== 'Pending QC') return false;
+        if (currentTab === 'pending_qc' && ((v.verification_status || 'Pending QC') !== 'Pending QC' || v.verification_status === 'Returned for Correction')) return false;
         if (currentTab === 'verified' && v.verification_status !== 'Verified') return false;
-        if (currentTab === 'error' && v.shapefile_status !== 'Error') return false;
-        if (currentTab === 'cso_done' && !v.sent_to_cso) return false;
+        if (currentTab === 'error') {
+          const isErr = v.shapefile_status === 'Error' || 
+                        v.shapefile_status === 'Shapefile Returned' || 
+                        v.shapefile_status === 'ShapefileReturned' ||
+                        v.verification_status === 'Returned for Correction';
+          if (!isErr) return false;
+        }
+        if (currentTab === 'cso_done' && (!v.sent_to_cso || v.verification_status === 'Returned for Correction')) return false;
 
         // District filter
         if (activeDistrict !== 'all' && (v.district_name || '').toLowerCase() !== activeDistrict.toLowerCase()) {
@@ -4837,7 +4875,25 @@
         }
 
         // Shapefile filter
-        if (shapefile !== 'all' && v.shapefile_status !== shapefile) return false;
+        if (shapefile !== 'all') {
+          const sf = (v.shapefile_status || '').toLowerCase().trim();
+          const req = shapefile.toLowerCase().trim();
+          if (req === 'shapefile returned' || req === 'shapefilereturned') {
+            if (sf !== 'shapefile returned' && sf !== 'shapefilereturned' && sf !== 'error' && v.verification_status !== 'Returned for Correction') {
+              return false;
+            }
+          } else if (req === 'error') {
+            if (sf !== 'error' && sf !== 'shapefile returned' && sf !== 'shapefilereturned') {
+              return false;
+            }
+          } else if (req === 'completed') {
+            if (sf !== 'completed' || v.verification_status === 'Returned for Correction') {
+              return false;
+            }
+          } else if (sf !== req) {
+            return false;
+          }
+        }
 
         // Verification filter
         if (verification !== 'all' && (v.verification_status || 'Pending QC') !== verification) return false;
@@ -4899,26 +4955,31 @@
           : '<span class="bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded text-[11px] font-medium">Cadastral</span>';
 
         let sfBadge = '';
-        if (v.shapefile_status === 'Completed') {
-          sfBadge = '<span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-semibold"><i class="fa-solid fa-check mr-1 text-[9px]"></i>Completed</span>';
-        } else if (v.shapefile_status === 'Error') {
-          sfBadge = '<span class="bg-rose-100 text-rose-800 px-2 py-0.5 rounded-full font-semibold animate-pulse"><i class="fa-solid fa-circle-exclamation mr-1 text-[9px]"></i>Error</span>';
-        } else if (v.shapefile_status === 'In Progress') {
-          sfBadge = '<span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-semibold">In Progress</span>';
+        const sf = (v.shapefile_status || '').trim();
+        const isReturned = (v.verification_status === 'Returned for Correction') || sf === 'Shapefile Returned' || sf === 'ShapefileReturned';
+
+        if (isReturned || sf === 'Error') {
+          sfBadge = '<span class="inline-flex items-center gap-1 bg-rose-100 text-rose-800 border border-rose-300 px-2 py-0.5 rounded-full font-bold text-[10px]"><i class="fa-solid fa-arrow-rotate-left text-[9px] text-rose-600"></i>Shapefile Returned</span>';
+        } else if (sf === 'Completed') {
+          sfBadge = '<span class="inline-flex items-center gap-1 bg-emerald-100 text-emerald-800 border border-emerald-200 px-2 py-0.5 rounded-full font-semibold text-[10px]"><i class="fa-solid fa-check text-[9px] text-emerald-600"></i>Completed</span>';
+        } else if (sf === 'In Progress') {
+          sfBadge = '<span class="inline-flex items-center gap-1 bg-amber-100 text-amber-800 border border-amber-200 px-2 py-0.5 rounded-full font-semibold text-[10px]">In Progress</span>';
         } else {
-          sfBadge = '<span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">Pending</span>';
+          sfBadge = '<span class="inline-flex items-center gap-1 bg-slate-100 text-slate-600 border border-slate-200 px-2 py-0.5 rounded-full text-[10px]">Pending</span>';
         }
 
-        const csoBadge = v.sent_to_cso
-          ? '<span class="text-teal-600 font-bold"><i class="fa-solid fa-circle-check text-xs mr-1"></i>Yes</span>'
-          : '<span class="text-slate-400">No</span>';
+        const csoBadge = isReturned
+          ? '<span class="inline-flex items-center gap-1 text-rose-600 font-bold text-[11px]"><i class="fa-solid fa-hand text-[9px]"></i>Held</span>'
+          : (v.sent_to_cso
+            ? '<span class="text-teal-600 font-bold"><i class="fa-solid fa-circle-check text-xs mr-1"></i>Yes</span>'
+            : '<span class="text-slate-400">No</span>');
 
         let vBadge = '';
         const vStat = v.verification_status || 'Pending QC';
         if (vStat === 'Verified') {
           vBadge = '<span class="bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full font-bold text-[10px]"><i class="fa-solid fa-circle-check mr-1"></i>Verified</span>';
-        } else if (vStat === 'Returned for Correction') {
-          vBadge = '<span class="bg-rose-50 text-rose-700 border border-rose-200 px-2 py-0.5 rounded-full font-bold text-[10px]"><i class="fa-solid fa-arrow-rotate-left mr-1"></i>Returned</span>';
+        } else if (vStat === 'Returned for Correction' || isReturned) {
+          vBadge = '<span class="inline-flex items-center gap-1 bg-rose-50 text-rose-700 border border-rose-200 px-2 py-0.5 rounded-full font-bold text-[10px]"><i class="fa-solid fa-arrow-rotate-left mr-1"></i>Returned</span>';
         } else {
           vBadge = '<span class="bg-amber-50 text-amber-700 border border-amber-200 px-2 py-0.5 rounded-full font-bold text-[10px]"><i class="fa-solid fa-clock mr-1"></i>Pending QC</span>';
         }
@@ -4963,7 +5024,7 @@
           </td>
           <td class="py-2.5 px-2.5 text-slate-600 max-w-xs">
             <div class="line-clamp-2 text-[11px]">${v.remarks || '-'}</div>
-            ${v.qc_notes ? `<div class="text-[10px] text-amber-800 font-medium mt-0.5"><i class="fa-solid fa-comment-dots mr-1"></i>QC: ${v.qc_notes}</div>` : ''}
+            ${v.qc_notes ? `<div class="text-[10px] text-rose-800 bg-rose-50 border border-rose-200/80 rounded px-1.5 py-0.5 font-medium mt-1"><i class="fa-solid fa-triangle-exclamation mr-1 text-rose-600"></i>QC Remarks: ${v.qc_notes}</div>` : ''}
           </td>
           <td class="py-2 px-2.5 text-center no-print whitespace-nowrap sticky right-0 bg-white group-hover:bg-slate-50/95 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.06)] z-10 space-x-1.5">
             <!-- 1. Edit Action (First Option per user requirement) -->
@@ -5095,9 +5156,11 @@
           </td>
           <td class="py-2.5 px-3 text-right font-mono font-bold text-slate-800">${v.extent_raw || '-'}</td>
           <td class="py-2.5 px-3 text-center">
-            <span class="text-[10px] font-semibold ${v.shapefile_status === 'Completed' ? 'text-emerald-700' : v.shapefile_status === 'Error' ? 'text-rose-600 font-bold' : 'text-slate-600'}">
-              ${v.shapefile_status || 'Pending'}
-            </span>
+            ${v.shapefile_status === 'Completed'
+              ? '<span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full"><i class="fa-solid fa-check mr-1 text-[9px]"></i>Completed</span>'
+              : (v.shapefile_status === 'Shapefile Returned' || v.shapefile_status === 'ShapefileReturned' || v.shapefile_status === 'Error' || v.verification_status === 'Returned for Correction')
+              ? '<span class="text-[10px] font-bold text-rose-700 bg-rose-50 border border-rose-200 px-2 py-0.5 rounded-full"><i class="fa-solid fa-arrow-rotate-left mr-1 text-[9px]"></i>Shapefile Returned</span>'
+              : `<span class="text-[10px] font-semibold text-slate-600">${v.shapefile_status || 'Pending'}</span>`}
           </td>
           <td class="py-2.5 px-3 text-center">${vBadge}</td>
           <td class="py-2.5 px-3 text-slate-600 max-w-xs">
@@ -5183,6 +5246,7 @@
       let statusChoice = 'Verified';
       radios.forEach(r => { if (r.checked) statusChoice = r.value; });
       const notes = document.getElementById('qcNotes').value.trim();
+      const shapefileChoice = statusChoice === 'Verified' ? 'Completed' : 'Shapefile Returned';
 
       try {
         const res = await fetch(`/villages/${villageId}/verify`, {
@@ -5190,7 +5254,8 @@
           headers: getAuthHeaders(),
           body: JSON.stringify({
             status: statusChoice,
-            notes: notes
+            notes: notes,
+            shapefile_status: shapefileChoice
           })
         });
 
@@ -6483,20 +6548,31 @@
         : 'Decimal: 0.00 ac';
       document.getElementById('dispExtentDecimal').textContent = decExt;
 
-      // CSO Transmission Status (Non-editable for field representatives)
+      // CSO Transmission Status & Shapefile Status
       const isSentCSO = !!v.sent_to_cso;
-      const sfStatus = v.shapefile_status || 'Pending';
-      const wfStage = v.workflow_stage || (isSentCSO ? 'Shapefile Sent to CSO' : 'Ground Truthing');
+      let sfStatus = v.shapefile_status || 'Pending';
+      const isReturned = (v.verification_status === 'Returned for Correction') ||
+                         sfStatus === 'Shapefile Returned' || sfStatus === 'ShapefileReturned' || sfStatus === 'Error';
+      if (isReturned) {
+        sfStatus = 'Shapefile Returned';
+      }
+      const wfStage = v.workflow_stage || (isReturned ? 'Shapefile Returned for Correction' : (isSentCSO ? 'Shapefile Sent to CSO' : 'Ground Truthing'));
 
       const dispCsoEl = document.getElementById('dispCsoTransmission');
       if (dispCsoEl) {
-        dispCsoEl.innerHTML = isSentCSO
-          ? `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-teal-500/20 text-teal-300 border border-teal-400/40"><i class="fa-solid fa-circle-check mr-1 text-teal-400 text-[9px]"></i>CSO Transmitted</span>`
-          : `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-white/10 text-slate-300 border border-white/10"><i class="fa-regular fa-clock mr-1 text-slate-400 text-[9px]"></i>CSO Pending</span>`;
+        if (isReturned) {
+          dispCsoEl.innerHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-400/40" title="CSO transmission on hold due to QC return"><i class="fa-solid fa-hand mr-1 text-rose-400 text-[9px]"></i>CSO Held (Returned)</span>`;
+        } else if (isSentCSO) {
+          dispCsoEl.innerHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-teal-500/20 text-teal-300 border border-teal-400/40"><i class="fa-solid fa-circle-check mr-1 text-teal-400 text-[9px]"></i>CSO Transmitted</span>`;
+        } else {
+          dispCsoEl.innerHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-white/10 text-slate-300 border border-white/10"><i class="fa-regular fa-clock mr-1 text-slate-400 text-[9px]"></i>CSO Pending</span>`;
+        }
       }
       const dispSfEl = document.getElementById('dispShapefileStatus');
       if (dispSfEl) {
-        if (sfStatus === 'Completed') {
+        if (isReturned || sfStatus === 'Shapefile Returned' || sfStatus === 'ShapefileReturned') {
+          dispSfEl.innerHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/30 text-rose-200 border border-rose-400/50 shadow-xs animate-pulse" title="Shapefile returned for correction"><i class="fa-solid fa-arrow-rotate-left mr-1 text-rose-300 text-[9px]"></i>Shapefile Returned</span>`;
+        } else if (sfStatus === 'Completed') {
           dispSfEl.innerHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-400/40"><i class="fa-solid fa-check mr-1 text-emerald-400 text-[9px]"></i>Shapefile Done</span>`;
         } else if (sfStatus === 'Error' || sfStatus === 'Rejected') {
           dispSfEl.innerHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-400/40"><i class="fa-solid fa-triangle-exclamation mr-1 text-rose-400 text-[9px]"></i>${sfStatus}</span>`;
@@ -6506,7 +6582,33 @@
       }
       const dispWfEl = document.getElementById('dispWorkflowMilestone');
       if (dispWfEl) {
-        dispWfEl.innerHTML = `<span class="inline-flex items-center text-[10px] font-semibold text-slate-200 bg-white/10 border border-white/10 px-2 py-0.5 rounded truncate max-w-[130px]" title="${wfStage}"><i class="fa-solid fa-diagram-project mr-1 text-indigo-300 text-[9px]"></i>${wfStage}</span>`;
+        dispWfEl.innerHTML = `<span class="inline-flex items-center text-[10px] font-semibold text-slate-200 bg-white/10 border border-white/10 px-2 py-0.5 rounded truncate max-w-[150px]" title="${wfStage}"><i class="fa-solid fa-diagram-project mr-1 text-indigo-300 text-[9px]"></i>${wfStage}</span>`;
+      }
+
+      // Populate QC Return Feedback Card if returned
+      const qcAlertEl = document.getElementById('dispModalQcAlert');
+      const resubmitCheckbox = document.getElementById('formResubmitCorrectedShapefile');
+      if (qcAlertEl) {
+        if (isReturned) {
+          qcAlertEl.classList.remove('hidden');
+          const inspectorEl = document.getElementById('dispModalQcInspector');
+          if (inspectorEl) {
+            inspectorEl.textContent = v.verified_by ? `QC: ${v.verified_by}` : 'Central QC Officer';
+          }
+          const remarksEl = document.getElementById('dispModalQcRemarks');
+          if (remarksEl) {
+            const notes = v.qc_notes || 'Shapefile flagged for correction. Please rectify shapefile boundary / parcel attributes and resubmit.';
+            remarksEl.innerHTML = `<i class="fa-solid fa-quote-left text-rose-400 mr-1.5 opacity-70"></i>${notes}<i class="fa-solid fa-quote-right text-rose-400 ml-1.5 opacity-70"></i>`;
+          }
+          if (resubmitCheckbox) {
+            resubmitCheckbox.checked = false;
+          }
+        } else {
+          qcAlertEl.classList.add('hidden');
+          if (resubmitCheckbox) {
+            resubmitCheckbox.checked = false;
+          }
+        }
       }
 
       // Form hidden inputs
@@ -6583,10 +6685,47 @@
       document.getElementById('villageModal').classList.add('hidden');
     }
 
+    function onResubmitCheckboxChange() {
+      const checkbox = document.getElementById('formResubmitCorrectedShapefile');
+      const sfInput = document.getElementById('formShapefileStatus');
+      const wfInput = document.getElementById('formWorkflowStage');
+      const dispSfEl = document.getElementById('dispShapefileStatus');
+      if (checkbox && checkbox.checked) {
+        if (sfInput) sfInput.value = 'Completed';
+        if (wfInput) wfInput.value = 'QC Resubmitted (Correction Done)';
+        if (dispSfEl) {
+          dispSfEl.innerHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-400/40"><i class="fa-solid fa-check-double mr-1 text-emerald-400 text-[9px]"></i>Corrected (Ready for QC)</span>`;
+        }
+      } else {
+        const id = document.getElementById('formVillageId').value;
+        const v = allVillages.find(item => item.id === id);
+        if (v) {
+          let origSf = v.shapefile_status || 'Shapefile Returned';
+          if (origSf === 'Error') origSf = 'Shapefile Returned';
+          if (sfInput) sfInput.value = origSf;
+          if (wfInput) wfInput.value = v.workflow_stage || 'Shapefile Returned for Correction';
+          if (dispSfEl) {
+            dispSfEl.innerHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/30 text-rose-200 border border-rose-400/50 shadow-xs animate-pulse"><i class="fa-solid fa-arrow-rotate-left mr-1 text-rose-300 text-[9px]"></i>Shapefile Returned</span>`;
+          }
+        }
+      }
+    }
+
     async function handleVillageFormSubmit(e) {
       e.preventDefault();
       const id = document.getElementById('formVillageId').value;
       const existing = allVillages.find(item => item.id === id) || {};
+
+      const isResubmit = document.getElementById('formResubmitCorrectedShapefile')?.checked;
+      let submittedSfStatus = document.getElementById('formShapefileStatus')?.value || 'Pending';
+      let submittedWfStage = document.getElementById('formWorkflowStage')?.value || 'Ground Truthing';
+      let submittedSentCso = document.getElementById('formSentCSO') ? (document.getElementById('formSentCSO').value === 'true') : false;
+
+      if (isResubmit) {
+        submittedSfStatus = 'Completed';
+        submittedWfStage = 'QC Resubmitted (Correction Done)';
+        submittedSentCso = false;
+      }
 
       const payload = {
         district_name: document.getElementById('formDistrict').value,
@@ -6596,9 +6735,9 @@
         mandal_name: document.getElementById('formMandalName').value.trim(),
         extent_raw: document.getElementById('formExtentRaw').value.trim(),
         gt_status: document.getElementById('formGtStatus').value,
-        sent_to_cso: document.getElementById('formSentCSO') ? (document.getElementById('formSentCSO').value === 'true') : false,
-        shapefile_status: document.getElementById('formShapefileStatus')?.value || 'Pending',
-        workflow_stage: document.getElementById('formWorkflowStage')?.value || 'Ground Truthing',
+        sent_to_cso: submittedSentCso,
+        shapefile_status: submittedSfStatus,
+        workflow_stage: submittedWfStage,
         gazette_us_5_status: document.getElementById('formGazetteUs5Status').value,
         gazette_us_5_date: document.getElementById('formGazetteUs5Date').value,
         gazette_us_6_status: document.getElementById('formGazetteUs6Status').value,

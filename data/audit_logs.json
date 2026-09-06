@@ -1,5 +1,218 @@
 [
   {
+    "id": "log-1788678716916",
+    "timestamp": "2026-09-06T12:41:56.916629",
+    "record_id": "vlg-1592",
+    "village_name": "Adegaon K",
+    "district_name": "Adilabad",
+    "user_name": "Project Administrator (Central Systems Administrator)",
+    "user_role": "qc_engineer",
+    "action": "QC Verification: Returned for Correction",
+    "details": "QC Review completed: Returned for Correction. Shapefile: Shapefile Returned. Notes: Test Correction - boundary polygon mismatch found during central verification. Please correct.",
+    "changes": {
+      "verification_status": {
+        "from": "Pending QC",
+        "to": "Returned for Correction"
+      },
+      "shapefile_status": {
+        "from": "Completed",
+        "to": "Shapefile Returned"
+      },
+      "qc_notes": {
+        "from": "Test Correction - boundary polygon mismatch found during central verification. Please correct.",
+        "to": "Test Correction - boundary polygon mismatch found during central verification. Please correct."
+      }
+    }
+  },
+  {
+    "id": "log-1788678716906",
+    "timestamp": "2026-09-06T12:41:56.906616",
+    "record_id": "vlg-1592",
+    "village_name": "Adegaon K",
+    "district_name": "Adilabad",
+    "user_name": "Project Administrator (Central Systems Administrator)",
+    "user_role": "qc_engineer",
+    "action": "Updated",
+    "details": "Record updated by Project Administrator (Central Systems Administrator) (qc_engineer): verified_at, verification_status, shapefile_status, workflow_stage",
+    "changes": {
+      "verified_at": {
+        "from": "2026-09-06T12:32:10.101690",
+        "to": "2026-09-06T12:41:56.468438"
+      },
+      "verification_status": {
+        "from": "Pending QC",
+        "to": "Returned for Correction"
+      },
+      "shapefile_status": {
+        "from": "Completed",
+        "to": "Shapefile Returned"
+      },
+      "workflow_stage": {
+        "from": "QC Resubmitted (Correction Done)",
+        "to": "Shapefile Returned for Correction"
+      }
+    }
+  },
+  {
+    "id": "log-1788678716455",
+    "timestamp": "2026-09-06T12:41:56.455399",
+    "record_id": "vlg-1592",
+    "village_name": "Adegaon K",
+    "district_name": "Adilabad",
+    "user_name": "Adilabad District Lead Rep (Primary)",
+    "user_role": "district_rep",
+    "action": "Updated",
+    "details": "Record updated by Adilabad District Lead Rep (Primary) (district_rep): shapefile_status",
+    "changes": {
+      "shapefile_status": {
+        "from": "Shapefile Returned",
+        "to": "Completed"
+      }
+    }
+  },
+  {
+    "id": "log-1788678130434",
+    "timestamp": "2026-09-06T12:32:10.434506",
+    "record_id": "vlg-1592",
+    "village_name": "Adegaon K",
+    "district_name": "Adilabad",
+    "user_name": "Project Administrator (Central Systems Administrator)",
+    "user_role": "qc_engineer",
+    "action": "QC Verification: Returned for Correction",
+    "details": "QC Review completed: Returned for Correction. Shapefile: Shapefile Returned. Notes: Test Correction - boundary polygon mismatch found during central verification. Please correct.",
+    "changes": {
+      "verification_status": {
+        "from": "Pending QC",
+        "to": "Returned for Correction"
+      },
+      "shapefile_status": {
+        "from": "Completed",
+        "to": "Shapefile Returned"
+      },
+      "qc_notes": {
+        "from": "Test Correction - boundary polygon mismatch found during central verification. Please correct.",
+        "to": "Test Correction - boundary polygon mismatch found during central verification. Please correct."
+      }
+    }
+  },
+  {
+    "id": "log-1788678130426",
+    "timestamp": "2026-09-06T12:32:10.426273",
+    "record_id": "vlg-1592",
+    "village_name": "Adegaon K",
+    "district_name": "Adilabad",
+    "user_name": "Project Administrator (Central Systems Administrator)",
+    "user_role": "qc_engineer",
+    "action": "Updated",
+    "details": "Record updated by Project Administrator (Central Systems Administrator) (qc_engineer): verified_at, verification_status, shapefile_status, workflow_stage",
+    "changes": {
+      "verified_at": {
+        "from": "2026-09-06T12:31:15.658261",
+        "to": "2026-09-06T12:32:10.101690"
+      },
+      "verification_status": {
+        "from": "Pending QC",
+        "to": "Returned for Correction"
+      },
+      "shapefile_status": {
+        "from": "Completed",
+        "to": "Shapefile Returned"
+      },
+      "workflow_stage": {
+        "from": "QC Resubmitted (Correction Done)",
+        "to": "Shapefile Returned for Correction"
+      }
+    }
+  },
+  {
+    "id": "log-1788678130090",
+    "timestamp": "2026-09-06T12:32:10.091016",
+    "record_id": "vlg-1592",
+    "village_name": "Adegaon K",
+    "district_name": "Adilabad",
+    "user_name": "Adilabad District Lead Rep (Primary)",
+    "user_role": "district_rep",
+    "action": "Updated",
+    "details": "Record updated by Adilabad District Lead Rep (Primary) (district_rep): shapefile_status",
+    "changes": {
+      "shapefile_status": {
+        "from": "Shapefile Returned",
+        "to": "Completed"
+      }
+    }
+  },
+  {
+    "id": "log-1788678076042",
+    "timestamp": "2026-09-06T12:31:16.042547",
+    "record_id": "vlg-1592",
+    "village_name": "Adegaon K",
+    "district_name": "Adilabad",
+    "user_name": "Project Administrator (Central Systems Administrator)",
+    "user_role": "qc_engineer",
+    "action": "QC Verification: Returned for Correction",
+    "details": "QC Review completed: Returned for Correction. Shapefile: Shapefile Returned. Notes: Test Correction - boundary polygon mismatch found during central verification. Please correct.",
+    "changes": {
+      "verification_status": {
+        "from": "Pending QC",
+        "to": "Returned for Correction"
+      },
+      "shapefile_status": {
+        "from": "Completed",
+        "to": "Shapefile Returned"
+      },
+      "qc_notes": {
+        "from": "Test Correction - boundary polygon mismatch found during central verification. Please correct.",
+        "to": "Test Correction - boundary polygon mismatch found during central verification. Please correct."
+      }
+    }
+  },
+  {
+    "id": "log-1788678076034",
+    "timestamp": "2026-09-06T12:31:16.034877",
+    "record_id": "vlg-1592",
+    "village_name": "Adegaon K",
+    "district_name": "Adilabad",
+    "user_name": "Project Administrator (Central Systems Administrator)",
+    "user_role": "qc_engineer",
+    "action": "Updated",
+    "details": "Record updated by Project Administrator (Central Systems Administrator) (qc_engineer): verification_status, shapefile_status, workflow_stage",
+    "changes": {
+      "verification_status": {
+        "from": "Pending QC",
+        "to": "Returned for Correction"
+      },
+      "shapefile_status": {
+        "from": "Completed",
+        "to": "Shapefile Returned"
+      },
+      "workflow_stage": {
+        "from": "QC Resubmitted (Correction Done)",
+        "to": "Shapefile Returned for Correction"
+      }
+    }
+  },
+  {
+    "id": "log-1788678059319",
+    "timestamp": "2026-09-06T12:30:59.319420",
+    "record_id": "vlg-1592",
+    "village_name": "Adegaon K",
+    "district_name": "Adilabad",
+    "user_name": "Adilabad District Lead Rep (Primary)",
+    "user_role": "district_rep",
+    "action": "Updated",
+    "details": "Record updated by Adilabad District Lead Rep (Primary) (district_rep): shapefile_status, remarks",
+    "changes": {
+      "shapefile_status": {
+        "from": "Shapefile Returned",
+        "to": "Completed"
+      },
+      "remarks": {
+        "from": "Authorized update by Adilabad rep",
+        "to": "Boundary corrected and resubmitted"
+      }
+    }
+  },
+  {
     "id": "log-1788669422061",
     "timestamp": "2026-09-06T10:07:02.061354",
     "record_id": "config-menu-permissions-reset",
