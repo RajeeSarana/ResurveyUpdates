@@ -3016,6 +3016,17 @@
   <!-- JAVASCRIPT APPLICATION LOGIC                                                              -->
   <!-- ========================================================================================= -->
   <script>
+    // Global Safe HTML Escaping Utility
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
     // Gateway UI & Role-Based Tab Switchers
     function switchGatewayTab(tab) {
       const btnForm = document.getElementById('btnGatewayTabForm');
@@ -6810,6 +6821,9 @@
 
         // Re-open modal with updated fields
         openEditVillageModal(villageId);
+        if (typeof applyActiveFilters === 'function') {
+          applyActiveFilters();
+        }
         renderVillageMasterTable();
         alert(`Daily survey entry for ${surveyDate} successfully logged!\nCumulative completed so far: ${updatedVillage.surveyed_extent_so_far} ac\nRemaining: ${updatedVillage.remaining_extent} ac.`);
       } catch (err) {
@@ -6834,6 +6848,9 @@
           allVillages[idx] = updatedVillage;
         }
         openEditVillageModal(villageId);
+        if (typeof applyActiveFilters === 'function') {
+          applyActiveFilters();
+        }
         renderVillageMasterTable();
       } catch (err) {
         alert('Error: ' + err.message);
