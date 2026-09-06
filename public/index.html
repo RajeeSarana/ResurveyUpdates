@@ -3081,7 +3081,8 @@
         if (res.ok && data.success) {
           authToken = data.token;
           currentUser = data.user;
-          localStorage.setItem('resurvey_auth_token', authToken);
+          sessionStorage.setItem('resurvey_auth_token', authToken);
+          localStorage.removeItem('resurvey_auth_token');
           showAuthenticatedPortal();
         } else {
           if (errBox && errText) {
@@ -3821,7 +3822,13 @@
     let currentActiveMainTab = 'tab-overview';
     
     // Authenticated session state (token + user)
-    let authToken = localStorage.getItem('resurvey_auth_token') || null;
+    // Tab-isolated session storage: each browser tab/window maintains its own independent officer login
+    let authToken = sessionStorage.getItem('resurvey_auth_token');
+    if (!authToken && localStorage.getItem('resurvey_auth_token')) {
+      authToken = localStorage.getItem('resurvey_auth_token');
+      sessionStorage.setItem('resurvey_auth_token', authToken);
+      localStorage.removeItem('resurvey_auth_token');
+    }
     let currentUser = null;
 
     let barChartInstance = null;
@@ -3862,12 +3869,14 @@
             // Token expired or invalid
             authToken = null;
             currentUser = null;
+            sessionStorage.removeItem('resurvey_auth_token');
             localStorage.removeItem('resurvey_auth_token');
           }
         } catch (e) {
           console.warn('Session verification error', e);
           authToken = null;
           currentUser = null;
+          sessionStorage.removeItem('resurvey_auth_token');
           localStorage.removeItem('resurvey_auth_token');
         }
       }
@@ -7180,7 +7189,8 @@
         if (res.ok && data.success) {
           authToken = data.token;
           currentUser = data.user;
-          localStorage.setItem('resurvey_auth_token', authToken);
+          sessionStorage.setItem('resurvey_auth_token', authToken);
+          localStorage.removeItem('resurvey_auth_token');
           showAuthenticatedPortal();
           closeLoginModal();
         } else {
@@ -7204,7 +7214,8 @@
         if (res.ok && data.success) {
           authToken = data.token;
           currentUser = data.user;
-          localStorage.setItem('resurvey_auth_token', authToken);
+          sessionStorage.setItem('resurvey_auth_token', authToken);
+          localStorage.removeItem('resurvey_auth_token');
           showAuthenticatedPortal();
           closeLoginModal();
         } else {
@@ -7230,6 +7241,7 @@
 
       authToken = null;
       currentUser = null;
+      sessionStorage.removeItem('resurvey_auth_token');
       localStorage.removeItem('resurvey_auth_token');
       syncDistrictRepScope();
       showLoginGateway();
@@ -7657,7 +7669,8 @@ This will revoke their access to the portal.`)) {
         if (res.ok && data.success) {
           if (data.token) {
             authToken = data.token;
-            localStorage.setItem('resurvey_auth_token', authToken);
+            sessionStorage.setItem('resurvey_auth_token', authToken);
+          localStorage.removeItem('resurvey_auth_token');
           }
           if (data.user) {
             currentUser = data.user;
