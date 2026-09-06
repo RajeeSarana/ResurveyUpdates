@@ -2018,8 +2018,10 @@
           </div>
           <div>
             <div class="flex items-center space-x-2">
-              <span class="text-[10px] uppercase font-bold tracking-wider text-emerald-700 bg-emerald-100/60 px-2 py-0.5 rounded">Resurvey Data Entry</span>
-              <span class="text-[10px] text-slate-400 font-medium">Navigated Village Scope</span>
+              <span id="modalHeaderScopeBadge" class="text-[10px] uppercase font-bold tracking-wider text-emerald-700 bg-emerald-100/60 px-2 py-0.5 rounded flex items-center">
+                <i class="fa-solid fa-pen-ruler mr-1 text-[9px]"></i>Resurvey Data Entry
+              </span>
+              <span id="modalHeaderScopeSubtitle" class="text-[10px] text-slate-400 font-medium">Navigated Village Scope</span>
             </div>
             <h3 class="text-base sm:text-lg font-bold text-slate-900 leading-tight mt-0.5" id="modalTitle">Village Survey Progress &amp; Statutory Notice Entry</h3>
             
@@ -2060,6 +2062,28 @@
         <input type="hidden" id="formSentCSO" />
         <input type="hidden" id="formShapefileStatus" />
         <input type="hidden" id="formWorkflowStage" />
+
+        <!-- RESURVEY MASTER DISPLAY ONLY NOTICE BANNER -->
+        <div id="modalViewOnlyBanner" class="hidden bg-blue-50 border border-blue-200 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs text-blue-900 shadow-2xs">
+          <div class="flex items-center space-x-2.5">
+            <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+              <i class="fa-solid fa-eye text-xs"></i>
+            </div>
+            <div>
+              <div class="font-bold text-blue-950 flex items-center space-x-1.5">
+                <span>Resurvey Master &bull; View / Display Only</span>
+                <span class="text-[9px] bg-blue-200 text-blue-900 font-bold px-1.5 py-0.2 rounded">Display Mode</span>
+              </div>
+              <div class="text-[11px] text-blue-800/90 mt-0.5">
+                Survey details and baseline extent are displayed for review. <strong>Data entry, daily survey logging, and updates are permitted only through the Resurvey Ops section.</strong>
+              </div>
+            </div>
+          </div>
+          <button type="button" id="btnModalSwitchToOps" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-xs transition shrink-0 flex items-center space-x-1.5 shadow-xs">
+            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+            <span>Open in Resurvey Ops to Edit</span>
+          </button>
+        </div>
 
         <!-- UNIFIED MASTER BASELINE & CSO TELEMETRY BANNER (ULTRA-SLIM EXECUTIVE TICKER - 2/3 SPACE SAVED) -->
         <div class="bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-900 rounded-xl px-3 py-1.5 sm:px-4 sm:py-2 text-white shadow-sm border border-slate-700/60 flex flex-wrap items-center justify-between gap-x-4 gap-y-1.5">
@@ -2360,7 +2384,7 @@
           </div>
 
           <!-- DAILY SURVEY ENTRY INPUT CARD (TIGHT & EFFICIENT) -->
-          <div class="bg-white p-2.5 sm:p-3 rounded-xl border border-indigo-200/90 shadow-2xs space-y-2">
+          <div id="cardDailySurveyEntryForm" class="bg-white p-2.5 sm:p-3 rounded-xl border border-indigo-200/90 shadow-2xs space-y-2">
             <input type="hidden" id="formEditingDailySurveyLogId" value="" />
             <div class="flex items-center justify-between pb-1.5 border-b border-indigo-100">
               <div class="flex items-center space-x-2">
@@ -2414,6 +2438,12 @@
                   class="w-full py-1 px-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 text-xs focus:ring-1 focus:ring-indigo-500" />
               </div>
             </div>
+          </div>
+
+          <!-- READ-ONLY NOTICE FOR DAILY SURVEY PROGRESS -->
+          <div id="cardDailySurveyViewOnlyNotice" class="hidden bg-slate-50 border border-dashed border-slate-200 rounded-xl p-3 text-center text-xs text-slate-500 italic flex items-center justify-center space-x-2">
+            <i class="fa-solid fa-lock text-slate-400"></i>
+            <span>Daily field survey extent entries and corrections are recorded through the <strong>Resurvey Ops</strong> section.</span>
           </div>
 
           <!-- RECENT DAILY SURVEY LOG TABLE -->
@@ -2479,15 +2509,15 @@
 
         <!-- MODAL FOOTER -->
         <div class="flex items-center justify-between pt-4 border-t border-slate-200 bg-white shrink-0">
-          <div class="text-[11px] text-slate-500 hidden sm:flex items-center space-x-1.5">
+          <div class="text-[11px] text-slate-500 hidden sm:flex items-center space-x-1.5" id="modalFooterHelpText">
             <i class="fa-solid fa-circle-check text-emerald-600"></i>
             <span>All statutory notifications &amp; survey timestamps are tracked in real-time.</span>
           </div>
           <div class="flex items-center space-x-3 ml-auto">
-            <button type="button" onclick="closeVillageModal()" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg font-medium transition text-xs">
+            <button type="button" id="btnCancelVillageModal" onclick="closeVillageModal()" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg font-medium transition text-xs">
               Cancel
             </button>
-            <button type="submit" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-semibold shadow transition flex items-center space-x-1.5 text-xs">
+            <button type="submit" id="btnSaveVillageRecord" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-semibold shadow transition flex items-center space-x-1.5 text-xs">
               <i class="fa-solid fa-floppy-disk"></i>
               <span>Save Record</span>
             </button>
@@ -4020,6 +4050,7 @@
     let currentTab = 'all';
     let currentQcFilter = 'Pending QC';
     let currentActiveMainTab = 'tab-overview';
+    let currentVillageModalMode = 'edit';
     
     // Authenticated session state (token + user)
     // Tab-isolated session storage: each browser tab/window maintains its own independent officer login
@@ -6548,8 +6579,9 @@
           <td class="py-2.5 px-2.5 text-right font-mono text-slate-700">${v.village_abadi || '-'}</td>
           <td class="py-2.5 px-2.5 text-right font-mono font-bold text-emerald-700">${v.non_abadi_extent || (v.surveyed_extent_so_far ? v.surveyed_extent_so_far + ' ac' : '-')}</td>
           <td class="py-2.5 px-3 text-center no-print">
-            <button onclick="startSurveyEntryForVillage('${v.id || ''}', '${encodeURIComponent(v.village_name)}', '${encodeURIComponent(v.mandal_name)}', '${encodeURIComponent(v.district_name)}', '${v.category}')" class="text-emerald-700 hover:text-emerald-900 font-semibold text-[11px] hover:underline whitespace-nowrap">
-              <i class="fa-solid fa-pen-to-square mr-1"></i>Survey Data
+            <button onclick="startSurveyEntryForVillage('${v.id || ''}', '${encodeURIComponent(v.village_name)}', '${encodeURIComponent(v.mandal_name)}', '${encodeURIComponent(v.district_name)}', '${v.category}', 'view')" class="text-emerald-700 hover:text-emerald-900 font-semibold text-[11px] hover:underline whitespace-nowrap inline-flex items-center space-x-1" title="View Survey Data (Display Only)">
+              <i class="fa-solid fa-eye text-[10px]"></i>
+              <span>Survey Data</span>
             </button>
           </td>
         `;
@@ -6606,43 +6638,103 @@
       }
     }
 
-    async function startSurveyEntryForVillage(villageId, encodedVName, encodedMName, encodedDName, category) {
-      if (villageId) {
-        openEditVillageModal(villageId);
-        return;
-      }
+    async function startSurveyEntryForVillage(villageId, encodedVName, encodedMName, encodedDName, category, mode = 'edit') {
       const vName = decodeURIComponent(encodedVName);
       const mName = decodeURIComponent(encodedMName);
       const dName = decodeURIComponent(encodedDName);
 
       // Check if active survey record already exists
-      const existing = allVillages.find(v => 
-        v.district_name.toLowerCase() === dName.toLowerCase() && 
-        v.village_name.toLowerCase() === vName.toLowerCase()
-      );
+      let existing = villageId ? allVillages.find(v => v.id === villageId) : null;
+      if (!existing) {
+        existing = allVillages.find(v => 
+          v.district_name.toLowerCase() === dName.toLowerCase() && 
+          v.village_name.toLowerCase() === vName.toLowerCase()
+        );
+      }
 
       if (existing) {
-        openEditVillageModal(existing.id);
-      } else {
-        openAddVillageModal();
-        const distSelect = document.getElementById('formDistrict');
-        if (distSelect) {
-          distSelect.value = dName;
-          updateFormMandalDropdown();
-        }
-        const mandalSelect = document.getElementById('formMandalSelect');
-        if (mandalSelect) {
-          mandalSelect.value = mName;
-        }
-        const vNameInput = document.getElementById('formVillageName');
-        if (vNameInput) {
-          vNameInput.value = vName;
-        }
-        const catSelect = document.getElementById('formCategory');
-        if (catSelect && category) {
-          catSelect.value = category;
-        }
+        openEditVillageModal(existing.id, mode);
+        return;
       }
+
+      if (mode === 'view') {
+        await openDisplayOnlyMasterVillage(villageId, vName, mName, dName, category);
+        return;
+      }
+
+      // In edit mode (from Resurvey Ops):
+      openAddVillageModal();
+      const distSelect = document.getElementById('formDistrict');
+      if (distSelect) {
+        distSelect.value = dName;
+        updateFormMandalDropdown();
+      }
+      const mandalSelect = document.getElementById('formMandalSelect');
+      if (mandalSelect) {
+        mandalSelect.value = mName;
+      }
+      const vNameInput = document.getElementById('formVillageName');
+      if (vNameInput) {
+        vNameInput.value = vName;
+      }
+      const catSelect = document.getElementById('formCategory');
+      if (catSelect && category) {
+        catSelect.value = category;
+      }
+    }
+
+    async function openDisplayOnlyMasterVillage(villageId, vName, mName, dName, category) {
+      let synthetic = {
+        id: villageId || `master-${encodeURIComponent(dName)}-${encodeURIComponent(vName)}`,
+        district_name: dName,
+        mandal_name: mName,
+        village_name: vName,
+        village_name_telugu: '',
+        category: category || 'Cadastral',
+        is_picked_for_resurvey: false,
+        extent_raw: '0-00',
+        extent_acres_float: 0.0,
+        extent_existing_record: '0-00',
+        village_boundary_25_26: '',
+        village_abadi: '',
+        non_abadi_extent: '',
+        gt_status: 'Pending Start',
+        shapefile_status: 'Pending',
+        sent_to_cso: false,
+        workflow_stage: 'Non-Survey Phase',
+        gazette_us_5_status: 'Notice to be given',
+        gazette_us_6_status: 'Notice to be given',
+        notice_9_2_status: 'Notice to be given',
+        surveyed_extent_so_far: 0,
+        master_extent: 0,
+        remaining_extent: 0,
+        daily_survey_logs: [],
+        remarks: ''
+      };
+
+      try {
+        const res = await fetch(`/master/villages?district=${encodeURIComponent(dName)}&search=${encodeURIComponent(vName)}&limit=5`, { headers: getAuthHeaders() });
+        if (res.ok) {
+          const resData = await res.json();
+          const found = (resData.data || []).find(m => m.village_name.toLowerCase() === vName.toLowerCase() && m.mandal_name.toLowerCase() === mName.toLowerCase());
+          if (found) {
+            synthetic.extent_raw = found.extent_raw || found.extent_existing_record || '0-00';
+            synthetic.extent_existing_record = found.extent_existing_record || found.extent_raw || '';
+            synthetic.village_boundary_25_26 = found.village_boundary_25_26 || '';
+            synthetic.village_abadi = found.village_abadi || '';
+            synthetic.non_abadi_extent = found.non_abadi_extent || '';
+            synthetic.is_picked_for_resurvey = !!found.is_picked_for_resurvey;
+            synthetic.village_name_telugu = found.village_name_telugu || '';
+          }
+        }
+      } catch (err) {
+        console.warn('Could not fetch master village details:', err);
+      }
+
+      if (!allVillages.some(x => x.id === synthetic.id)) {
+        allVillages.push(synthetic);
+      }
+      openEditVillageModal(synthetic.id, 'view');
     }
 
     function renderVillageMasterTable() {
@@ -7121,9 +7213,12 @@
       document.getElementById('villageModal').classList.remove('hidden');
     }
 
-    async function openEditVillageModal(id) {
+    async function openEditVillageModal(id, mode = 'edit') {
+      const isReadOnly = (mode === 'view');
+      currentVillageModalMode = mode;
+
       if (!currentUser) {
-        promptLoginRequired('sign in to edit village records');
+        promptLoginRequired(isReadOnly ? 'sign in to view village details' : 'sign in to edit village records');
         return;
       }
 
@@ -7143,19 +7238,79 @@
       }
       if (!v) return;
 
-      // Strict Rule: Non-picked villages cannot be edited or modified
-      if (!v.is_picked_for_resurvey) {
+      // Strict Rule: Non-picked villages cannot be edited or modified (viewing is allowed)
+      if (!isReadOnly && !v.is_picked_for_resurvey) {
         alertNonPickedNotice(v.village_name);
         return;
       }
 
-      // Check permission
-      if (currentUser.role !== 'admin' && (currentUser.district !== 'All' && currentUser.district.toLowerCase() !== v.district_name.toLowerCase())) {
+      // Check permission in edit mode
+      if (!isReadOnly && currentUser.role !== 'admin' && (currentUser.district !== 'All' && currentUser.district.toLowerCase() !== v.district_name.toLowerCase())) {
         alert(`Permission Denied: You are assigned to ${currentUser.district} and cannot edit records in ${v.district_name}.`);
         return;
       }
 
-      document.getElementById('modalTitle').textContent = `Edit Record: ${v.village_name} (${v.district_name})`;
+      // Header Badges & Scope Labels
+      const headerScopeBadge = document.getElementById('modalHeaderScopeBadge');
+      const headerScopeSubtitle = document.getElementById('modalHeaderScopeSubtitle');
+      const viewOnlyBanner = document.getElementById('modalViewOnlyBanner');
+      const btnModalSwitchToOps = document.getElementById('btnModalSwitchToOps');
+      const btnSave = document.getElementById('btnSaveVillageRecord');
+      const btnCancel = document.getElementById('btnCancelVillageModal');
+      const footerHelp = document.getElementById('modalFooterHelpText');
+      const cardDailyEntry = document.getElementById('cardDailySurveyEntryForm');
+      const cardDailyNotice = document.getElementById('cardDailySurveyViewOnlyNotice');
+
+      if (isReadOnly) {
+        if (headerScopeBadge) {
+          headerScopeBadge.className = 'text-[10px] uppercase font-bold tracking-wider text-blue-800 bg-blue-100 px-2 py-0.5 rounded flex items-center';
+          headerScopeBadge.innerHTML = '<i class="fa-solid fa-eye mr-1 text-[9px]"></i>Resurvey Master &bull; Display Only';
+        }
+        if (headerScopeSubtitle) headerScopeSubtitle.textContent = 'Territorial Baseline & Survey Details (Read-Only)';
+        document.getElementById('modalTitle').textContent = `Survey Details: ${v.village_name} (${v.district_name})`;
+
+        if (viewOnlyBanner) viewOnlyBanner.classList.remove('hidden');
+        if (btnModalSwitchToOps) {
+          btnModalSwitchToOps.onclick = () => {
+            closeVillageModal();
+            switchMainTab('tab-villages');
+            setTimeout(() => {
+              openEditVillageModal(v.id, 'edit');
+            }, 150);
+          };
+        }
+
+        if (btnSave) btnSave.classList.add('hidden');
+        if (btnCancel) {
+          btnCancel.textContent = 'Close';
+          btnCancel.className = 'px-6 py-2.5 bg-slate-800 hover:bg-slate-900 text-white rounded-lg font-semibold transition text-xs shadow-xs';
+        }
+        if (footerHelp) {
+          footerHelp.innerHTML = '<i class="fa-solid fa-eye text-blue-600 mr-1.5"></i><span>Resurvey Master Display Mode &bull; Data entry permitted in Resurvey Ops only</span>';
+        }
+        if (cardDailyEntry) cardDailyEntry.classList.add('hidden');
+        if (cardDailyNotice) cardDailyNotice.classList.remove('hidden');
+      } else {
+        if (headerScopeBadge) {
+          headerScopeBadge.className = 'text-[10px] uppercase font-bold tracking-wider text-emerald-700 bg-emerald-100/60 px-2 py-0.5 rounded flex items-center';
+          headerScopeBadge.innerHTML = '<i class="fa-solid fa-pen-ruler mr-1 text-[9px]"></i>Resurvey Data Entry';
+        }
+        if (headerScopeSubtitle) headerScopeSubtitle.textContent = 'Navigated Village Scope';
+        document.getElementById('modalTitle').textContent = `Edit Record: ${v.village_name} (${v.district_name})`;
+
+        if (viewOnlyBanner) viewOnlyBanner.classList.add('hidden');
+        if (btnSave) btnSave.classList.remove('hidden');
+        if (btnCancel) {
+          btnCancel.textContent = 'Cancel';
+          btnCancel.className = 'px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg font-medium transition text-xs';
+        }
+        if (footerHelp) {
+          footerHelp.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-600 mr-1.5"></i><span>All statutory notifications &amp; survey timestamps are tracked in real-time.</span>';
+        }
+        if (cardDailyEntry) cardDailyEntry.classList.remove('hidden');
+        if (cardDailyNotice) cardDailyNotice.classList.add('hidden');
+      }
+
       document.getElementById('formVillageId').value = v.id;
 
       // Header Badges
@@ -7235,11 +7390,13 @@
           }
           if (resubmitCheckbox) {
             resubmitCheckbox.checked = false;
+            resubmitCheckbox.disabled = isReadOnly;
           }
         } else {
           qcAlertEl.classList.add('hidden');
           if (resubmitCheckbox) {
             resubmitCheckbox.checked = false;
+            resubmitCheckbox.disabled = isReadOnly;
           }
         }
       }
@@ -7258,140 +7415,179 @@
       // Statutory Notification u/s 5
       document.getElementById('formGazetteUs5Status').value = v.gazette_us_5_status || 'Notice to be given';
       document.getElementById('formGazetteUs5Date').value = v.gazette_us_5_date || '';
-      toggleNoticeDateField('formGazetteUs5Status', 'formGazetteUs5Date', 'formGazetteUs5DateHelp');
 
       // Statutory Notification u/s 6
       document.getElementById('formGazetteUs6Status').value = v.gazette_us_6_status || 'Notice to be given';
       document.getElementById('formGazetteUs6Date').value = v.gazette_us_6_date || '';
-      toggleNoticeDateField('formGazetteUs6Status', 'formGazetteUs6Date', 'formGazetteUs6DateHelp');
 
       // 9 (2) Notice to Owner
       document.getElementById('formNotice92Status').value = v.notice_9_2_status || 'Notice to be given';
       document.getElementById('formNotice92Date').value = v.notice_9_2_date || '';
-      toggleNoticeDateField('formNotice92Status', 'formNotice92Date', 'formNotice92DateHelp');
+
+      if (isReadOnly) {
+        document.getElementById('formGazetteUs5Status').disabled = true;
+        document.getElementById('formGazetteUs5Date').disabled = true;
+        document.getElementById('formGazetteUs6Status').disabled = true;
+        document.getElementById('formGazetteUs6Date').disabled = true;
+        document.getElementById('formNotice92Status').disabled = true;
+        document.getElementById('formNotice92Date').disabled = true;
+      } else {
+        document.getElementById('formGazetteUs5Status').disabled = false;
+        document.getElementById('formGazetteUs6Status').disabled = false;
+        document.getElementById('formNotice92Status').disabled = false;
+        toggleNoticeDateField('formGazetteUs5Status', 'formGazetteUs5Date', 'formGazetteUs5DateHelp');
+        toggleNoticeDateField('formGazetteUs6Status', 'formGazetteUs6Date', 'formGazetteUs6DateHelp');
+        toggleNoticeDateField('formNotice92Status', 'formNotice92Date', 'formNotice92DateHelp');
+      }
 
       // -------------------------------------------------------------
-      // AREA OF EXTENT (4 VALUES) WITH ROLE-BASED LOCKING
+      // AREA OF EXTENT (4 VALUES) WITH ROLE-BASED LOCKING / VIEW MODE
       // -------------------------------------------------------------
       const isAdmin = currentUser.role === 'admin';
       const isRep = currentUser.role === 'district_rep';
 
       const permBadge = document.getElementById('extentRolePermissionBadge');
-      if (permBadge) {
-        if (isAdmin) {
-          permBadge.className = 'text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold border border-emerald-300 flex items-center';
-          permBadge.innerHTML = '<i class="fa-solid fa-unlock-keyhole mr-1 text-[9px]"></i>Project Admin (Full Access)';
-        } else if (isRep) {
-          permBadge.className = 'text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-bold border border-blue-300 flex items-center';
-          permBadge.innerHTML = '<i class="fa-solid fa-user-gear mr-1 text-[9px]"></i>District Rep (Saved Extents Protected)';
-        } else {
-          permBadge.className = 'text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-medium border border-slate-200 flex items-center';
-          permBadge.innerHTML = '<i class="fa-solid fa-eye mr-1 text-[9px]"></i>Read-Only View';
-        }
-      }
-
-      // 1. Existing Record
       const elExisting = document.getElementById('formExtentExistingRecord');
       const badgeExisting = document.getElementById('badgeExistingRecordLock');
       const helpExisting = document.getElementById('helpExistingRecord');
       const existingVal = String(v.extent_existing_record || v.extent_raw || '').trim();
       if (elExisting) elExisting.value = existingVal;
 
-      if (elExisting && badgeExisting && helpExisting) {
-        if (isAdmin) {
-          elExisting.disabled = false;
-          badgeExisting.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300';
-          badgeExisting.innerHTML = '<i class="fa-solid fa-unlock mr-1 text-[8px]"></i>Admin Edit';
-          helpExisting.textContent = 'Admin has full edit permission';
-        } else if (isRep) {
-          if (existingVal && existingVal !== '0-00' && existingVal !== '0' && existingVal !== '-') {
-            elExisting.disabled = true;
-            badgeExisting.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-amber-100 text-amber-800 border border-amber-300';
-            badgeExisting.innerHTML = '<i class="fa-solid fa-lock mr-1 text-[8px]"></i>1-Time Saved (Locked)';
-            helpExisting.textContent = '1-time entry saved. Contact Admin to change.';
-          } else {
-            elExisting.disabled = false;
-            badgeExisting.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-blue-100 text-blue-800 border border-blue-300';
-            badgeExisting.innerHTML = '<i class="fa-solid fa-pen mr-1 text-[8px]"></i>1-Time Entry';
-            helpExisting.textContent = 'Enter baseline record. Locks once saved.';
-          }
-        } else {
-          elExisting.disabled = true;
-          badgeExisting.textContent = 'Read Only';
-          helpExisting.textContent = 'Read-only access';
-        }
-      }
-
-      // 2. Village Boundary 25-26
       const elBoundary = document.getElementById('formExtentBoundary2526');
       const badgeBoundary = document.getElementById('badgeBoundary2526Lock');
       const helpBoundary = document.getElementById('helpBoundary2526');
       const boundaryVal = String(v.village_boundary_25_26 || '').trim();
       if (elBoundary) elBoundary.value = boundaryVal;
 
-      if (elBoundary && badgeBoundary && helpBoundary) {
-        if (isAdmin) {
-          elBoundary.disabled = false;
-          badgeBoundary.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300';
-          badgeBoundary.innerHTML = '<i class="fa-solid fa-unlock mr-1 text-[8px]"></i>Admin Edit';
-          helpBoundary.textContent = 'Admin has full edit permission';
-        } else if (isRep) {
-          if (boundaryVal && boundaryVal !== '-' && boundaryVal !== '0' && boundaryVal !== '0-00') {
-            elBoundary.disabled = true;
-            badgeBoundary.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-amber-100 text-amber-800 border border-amber-300';
-            badgeBoundary.innerHTML = '<i class="fa-solid fa-lock mr-1 text-[8px]"></i>Saved (Locked)';
-            helpBoundary.textContent = 'Saved by Rep. Only Admin can modify.';
-          } else {
-            elBoundary.disabled = false;
-            badgeBoundary.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-blue-100 text-blue-800 border border-blue-300';
-            badgeBoundary.innerHTML = '<i class="fa-solid fa-pen mr-1 text-[8px]"></i>Enter Extent';
-            helpBoundary.textContent = 'Enter boundary extent. Locks once saved.';
-          }
-        } else {
-          elBoundary.disabled = true;
-          badgeBoundary.textContent = 'Read Only';
-          helpBoundary.textContent = 'Read-only access';
-        }
-      }
-
-      // 3. Village Abadi
       const elAbadi = document.getElementById('formExtentVillageAbadi');
       const badgeAbadi = document.getElementById('badgeAbadiLock');
       const helpAbadi = document.getElementById('helpAbadi');
       const abadiVal = String(v.village_abadi || '').trim();
       if (elAbadi) elAbadi.value = abadiVal;
 
-      if (elAbadi && badgeAbadi && helpAbadi) {
-        if (isAdmin) {
-          elAbadi.disabled = false;
-          badgeAbadi.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300';
-          badgeAbadi.innerHTML = '<i class="fa-solid fa-unlock mr-1 text-[8px]"></i>Admin Edit';
-          helpAbadi.textContent = 'Admin has full edit permission';
-        } else if (isRep) {
-          if (abadiVal && abadiVal !== '-' && abadiVal !== '0' && abadiVal !== '0-00') {
-            elAbadi.disabled = true;
-            badgeAbadi.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-amber-100 text-amber-800 border border-amber-300';
-            badgeAbadi.innerHTML = '<i class="fa-solid fa-lock mr-1 text-[8px]"></i>Saved (Locked)';
-            helpAbadi.textContent = 'Saved by Rep. Only Admin can modify.';
-          } else {
-            elAbadi.disabled = false;
-            badgeAbadi.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-blue-100 text-blue-800 border border-blue-300';
-            badgeAbadi.innerHTML = '<i class="fa-solid fa-pen mr-1 text-[8px]"></i>Enter Extent';
-            helpAbadi.textContent = 'Enter village abadi. Locks once saved.';
-          }
-        } else {
-          elAbadi.disabled = true;
-          badgeAbadi.textContent = 'Read Only';
-          helpAbadi.textContent = 'Read-only access';
-        }
-      }
-
-      // 4. Non Abadi (Updated on daily basis as survey completes by District Rep)
       const elNonAbadi = document.getElementById('formExtentNonAbadi');
       const nonAbadiVal = String(v.non_abadi_extent || '').trim() || (v.surveyed_extent_so_far ? `${v.surveyed_extent_so_far} ac` : '');
-      if (elNonAbadi) {
-        elNonAbadi.value = nonAbadiVal;
-        elNonAbadi.disabled = !(isAdmin || isRep);
+      if (elNonAbadi) elNonAbadi.value = nonAbadiVal;
+
+      if (isReadOnly) {
+        if (permBadge) {
+          permBadge.className = 'text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-bold border border-blue-300 flex items-center';
+          permBadge.innerHTML = '<i class="fa-solid fa-eye mr-1 text-[9px]"></i>Display Only (Resurvey Master)';
+        }
+        if (elExisting) elExisting.disabled = true;
+        if (badgeExisting) {
+          badgeExisting.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-slate-100 text-slate-700 border border-slate-300';
+          badgeExisting.innerHTML = '<i class="fa-solid fa-eye mr-1 text-[8px]"></i>Display View';
+        }
+        if (helpExisting) helpExisting.textContent = 'Existing baseline record (Read-only)';
+
+        if (elBoundary) elBoundary.disabled = true;
+        if (badgeBoundary) {
+          badgeBoundary.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-slate-100 text-slate-700 border border-slate-300';
+          badgeBoundary.innerHTML = boundaryVal ? '<i class="fa-solid fa-eye mr-1 text-[8px]"></i>Display View' : '<i class="fa-solid fa-circle-minus mr-1 text-[8px]"></i>Not Entered';
+        }
+        if (helpBoundary) helpBoundary.textContent = 'Boundary extent 25-26 (Read-only)';
+
+        if (elAbadi) elAbadi.disabled = true;
+        if (badgeAbadi) {
+          badgeAbadi.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-slate-100 text-slate-700 border border-slate-300';
+          badgeAbadi.innerHTML = abadiVal ? '<i class="fa-solid fa-eye mr-1 text-[8px]"></i>Display View' : '<i class="fa-solid fa-circle-minus mr-1 text-[8px]"></i>Not Entered';
+        }
+        if (helpAbadi) helpAbadi.textContent = 'Village abadi extent (Read-only)';
+
+        if (elNonAbadi) elNonAbadi.disabled = true;
+      } else {
+        if (permBadge) {
+          if (isAdmin) {
+            permBadge.className = 'text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold border border-emerald-300 flex items-center';
+            permBadge.innerHTML = '<i class="fa-solid fa-unlock-keyhole mr-1 text-[9px]"></i>Project Admin (Full Access)';
+          } else if (isRep) {
+            permBadge.className = 'text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-bold border border-blue-300 flex items-center';
+            permBadge.innerHTML = '<i class="fa-solid fa-user-gear mr-1 text-[9px]"></i>District Rep (Saved Extents Protected)';
+          } else {
+            permBadge.className = 'text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-medium border border-slate-200 flex items-center';
+            permBadge.innerHTML = '<i class="fa-solid fa-eye mr-1 text-[9px]"></i>Read-Only View';
+          }
+        }
+
+        if (elExisting && badgeExisting && helpExisting) {
+          if (isAdmin) {
+            elExisting.disabled = false;
+            badgeExisting.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300';
+            badgeExisting.innerHTML = '<i class="fa-solid fa-unlock mr-1 text-[8px]"></i>Admin Edit';
+            helpExisting.textContent = 'Admin has full edit permission';
+          } else if (isRep) {
+            if (existingVal && existingVal !== '0-00' && existingVal !== '0' && existingVal !== '-') {
+              elExisting.disabled = true;
+              badgeExisting.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-amber-100 text-amber-800 border border-amber-300';
+              badgeExisting.innerHTML = '<i class="fa-solid fa-lock mr-1 text-[8px]"></i>1-Time Saved (Locked)';
+              helpExisting.textContent = '1-time entry saved. Contact Admin to change.';
+            } else {
+              elExisting.disabled = false;
+              badgeExisting.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-blue-100 text-blue-800 border border-blue-300';
+              badgeExisting.innerHTML = '<i class="fa-solid fa-pen mr-1 text-[8px]"></i>1-Time Entry';
+              helpExisting.textContent = 'Enter baseline record. Locks once saved.';
+            }
+          } else {
+            elExisting.disabled = true;
+            badgeExisting.textContent = 'Read Only';
+            helpExisting.textContent = 'Read-only access';
+          }
+        }
+
+        if (elBoundary && badgeBoundary && helpBoundary) {
+          if (isAdmin) {
+            elBoundary.disabled = false;
+            badgeBoundary.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300';
+            badgeBoundary.innerHTML = '<i class="fa-solid fa-unlock mr-1 text-[8px]"></i>Admin Edit';
+            helpBoundary.textContent = 'Admin has full edit permission';
+          } else if (isRep) {
+            if (boundaryVal && boundaryVal !== '-' && boundaryVal !== '0' && boundaryVal !== '0-00') {
+              elBoundary.disabled = true;
+              badgeBoundary.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-amber-100 text-amber-800 border border-amber-300';
+              badgeBoundary.innerHTML = '<i class="fa-solid fa-lock mr-1 text-[8px]"></i>Saved (Locked)';
+              helpBoundary.textContent = 'Saved by Rep. Only Admin can modify.';
+            } else {
+              elBoundary.disabled = false;
+              badgeBoundary.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-blue-100 text-blue-800 border border-blue-300';
+              badgeBoundary.innerHTML = '<i class="fa-solid fa-pen mr-1 text-[8px]"></i>Enter Extent';
+              helpBoundary.textContent = 'Enter boundary extent. Locks once saved.';
+            }
+          } else {
+            elBoundary.disabled = true;
+            badgeBoundary.textContent = 'Read Only';
+            helpBoundary.textContent = 'Read-only access';
+          }
+        }
+
+        if (elAbadi && badgeAbadi && helpAbadi) {
+          if (isAdmin) {
+            elAbadi.disabled = false;
+            badgeAbadi.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300';
+            badgeAbadi.innerHTML = '<i class="fa-solid fa-unlock mr-1 text-[8px]"></i>Admin Edit';
+            helpAbadi.textContent = 'Admin has full edit permission';
+          } else if (isRep) {
+            if (abadiVal && abadiVal !== '-' && abadiVal !== '0' && abadiVal !== '0-00') {
+              elAbadi.disabled = true;
+              badgeAbadi.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-amber-100 text-amber-800 border border-amber-300';
+              badgeAbadi.innerHTML = '<i class="fa-solid fa-lock mr-1 text-[8px]"></i>Saved (Locked)';
+              helpAbadi.textContent = 'Saved by Rep. Only Admin can modify.';
+            } else {
+              elAbadi.disabled = false;
+              badgeAbadi.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-blue-100 text-blue-800 border border-blue-300';
+              badgeAbadi.innerHTML = '<i class="fa-solid fa-pen mr-1 text-[8px]"></i>Enter Extent';
+              helpAbadi.textContent = 'Enter village abadi. Locks once saved.';
+            }
+          } else {
+            elAbadi.disabled = true;
+            badgeAbadi.textContent = 'Read Only';
+            helpAbadi.textContent = 'Read-only access';
+          }
+        }
+
+        if (elNonAbadi) {
+          elNonAbadi.disabled = !(isAdmin || isRep);
+        }
       }
 
       // DAILY SURVEY PROGRESS & CUMULATIVE EXTENT TRACKING
@@ -7429,11 +7625,18 @@
       if (document.getElementById('formDailySurveyRemarks')) document.getElementById('formDailySurveyRemarks').value = '';
 
       cancelDailySurveyEdit();
-      renderModalDailySurveyTable(v.daily_survey_logs || [], v.id);
+      renderModalDailySurveyTable(v.daily_survey_logs || [], v.id, isReadOnly);
 
       // Operational fields
       document.getElementById('formGtStatus').value = v.gt_status || 'Completed';
       document.getElementById('formRemarks').value = v.remarks || '';
+      if (isReadOnly) {
+        document.getElementById('formGtStatus').disabled = true;
+        document.getElementById('formRemarks').disabled = true;
+      } else {
+        document.getElementById('formGtStatus').disabled = false;
+        document.getElementById('formRemarks').disabled = false;
+      }
 
       document.getElementById('villageModal').classList.remove('hidden');
     }
@@ -7470,6 +7673,10 @@
 
     async function handleVillageFormSubmit(e) {
       e.preventDefault();
+      if (currentVillageModalMode === 'view') {
+        alert('Resurvey Master Display Mode: Data entry and updates are permitted only through the Resurvey Ops section.');
+        return;
+      }
       const id = document.getElementById('formVillageId').value;
       const existing = allVillages.find(item => item.id === id) || {};
 
@@ -7551,13 +7758,13 @@
       }
     }
 
-    function renderModalDailySurveyTable(logs, villageId) {
+    function renderModalDailySurveyTable(logs, villageId, isReadOnly = false) {
       const tbody = document.getElementById('dispDailySurveyLogsTableBody');
       const countBadge = document.getElementById('dispDailyLogsCount');
       if (!tbody) return;
 
       if (!logs || logs.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="py-4 text-center text-slate-400 italic">No daily survey logs recorded yet. Add today's survey above.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="5" class="py-4 text-center text-slate-400 italic">No daily survey logs recorded yet.${isReadOnly ? '' : " Add today's survey above."}</td></tr>`;
         if (countBadge) countBadge.textContent = '0 entries';
         return;
       }
@@ -7582,20 +7789,30 @@
             ${escapeHtml(item.remarks || '-')}
           </td>
           <td class="py-2 px-3 text-center whitespace-nowrap">
-            <div class="inline-flex items-center space-x-1">
-              <button type="button" onclick="handleEditDailySurveyEntry('${villageId}', '${item.id}')" title="Edit/Correct this survey entry" class="text-indigo-600 hover:text-indigo-800 p-1.5 rounded hover:bg-indigo-50 border border-transparent hover:border-indigo-200 transition">
-                <i class="fa-solid fa-pen-to-square text-xs"></i>
-              </button>
-              <button type="button" onclick="handleDeleteDailySurveyEntry('${villageId}', '${item.id}')" title="Delete this entry" class="text-rose-500 hover:text-rose-700 p-1.5 rounded hover:bg-rose-50 border border-transparent hover:border-rose-200 transition">
-                <i class="fa-regular fa-trash-can text-xs"></i>
-              </button>
-            </div>
+            ${isReadOnly ? `
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 text-slate-500 border border-slate-200">
+                <i class="fa-solid fa-lock text-[9px] mr-1 text-slate-400"></i>View Only
+              </span>
+            ` : `
+              <div class="inline-flex items-center space-x-1">
+                <button type="button" onclick="handleEditDailySurveyEntry('${villageId}', '${item.id}')" title="Edit/Correct this survey entry" class="text-indigo-600 hover:text-indigo-800 p-1.5 rounded hover:bg-indigo-50 border border-transparent hover:border-indigo-200 transition">
+                  <i class="fa-solid fa-pen-to-square text-xs"></i>
+                </button>
+                <button type="button" onclick="handleDeleteDailySurveyEntry('${villageId}', '${item.id}')" title="Delete this entry" class="text-rose-500 hover:text-rose-700 p-1.5 rounded hover:bg-rose-50 border border-transparent hover:border-rose-200 transition">
+                  <i class="fa-regular fa-trash-can text-xs"></i>
+                </button>
+              </div>
+            `}
           </td>
         </tr>
       `).join('');
     }
 
     function handleEditDailySurveyEntry(villageId, logId) {
+      if (currentVillageModalMode === 'view') {
+        alert('Resurvey Master Display Mode: Daily survey entries cannot be edited here. Use Resurvey Ops section.');
+        return;
+      }
       const v = allVillages.find(item => item.id === villageId);
       if (!v) return;
       const logs = v.daily_survey_logs || [];
@@ -7679,6 +7896,10 @@
     }
 
     async function handleLogDailySurveyEntry() {
+      if (currentVillageModalMode === 'view') {
+        alert('Resurvey Master Display Mode: Daily survey logging is permitted only through the Resurvey Ops section.');
+        return;
+      }
       if (!currentUser) {
         promptLoginRequired('sign in to log daily survey records');
         return;
@@ -7766,6 +7987,10 @@
     }
 
     async function handleDeleteDailySurveyEntry(villageId, logId) {
+      if (currentVillageModalMode === 'view') {
+        alert('Resurvey Master Display Mode: Daily survey entries cannot be deleted here. Use Resurvey Ops section.');
+        return;
+      }
       if (!confirm('Are you sure you want to delete this daily survey log entry? Extent will be recalculated.')) return;
       try {
         const res = await fetch(`/villages/${villageId}/daily-survey/${logId}`, {
