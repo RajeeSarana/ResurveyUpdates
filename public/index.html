@@ -162,9 +162,13 @@
               <span class="text-xs uppercase tracking-widest text-emerald-300 font-semibold">Field Operations Portal</span>
               <span class="text-xs bg-emerald-400/20 text-emerald-200 px-2 py-0.5 rounded-full border border-emerald-400/30">ResurveyUpdates</span>
               <span class="text-xs bg-teal-500/30 text-teal-200 px-2 py-0.5 rounded-full border border-teal-400/30 hidden md:inline">Authenticated Sessions</span>
+              <span id="districtScopeBadge" class="hidden text-xs bg-amber-400/20 text-amber-200 px-2.5 py-0.5 rounded-full border border-amber-400/40 font-bold flex items-center space-x-1.5">
+                <i class="fa-solid fa-location-dot text-amber-300"></i>
+                <span id="districtScopeText">District Workspace</span>
+              </span>
             </div>
             <h1 class="text-lg sm:text-xl font-bold tracking-tight text-white">Resurvey Monitoring & Verification Portal</h1>
-            <p class="text-xs text-slate-300 hidden sm:block">100% Completed Villages Tracking (Cadastral & Non-Cadastral) as on 04.09.2026</p>
+            <p id="portalSubtitle" class="text-xs text-slate-300 hidden sm:block">100% Completed Villages Tracking (Cadastral & Non-Cadastral) as on 04.09.2026</p>
           </div>
         </div>
 
@@ -263,11 +267,11 @@
       <section class="grid grid-cols-2 lg:grid-cols-6 gap-4">
         <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
           <div class="flex items-center justify-between text-slate-500 mb-2">
-            <span class="text-xs font-semibold uppercase tracking-wider">Districts</span>
+            <span class="text-xs font-semibold uppercase tracking-wider" id="kpiDistrictsLabel">Districts</span>
             <i class="fa-solid fa-landmark text-teal-600"></i>
           </div>
           <div class="text-2xl font-bold text-slate-900" id="kpiDistricts">32</div>
-          <div class="text-[11px] text-slate-500 mt-1">Covering entire state</div>
+          <div class="text-[11px] text-slate-500 mt-1" id="kpiDistrictsSub">Covering entire state</div>
         </div>
 
         <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
@@ -371,8 +375,8 @@
         <div class="lg:col-span-2 bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
           <div class="flex items-center justify-between mb-4">
             <div>
-              <h3 class="text-sm font-bold text-slate-800">Top Resurvey Completed Districts</h3>
-              <p class="text-xs text-slate-500">Number of GT Completed Villages (Non-Cadastral vs Cadastral)</p>
+              <h3 class="text-sm font-bold text-slate-800" id="barChartTitle">Top Resurvey Completed Districts</h3>
+              <p class="text-xs text-slate-500" id="barChartSub">Number of GT Completed Villages (Non-Cadastral vs Cadastral)</p>
             </div>
             <button onclick="toggleDistrictsModal()" class="text-xs font-medium text-emerald-700 hover:text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200 transition">
               View All 32 Districts
@@ -412,8 +416,8 @@
       <section class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
         <div class="p-4 border-b border-slate-200 flex items-center justify-between">
           <div>
-            <h3 class="text-sm font-bold text-slate-800">District-wise Resurvey Progress Summary</h3>
-            <p class="text-xs text-slate-500">Target vs Achievement across all 32 districts</p>
+            <h3 class="text-sm font-bold text-slate-800" id="overviewTableTitle">District-wise Resurvey Progress Summary</h3>
+            <p class="text-xs text-slate-500" id="overviewTableSub">Target vs Achievement across all 32 districts</p>
           </div>
           <button onclick="toggleDistrictsModal()" class="text-xs text-emerald-700 font-semibold hover:underline">
             Expand Full Matrix &rarr;
@@ -450,10 +454,10 @@
         <div>
           <h3 class="text-sm font-bold text-slate-900 flex items-center space-x-2">
             <i class="fa-solid fa-list-check text-emerald-600"></i>
-            <span>Resurvey Operations &amp; Survey Submissions Status</span>
+            <span id="villageExplorerTitle">Resurvey Operations &amp; Survey Submissions Status</span>
             <span class="ml-2 bg-emerald-50 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-200">Active Field Progress</span>
           </h3>
-          <p class="text-xs text-slate-500 mt-0.5">Tracking Ground Truthing (GT), Shapefile generation, CSO delivery, and Central QC Verification for ongoing resurvey submissions. For the permanent official territorial master of all 10,888 villages, view the <a href="javascript:void(0)" onclick="switchMainTab('tab-master')" class="text-emerald-700 underline font-semibold">State Master Directory &rarr;</a></p>
+          <p class="text-xs text-slate-500 mt-0.5" id="villageExplorerSub">Tracking Ground Truthing (GT), Shapefile generation, CSO delivery, and Central QC Verification for ongoing resurvey submissions. For the permanent official territorial master of all 10,888 villages, view the <a href="javascript:void(0)" onclick="switchMainTab('tab-master')" class="text-emerald-700 underline font-semibold">State Master Directory &rarr;</a></p>
         </div>
         <div class="flex items-center space-x-2 no-print" id="villageActionsContainer">
           <button onclick="handleAddVillageClick()" id="btnAddVillage" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3.5 py-2 rounded-lg shadow flex items-center space-x-1.5 transition">
@@ -470,66 +474,121 @@
             <!-- Filter Pills -->
             <div class="flex flex-wrap gap-1 bg-slate-100 p-1 rounded-lg text-xs font-medium text-slate-600">
               <button onclick="filterByTab('all')" id="tabAll" class="px-3 py-1.5 rounded-md bg-white text-slate-900 shadow-sm font-semibold">
-                All Villages (<span id="tabCountAll">90</span>)
+                All Villages (<span id="tabCountAll">0</span>)
+              </button>
+              <button onclick="filterByTab('picked')" id="tabPicked" class="px-3 py-1.5 rounded-md hover:text-slate-900 transition">
+                <i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i>Picked for Resurvey (<span id="tabCountPicked">0</span>)
+              </button>
+              <button onclick="filterByTab('unpicked')" id="tabUnpicked" class="px-3 py-1.5 rounded-md hover:text-slate-900 transition">
+                <i class="fa-solid fa-circle-minus text-slate-400 mr-1"></i>Not Picked (<span id="tabCountUnpicked">0</span>)
               </button>
               <button onclick="filterByTab('Non-Cadastral')" id="tabNonCad" class="px-3 py-1.5 rounded-md hover:text-slate-900 transition">
-                Non-Cadastral (<span id="tabCountNonCad">51</span>)
+                Non-Cadastral (<span id="tabCountNonCad">0</span>)
               </button>
               <button onclick="filterByTab('Cadastral')" id="tabCad" class="px-3 py-1.5 rounded-md hover:text-slate-900 transition">
-                Cadastral (<span id="tabCountCad">39</span>)
+                Cadastral (<span id="tabCountCad">0</span>)
               </button>
               <button onclick="filterByTab('pending_qc')" id="tabPendingQc" class="px-3 py-1.5 rounded-md text-amber-700 hover:text-amber-800 transition">
-                <i class="fa-solid fa-hourglass-half mr-1"></i>Pending QC (<span id="tabCountPendingQc">15</span>)
+                <i class="fa-solid fa-hourglass-half mr-1"></i>Pending QC (<span id="tabCountPendingQc">0</span>)
               </button>
               <button onclick="filterByTab('verified')" id="tabVerified" class="px-3 py-1.5 rounded-md text-emerald-700 hover:text-emerald-800 transition">
-                <i class="fa-solid fa-circle-check mr-1"></i>Verified (<span id="tabCountVerified">71</span>)
+                <i class="fa-solid fa-circle-check mr-1"></i>Verified (<span id="tabCountVerified">0</span>)
               </button>
               <button onclick="filterByTab('error')" id="tabError" class="px-3 py-1.5 rounded-md text-rose-700 hover:text-rose-800 transition">
-                <i class="fa-solid fa-triangle-exclamation mr-1"></i>Errors (<span id="tabCountError">14</span>)
+                <i class="fa-solid fa-triangle-exclamation mr-1"></i>Errors (<span id="tabCountError">0</span>)
               </button>
               <button onclick="filterByTab('cso_done')" id="tabCsoDone" class="px-3 py-1.5 rounded-md hover:text-slate-900 transition">
-                CSO Sent (<span id="tabCountCso">71</span>)
+                CSO Sent (<span id="tabCountCso">0</span>)
               </button>
             </div>
 
             <!-- Active Field Submissions Status Indicator -->
             <div class="flex items-center space-x-2">
               <span class="text-xs text-slate-500 hidden sm:inline">Active Progress:</span>
-              <span class="bg-teal-50 text-teal-800 text-[11px] font-bold px-2.5 py-1 rounded-lg border border-teal-200">90 Submissions Tracked</span>
+              <span id="activeSubmissionsBadge" class="bg-teal-50 text-teal-800 text-[11px] font-bold px-2.5 py-1 rounded-lg border border-teal-200">Loading villages...</span>
             </div>
           </div>
 
-          <!-- Search & Filter Selectors -->
-          <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
-            <div class="relative">
-              <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-xs"></i>
-              <input type="text" id="searchInput" oninput="applyFilters()" placeholder="Search village, mandal, Telugu, remarks..." 
-                class="w-full pl-9 pr-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition" />
+          <!-- Cascading Drilldown Toolbar -->
+          <div class="space-y-2.5 pt-1">
+            <!-- Row 1: Primary Territorial Cascade (District -> Mandal -> Village -> Category) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+              <div>
+                <label class="block text-[11px] font-bold text-slate-600 mb-1 flex items-center space-x-1">
+                  <i class="fa-solid fa-landmark text-teal-600"></i>
+                  <span>District Scope</span>
+                </label>
+                <select id="districtFilter" onchange="onDistrictFilterChange()" class="w-full py-2 px-3 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition font-medium">
+                  <option value="all">All Districts (32 Districts)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-slate-600 mb-1 flex items-center space-x-1">
+                  <i class="fa-solid fa-map-location text-emerald-600"></i>
+                  <span>Mandal Filter</span>
+                </label>
+                <select id="mandalFilter" onchange="onMandalFilterChange()" class="w-full py-2 px-3 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition font-medium">
+                  <option value="all">All Mandals</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-slate-600 mb-1 flex items-center space-x-1">
+                  <i class="fa-solid fa-location-dot text-blue-600"></i>
+                  <span>Village Filter</span>
+                </label>
+                <select id="villageFilter" onchange="onVillageFilterChange()" class="w-full py-2 px-3 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition font-medium">
+                  <option value="all">All Villages</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-slate-600 mb-1 flex items-center space-x-1">
+                  <i class="fa-solid fa-layer-group text-purple-600"></i>
+                  <span>Category (Cadastral / Non-Cad)</span>
+                </label>
+                <select id="categoryFilter" onchange="onCategoryFilterChange()" class="w-full py-2 px-3 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition font-medium">
+                  <option value="all">All Categories (Cadastral &amp; Non-Cadastral)</option>
+                  <option value="Cadastral">Cadastral</option>
+                  <option value="Non-Cadastral">Non-Cadastral</option>
+                </select>
+              </div>
             </div>
 
-            <div>
-              <select id="districtFilter" onchange="applyFilters()" class="w-full py-2 px-3 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition">
-                <option value="all">All Districts (32 Districts)</option>
-              </select>
-            </div>
+            <!-- Row 2: Secondary Status Filters & Search -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+              <div>
+                <select id="shapefileFilter" onchange="applyFilters()" class="w-full py-2 px-3 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition">
+                  <option value="all">All Shapefile Statuses</option>
+                  <option value="Completed">Shape File Completed</option>
+                  <option value="Error">Shape File Error</option>
+                  <option value="In Progress">Shape File In Progress</option>
+                  <option value="Pending">Shape File Pending</option>
+                </select>
+              </div>
 
-            <div>
-              <select id="shapefileFilter" onchange="applyFilters()" class="w-full py-2 px-3 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition">
-                <option value="all">All Shapefile Statuses</option>
-                <option value="Completed">Shape File Completed</option>
-                <option value="Error">Shape File Error</option>
-                <option value="In Progress">Shape File In Progress</option>
-                <option value="Pending">Shape File Pending</option>
-              </select>
-            </div>
+              <div>
+                <select id="verificationFilter" onchange="applyFilters()" class="w-full py-2 px-3 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition">
+                  <option value="all">All Verification Statuses</option>
+                  <option value="Verified">Verified (QC Approved)</option>
+                  <option value="Pending QC">Pending QC Review</option>
+                  <option value="Returned for Correction">Returned for Correction</option>
+                </select>
+              </div>
 
-            <div>
-              <select id="verificationFilter" onchange="applyFilters()" class="w-full py-2 px-3 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition">
-                <option value="all">All Verification Statuses</option>
-                <option value="Verified">Verified (QC Approved)</option>
-                <option value="Pending QC">Pending QC Review</option>
-                <option value="Returned for Correction">Returned for Correction</option>
-              </select>
+              <div class="relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-xs"></i>
+                <input type="text" id="searchInput" oninput="applyFilters()" placeholder="Search village, mandal, remarks..." 
+                  class="w-full pl-9 pr-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition" />
+              </div>
+
+              <div>
+                <button type="button" onclick="resetAllVillageFilters()" class="w-full py-2 px-3 text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg border border-slate-200 transition flex items-center justify-center space-x-1.5">
+                  <i class="fa-solid fa-rotate-left text-slate-500"></i>
+                  <span>Reset All Filters</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -541,6 +600,7 @@
               <tr>
                 <th class="py-3 px-3 w-10 text-center">#</th>
                 <th class="py-3 px-3">District</th>
+                <th class="py-3 px-3 text-center">Resurvey Status</th>
                 <th class="py-3 px-3">Category</th>
                 <th class="py-3 px-4">Village & Mandal</th>
                 <th class="py-3 px-3 text-right">Extent (Ac-Gts)</th>
@@ -1304,6 +1364,31 @@
           </button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================================= -->
+  <!-- MODAL: NON-PICKED NOTICE (DATA ENTRY RESTRICTED)                                          -->
+  <!-- ========================================================================================= -->
+  <div id="nonPickedModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 space-y-4">
+      <div class="flex items-center space-x-3 text-amber-600">
+        <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-2xl text-amber-600 shadow-sm">
+          <i class="fa-solid fa-lock"></i>
+        </div>
+        <div>
+          <h3 class="text-sm font-bold text-slate-900">Survey Data Entry Restricted</h3>
+          <p class="text-xs text-amber-700 font-medium">Village Not Picked For Resurvey</p>
+        </div>
+      </div>
+      <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs text-slate-700 leading-relaxed">
+        <p id="nonPickedModalMessage">This village is part of the official master territorial register, but has <strong>not been selected for resurvey operations</strong>.<br/><br/>Editing extent, uploading shapefiles, or entering survey milestones is restricted to picked villages only.</p>
+      </div>
+      <div class="flex justify-end pt-2">
+        <button type="button" onclick="closeNonPickedModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-semibold shadow transition">
+          <i class="fa-solid fa-check mr-1.5"></i>Understood
+        </button>
+      </div>
     </div>
   </div>
 
@@ -2092,6 +2177,98 @@
       document.title = 'ResurveyUpdates - Officer Sign In';
     }
 
+    function alertNonPickedNotice(villageName) {
+      const msgEl = document.getElementById('nonPickedModalMessage');
+      if (msgEl) {
+        msgEl.innerHTML = `Village <strong>${villageName}</strong> is part of the official territorial master register, but has <strong>not been selected for resurvey operations</strong>.<br/><br/>Editing extent, uploading shapefiles, or entering survey milestones is restricted to picked villages only.`;
+      }
+      const modal = document.getElementById('nonPickedModal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeNonPickedModal() {
+      const modal = document.getElementById('nonPickedModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function syncDistrictRepScope() {
+      const distFilter = document.getElementById('districtFilter');
+      const formDist = document.getElementById('formDistrict');
+      const scopeBadge = document.getElementById('districtScopeBadge');
+      const scopeText = document.getElementById('districtScopeText');
+      const subtitle = document.getElementById('portalSubtitle');
+      const explorerTitle = document.getElementById('villageExplorerTitle');
+      const explorerSub = document.getElementById('villageExplorerSub');
+
+      if (currentUser && currentUser.role === 'district_rep' && currentUser.district && currentUser.district !== 'All') {
+        const dName = currentUser.district;
+
+        if (distFilter) {
+          let found = false;
+          for (let opt of distFilter.options) {
+            if (opt.value.toLowerCase() === dName.toLowerCase()) {
+              distFilter.value = opt.value;
+              found = true;
+              break;
+            }
+          }
+          if (!found) {
+            const newOpt = document.createElement('option');
+            newOpt.value = dName;
+            newOpt.textContent = `${dName} (Assigned District)`;
+            distFilter.appendChild(newOpt);
+            distFilter.value = dName;
+          }
+          distFilter.disabled = true;
+          distFilter.classList.add('bg-slate-100', 'text-slate-700', 'cursor-not-allowed', 'border-emerald-500');
+        }
+
+        if (formDist) {
+          formDist.value = dName;
+          formDist.disabled = true;
+        }
+
+        if (scopeBadge && scopeText) {
+          scopeText.textContent = `${dName} District Workspace`;
+          scopeBadge.classList.remove('hidden');
+        }
+
+        if (subtitle) {
+          subtitle.textContent = `${dName} District Representative Workspace - Displaying all villages in ${dName} (Picked Resurvey Villages Prioritized)`;
+        }
+
+        if (explorerTitle) {
+          explorerTitle.textContent = `${dName} District - Village Resurvey Operations`;
+        }
+        if (explorerSub) {
+          explorerSub.innerHTML = `Displaying all territorial villages for <strong>${dName} District</strong>. Villages picked for resurvey appear first with active tracking; non-picked villages are shown for complete territorial governance.`;
+        }
+      } else {
+        if (distFilter) {
+          distFilter.disabled = false;
+          distFilter.classList.remove('bg-slate-100', 'text-slate-700', 'cursor-not-allowed', 'border-emerald-500');
+        }
+        if (formDist) {
+          formDist.disabled = false;
+        }
+        if (scopeBadge) {
+          scopeBadge.classList.add('hidden');
+        }
+        if (subtitle) {
+          subtitle.textContent = '100% Completed Villages Tracking (Cadastral & Non-Cadastral) as on 04.09.2026';
+        }
+        if (explorerTitle) {
+          explorerTitle.textContent = 'Resurvey Operations & Survey Submissions Status';
+        }
+        if (explorerSub) {
+          explorerSub.innerHTML = 'Tracking Ground Truthing (GT), Shapefile generation, CSO delivery, and Central QC Verification for ongoing resurvey submissions. For the permanent official territorial master of all 10,888 villages, view the <a href="javascript:void(0)" onclick="switchMainTab(\'tab-master\')" class="text-emerald-700 underline font-semibold">State Master Directory &rarr;</a>';
+        }
+      }
+      populateMandalFilter();
+      populateVillageFilter();
+      updateTabCounts();
+    }
+
     async function showAuthenticatedPortal() {
       const gateway = document.getElementById('loginGateway');
       const app = document.getElementById('authenticatedApp');
@@ -2099,6 +2276,9 @@
       if (app) app.classList.remove('hidden');
       document.title = 'ResurveyUpdates - Monitoring & Verification Portal';
       renderAuthHeaderUI();
+      syncDistrictRepScope();
+      await fetchVillages();
+      await fetchDashboardStats();
       applyRoleBasedNavigation(currentUser);
       if (currentUser && currentUser.role === 'admin') {
         await fetchUsers();
@@ -2131,15 +2311,8 @@
 
         // Land directly on Village Survey Explorer
         switchMainTab('tab-villages');
-
-        // Pre-filter district dropdown to assigned district
-        if (user.district && user.district !== 'All') {
-          const distFilter = document.getElementById('districtFilter');
-          if (distFilter) {
-            distFilter.value = user.district;
-          }
-          applyFilters();
-        }
+        syncDistrictRepScope();
+        applyFilters();
       } else if (role === 'qc_engineer') {
         // Central QC Engineer:
         // Visible: QC Desk, Overview, Village Explorer, Audit
@@ -2196,6 +2369,7 @@
       await loadAuthenticatedSession();
       await checkDbStatus();
       await fetchDistricts();
+      syncDistrictRepScope();
       await fetchMandals();
       await fetchVillages();
       await fetchDashboardStats();
@@ -2562,6 +2736,7 @@
 
         renderDistrictMasterTable();
         onVillageMasterDistrictChange();
+        syncDistrictRepScope();
       } catch (e) {
         console.error('Error loading districts:', e);
       }
@@ -2593,9 +2768,23 @@
 
     async function fetchVillages() {
       try {
-        const res = await fetch('/villages');
+        let url = '/villages';
+        if (currentUser && currentUser.role === 'district_rep' && currentUser.district && currentUser.district !== 'All') {
+          url += `?district=${encodeURIComponent(currentUser.district)}`;
+        }
+        const res = await fetch(url, { headers: getAuthHeaders() });
         allVillages = await res.json();
-        document.getElementById('navVillageCountBadge').textContent = allVillages.length;
+        const navBadge = document.getElementById('navVillageCountBadge');
+        if (navBadge) navBadge.textContent = allVillages.length;
+        
+        const activeSubBadge = document.getElementById('activeSubmissionsBadge');
+        if (activeSubBadge) {
+          const pickedCount = allVillages.filter(v => v.is_picked_for_resurvey).length;
+          activeSubBadge.textContent = `${pickedCount} Picked / ${allVillages.length} Total Villages`;
+        }
+
+        populateMandalFilter();
+        populateVillageFilter();
         updateTabCounts();
         applyFilters();
         renderQcQueue();
@@ -2631,10 +2820,46 @@
 
     async function fetchDashboardStats() {
       try {
-        const res = await fetch('/dashboard/stats');
+        let url = '/dashboard/stats';
+        if (currentUser && currentUser.role === 'district_rep' && currentUser.district && currentUser.district !== 'All') {
+          url += `?district=${encodeURIComponent(currentUser.district)}`;
+        }
+        const res = await fetch(url, { headers: getAuthHeaders() });
         const stats = await res.json();
 
-        document.getElementById('kpiDistricts').textContent = stats.total_districts;
+        const kpiDistrictsEl = document.getElementById('kpiDistricts');
+        const kpiDistrictsLabel = document.getElementById('kpiDistrictsLabel');
+        const kpiDistrictsSub = document.getElementById('kpiDistrictsSub');
+        if (stats.is_district_scoped) {
+          if (kpiDistrictsLabel) kpiDistrictsLabel.textContent = 'District';
+          if (kpiDistrictsEl) kpiDistrictsEl.textContent = stats.scoped_district;
+          if (kpiDistrictsSub) kpiDistrictsSub.textContent = `${stats.mandal_summary ? stats.mandal_summary.length : 0} Mandals Scope`;
+
+          const barTitle = document.getElementById('barChartTitle');
+          const barSub = document.getElementById('barChartSub');
+          if (barTitle) barTitle.textContent = `${stats.scoped_district} - Mandal Progress Ranking`;
+          if (barSub) barSub.textContent = `Completed GT Villages by Mandal in ${stats.scoped_district}`;
+
+          const tblTitle = document.getElementById('overviewTableTitle');
+          const tblSub = document.getElementById('overviewTableSub');
+          if (tblTitle) tblTitle.textContent = `${stats.scoped_district} - Performance Summary`;
+          if (tblSub) tblSub.textContent = `Target achievement in ${stats.scoped_district}`;
+        } else {
+          if (kpiDistrictsLabel) kpiDistrictsLabel.textContent = 'Districts';
+          if (kpiDistrictsEl) kpiDistrictsEl.textContent = stats.total_districts;
+          if (kpiDistrictsSub) kpiDistrictsSub.textContent = 'Covering entire state';
+
+          const barTitle = document.getElementById('barChartTitle');
+          const barSub = document.getElementById('barChartSub');
+          if (barTitle) barTitle.textContent = 'Top Resurvey Completed Districts';
+          if (barSub) barSub.textContent = 'Number of GT Completed Villages (Non-Cadastral vs Cadastral)';
+
+          const tblTitle = document.getElementById('overviewTableTitle');
+          const tblSub = document.getElementById('overviewTableSub');
+          if (tblTitle) tblTitle.textContent = 'District-wise Resurvey Progress Summary';
+          if (tblSub) tblSub.textContent = 'Target vs Achievement across all 32 districts';
+        }
+
         document.getElementById('kpiNonCadDone').textContent = stats.gt_completed.non_cadastral;
         document.getElementById('kpiNonCadTarget').textContent = stats.targets.non_cadastral;
         document.getElementById('kpiCadDone').textContent = stats.gt_completed.cadastral;
@@ -2643,9 +2868,9 @@
         document.getElementById('kpiErrors').textContent = stats.shapefiles.error;
         document.getElementById('kpiTotalAcres').textContent = Number(stats.total_extent_acres).toLocaleString();
 
-        const vVerified = stats.verification ? stats.verification.verified : 71;
-        const vPending = stats.verification ? stats.verification.pending_qc : 15;
-        const vReturned = stats.verification ? stats.verification.returned_for_correction : 4;
+        const vVerified = stats.verification ? stats.verification.verified : 0;
+        const vPending = stats.verification ? stats.verification.pending_qc : 0;
+        const vReturned = stats.verification ? stats.verification.returned_for_correction : 0;
         const vTotal = Math.max(vVerified + vPending + vReturned, 1);
 
         document.getElementById('subKpiVerified').textContent = vVerified;
@@ -2785,13 +3010,25 @@
     }
 
     function renderCharts(stats) {
-      const sortedDistricts = [...stats.districts_summary]
-        .sort((a, b) => b.total_gt_done - a.total_gt_done)
-        .slice(0, 8);
+      let labels = [];
+      let nonCadData = [];
+      let cadData = [];
 
-      const labels = sortedDistricts.map(d => d.district);
-      const nonCadData = sortedDistricts.map(d => d.non_cadastral_gt_done);
-      const cadData = sortedDistricts.map(d => d.cadastral_gt_done);
+      if (stats.is_district_scoped && stats.mandal_summary && stats.mandal_summary.length > 0) {
+        const topMandals = [...stats.mandal_summary]
+          .sort((a, b) => b.total_gt_done - a.total_gt_done)
+          .slice(0, 10);
+        labels = topMandals.map(m => m.mandal);
+        nonCadData = topMandals.map(m => m.non_cadastral_gt_done);
+        cadData = topMandals.map(m => m.cadastral_gt_done);
+      } else {
+        const sortedDistricts = [...(stats.districts_summary || [])]
+          .sort((a, b) => b.total_gt_done - a.total_gt_done)
+          .slice(0, 8);
+        labels = sortedDistricts.map(d => d.district);
+        nonCadData = sortedDistricts.map(d => d.non_cadastral_gt_done);
+        cadData = sortedDistricts.map(d => d.cadastral_gt_done);
+      }
 
       if (barChartInstance) barChartInstance.destroy();
       const ctxBar = document.getElementById('districtBarChart').getContext('2d');
@@ -2873,47 +3110,262 @@
       });
     }
 
+    function getActiveDistrictScope() {
+      if (currentUser && currentUser.role === 'district_rep' && currentUser.district && currentUser.district !== 'All') {
+        return currentUser.district;
+      }
+      const distEl = document.getElementById('districtFilter');
+      if (distEl && distEl.value && distEl.value !== 'all') {
+        return distEl.value;
+      }
+      return 'all';
+    }
+
+    function populateMandalFilter() {
+      const mandalSelect = document.getElementById('mandalFilter');
+      if (!mandalSelect) return;
+      const currentVal = mandalSelect.value;
+      const activeDistrict = getActiveDistrictScope();
+
+      let targetVillages = allVillages;
+      if (activeDistrict !== 'all') {
+        targetVillages = allVillages.filter(v => (v.district_name || '').toLowerCase() === activeDistrict.toLowerCase());
+      }
+
+      const mandalCounts = {};
+      targetVillages.forEach(v => {
+        const m = (v.mandal_name || '').trim();
+        if (m) {
+          mandalCounts[m] = (mandalCounts[m] || 0) + 1;
+        }
+      });
+
+      // Include mandals from master directory if they belong to this district
+      if (typeof allMandals !== 'undefined' && Array.isArray(allMandals) && activeDistrict !== 'all') {
+        allMandals.forEach(m => {
+          const dName = (m.district_name || m.district || '').trim();
+          const mName = (m.name || m.mandal_name || '').trim();
+          if (dName.toLowerCase() === activeDistrict.toLowerCase() && mName && !mandalCounts[mName]) {
+            mandalCounts[mName] = 0;
+          }
+        });
+      }
+
+      const sortedMandals = Object.keys(mandalCounts).sort((a, b) => a.localeCompare(b));
+      mandalSelect.innerHTML = `<option value="all">All Mandals (${sortedMandals.length} Mandals)</option>`;
+      sortedMandals.forEach(m => {
+        const opt = document.createElement('option');
+        opt.value = m;
+        opt.textContent = `${m} (${mandalCounts[m]} Villages)`;
+        mandalSelect.appendChild(opt);
+      });
+
+      if (currentVal && sortedMandals.includes(currentVal)) {
+        mandalSelect.value = currentVal;
+      } else {
+        mandalSelect.value = 'all';
+      }
+    }
+
+    function populateVillageFilter() {
+      const villageSelect = document.getElementById('villageFilter');
+      if (!villageSelect) return;
+      const currentVal = villageSelect.value;
+      const activeDistrict = getActiveDistrictScope();
+
+      const mandalEl = document.getElementById('mandalFilter');
+      const mandalVal = mandalEl ? mandalEl.value : 'all';
+
+      const catEl = document.getElementById('categoryFilter');
+      const catVal = catEl ? catEl.value : 'all';
+
+      let list = allVillages.slice();
+      if (activeDistrict !== 'all') {
+        list = list.filter(v => (v.district_name || '').toLowerCase() === activeDistrict.toLowerCase());
+      }
+      if (mandalVal !== 'all') {
+        list = list.filter(v => (v.mandal_name || '').toLowerCase() === mandalVal.toLowerCase());
+      }
+      if (catVal !== 'all') {
+        list = list.filter(v => (v.category || '').toLowerCase() === catVal.toLowerCase());
+      }
+
+      // Sort: Picked villages first, then alphabetical
+      list.sort((a, b) => {
+        const aPicked = a.is_picked_for_resurvey ? 1 : 0;
+        const bPicked = b.is_picked_for_resurvey ? 1 : 0;
+        if (bPicked !== aPicked) return bPicked - aPicked;
+        return (a.village_name || '').localeCompare(b.village_name || '');
+      });
+
+      villageSelect.innerHTML = `<option value="all">All Villages (${list.length} Villages)</option>`;
+      list.forEach(v => {
+        const opt = document.createElement('option');
+        opt.value = v.village_name;
+        const star = v.is_picked_for_resurvey ? '★ [Picked] ' : '';
+        const cat = v.category ? `(${v.category})` : '';
+        opt.textContent = `${star}${v.village_name} ${cat}`.trim();
+        villageSelect.appendChild(opt);
+      });
+
+      if (currentVal && list.some(v => v.village_name === currentVal)) {
+        villageSelect.value = currentVal;
+      } else {
+        villageSelect.value = 'all';
+      }
+    }
+
+    function onDistrictFilterChange() {
+      populateMandalFilter();
+      const mSelect = document.getElementById('mandalFilter');
+      if (mSelect) mSelect.value = 'all';
+      populateVillageFilter();
+      const vSelect = document.getElementById('villageFilter');
+      if (vSelect) vSelect.value = 'all';
+      updateTabCounts();
+      applyFilters();
+    }
+
+    function onMandalFilterChange() {
+      populateVillageFilter();
+      const vSelect = document.getElementById('villageFilter');
+      if (vSelect) vSelect.value = 'all';
+      updateTabCounts();
+      applyFilters();
+    }
+
+    function onVillageFilterChange() {
+      applyFilters();
+    }
+
+    function onCategoryFilterChange() {
+      populateVillageFilter();
+      applyFilters();
+    }
+
+    function resetAllVillageFilters() {
+      const distSelect = document.getElementById('districtFilter');
+      if (distSelect && !(currentUser && currentUser.role === 'district_rep' && currentUser.district && currentUser.district !== 'All')) {
+        distSelect.value = 'all';
+        populateMandalFilter();
+      }
+      const mSelect = document.getElementById('mandalFilter');
+      if (mSelect) mSelect.value = 'all';
+      
+      const cSelect = document.getElementById('categoryFilter');
+      if (cSelect) cSelect.value = 'all';
+
+      populateVillageFilter();
+      const vSelect = document.getElementById('villageFilter');
+      if (vSelect) vSelect.value = 'all';
+
+      const sSelect = document.getElementById('shapefileFilter');
+      if (sSelect) sSelect.value = 'all';
+      const qSelect = document.getElementById('verificationFilter');
+      if (qSelect) qSelect.value = 'all';
+      const searchInput = document.getElementById('searchInput');
+      if (searchInput) searchInput.value = '';
+
+      updateTabCounts();
+      filterByTab('all');
+    }
+
     function updateTabCounts() {
-      document.getElementById('tabCountAll').textContent = allVillages.length;
-      document.getElementById('tabCountNonCad').textContent = allVillages.filter(v => v.category === 'Non-Cadastral').length;
-      document.getElementById('tabCountCad').textContent = allVillages.filter(v => v.category === 'Cadastral').length;
-      document.getElementById('tabCountPendingQc').textContent = allVillages.filter(v => (v.verification_status || 'Pending QC') === 'Pending QC').length;
-      document.getElementById('tabCountVerified').textContent = allVillages.filter(v => v.verification_status === 'Verified').length;
-      document.getElementById('tabCountError').textContent = allVillages.filter(v => v.shapefile_status === 'Error').length;
-      document.getElementById('tabCountCso').textContent = allVillages.filter(v => v.sent_to_cso).length;
+      const activeDistrict = getActiveDistrictScope();
+      const mandalEl = document.getElementById('mandalFilter');
+      const mandalVal = mandalEl ? mandalEl.value : 'all';
+
+      let scoped = allVillages;
+      if (activeDistrict !== 'all') {
+        scoped = scoped.filter(v => (v.district_name || '').toLowerCase() === activeDistrict.toLowerCase());
+      }
+      if (mandalVal !== 'all') {
+        scoped = scoped.filter(v => (v.mandal_name || '').toLowerCase() === mandalVal.toLowerCase());
+      }
+
+      const elAll = document.getElementById('tabCountAll');
+      if (elAll) elAll.textContent = scoped.length;
+      const pickedEl = document.getElementById('tabCountPicked');
+      if (pickedEl) pickedEl.textContent = scoped.filter(v => v.is_picked_for_resurvey).length;
+      const unpickedEl = document.getElementById('tabCountUnpicked');
+      if (unpickedEl) unpickedEl.textContent = scoped.filter(v => !v.is_picked_for_resurvey).length;
+      const elNonCad = document.getElementById('tabCountNonCad');
+      if (elNonCad) elNonCad.textContent = scoped.filter(v => v.category === 'Non-Cadastral').length;
+      const elCad = document.getElementById('tabCountCad');
+      if (elCad) elCad.textContent = scoped.filter(v => v.category === 'Cadastral').length;
+      const elPending = document.getElementById('tabCountPendingQc');
+      if (elPending) elPending.textContent = scoped.filter(v => (v.verification_status || 'Pending QC') === 'Pending QC').length;
+      const elVerified = document.getElementById('tabCountVerified');
+      if (elVerified) elVerified.textContent = scoped.filter(v => v.verification_status === 'Verified').length;
+      const elError = document.getElementById('tabCountError');
+      if (elError) elError.textContent = scoped.filter(v => v.shapefile_status === 'Error').length;
+      const elCso = document.getElementById('tabCountCso');
+      if (elCso) elCso.textContent = scoped.filter(v => v.sent_to_cso).length;
     }
 
     function filterByTab(tab) {
       currentTab = tab;
-      const tabs = ['tabAll', 'tabNonCad', 'tabCad', 'tabPendingQc', 'tabVerified', 'tabError', 'tabCsoDone'];
+      const tabs = ['tabAll', 'tabPicked', 'tabUnpicked', 'tabNonCad', 'tabCad', 'tabPendingQc', 'tabVerified', 'tabError', 'tabCsoDone'];
       tabs.forEach(t => {
         const el = document.getElementById(t);
         if (el) el.className = 'px-3 py-1.5 rounded-md hover:text-slate-900 transition text-slate-600';
       });
 
       if (tab === 'all') document.getElementById('tabAll').className = 'px-3 py-1.5 rounded-md bg-white text-slate-900 shadow-sm font-semibold';
-      if (tab === 'Non-Cadastral') document.getElementById('tabNonCad').className = 'px-3 py-1.5 rounded-md bg-white text-emerald-800 shadow-sm font-semibold';
-      if (tab === 'Cadastral') document.getElementById('tabCad').className = 'px-3 py-1.5 rounded-md bg-white text-blue-800 shadow-sm font-semibold';
-      if (tab === 'pending_qc') document.getElementById('tabPendingQc').className = 'px-3 py-1.5 rounded-md bg-amber-50 text-amber-900 border border-amber-200 shadow-sm font-semibold';
-      if (tab === 'verified') document.getElementById('tabVerified').className = 'px-3 py-1.5 rounded-md bg-emerald-50 text-emerald-900 border border-emerald-200 shadow-sm font-semibold';
-      if (tab === 'error') document.getElementById('tabError').className = 'px-3 py-1.5 rounded-md bg-rose-50 text-rose-800 border border-rose-200 shadow-sm font-semibold';
-      if (tab === 'cso_done') document.getElementById('tabCsoDone').className = 'px-3 py-1.5 rounded-md bg-white text-teal-800 shadow-sm font-semibold';
+      if (tab === 'picked') {
+        const pEl = document.getElementById('tabPicked');
+        if (pEl) pEl.className = 'px-3 py-1.5 rounded-md bg-emerald-50 text-emerald-900 border border-emerald-200 shadow-sm font-semibold';
+      }
+      if (tab === 'unpicked') {
+        const uEl = document.getElementById('tabUnpicked');
+        if (uEl) uEl.className = 'px-3 py-1.5 rounded-md bg-slate-200 text-slate-800 shadow-sm font-semibold';
+      }
+      if (tab === 'Non-Cadastral') {
+        const ncEl = document.getElementById('tabNonCad');
+        if (ncEl) ncEl.className = 'px-3 py-1.5 rounded-md bg-white text-emerald-800 shadow-sm font-semibold';
+      }
+      if (tab === 'Cadastral') {
+        const cEl = document.getElementById('tabCad');
+        if (cEl) cEl.className = 'px-3 py-1.5 rounded-md bg-white text-blue-800 shadow-sm font-semibold';
+      }
+      if (tab === 'pending_qc') {
+        const pqEl = document.getElementById('tabPendingQc');
+        if (pqEl) pqEl.className = 'px-3 py-1.5 rounded-md bg-amber-50 text-amber-900 border border-amber-200 shadow-sm font-semibold';
+      }
+      if (tab === 'verified') {
+        const vEl = document.getElementById('tabVerified');
+        if (vEl) vEl.className = 'px-3 py-1.5 rounded-md bg-emerald-50 text-emerald-900 border border-emerald-200 shadow-sm font-semibold';
+      }
+      if (tab === 'error') {
+        const eEl = document.getElementById('tabError');
+        if (eEl) eEl.className = 'px-3 py-1.5 rounded-md bg-rose-50 text-rose-800 border border-rose-200 shadow-sm font-semibold';
+      }
+      if (tab === 'cso_done') {
+        const csoEl = document.getElementById('tabCsoDone');
+        if (csoEl) csoEl.className = 'px-3 py-1.5 rounded-md bg-white text-teal-800 shadow-sm font-semibold';
+      }
 
       applyFilters();
     }
 
     function filterDistrict(dName) {
-      document.getElementById('districtFilter').value = dName;
-      applyFilters();
+      const distEl = document.getElementById('districtFilter');
+      if (distEl) distEl.value = dName;
+      onDistrictFilterChange();
     }
 
     function applyFilters() {
-      const search = document.getElementById('searchInput').value.toLowerCase().trim();
-      const district = document.getElementById('districtFilter').value;
-      const shapefile = document.getElementById('shapefileFilter').value;
-      const verification = document.getElementById('verificationFilter').value;
+      const search = (document.getElementById('searchInput') ? document.getElementById('searchInput').value : '').toLowerCase().trim();
+      const activeDistrict = getActiveDistrictScope();
+      const mandal = document.getElementById('mandalFilter') ? document.getElementById('mandalFilter').value : 'all';
+      const village = document.getElementById('villageFilter') ? document.getElementById('villageFilter').value : 'all';
+      const category = document.getElementById('categoryFilter') ? document.getElementById('categoryFilter').value : 'all';
+      const shapefile = document.getElementById('shapefileFilter') ? document.getElementById('shapefileFilter').value : 'all';
+      const verification = document.getElementById('verificationFilter') ? document.getElementById('verificationFilter').value : 'all';
 
       const filtered = allVillages.filter(v => {
+        if (currentTab === 'picked' && !v.is_picked_for_resurvey) return false;
+        if (currentTab === 'unpicked' && v.is_picked_for_resurvey) return false;
         if (currentTab === 'Non-Cadastral' && v.category !== 'Non-Cadastral') return false;
         if (currentTab === 'Cadastral' && v.category !== 'Cadastral') return false;
         if (currentTab === 'pending_qc' && (v.verification_status || 'Pending QC') !== 'Pending QC') return false;
@@ -2921,10 +3373,33 @@
         if (currentTab === 'error' && v.shapefile_status !== 'Error') return false;
         if (currentTab === 'cso_done' && !v.sent_to_cso) return false;
 
-        if (district !== 'all' && v.district_name.toLowerCase() !== district.toLowerCase()) return false;
+        // District filter
+        if (activeDistrict !== 'all' && (v.district_name || '').toLowerCase() !== activeDistrict.toLowerCase()) {
+          return false;
+        }
+
+        // Mandal filter
+        if (mandal !== 'all' && (v.mandal_name || '').toLowerCase() !== mandal.toLowerCase()) {
+          return false;
+        }
+
+        // Village filter
+        if (village !== 'all' && (v.village_name || '').toLowerCase() !== village.toLowerCase()) {
+          return false;
+        }
+
+        // Category filter
+        if (category !== 'all' && (v.category || '').toLowerCase() !== category.toLowerCase()) {
+          return false;
+        }
+
+        // Shapefile filter
         if (shapefile !== 'all' && v.shapefile_status !== shapefile) return false;
+
+        // Verification filter
         if (verification !== 'all' && (v.verification_status || 'Pending QC') !== verification) return false;
 
+        // Search text
         if (search) {
           const matchName = (v.village_name || '').toLowerCase().includes(search);
           const matchMandal = (v.mandal_name || '').toLowerCase().includes(search);
@@ -2948,7 +3423,7 @@
       if (records.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="12" class="py-8 text-center text-slate-400">
+            <td colspan="13" class="py-8 text-center text-slate-400">
               <i class="fa-regular fa-folder-open text-3xl mb-2 block"></i>
               No village records found matching the active filter.
             </td>
@@ -2957,9 +3432,24 @@
         return;
       }
 
+      // Sort: Picked villages strictly first, then alphabetically by village_name
+      records.sort((a, b) => {
+        const aPicked = a.is_picked_for_resurvey ? 1 : 0;
+        const bPicked = b.is_picked_for_resurvey ? 1 : 0;
+        if (bPicked !== aPicked) {
+          return bPicked - aPicked;
+        }
+        return (a.village_name || '').localeCompare(b.village_name || '');
+      });
+
       records.forEach((v, idx) => {
         const tr = document.createElement('tr');
         tr.className = 'hover:bg-slate-50/80 transition';
+
+        const isPicked = !!v.is_picked_for_resurvey;
+        const resurveyStatusBadge = isPicked
+          ? '<span class="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full text-[10px] font-bold"><i class="fa-solid fa-circle-check text-[9px] text-emerald-600"></i>Picked</span>'
+          : '<span class="inline-flex items-center gap-1 bg-slate-100 text-slate-500 border border-slate-200 px-2 py-0.5 rounded-full text-[10px] font-medium"><i class="fa-solid fa-circle-minus text-[9px] text-slate-400"></i>Not Picked</span>';
 
         const catBadge = v.category === 'Non-Cadastral'
           ? '<span class="bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded text-[11px] font-medium">Non-Cadastral</span>'
@@ -2990,15 +3480,16 @@
           vBadge = '<span class="bg-amber-50 text-amber-700 border border-amber-200 px-2 py-0.5 rounded-full font-bold text-[10px]"><i class="fa-solid fa-clock mr-1"></i>Pending QC</span>';
         }
 
-        // Determine button actions based on authenticated user
+        // Determine button actions based on authenticated user and picked status
         const isAuth = !!currentUser;
-        const canEdit = isAuth && (currentUser.role === 'admin' || (currentUser.role === 'district_rep' && (currentUser.district === 'All' || currentUser.district.toLowerCase() === v.district_name.toLowerCase())));
-        const canVerify = isAuth && (currentUser.role === 'admin' || currentUser.role === 'qc_engineer');
+        const canEdit = isAuth && isPicked && (currentUser.role === 'admin' || (currentUser.role === 'district_rep' && (currentUser.district === 'All' || currentUser.district.toLowerCase() === v.district_name.toLowerCase())));
+        const canVerify = isAuth && isPicked && (currentUser.role === 'admin' || currentUser.role === 'qc_engineer');
         const canDelete = isAuth && currentUser.role === 'admin';
 
         tr.innerHTML = `
           <td class="py-3 px-3 text-slate-400 font-mono text-center">${idx + 1}</td>
           <td class="py-3 px-3 font-semibold text-slate-900">${v.district_name}</td>
+          <td class="py-3 px-3 text-center">${resurveyStatusBadge}</td>
           <td class="py-3 px-3">${catBadge}</td>
           <td class="py-3 px-4">
             <div class="font-bold text-slate-800 telugu-text">${v.village_name}</div>
@@ -3024,19 +3515,22 @@
             ${v.qc_notes ? `<div class="text-[10px] text-amber-800 font-medium mt-0.5"><i class="fa-solid fa-comment-dots mr-1"></i>QC: ${v.qc_notes}</div>` : ''}
           </td>
           <td class="py-3 px-3 text-center no-print space-x-1">
-            <!-- View History Diff Button (Available to all) -->
+            <!-- View History Diff Button -->
             <button onclick="openHistoryModal('${v.id}')" title="View Change Audit History" class="text-cyan-600 hover:text-cyan-800 p-1.5 rounded hover:bg-cyan-50 transition">
               <i class="fa-solid fa-clock-rotate-left"></i>
             </button>
 
-            <!-- Edit Button -->
+            <!-- Edit / Locked Button -->
             ${canEdit ? `
             <button onclick="openEditVillageModal('${v.id}')" title="Edit Village Record" class="text-emerald-600 hover:text-emerald-800 p-1.5 rounded hover:bg-emerald-50 transition">
               <i class="fa-solid fa-pen-to-square"></i>
+            </button>` : (!isPicked ? `
+            <button onclick="alertNonPickedNotice('${(v.village_name || '').replace(/'/g, "\\'")}')" title="Not picked for Resurvey - Editing & Data Entry Disabled" class="text-slate-400 hover:text-slate-600 p-1.5 rounded hover:bg-slate-100 transition">
+              <i class="fa-solid fa-lock"></i>
             </button>` : (!isAuth ? `
             <button onclick="promptLoginRequired('sign in to edit records')" title="Sign in to edit" class="text-slate-300 hover:text-slate-500 p-1.5">
               <i class="fa-solid fa-lock"></i>
-            </button>` : '')}
+            </button>` : ''))}
 
             <!-- QC Review Button -->
             ${canVerify ? `
@@ -4394,9 +4888,13 @@
       previewAcreage();
       
       if (currentUser && currentUser.role === 'district_rep' && currentUser.district !== 'All') {
-        document.getElementById('formDistrict').value = currentUser.district;
+        const formD = document.getElementById('formDistrict');
+        formD.value = currentUser.district;
+        formD.disabled = true;
       } else if (allDistricts.length > 0) {
-        document.getElementById('formDistrict').value = allDistricts[0].name;
+        const formD = document.getElementById('formDistrict');
+        formD.disabled = false;
+        formD.value = allDistricts[0].name;
       }
 
       updateFormMandalDropdown();
@@ -4411,6 +4909,12 @@
 
       const v = allVillages.find(item => item.id === id);
       if (!v) return;
+
+      // Strict Rule: Non-picked villages cannot be edited or modified
+      if (!v.is_picked_for_resurvey) {
+        alertNonPickedNotice(v.village_name);
+        return;
+      }
 
       // Check permission
       if (currentUser.role !== 'admin' && (currentUser.district !== 'All' && currentUser.district.toLowerCase() !== v.district_name.toLowerCase())) {
@@ -4641,6 +5145,7 @@
       authToken = null;
       currentUser = null;
       localStorage.removeItem('resurvey_auth_token');
+      syncDistrictRepScope();
       showLoginGateway();
 
       // Reset login form inputs on gateway
@@ -4653,7 +5158,23 @@
     }
 
     function downloadExcel() {
-      window.location.href = '/export/excel';
+      let url = '/export/excel';
+      const params = [];
+      if (currentUser && currentUser.role === 'district_rep' && currentUser.district && currentUser.district !== 'All') {
+        params.push(`district=${encodeURIComponent(currentUser.district)}`);
+      } else {
+        const distFilter = document.getElementById('districtFilter');
+        if (distFilter && distFilter.value && distFilter.value !== 'all') {
+          params.push(`district=${encodeURIComponent(distFilter.value)}`);
+        }
+      }
+      if (authToken) {
+        params.push(`token=${encodeURIComponent(authToken)}`);
+      }
+      if (params.length > 0) {
+        url += '?' + params.join('&');
+      }
+      window.location.href = url;
     }
 
     // =========================================================================================

@@ -27056,12 +27056,15 @@
     "is_picked_for_resurvey": true,
     "resurvey_phase": "Phase 1 (Active Resurvey)",
     "gt_status": "Completed",
-    "shapefile_status": "Error",
+    "shapefile_status": "Completed",
     "sent_to_cso": true,
-    "verification_status": "Returned for Correction",
+    "verification_status": "Pending QC",
     "extent_raw": "687-32",
     "extent_acres_float": 687.8,
-    "remarks": "villages data Sent to CSO. Shape file Error"
+    "remarks": "Authorized update by Adilabad rep",
+    "workflow_stage": "Ground Truthing",
+    "updated_at": "2026-09-05T17:40:44.249700",
+    "updated_by": "Adilabad District Lead Rep (Primary)"
   },
   {
     "id": "vlg-1593",

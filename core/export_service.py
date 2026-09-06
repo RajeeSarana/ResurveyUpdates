@@ -4,7 +4,7 @@ from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 from core.database import get_districts, get_villages
 
-def generate_resurvey_excel() -> io.BytesIO:
+def generate_resurvey_excel(district: Optional[str] = None) -> io.BytesIO:
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.title = "Resurvey Progress Summary"
@@ -31,9 +31,12 @@ def generate_resurvey_excel() -> io.BytesIO:
     )
     
     # Row 1: Title
-    ws.merge_cells("A1:K1")
+    ws.merge_cells("A1:L1")
     title_cell = ws["A1"]
-    title_cell.value = "100% Completed Villages of Non Cadastral & Cadastral Category as on 04.09.2026"
+    if district and district.lower() != "all":
+        title_cell.value = f"100% Completed Villages - {district} District Monitoring Report as on 04.09.2026"
+    else:
+        title_cell.value = "100% Completed Villages of Non Cadastral & Cadastral Category as on 04.09.2026"
     title_cell.font = title_font
     title_cell.fill = title_fill
     title_cell.alignment = Alignment(horizontal="center", vertical="center")
@@ -86,7 +89,13 @@ def generate_resurvey_excel() -> io.BytesIO:
 
     # Data Population
     districts = get_districts()
-    all_villages = get_villages()
+    if district and district.lower() != "all":
+        dist_match = [d for d in districts if d.get("name", "").lower() == district.lower().strip()]
+        if dist_match:
+            districts = dist_match
+        all_villages = get_villages(district=district)
+    else:
+        all_villages = get_villages()
     
     current_row = 4
     for idx, d in enumerate(districts, start=1):

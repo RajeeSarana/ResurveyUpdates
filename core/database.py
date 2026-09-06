@@ -497,18 +497,101 @@ def delete_representative(rep_id: str) -> bool:
         return True
     return False
 
+def _normalize_name_token(name: Optional[str]) -> str:
+    if not name:
+        return ""
+    s = str(name).lower()
+    for token in ["(v)", "(m)", " (v)", " (m)"]:
+        s = s.replace(token, "")
+    return re.sub(r"[^a-z0-9]", "", s)
+
 # ----------------- VILLAGES OPERATIONS -----------------
 def get_villages(
     district: Optional[str] = None,
+    mandal: Optional[str] = None,
     category: Optional[str] = None,
     shapefile_status: Optional[str] = None,
     verification_status: Optional[str] = None,
+    is_picked: Optional[bool] = None,
     search: Optional[str] = None
 ) -> List[Dict[str, Any]]:
+    # When district is specified: return all villages of that district with picked first
+    if district and district.lower() != "all":
+        d_clean = district.lower().strip()
+        master_records = _load_json(MASTER_VILLAGES_FILE)
+        survey_records = _load_json(VILLAGES_FILE)
+        
+        # Survey lookup by ID and normalized village_mandal key
+        survey_by_id = {v["id"]: v for v in survey_records if v.get("id")}
+        survey_by_key = {}
+        for v in survey_records:
+            if v.get("district_name", "").lower() == d_clean:
+                k = _normalize_name_token(v.get("village_name")) + "_" + _normalize_name_token(v.get("mandal_name"))
+                if k not in survey_by_key:
+                    survey_by_key[k] = v
+        
+        filtered = []
+        for mv in master_records:
+            if mv.get("district_name", "").lower() != d_clean:
+                continue
+            
+            v_copy = dict(mv)
+            # Find active survey progress match if exists
+            match = survey_by_id.get(v_copy.get("id"))
+            if not match:
+                k = _normalize_name_token(v_copy.get("village_name")) + "_" + _normalize_name_token(v_copy.get("mandal_name"))
+                match = survey_by_key.get(k)
+            
+            if match:
+                for fld in [
+                    "id", "gt_status", "shapefile_status", "sent_to_cso",
+                    "verification_status", "extent_raw", "extent_acres_float",
+                    "remarks", "qc_notes", "workflow_stage", "updated_by",
+                    "updated_at", "verified_by", "verified_at"
+                ]:
+                    if fld in match and match[fld] is not None:
+                        v_copy[fld] = match[fld]
+            
+            # Harmonize picked flags
+            p_val = bool(v_copy.get("is_picked_for_resurvey") or v_copy.get("picked_for_resurvey"))
+            v_copy["is_picked_for_resurvey"] = p_val
+            v_copy["picked_for_resurvey"] = p_val
+            
+            # Apply filters
+            if mandal and mandal.lower() != "all":
+                if (v_copy.get("mandal_name") or "").lower().strip() != mandal.lower().strip():
+                    continue
+            if is_picked is not None and v_copy["is_picked_for_resurvey"] != is_picked:
+                continue
+            if category and category.lower() != "all":
+                if v_copy.get("category", "") != category:
+                    continue
+            if shapefile_status and shapefile_status.lower() != "all":
+                if v_copy.get("shapefile_status", "") != shapefile_status:
+                    continue
+            if verification_status and verification_status.lower() != "all":
+                if v_copy.get("verification_status", "") != verification_status:
+                    continue
+            if search and search.strip():
+                s = search.strip().lower()
+                v_name = (v_copy.get("village_name") or "").lower()
+                m_name = (v_copy.get("mandal_name") or "").lower()
+                rem = (v_copy.get("remarks") or "").lower()
+                q_notes = (v_copy.get("qc_notes") or "").lower()
+                if s not in v_name and s not in m_name and s not in rem and s not in q_notes:
+                    continue
+            
+            filtered.append(v_copy)
+        
+        # Deterministic sorting: Picked villages first (True before False), then alphabetical by village_name
+        filtered.sort(key=lambda x: (not x.get("is_picked_for_resurvey", False), (x.get("village_name") or "").lower()))
+        return filtered
+
+    # Statewide (Admin View): return active survey records
     if is_mongo and mongo_db is not None:
         query = {}
-        if district and district.lower() != "all":
-            query["district_name"] = {"$regex": f"^{district}$", "$options": "i"}
+        if mandal and mandal.lower() != "all":
+            query["mandal_name"] = {"$regex": f"^{mandal.strip()}$", "$options": "i"}
         if category and category.lower() != "all":
             query["category"] = category
         if shapefile_status and shapefile_status.lower() != "all":
@@ -522,39 +605,69 @@ def get_villages(
                 {"mandal_name": {"$regex": s, "$options": "i"}},
                 {"remarks": {"$regex": s, "$options": "i"}}
             ]
-        return list(mongo_db.villages.find(query, {"_id": 0}))
+        records = list(mongo_db.villages.find(query, {"_id": 0}))
+        for r in records:
+            r["is_picked_for_resurvey"] = True
+            r["picked_for_resurvey"] = True
+        records.sort(key=lambda x: (not x.get("is_picked_for_resurvey", True), (x.get("village_name") or "").lower()))
+        return records
 
     records = _load_json(VILLAGES_FILE)
     filtered = []
     for r in records:
-        if district and district.lower() != "all":
-            if r.get("district_name", "").lower() != district.lower():
+        r_copy = dict(r)
+        r_copy["is_picked_for_resurvey"] = bool(r_copy.get("is_picked_for_resurvey", True))
+        r_copy["picked_for_resurvey"] = r_copy["is_picked_for_resurvey"]
+        
+        if mandal and mandal.lower() != "all":
+            if (r_copy.get("mandal_name") or "").lower().strip() != mandal.lower().strip():
                 continue
+        if is_picked is not None and r_copy["is_picked_for_resurvey"] != is_picked:
+            continue
         if category and category.lower() != "all":
-            if r.get("category", "") != category:
+            if r_copy.get("category", "") != category:
                 continue
         if shapefile_status and shapefile_status.lower() != "all":
-            if r.get("shapefile_status", "") != shapefile_status:
+            if r_copy.get("shapefile_status", "") != shapefile_status:
                 continue
         if verification_status and verification_status.lower() != "all":
-            if r.get("verification_status", "") != verification_status:
+            if r_copy.get("verification_status", "") != verification_status:
                 continue
         if search and search.strip():
             s = search.strip().lower()
-            v_name = r.get("village_name", "").lower()
-            m_name = r.get("mandal_name", "").lower()
-            rem = r.get("remarks", "").lower()
-            if s not in v_name and s not in m_name and s not in rem:
+            v_name = (r_copy.get("village_name") or "").lower()
+            m_name = (r_copy.get("mandal_name") or "").lower()
+            rem = (r_copy.get("remarks") or "").lower()
+            q_notes = (r_copy.get("qc_notes") or "").lower()
+            if s not in v_name and s not in m_name and s not in rem and s not in q_notes:
                 continue
-        filtered.append(r)
+        filtered.append(r_copy)
+    
+    filtered.sort(key=lambda x: (not x.get("is_picked_for_resurvey", True), (x.get("village_name") or "").lower()))
     return filtered
 
 def get_village(village_id: str) -> Optional[Dict[str, Any]]:
     if is_mongo and mongo_db is not None:
-        return mongo_db.villages.find_one({"id": village_id}, {"_id": 0})
+        res = mongo_db.villages.find_one({"id": village_id}, {"_id": 0})
+        if res:
+            res["is_picked_for_resurvey"] = bool(res.get("is_picked_for_resurvey", True))
+            res["picked_for_resurvey"] = res["is_picked_for_resurvey"]
+            return res
+            
     for v in _load_json(VILLAGES_FILE):
         if v.get("id") == village_id:
-            return v
+            v_copy = dict(v)
+            v_copy["is_picked_for_resurvey"] = bool(v_copy.get("is_picked_for_resurvey", True))
+            v_copy["picked_for_resurvey"] = v_copy["is_picked_for_resurvey"]
+            return v_copy
+            
+    for v in _load_json(MASTER_VILLAGES_FILE):
+        if v.get("id") == village_id:
+            v_copy = dict(v)
+            p_val = bool(v_copy.get("is_picked_for_resurvey") or v_copy.get("picked_for_resurvey"))
+            v_copy["is_picked_for_resurvey"] = p_val
+            v_copy["picked_for_resurvey"] = p_val
+            return v_copy
     return None
 
 def add_village(
@@ -568,6 +681,9 @@ def add_village(
         village["updated_at"] = datetime.utcnow().isoformat()
     if "verification_status" not in village:
         village["verification_status"] = "Pending QC"
+    if "is_picked_for_resurvey" not in village:
+        village["is_picked_for_resurvey"] = True
+    village["picked_for_resurvey"] = village["is_picked_for_resurvey"]
     
     if is_mongo and mongo_db is not None:
         mongo_db.villages.insert_one(dict(village))
@@ -605,6 +721,11 @@ def update_village(
     if not existing:
         return None
 
+    # CRITICAL SECURITY RULE: Non-picked villages are prohibited from data entry or editing
+    is_picked = bool(existing.get("is_picked_for_resurvey") or existing.get("picked_for_resurvey"))
+    if not is_picked:
+        raise ValueError("Editing or entering survey data is not permitted for villages not picked for resurvey.")
+
     diff = {}
     for k, v in updates.items():
         if k in existing and existing[k] != v:
@@ -620,26 +741,44 @@ def update_village(
     if is_mongo and mongo_db is not None:
         mongo_db.villages.update_one({"id": village_id}, {"$set": updates})
     
+    # Update in VILLAGES_FILE
     records = _load_json(VILLAGES_FILE)
+    found_in_survey = False
     for idx, v in enumerate(records):
         if v.get("id") == village_id:
             records[idx].update(updates)
             _save_json(VILLAGES_FILE, records)
+            found_in_survey = True
+            break
             
-            # Log audit trail if diff exists
-            if diff:
-                log_change(
-                    record_id=village_id,
-                    village_name=records[idx].get("village_name", ""),
-                    district_name=records[idx].get("district_name", ""),
-                    user_name=user_name,
-                    user_role=user_role,
-                    action="Updated",
-                    details=f"Record updated by {user_name} ({user_role}): {', '.join(diff.keys())}",
-                    changes=diff
-                )
-            return records[idx]
-    return None
+    if not found_in_survey:
+        # Village was from master, add as active survey entry in villages.json
+        merged_rec = dict(existing)
+        merged_rec.update(updates)
+        records.append(merged_rec)
+        _save_json(VILLAGES_FILE, records)
+
+    # Keep MASTER_VILLAGES_FILE synchronized
+    master_records = _load_json(MASTER_VILLAGES_FILE)
+    for idx, mv in enumerate(master_records):
+        if mv.get("id") == village_id:
+            master_records[idx].update(updates)
+            _save_json(MASTER_VILLAGES_FILE, master_records)
+            break
+            
+    # Log audit trail if diff exists
+    if diff:
+        log_change(
+            record_id=village_id,
+            village_name=existing.get("village_name", ""),
+            district_name=existing.get("district_name", ""),
+            user_name=user_name,
+            user_role=user_role,
+            action="Updated",
+            details=f"Record updated by {user_name} ({user_role}): {', '.join(diff.keys())}",
+            changes=diff
+        )
+    return get_village(village_id)
 
 def verify_village(
     village_id: str,
@@ -706,38 +845,53 @@ def delete_village(village_id: str, user_name: str = "Admin") -> bool:
     return True
 
 # ----------------- STATS & EXECUTIVE SUMMARIES -----------------
-def get_dashboard_stats() -> Dict[str, Any]:
+def get_dashboard_stats(district: Optional[str] = None) -> Dict[str, Any]:
     districts = get_districts()
-    villages = get_villages()
+    
+    is_district_scoped = False
+    target_district_obj = None
+    if district and district.lower() != "all":
+        match = [d for d in districts if d.get("name", "").lower() == district.lower().strip()]
+        if match:
+            target_district_obj = match[0]
+            districts = [target_district_obj]
+            is_district_scoped = True
+            
+    villages = get_villages(district=district if is_district_scoped else None)
     
     total_non_cadastral_target = sum(d.get("non_cadastral_target", 0) for d in districts)
     total_cadastral_target = sum(d.get("cadastral_target", 0) for d in districts)
     
-    gt_non_cadastral = [v for v in villages if v.get("category") == "Non-Cadastral" and v.get("gt_status") == "Completed"]
-    gt_cadastral = [v for v in villages if v.get("category") == "Cadastral" and v.get("gt_status") == "Completed"]
+    # Progress figures apply to picked villages
+    picked_vlgs = [v for v in villages if v.get("is_picked_for_resurvey") or v.get("picked_for_resurvey")]
+    unpicked_vlgs = [v for v in villages if not (v.get("is_picked_for_resurvey") or v.get("picked_for_resurvey"))]
     
-    shapefile_completed = [v for v in villages if v.get("shapefile_status") == "Completed"]
-    shapefile_error = [v for v in villages if v.get("shapefile_status") == "Error"]
-    shapefile_in_progress = [v for v in villages if v.get("shapefile_status") == "In Progress"]
-    sent_to_cso_count = [v for v in villages if v.get("sent_to_cso") is True]
+    gt_non_cadastral = [v for v in picked_vlgs if v.get("category") == "Non-Cadastral" and v.get("gt_status") == "Completed"]
+    gt_cadastral = [v for v in picked_vlgs if v.get("category") == "Cadastral" and v.get("gt_status") == "Completed"]
+    
+    shapefile_completed = [v for v in picked_vlgs if v.get("shapefile_status") == "Completed"]
+    shapefile_error = [v for v in picked_vlgs if v.get("shapefile_status") == "Error"]
+    shapefile_in_progress = [v for v in picked_vlgs if v.get("shapefile_status") == "In Progress"]
+    sent_to_cso_count = [v for v in picked_vlgs if v.get("sent_to_cso") is True]
 
     # Verification workflow counts
-    verified_count = [v for v in villages if v.get("verification_status") == "Verified"]
-    pending_qc_count = [v for v in villages if v.get("verification_status") == "Pending QC"]
-    returned_count = [v for v in villages if v.get("verification_status") == "Returned for Correction"]
+    verified_count = [v for v in picked_vlgs if v.get("verification_status") == "Verified"]
+    pending_qc_count = [v for v in picked_vlgs if v.get("verification_status") == "Pending QC"]
+    returned_count = [v for v in picked_vlgs if v.get("verification_status") == "Returned for Correction"]
     
-    total_acres = sum(v.get("extent_acres_float", 0.0) or 0.0 for v in villages)
+    total_acres = sum(v.get("extent_acres_float", 0.0) or 0.0 for v in picked_vlgs)
     
     district_summary = []
     for d in districts:
         d_name = d["name"]
         d_vlgs = [v for v in villages if v.get("district_name", "").lower() == d_name.lower()]
-        d_non_cad_gt = [v for v in d_vlgs if v.get("category") == "Non-Cadastral" and v.get("gt_status") == "Completed"]
-        d_cad_gt = [v for v in d_vlgs if v.get("category") == "Cadastral" and v.get("gt_status") == "Completed"]
-        d_sf_sent = [v for v in d_vlgs if v.get("sent_to_cso") is True or v.get("shapefile_status") == "Completed"]
-        d_sf_err = [v for v in d_vlgs if v.get("shapefile_status") == "Error"]
-        d_verified = [v for v in d_vlgs if v.get("verification_status") == "Verified"]
-        d_acres = sum(v.get("extent_acres_float", 0.0) or 0.0 for v in d_vlgs)
+        d_picked = [v for v in d_vlgs if v.get("is_picked_for_resurvey") or v.get("picked_for_resurvey")]
+        d_non_cad_gt = [v for v in d_picked if v.get("category") == "Non-Cadastral" and v.get("gt_status") == "Completed"]
+        d_cad_gt = [v for v in d_picked if v.get("category") == "Cadastral" and v.get("gt_status") == "Completed"]
+        d_sf_sent = [v for v in d_picked if v.get("sent_to_cso") is True or v.get("shapefile_status") == "Completed"]
+        d_sf_err = [v for v in d_picked if v.get("shapefile_status") == "Error"]
+        d_verified = [v for v in d_picked if v.get("verification_status") == "Verified"]
+        d_acres = sum(v.get("extent_acres_float", 0.0) or 0.0 for v in d_picked)
         
         district_summary.append({
             "district": d_name,
@@ -751,11 +905,53 @@ def get_dashboard_stats() -> Dict[str, Any]:
             "shapefiles_error": len(d_sf_err),
             "verified_count": len(d_verified),
             "total_extent_acres": round(d_acres, 2),
-            "villages_count": len(d_vlgs)
+            "villages_count": len(d_vlgs),
+            "picked_villages_count": len(d_picked),
+            "unpicked_villages_count": len(d_vlgs) - len(d_picked)
         })
     
+    # Mandal breakdown when scoped to a district
+    mandal_summary = []
+    if is_district_scoped:
+        mandals_dict = {}
+        for v in villages:
+            m = v.get("mandal_name") or "General Mandal"
+            if m not in mandals_dict:
+                mandals_dict[m] = {
+                    "mandal": m,
+                    "total": 0,
+                    "picked": 0,
+                    "unpicked": 0,
+                    "completed": 0,
+                    "non_cad_gt": 0,
+                    "cad_gt": 0,
+                    "acres": 0.0
+                }
+            mandals_dict[m]["total"] += 1
+            is_p = bool(v.get("is_picked_for_resurvey") or v.get("picked_for_resurvey"))
+            if is_p:
+                mandals_dict[m]["picked"] += 1
+                if v.get("category") == "Non-Cadastral" and v.get("gt_status") == "Completed":
+                    mandals_dict[m]["non_cad_gt"] += 1
+                elif v.get("category") == "Cadastral" and v.get("gt_status") == "Completed":
+                    mandals_dict[m]["cad_gt"] += 1
+                if v.get("gt_status") == "Completed":
+                    mandals_dict[m]["completed"] += 1
+                mandals_dict[m]["acres"] += (v.get("extent_acres_float", 0.0) or 0.0)
+            else:
+                mandals_dict[m]["unpicked"] += 1
+        
+        mandal_summary = list(mandals_dict.values())
+        mandal_summary.sort(key=lambda x: (x["picked"], x["total"]), reverse=True)
+
     return {
+        "is_district_scoped": is_district_scoped,
+        "scoped_district": target_district_obj["name"] if target_district_obj else None,
+        "district_name": target_district_obj["name"] if target_district_obj else "All",
         "total_districts": len(districts),
+        "total_villages": len(villages),
+        "picked_villages_count": len(picked_vlgs),
+        "unpicked_villages_count": len(unpicked_vlgs),
         "targets": {
             "non_cadastral": total_non_cadastral_target,
             "cadastral": total_cadastral_target,
@@ -778,7 +974,8 @@ def get_dashboard_stats() -> Dict[str, Any]:
             "returned_for_correction": len(returned_count)
         },
         "total_extent_acres": round(total_acres, 2),
-        "districts_summary": district_summary
+        "districts_summary": district_summary,
+        "mandal_summary": mandal_summary
     }
 
 def get_executive_summary() -> Dict[str, Any]:

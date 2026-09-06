@@ -1,5 +1,26 @@
 [
   {
+    "id": "log-1788610182485",
+    "timestamp": "2026-09-05T17:39:42.485392",
+    "record_id": "vlg-1592",
+    "village_name": "Adegaon K",
+    "district_name": "Adilabad",
+    "user_name": "Adilabad District Lead Rep (Primary)",
+    "user_role": "district_rep",
+    "action": "Updated",
+    "details": "Record updated by Adilabad District Lead Rep (Primary) (district_rep): shapefile_status, remarks",
+    "changes": {
+      "shapefile_status": {
+        "from": "Error",
+        "to": "Completed"
+      },
+      "remarks": {
+        "from": "villages data Sent to CSO. Shape file Error",
+        "to": "Authorized update by Adilabad rep"
+      }
+    }
+  },
+  {
     "id": "log-1788600030637",
     "timestamp": "2026-09-05T14:50:30.637438",
     "record_id": "user-test_rep_khammam",

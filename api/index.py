@@ -312,8 +312,17 @@ def update_self_profile(
 
 # Dashboard & Executive Summaries
 @router.get("/dashboard/stats")
-def get_stats():
-    return get_dashboard_stats()
+def get_stats(
+    district: Optional[str] = Query(None),
+    authorization: Optional[str] = Header(None),
+    x_auth_token: Optional[str] = Header(None)
+):
+    current_user = get_current_user(authorization, x_auth_token)
+    if current_user and current_user.get("role") == "district_rep":
+        u_dist = current_user.get("district")
+        if u_dist and u_dist.lower() != "all":
+            district = u_dist
+    return get_dashboard_stats(district=district)
 
 @router.get("/executive/summary")
 def get_exec_summary():
@@ -644,16 +653,29 @@ def list_master_mandals(
 @router.get("/villages")
 def list_villages(
     district: Optional[str] = Query(None),
+    mandal: Optional[str] = Query(None),
     category: Optional[str] = Query(None),
     shapefile_status: Optional[str] = Query(None),
     verification_status: Optional[str] = Query(None),
-    search: Optional[str] = Query(None)
+    is_picked: Optional[bool] = Query(None),
+    search: Optional[str] = Query(None),
+    authorization: Optional[str] = Header(None),
+    x_auth_token: Optional[str] = Header(None)
 ):
+    current_user = get_current_user(authorization, x_auth_token)
+    # Strictly enforce district isolation for district representatives
+    if current_user and current_user.get("role") == "district_rep":
+        u_dist = current_user.get("district")
+        if u_dist and u_dist.lower() != "all":
+            district = u_dist
+
     return get_villages(
         district=district,
+        mandal=mandal,
         category=category,
         shapefile_status=shapefile_status,
         verification_status=verification_status,
+        is_picked=is_picked,
         search=search
     )
 
@@ -706,6 +728,14 @@ def edit_village(
     if not existing:
         raise HTTPException(status_code=404, detail="Village record not found")
 
+    # CRITICAL SECURITY RULE: Prohibit editing or entering data for non-picked villages
+    is_picked = bool(existing.get("is_picked_for_resurvey") or existing.get("picked_for_resurvey"))
+    if not is_picked:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Editing or entering survey data is not permitted for villages not picked for resurvey."
+        )
+
     # If district representative, enforce assigned district match
     if user.get("role") == "district_rep":
         assigned_district = (user.get("district") or "").lower()
@@ -724,8 +754,11 @@ def edit_village(
     if "extent_raw" in updates:
         updates["extent_acres_float"] = calculate_acres(updates["extent_raw"])
         
-    updated = update_village(village_id, updates, user_name=user["name"], user_role=user["role"])
-    return updated
+    try:
+        updated = update_village(village_id, updates, user_name=user["name"], user_role=user["role"])
+        return updated
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=str(e))
 
 @router.post("/villages/{village_id}/verify")
 def verify_village_record(
@@ -766,13 +799,24 @@ def remove_village(
     return {"success": True, "message": "Village record deleted"}
 
 @router.get("/export/excel")
-def export_excel():
-    excel_stream = generate_resurvey_excel()
+def export_excel(
+    district: Optional[str] = Query(None),
+    authorization: Optional[str] = Header(None),
+    x_auth_token: Optional[str] = Header(None)
+):
+    current_user = get_current_user(authorization, x_auth_token)
+    if current_user and current_user.get("role") == "district_rep":
+        u_dist = current_user.get("district")
+        if u_dist and u_dist.lower() != "all":
+            district = u_dist
+            
+    excel_stream = generate_resurvey_excel(district=district)
+    fname = f"Resurvey_{district}_Progress.xlsx" if district else "Resurvey_Village_Progress_04-09-2026.xlsx"
     return StreamingResponse(
         excel_stream,
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         headers={
-            "Content-Disposition": "attachment; filename=Resurvey_Village_Progress_04-09-2026.xlsx"
+            "Content-Disposition": f"attachment; filename={fname}"
         }
     )
 
@@ -785,5 +829,12 @@ if os.path.exists(PUBLIC_DIR):
     def serve_index():
         index_file = os.path.join(PUBLIC_DIR, "index.html")
         if os.path.exists(index_file):
-            return FileResponse(index_file)
+            return FileResponse(
+                index_file,
+                headers={
+                    "Cache-Control": "no-cache, no-store, must-revalidate",
+                    "Pragma": "no-cache",
+                    "Expires": "0"
+                }
+            )
         return HTMLResponse("<h3>ResurveyUpdates UI loading...</h3>")
