@@ -1862,7 +1862,7 @@
       </div>
 
       <!-- MODAL BODY -->
-      <form id="villageForm" onsubmit="handleVillageFormSubmit(event)" class="px-6 py-5 overflow-y-auto space-y-5 text-xs grow">
+      <form id="villageForm" onsubmit="handleVillageFormSubmit(event)" class="px-4 py-3 sm:px-6 sm:py-4 overflow-y-auto space-y-3.5 text-xs grow">
         <input type="hidden" id="formVillageId" />
         <input type="hidden" id="formDistrict" />
         <select id="formMandalSelect" class="hidden"></select>
@@ -1876,121 +1876,64 @@
         <input type="hidden" id="formShapefileStatus" />
         <input type="hidden" id="formWorkflowStage" />
 
-        <!-- UNIFIED MASTER BASELINE & CSO TELEMETRY BANNER (COMPACT & CATCHY EXECUTIVE DESIGN) -->
-        <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-xl p-3 sm:p-3.5 text-white shadow-md border border-slate-700/70 space-y-2.5">
-          <!-- Top Sub-Header: Context and Status Badges -->
-          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-2">
-            <div class="flex items-center space-x-2">
-              <span class="bg-indigo-500/30 text-indigo-200 border border-indigo-400/40 text-[9px] font-extrabold uppercase px-2 py-0.5 rounded tracking-wider flex items-center">
-                <i class="fa-solid fa-lock text-amber-400 mr-1 text-[8px]"></i>Master Village &amp; CSO Telemetry
-              </span>
-              <span class="text-[10px] text-slate-400 font-medium hidden sm:inline">Navigated Scope &bull; Non-Editable Operational Information</span>
-            </div>
-            <div class="flex items-center space-x-2 text-[10px]">
-              <span class="text-slate-400 font-medium">Category:</span>
-              <span id="dispCategoryText" class="font-bold text-emerald-300">Cadastral</span>
+        <!-- UNIFIED MASTER BASELINE & CSO TELEMETRY BANNER (ULTRA-SLIM EXECUTIVE TICKER - 2/3 SPACE SAVED) -->
+        <div class="bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-900 rounded-xl px-3 py-1.5 sm:px-4 sm:py-2 text-white shadow-sm border border-slate-700/60 flex flex-wrap items-center justify-between gap-x-4 gap-y-1.5">
+          <!-- 1. Left: Non-Editable Master Geography & Category Trail -->
+          <div class="flex items-center space-x-2 text-xs flex-wrap">
+            <span class="bg-indigo-500/30 text-indigo-200 border border-indigo-400/40 text-[9px] font-black uppercase px-1.5 py-0.5 rounded tracking-wider flex items-center shrink-0 shadow-2xs">
+              <i class="fa-solid fa-lock text-amber-400 mr-1 text-[8px]"></i>Master Info
+            </span>
+            <div class="flex items-center space-x-1.5 text-slate-300 text-xs flex-wrap">
+              <span class="text-slate-400 text-[10px]">Dist:</span>
+              <span class="font-bold text-white text-xs" id="dispDistrict">-</span>
+              <span class="text-slate-600">&bull;</span>
+              <span class="text-slate-400 text-[10px]">Mandal:</span>
+              <span class="font-bold text-white text-xs" id="dispMandal">-</span>
+              <span class="text-slate-600">&bull;</span>
+              <span class="text-slate-400 text-[10px]">Village:</span>
+              <span class="font-bold text-amber-300 text-xs telugu-text" id="dispVillage">-</span>
+              <span class="text-[10px] text-indigo-300 telugu-text" id="dispVillageTelugu"></span>
+              <span class="text-slate-600">&bull;</span>
+              <span class="text-slate-400 text-[10px]">Type:</span>
+              <span id="dispCategoryText" class="font-bold text-emerald-300 text-xs">Cadastral</span>
             </div>
           </div>
 
-          <!-- Main Compact Row: Geography & Master Extent + CSO Telemetry Pills -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 items-center">
-            <!-- 1. District -->
-            <div class="bg-white/5 border border-white/10 rounded-lg p-2 flex items-center space-x-2">
-              <div class="w-6 h-6 rounded-md bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 text-xs">
-                <i class="fa-solid fa-map-pin"></i>
-              </div>
-              <div class="min-w-0">
-                <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">District</div>
-                <div class="text-xs font-bold text-white truncate" id="dispDistrict">-</div>
-              </div>
-            </div>
+          <!-- 2. Center: Eye-Catching Master Extent Jewel Badge -->
+          <div class="flex items-center space-x-2 bg-gradient-to-r from-emerald-950 to-teal-950 border border-emerald-500/50 px-3 py-1 rounded-lg shadow-inner shrink-0">
+            <i class="fa-solid fa-gem text-amber-300 text-xs"></i>
+            <span class="text-[9px] font-bold text-slate-300 uppercase tracking-wider">Master Extent:</span>
+            <span class="text-xs sm:text-sm font-black text-amber-300 font-mono tracking-tight" id="dispExtentRaw">-</span>
+            <span class="text-[9px] bg-emerald-800/80 text-emerald-100 px-1 py-0.2 rounded font-semibold border border-emerald-400/30">Ac-Gts</span>
+            <span class="text-[10px] text-slate-300 font-mono pl-1.5 border-l border-emerald-500/30" id="dispExtentDecimal">Decimal: 0.00 ac</span>
+          </div>
 
-            <!-- 2. Mandal -->
-            <div class="bg-white/5 border border-white/10 rounded-lg p-2 flex items-center space-x-2">
-              <div class="w-6 h-6 rounded-md bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0 text-xs">
-                <i class="fa-solid fa-layer-group"></i>
-              </div>
-              <div class="min-w-0">
-                <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Mandal</div>
-                <div class="text-xs font-bold text-white truncate" id="dispMandal">-</div>
-              </div>
-            </div>
-
-            <!-- 3. Village Name (2 cols on lg) -->
-            <div class="bg-white/5 border border-white/10 rounded-lg p-2 flex items-center space-x-2 col-span-2 lg:col-span-2">
-              <div class="w-6 h-6 rounded-md bg-indigo-500/20 text-indigo-300 flex items-center justify-center shrink-0 text-xs">
-                <i class="fa-solid fa-house-chimney"></i>
-              </div>
-              <div class="min-w-0 flex-1">
-                <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Village Name</div>
-                <div class="flex items-baseline space-x-1.5 truncate">
-                  <span class="text-xs font-bold text-white truncate telugu-text" id="dispVillage">-</span>
-                  <span class="text-[10px] text-indigo-200 telugu-text truncate" id="dispVillageTelugu"></span>
-                </div>
-              </div>
-            </div>
-
-            <!-- 4. Master Total Extent (HIGHLIGHTED CATCHY BADGE) -->
-            <div class="bg-gradient-to-r from-emerald-900/60 to-teal-900/60 border border-emerald-500/50 rounded-lg p-2 flex items-center space-x-2 col-span-2 sm:col-span-2 lg:col-span-3 shadow-inner">
-              <div class="w-7 h-7 rounded-md bg-emerald-500/30 text-emerald-300 flex items-center justify-center shrink-0 text-xs shadow-2xs">
-                <i class="fa-solid fa-gem text-amber-300"></i>
-              </div>
-              <div class="min-w-0 flex-1">
-                <div class="flex items-center justify-between text-[9px] font-extrabold uppercase tracking-wider text-emerald-300">
-                  <span>Total Master Extent</span>
-                  <span class="text-slate-300 font-normal font-mono" id="dispExtentDecimal">Decimal: 0.00 ac</span>
-                </div>
-                <div class="flex items-baseline space-x-2 mt-0.5">
-                  <span class="text-xs sm:text-sm font-black text-amber-300 font-mono tracking-tight" id="dispExtentRaw">-</span>
-                  <span class="text-[9px] bg-emerald-800/80 text-emerald-100 px-1.5 py-0.2 rounded font-semibold border border-emerald-400/30">Acres-Guntas</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- 5. CSO Transmission Status -->
-            <div class="bg-white/5 border border-white/10 rounded-lg p-2 col-span-2 sm:col-span-2 lg:col-span-2">
-              <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-0.5 flex items-center justify-between">
-                <span>CSO Transmission</span>
-                <i class="fa-solid fa-tower-broadcast text-indigo-400 text-[9px]"></i>
-              </div>
-              <div class="truncate text-xs font-semibold" id="dispCsoTransmission">
-                <span class="text-slate-400">Pending</span>
-              </div>
-            </div>
-
-            <!-- 6. Shapefile Status (CSO) -->
-            <div class="bg-white/5 border border-white/10 rounded-lg p-2 col-span-2 sm:col-span-2 lg:col-span-2">
-              <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-0.5 flex items-center justify-between">
-                <span>Shape File Status (CSO)</span>
-                <i class="fa-solid fa-file-shield text-teal-400 text-[9px]"></i>
-              </div>
-              <div class="truncate text-xs font-semibold" id="dispShapefileStatus">
-                <span class="text-slate-400">Pending</span>
-              </div>
-            </div>
-
-            <!-- 7. CSO Workflow Milestone -->
-            <div class="bg-white/5 border border-white/10 rounded-lg p-2 col-span-2 sm:col-span-4 lg:col-span-3">
-              <div class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-0.5 flex items-center justify-between">
-                <span>CSO Milestone</span>
-                <i class="fa-solid fa-diagram-project text-amber-400 text-[9px]"></i>
-              </div>
-              <div class="truncate text-xs font-semibold" id="dispWorkflowMilestone">
-                <span class="text-slate-400">Ground Truthing</span>
-              </div>
-            </div>
+          <!-- 3. Right: Compact CSO Telemetry Status Badges -->
+          <div class="flex items-center space-x-2 text-xs shrink-0 flex-wrap">
+            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider flex items-center">
+              <i class="fa-solid fa-tower-broadcast text-indigo-400 mr-1 text-[9px]"></i>CSO:
+            </span>
+            <span id="dispCsoTransmission" class="inline-flex items-center">
+              <span class="text-slate-400 text-[10px]">Pending</span>
+            </span>
+            <span id="dispShapefileStatus" class="inline-flex items-center">
+              <span class="text-slate-400 text-[10px]">Pending</span>
+            </span>
+            <span id="dispWorkflowMilestone" class="inline-flex items-center">
+              <span class="text-slate-400 text-[10px]">Ground Truthing</span>
+            </span>
           </div>
         </div>
 
         <!-- SECTION 2: STATUTORY NOTIFICATIONS & OWNER NOTICES (COMPACT 3-COLUMN GRID) -->
-        <div class="bg-white p-3.5 sm:p-4 rounded-xl border border-slate-200/90 shadow-sm space-y-3">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-2 border-b border-slate-200 gap-1">
+        <div class="bg-white p-3 sm:p-3.5 rounded-xl border border-slate-200/90 shadow-2xs space-y-2">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-1.5 border-b border-slate-200 gap-1">
             <div class="flex items-center space-x-2">
               <span class="w-5 h-5 rounded-md bg-teal-100 text-teal-800 flex items-center justify-center text-xs shadow-2xs">
                 <i class="fa-solid fa-scale-balanced text-[11px]"></i>
               </span>
               <span class="font-bold text-slate-800 text-xs sm:text-sm">Statutory Notifications &amp; Owner Notices</span>
-              <span class="text-[9px] bg-teal-50 text-teal-700 font-semibold px-2 py-0.5 rounded-full border border-teal-200/80">
+              <span class="text-[9px] bg-teal-50 text-teal-700 font-semibold px-2 py-0.2 rounded-full border border-teal-200/80">
                 3-Stage Workflow
               </span>
             </div>
@@ -1999,9 +1942,9 @@
             </span>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5">
             <!-- Field 1: Gazette Notification u/s 5 -->
-            <div class="p-3 rounded-xl border border-slate-200 bg-slate-50/60 hover:bg-slate-50 transition space-y-2">
+            <div class="p-2.5 rounded-lg border border-slate-200/90 bg-slate-50/60 hover:bg-slate-50 transition space-y-1.5">
               <div class="text-xs font-bold text-slate-800 flex items-center justify-between">
                 <div class="flex items-center space-x-1.5">
                   <span class="w-4 h-4 rounded-full bg-emerald-600 text-white text-[9px] font-bold flex items-center justify-center shadow-2xs">1</span>
@@ -2009,27 +1952,29 @@
                 </div>
                 <span class="text-[9px] text-slate-400 font-medium">Preliminary</span>
               </div>
-              <div>
-                <label class="block font-semibold text-slate-600 mb-0.5 text-[10px]">Status Selection *</label>
-                <select id="formGazetteUs5Status" onchange="toggleNoticeDateField('formGazetteUs5Status', 'formGazetteUs5Date', 'formGazetteUs5DateHelp')" 
-                  class="w-full p-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 font-medium text-slate-800 shadow-2xs text-xs">
-                  <option value="Notice to be given">Notice to be given</option>
-                  <option value="Notice Given">Notice Given</option>
-                </select>
-              </div>
-              <div>
-                <label class="block font-semibold text-slate-600 mb-0.5 text-[10px] flex items-center justify-between">
-                  <span>Date Published</span>
-                  <span id="formGazetteUs5DateHelp" class="text-[9px] text-slate-400 font-normal italic">Locked</span>
-                </label>
-                <input type="date" id="formGazetteUs5Date" 
-                  class="w-full p-2 bg-slate-100 border border-slate-200 rounded-lg text-slate-400 transition focus:ring-2 focus:ring-emerald-500 disabled:cursor-not-allowed disabled:bg-slate-100 shadow-2xs text-xs" 
-                  disabled />
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label class="block font-semibold text-slate-600 mb-0.5 text-[9px]">Status Selection *</label>
+                  <select id="formGazetteUs5Status" onchange="toggleNoticeDateField('formGazetteUs5Status', 'formGazetteUs5Date', 'formGazetteUs5DateHelp')" 
+                    class="w-full py-1.5 px-2 bg-white border border-slate-300 rounded-md focus:ring-2 focus:ring-emerald-500 font-medium text-slate-800 shadow-2xs text-xs">
+                    <option value="Notice to be given">Notice to be given</option>
+                    <option value="Notice Given">Notice Given</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-600 mb-0.5 text-[9px] flex items-center justify-between">
+                    <span>Date Published</span>
+                    <span id="formGazetteUs5DateHelp" class="text-[8px] text-slate-400 font-normal italic">Locked</span>
+                  </label>
+                  <input type="date" id="formGazetteUs5Date" 
+                    class="w-full py-1.5 px-2 bg-slate-100 border border-slate-200 rounded-md text-slate-400 transition focus:ring-2 focus:ring-emerald-500 disabled:cursor-not-allowed disabled:bg-slate-100 shadow-2xs text-xs" 
+                    disabled />
+                </div>
               </div>
             </div>
 
             <!-- Field 2: Gazette Notification u/s 6 -->
-            <div class="p-3 rounded-xl border border-slate-200 bg-slate-50/60 hover:bg-slate-50 transition space-y-2">
+            <div class="p-2.5 rounded-lg border border-slate-200/90 bg-slate-50/60 hover:bg-slate-50 transition space-y-1.5">
               <div class="text-xs font-bold text-slate-800 flex items-center justify-between">
                 <div class="flex items-center space-x-1.5">
                   <span class="w-4 h-4 rounded-full bg-emerald-600 text-white text-[9px] font-bold flex items-center justify-center shadow-2xs">2</span>
@@ -2037,27 +1982,29 @@
                 </div>
                 <span class="text-[9px] text-slate-400 font-medium">Declaration</span>
               </div>
-              <div>
-                <label class="block font-semibold text-slate-600 mb-0.5 text-[10px]">Status Selection *</label>
-                <select id="formGazetteUs6Status" onchange="toggleNoticeDateField('formGazetteUs6Status', 'formGazetteUs6Date', 'formGazetteUs6DateHelp')" 
-                  class="w-full p-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 font-medium text-slate-800 shadow-2xs text-xs">
-                  <option value="Notice to be given">Notice to be given</option>
-                  <option value="Notice Given">Notice Given</option>
-                </select>
-              </div>
-              <div>
-                <label class="block font-semibold text-slate-600 mb-0.5 text-[10px] flex items-center justify-between">
-                  <span>Date Published</span>
-                  <span id="formGazetteUs6DateHelp" class="text-[9px] text-slate-400 font-normal italic">Locked</span>
-                </label>
-                <input type="date" id="formGazetteUs6Date" 
-                  class="w-full p-2 bg-slate-100 border border-slate-200 rounded-lg text-slate-400 transition focus:ring-2 focus:ring-emerald-500 disabled:cursor-not-allowed disabled:bg-slate-100 shadow-2xs text-xs" 
-                  disabled />
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label class="block font-semibold text-slate-600 mb-0.5 text-[9px]">Status Selection *</label>
+                  <select id="formGazetteUs6Status" onchange="toggleNoticeDateField('formGazetteUs6Status', 'formGazetteUs6Date', 'formGazetteUs6DateHelp')" 
+                    class="w-full py-1.5 px-2 bg-white border border-slate-300 rounded-md focus:ring-2 focus:ring-emerald-500 font-medium text-slate-800 shadow-2xs text-xs">
+                    <option value="Notice to be given">Notice to be given</option>
+                    <option value="Notice Given">Notice Given</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-600 mb-0.5 text-[9px] flex items-center justify-between">
+                    <span>Date Published</span>
+                    <span id="formGazetteUs6DateHelp" class="text-[8px] text-slate-400 font-normal italic">Locked</span>
+                  </label>
+                  <input type="date" id="formGazetteUs6Date" 
+                    class="w-full py-1.5 px-2 bg-slate-100 border border-slate-200 rounded-md text-slate-400 transition focus:ring-2 focus:ring-emerald-500 disabled:cursor-not-allowed disabled:bg-slate-100 shadow-2xs text-xs" 
+                    disabled />
+                </div>
               </div>
             </div>
 
             <!-- Field 3: 9 (2) Notice to Owner -->
-            <div class="p-3 rounded-xl border border-slate-200 bg-slate-50/60 hover:bg-slate-50 transition space-y-2">
+            <div class="p-2.5 rounded-lg border border-slate-200/90 bg-slate-50/60 hover:bg-slate-50 transition space-y-1.5">
               <div class="text-xs font-bold text-slate-800 flex items-center justify-between">
                 <div class="flex items-center space-x-1.5">
                   <span class="w-4 h-4 rounded-full bg-teal-600 text-white text-[9px] font-bold flex items-center justify-center shadow-2xs">3</span>
@@ -2065,22 +2012,24 @@
                 </div>
                 <span class="text-[9px] text-slate-400 font-medium">Landholders</span>
               </div>
-              <div>
-                <label class="block font-semibold text-slate-600 mb-0.5 text-[10px]">Status Selection *</label>
-                <select id="formNotice92Status" onchange="toggleNoticeDateField('formNotice92Status', 'formNotice92Date', 'formNotice92DateHelp')" 
-                  class="w-full p-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 font-medium text-slate-800 shadow-2xs text-xs">
-                  <option value="Notice to be given">Notice to be given</option>
-                  <option value="Notice Given">Notice Given</option>
-                </select>
-              </div>
-              <div>
-                <label class="block font-semibold text-slate-600 mb-0.5 text-[10px] flex items-center justify-between">
-                  <span>Date Notice Given</span>
-                  <span id="formNotice92DateHelp" class="text-[9px] text-slate-400 font-normal italic">Locked</span>
-                </label>
-                <input type="date" id="formNotice92Date" 
-                  class="w-full p-2 bg-slate-100 border border-slate-200 rounded-lg text-slate-400 transition focus:ring-2 focus:ring-emerald-500 disabled:cursor-not-allowed disabled:bg-slate-100 shadow-2xs text-xs" 
-                  disabled />
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label class="block font-semibold text-slate-600 mb-0.5 text-[9px]">Status Selection *</label>
+                  <select id="formNotice92Status" onchange="toggleNoticeDateField('formNotice92Status', 'formNotice92Date', 'formNotice92DateHelp')" 
+                    class="w-full py-1.5 px-2 bg-white border border-slate-300 rounded-md focus:ring-2 focus:ring-emerald-500 font-medium text-slate-800 shadow-2xs text-xs">
+                    <option value="Notice to be given">Notice to be given</option>
+                    <option value="Notice Given">Notice Given</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-600 mb-0.5 text-[9px] flex items-center justify-between">
+                    <span>Date Notice Given</span>
+                    <span id="formNotice92DateHelp" class="text-[8px] text-slate-400 font-normal italic">Locked</span>
+                  </label>
+                  <input type="date" id="formNotice92Date" 
+                    class="w-full py-1.5 px-2 bg-slate-100 border border-slate-200 rounded-md text-slate-400 transition focus:ring-2 focus:ring-emerald-500 disabled:cursor-not-allowed disabled:bg-slate-100 shadow-2xs text-xs" 
+                    disabled />
+                </div>
               </div>
             </div>
           </div>
@@ -6485,15 +6434,15 @@
       // CSO Transmission Status Defaults
       const dispCsoAddEl = document.getElementById('dispCsoTransmission');
       if (dispCsoAddEl) {
-        dispCsoAddEl.innerHTML = `<span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200"><i class="fa-regular fa-clock mr-1.5 text-slate-400"></i>Pending Transmission</span>`;
+        dispCsoAddEl.innerHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-white/10 text-slate-300 border border-white/10"><i class="fa-regular fa-clock mr-1 text-slate-400 text-[9px]"></i>CSO Pending</span>`;
       }
       const dispSfAddEl = document.getElementById('dispShapefileStatus');
       if (dispSfAddEl) {
-        dispSfAddEl.innerHTML = `<span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-slate-100 text-slate-600 border border-slate-200">Pending</span>`;
+        dispSfAddEl.innerHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-white/10 text-slate-300 border border-white/10">Pending</span>`;
       }
       const dispWfAddEl = document.getElementById('dispWorkflowMilestone');
       if (dispWfAddEl) {
-        dispWfAddEl.innerHTML = `<span class="inline-flex items-center text-xs font-semibold text-slate-800 bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-md truncate max-w-full"><i class="fa-solid fa-diagram-project mr-1.5 text-indigo-600"></i>Ground Truthing</span>`;
+        dispWfAddEl.innerHTML = `<span class="inline-flex items-center text-[10px] font-semibold text-slate-200 bg-white/10 border border-white/10 px-2 py-0.5 rounded truncate max-w-[130px]"><i class="fa-solid fa-diagram-project mr-1 text-indigo-300 text-[9px]"></i>Ground Truthing</span>`;
       }
       if (document.getElementById('formSentCSO')) document.getElementById('formSentCSO').value = 'false';
       if (document.getElementById('formShapefileStatus')) document.getElementById('formShapefileStatus').value = 'Pending';
@@ -6575,22 +6524,22 @@
       const dispCsoEl = document.getElementById('dispCsoTransmission');
       if (dispCsoEl) {
         dispCsoEl.innerHTML = isSentCSO
-          ? `<span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-teal-50 text-teal-700 border border-teal-200"><i class="fa-solid fa-circle-check mr-1.5 text-teal-600"></i>Transmitted to CSO</span>`
-          : `<span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200"><i class="fa-regular fa-clock mr-1.5 text-slate-400"></i>Pending Transmission</span>`;
+          ? `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-teal-500/20 text-teal-300 border border-teal-400/40"><i class="fa-solid fa-circle-check mr-1 text-teal-400 text-[9px]"></i>CSO Transmitted</span>`
+          : `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-white/10 text-slate-300 border border-white/10"><i class="fa-regular fa-clock mr-1 text-slate-400 text-[9px]"></i>CSO Pending</span>`;
       }
       const dispSfEl = document.getElementById('dispShapefileStatus');
       if (dispSfEl) {
         if (sfStatus === 'Completed') {
-          dispSfEl.innerHTML = `<span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200"><i class="fa-solid fa-check mr-1.5 text-emerald-600"></i>Completed</span>`;
+          dispSfEl.innerHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-400/40"><i class="fa-solid fa-check mr-1 text-emerald-400 text-[9px]"></i>Shapefile Done</span>`;
         } else if (sfStatus === 'Error' || sfStatus === 'Rejected') {
-          dispSfEl.innerHTML = `<span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold bg-rose-50 text-rose-700 border border-rose-200"><i class="fa-solid fa-triangle-exclamation mr-1.5 text-rose-600"></i>${sfStatus}</span>`;
+          dispSfEl.innerHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-400/40"><i class="fa-solid fa-triangle-exclamation mr-1 text-rose-400 text-[9px]"></i>${sfStatus}</span>`;
         } else {
-          dispSfEl.innerHTML = `<span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200"><i class="fa-solid fa-spinner fa-spin mr-1.5 text-amber-600"></i>${sfStatus}</span>`;
+          dispSfEl.innerHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-amber-500/20 text-amber-300 border border-amber-400/40"><i class="fa-solid fa-spinner fa-spin mr-1 text-amber-400 text-[9px]"></i>${sfStatus}</span>`;
         }
       }
       const dispWfEl = document.getElementById('dispWorkflowMilestone');
       if (dispWfEl) {
-        dispWfEl.innerHTML = `<span class="inline-flex items-center text-xs font-semibold text-slate-800 bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-md truncate max-w-full"><i class="fa-solid fa-diagram-project mr-1.5 text-indigo-600"></i>${wfStage}</span>`;
+        dispWfEl.innerHTML = `<span class="inline-flex items-center text-[10px] font-semibold text-slate-200 bg-white/10 border border-white/10 px-2 py-0.5 rounded truncate max-w-[130px]" title="${wfStage}"><i class="fa-solid fa-diagram-project mr-1 text-indigo-300 text-[9px]"></i>${wfStage}</span>`;
       }
 
       // Form hidden inputs
