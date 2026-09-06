@@ -1,7 +1,7 @@
 import os
 import sys
 from typing import Optional, Dict, Any, List
-from fastapi import FastAPI, HTTPException, Depends, Query, status, APIRouter, Header
+from fastapi import FastAPI, HTTPException, Depends, Query, status, APIRouter, Header, Request
 from fastapi.responses import StreamingResponse, FileResponse, HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
@@ -69,6 +69,25 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.middleware("http")
+async def vercel_path_middleware(request: Request, call_next):
+    curr_path = request.scope.get("path", "")
+    if curr_path in ["/api/index.py", "/api/index", "/api/", "/api"]:
+        matched = request.headers.get("x-matched-path")
+        if matched and matched not in ["/api/index.py", "/api/index", "/api/", "/api"]:
+            request.scope["path"] = matched
+    return await call_next(request)
+
+@app.get("/debug-info")
+def get_debug_info(request: Request):
+    return {
+        "url_path": request.url.path,
+        "scope_path": request.scope.get("path"),
+        "headers": dict(request.headers),
+        "cwd": os.getcwd(),
+        "files_in_data": os.listdir(os.path.join(os.path.dirname(__file__), "data")) if os.path.exists(os.path.join(os.path.dirname(__file__), "data")) else "not_found"
+    }
 
 # Schemas
 class LoginRequest(BaseModel):
