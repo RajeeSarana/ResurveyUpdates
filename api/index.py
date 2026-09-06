@@ -132,6 +132,12 @@ class VillageCreateRequest(BaseModel):
     shapefile_status: Optional[str] = "Pending"
     sent_to_cso: Optional[bool] = False
     workflow_stage: Optional[str] = "Ground Truthing"
+    gazette_us_5_status: Optional[str] = "Notice to be given"
+    gazette_us_5_date: Optional[str] = ""
+    gazette_us_6_status: Optional[str] = "Notice to be given"
+    gazette_us_6_date: Optional[str] = ""
+    notice_9_2_status: Optional[str] = "Notice to be given"
+    notice_9_2_date: Optional[str] = ""
     remarks: Optional[str] = ""
     updated_by: Optional[str] = "District Rep"
     user_role: Optional[str] = "district_rep"
@@ -147,6 +153,12 @@ class VillageUpdateRequest(BaseModel):
     shapefile_status: Optional[str] = None
     sent_to_cso: Optional[bool] = None
     workflow_stage: Optional[str] = None
+    gazette_us_5_status: Optional[str] = None
+    gazette_us_5_date: Optional[str] = None
+    gazette_us_6_status: Optional[str] = None
+    gazette_us_6_date: Optional[str] = None
+    notice_9_2_status: Optional[str] = None
+    notice_9_2_date: Optional[str] = None
     remarks: Optional[str] = None
     updated_by: Optional[str] = "District Rep"
     user_role: Optional[str] = "district_rep"
