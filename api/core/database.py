@@ -72,15 +72,35 @@ def seed_mongo_from_files(db):
     except Exception as e:
         logger.error(f"Error seeding MongoDB: {e}")
 
+TMP_DATA_DIR = os.path.join("/tmp", "resurvey_data") if os.path.exists("/tmp") else None
+
+def _get_active_path(file_path: str) -> str:
+    if TMP_DATA_DIR:
+        fname = os.path.basename(file_path)
+        tmp_file = os.path.join(TMP_DATA_DIR, fname)
+        if os.path.exists(tmp_file):
+            return tmp_file
+    return file_path
+
 def _load_json(file_path: str) -> List[Dict[str, Any]]:
-    if not os.path.exists(file_path):
+    active_path = _get_active_path(file_path)
+    if not os.path.exists(active_path):
         return []
-    with open(file_path, 'r', encoding='utf-8') as f:
+    with open(active_path, 'r', encoding='utf-8') as f:
         return json.load(f)
 
 def _save_json(file_path: str, data: Any):
-    with open(file_path, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
+    try:
+        with open(file_path, 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+    except (OSError, PermissionError):
+        if TMP_DATA_DIR:
+            os.makedirs(TMP_DATA_DIR, exist_ok=True)
+            tmp_file = os.path.join(TMP_DATA_DIR, os.path.basename(file_path))
+            with open(tmp_file, 'w', encoding='utf-8') as f:
+                json.dump(data, f, indent=2, ensure_ascii=False)
+        else:
+            raise
 
 def get_db_status() -> Dict[str, Any]:
     global is_mongo
