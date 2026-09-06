@@ -1925,232 +1925,199 @@
           </div>
         </div>
 
-        <!-- SECTION 2: STATUTORY NOTIFICATIONS & OWNER NOTICES (COMPACT 3-COLUMN GRID) -->
-        <div class="bg-white p-3 sm:p-3.5 rounded-xl border border-slate-200/90 shadow-2xs space-y-2">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-1.5 border-b border-slate-200 gap-1">
-            <div class="flex items-center space-x-2">
-              <span class="w-5 h-5 rounded-md bg-teal-100 text-teal-800 flex items-center justify-center text-xs shadow-2xs">
-                <i class="fa-solid fa-scale-balanced text-[11px]"></i>
+        <!-- SECTION 2: STATUTORY NOTIFICATIONS & OWNER NOTICES (ULTRA-COMPACT STRIP) -->
+        <div class="bg-white px-3 py-2 rounded-xl border border-slate-200/90 shadow-2xs space-y-1.5">
+          <div class="flex items-center justify-between pb-1 border-b border-slate-100">
+            <div class="flex items-center space-x-1.5">
+              <span class="w-4 h-4 rounded-md bg-teal-100 text-teal-800 flex items-center justify-center text-[10px] shadow-2xs">
+                <i class="fa-solid fa-scale-balanced text-[9px]"></i>
               </span>
-              <span class="font-bold text-slate-800 text-xs sm:text-sm">Statutory Notifications &amp; Owner Notices</span>
-              <span class="text-[9px] bg-teal-50 text-teal-700 font-semibold px-2 py-0.2 rounded-full border border-teal-200/80">
-                3-Stage Workflow
-              </span>
+              <span class="font-bold text-slate-800 text-xs">Statutory Notifications &amp; Owner Notices</span>
+              <span class="text-[9px] bg-teal-50 text-teal-700 font-semibold px-1.5 py-0.2 rounded border border-teal-200/80">3-Stage Workflow</span>
             </div>
-            <span class="text-[10px] text-slate-400 italic">
-              Select "Notice Given" to unlock and record the publication/issue date
-            </span>
+            <span class="text-[10px] text-slate-400 italic hidden sm:inline">Select "Notice Given" to unlock date</span>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
             <!-- Field 1: Gazette Notification u/s 5 -->
-            <div class="p-2.5 rounded-lg border border-slate-200/90 bg-slate-50/60 hover:bg-slate-50 transition space-y-1.5">
-              <div class="text-xs font-bold text-slate-800 flex items-center justify-between">
-                <div class="flex items-center space-x-1.5">
-                  <span class="w-4 h-4 rounded-full bg-emerald-600 text-white text-[9px] font-bold flex items-center justify-center shadow-2xs">1</span>
-                  <span class="text-slate-900 font-semibold text-[11px]">Gazette Notification u/s 5</span>
+            <div class="p-1.5 sm:p-2 rounded-lg border border-slate-200/90 bg-slate-50/60 hover:bg-slate-50 transition space-y-1">
+              <div class="text-[11px] font-bold text-slate-800 flex items-center justify-between">
+                <div class="flex items-center space-x-1">
+                  <span class="w-3.5 h-3.5 rounded-full bg-emerald-600 text-white text-[8px] font-bold flex items-center justify-center shadow-2xs">1</span>
+                  <span class="text-slate-900 font-semibold text-[11px]">Gazette u/s 5</span>
                 </div>
-                <span class="text-[9px] text-slate-400 font-medium">Preliminary</span>
+                <span id="formGazetteUs5DateHelp" class="text-[8px] text-slate-400 font-normal italic">Locked</span>
               </div>
-              <div class="grid grid-cols-2 gap-2">
-                <div>
-                  <label class="block font-semibold text-slate-600 mb-0.5 text-[9px]">Status Selection *</label>
-                  <select id="formGazetteUs5Status" onchange="toggleNoticeDateField('formGazetteUs5Status', 'formGazetteUs5Date', 'formGazetteUs5DateHelp')" 
-                    class="w-full py-1.5 px-2 bg-white border border-slate-300 rounded-md focus:ring-2 focus:ring-emerald-500 font-medium text-slate-800 shadow-2xs text-xs">
-                    <option value="Notice to be given">Notice to be given</option>
-                    <option value="Notice Given">Notice Given</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="block font-semibold text-slate-600 mb-0.5 text-[9px] flex items-center justify-between">
-                    <span>Date Published</span>
-                    <span id="formGazetteUs5DateHelp" class="text-[8px] text-slate-400 font-normal italic">Locked</span>
-                  </label>
-                  <input type="date" id="formGazetteUs5Date" 
-                    class="w-full py-1.5 px-2 bg-slate-100 border border-slate-200 rounded-md text-slate-400 transition focus:ring-2 focus:ring-emerald-500 disabled:cursor-not-allowed disabled:bg-slate-100 shadow-2xs text-xs" 
-                    disabled />
-                </div>
+              <div class="grid grid-cols-2 gap-1.5">
+                <select id="formGazetteUs5Status" onchange="toggleNoticeDateField('formGazetteUs5Status', 'formGazetteUs5Date', 'formGazetteUs5DateHelp')" 
+                  class="w-full py-1 px-1.5 bg-white border border-slate-300 rounded text-[11px] font-medium text-slate-800 shadow-2xs focus:ring-1 focus:ring-emerald-500">
+                  <option value="Notice to be given">Notice to be given</option>
+                  <option value="Notice Given">Notice Given</option>
+                </select>
+                <input type="date" id="formGazetteUs5Date" 
+                  class="w-full py-1 px-1.5 bg-slate-100 border border-slate-200 rounded text-[11px] text-slate-400 transition focus:ring-1 focus:ring-emerald-500 disabled:cursor-not-allowed disabled:bg-slate-100 shadow-2xs" 
+                  disabled />
               </div>
             </div>
 
             <!-- Field 2: Gazette Notification u/s 6 -->
-            <div class="p-2.5 rounded-lg border border-slate-200/90 bg-slate-50/60 hover:bg-slate-50 transition space-y-1.5">
-              <div class="text-xs font-bold text-slate-800 flex items-center justify-between">
-                <div class="flex items-center space-x-1.5">
-                  <span class="w-4 h-4 rounded-full bg-emerald-600 text-white text-[9px] font-bold flex items-center justify-center shadow-2xs">2</span>
-                  <span class="text-slate-900 font-semibold text-[11px]">Gazette Notification u/s 6</span>
+            <div class="p-1.5 sm:p-2 rounded-lg border border-slate-200/90 bg-slate-50/60 hover:bg-slate-50 transition space-y-1">
+              <div class="text-[11px] font-bold text-slate-800 flex items-center justify-between">
+                <div class="flex items-center space-x-1">
+                  <span class="w-3.5 h-3.5 rounded-full bg-emerald-600 text-white text-[8px] font-bold flex items-center justify-center shadow-2xs">2</span>
+                  <span class="text-slate-900 font-semibold text-[11px]">Gazette u/s 6</span>
                 </div>
-                <span class="text-[9px] text-slate-400 font-medium">Declaration</span>
+                <span id="formGazetteUs6DateHelp" class="text-[8px] text-slate-400 font-normal italic">Locked</span>
               </div>
-              <div class="grid grid-cols-2 gap-2">
-                <div>
-                  <label class="block font-semibold text-slate-600 mb-0.5 text-[9px]">Status Selection *</label>
-                  <select id="formGazetteUs6Status" onchange="toggleNoticeDateField('formGazetteUs6Status', 'formGazetteUs6Date', 'formGazetteUs6DateHelp')" 
-                    class="w-full py-1.5 px-2 bg-white border border-slate-300 rounded-md focus:ring-2 focus:ring-emerald-500 font-medium text-slate-800 shadow-2xs text-xs">
-                    <option value="Notice to be given">Notice to be given</option>
-                    <option value="Notice Given">Notice Given</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="block font-semibold text-slate-600 mb-0.5 text-[9px] flex items-center justify-between">
-                    <span>Date Published</span>
-                    <span id="formGazetteUs6DateHelp" class="text-[8px] text-slate-400 font-normal italic">Locked</span>
-                  </label>
-                  <input type="date" id="formGazetteUs6Date" 
-                    class="w-full py-1.5 px-2 bg-slate-100 border border-slate-200 rounded-md text-slate-400 transition focus:ring-2 focus:ring-emerald-500 disabled:cursor-not-allowed disabled:bg-slate-100 shadow-2xs text-xs" 
-                    disabled />
-                </div>
+              <div class="grid grid-cols-2 gap-1.5">
+                <select id="formGazetteUs6Status" onchange="toggleNoticeDateField('formGazetteUs6Status', 'formGazetteUs6Date', 'formGazetteUs6DateHelp')" 
+                  class="w-full py-1 px-1.5 bg-white border border-slate-300 rounded text-[11px] font-medium text-slate-800 shadow-2xs focus:ring-1 focus:ring-emerald-500">
+                  <option value="Notice to be given">Notice to be given</option>
+                  <option value="Notice Given">Notice Given</option>
+                </select>
+                <input type="date" id="formGazetteUs6Date" 
+                  class="w-full py-1 px-1.5 bg-slate-100 border border-slate-200 rounded text-[11px] text-slate-400 transition focus:ring-1 focus:ring-emerald-500 disabled:cursor-not-allowed disabled:bg-slate-100 shadow-2xs" 
+                  disabled />
               </div>
             </div>
 
             <!-- Field 3: 9 (2) Notice to Owner -->
-            <div class="p-2.5 rounded-lg border border-slate-200/90 bg-slate-50/60 hover:bg-slate-50 transition space-y-1.5">
-              <div class="text-xs font-bold text-slate-800 flex items-center justify-between">
-                <div class="flex items-center space-x-1.5">
-                  <span class="w-4 h-4 rounded-full bg-teal-600 text-white text-[9px] font-bold flex items-center justify-center shadow-2xs">3</span>
+            <div class="p-1.5 sm:p-2 rounded-lg border border-slate-200/90 bg-slate-50/60 hover:bg-slate-50 transition space-y-1">
+              <div class="text-[11px] font-bold text-slate-800 flex items-center justify-between">
+                <div class="flex items-center space-x-1">
+                  <span class="w-3.5 h-3.5 rounded-full bg-teal-600 text-white text-[8px] font-bold flex items-center justify-center shadow-2xs">3</span>
                   <span class="text-slate-900 font-semibold text-[11px]">9 (2) Notice to Owner</span>
                 </div>
-                <span class="text-[9px] text-slate-400 font-medium">Landholders</span>
+                <span id="formNotice92DateHelp" class="text-[8px] text-slate-400 font-normal italic">Locked</span>
               </div>
-              <div class="grid grid-cols-2 gap-2">
-                <div>
-                  <label class="block font-semibold text-slate-600 mb-0.5 text-[9px]">Status Selection *</label>
-                  <select id="formNotice92Status" onchange="toggleNoticeDateField('formNotice92Status', 'formNotice92Date', 'formNotice92DateHelp')" 
-                    class="w-full py-1.5 px-2 bg-white border border-slate-300 rounded-md focus:ring-2 focus:ring-emerald-500 font-medium text-slate-800 shadow-2xs text-xs">
-                    <option value="Notice to be given">Notice to be given</option>
-                    <option value="Notice Given">Notice Given</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="block font-semibold text-slate-600 mb-0.5 text-[9px] flex items-center justify-between">
-                    <span>Date Notice Given</span>
-                    <span id="formNotice92DateHelp" class="text-[8px] text-slate-400 font-normal italic">Locked</span>
-                  </label>
-                  <input type="date" id="formNotice92Date" 
-                    class="w-full py-1.5 px-2 bg-slate-100 border border-slate-200 rounded-md text-slate-400 transition focus:ring-2 focus:ring-emerald-500 disabled:cursor-not-allowed disabled:bg-slate-100 shadow-2xs text-xs" 
-                    disabled />
-                </div>
+              <div class="grid grid-cols-2 gap-1.5">
+                <select id="formNotice92Status" onchange="toggleNoticeDateField('formNotice92Status', 'formNotice92Date', 'formNotice92DateHelp')" 
+                  class="w-full py-1 px-1.5 bg-white border border-slate-300 rounded text-[11px] font-medium text-slate-800 shadow-2xs focus:ring-1 focus:ring-emerald-500">
+                  <option value="Notice to be given">Notice to be given</option>
+                  <option value="Notice Given">Notice Given</option>
+                </select>
+                <input type="date" id="formNotice92Date" 
+                  class="w-full py-1 px-1.5 bg-slate-100 border border-slate-200 rounded text-[11px] text-slate-400 transition focus:ring-1 focus:ring-emerald-500 disabled:cursor-not-allowed disabled:bg-slate-100 shadow-2xs" 
+                  disabled />
               </div>
             </div>
           </div>
         </div>
 
-        <!-- SECTION: DAILY SURVEY PROGRESS & CUMULATIVE EXTENT TRACKING -->
-        <div class="bg-gradient-to-r from-emerald-50/50 via-teal-50/30 to-indigo-50/40 p-4 sm:p-5 rounded-xl border border-teal-200/90 shadow-sm space-y-4">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-teal-200/70 gap-2">
-            <div class="flex items-center space-x-2">
-              <span class="w-6 h-6 rounded-md bg-teal-600 text-white flex items-center justify-center text-xs shadow-2xs">
+        <!-- SECTION: DAILY SURVEY PROGRESS & CUMULATIVE EXTENT TRACKING (COMPACT UNIFIED KPI & ENTRY) -->
+        <div class="bg-gradient-to-r from-emerald-50/50 via-teal-50/30 to-indigo-50/40 p-2.5 sm:p-3 rounded-xl border border-teal-200/90 shadow-2xs space-y-2">
+          <!-- Compact Header + Progress Summary in ONE row -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 pb-1 border-b border-teal-200/60 text-xs">
+            <div class="flex items-center space-x-1.5">
+              <span class="w-4 h-4 rounded-md bg-teal-600 text-white flex items-center justify-center text-[9px] shadow-2xs">
                 <i class="fa-solid fa-chart-simple"></i>
               </span>
-              <span class="font-bold text-slate-800 text-xs sm:text-sm">Daily Survey Progress &amp; Area Tracking</span>
-              <span class="text-[10px] bg-teal-100/80 text-teal-800 font-semibold px-2 py-0.5 rounded-full border border-teal-200 shadow-2xs">
-                Daily Ledger
-              </span>
+              <span class="font-bold text-slate-800 text-xs">Daily Survey Progress &amp; Area Tracking</span>
+              <span class="text-[9px] bg-teal-100/80 text-teal-800 font-semibold px-1.5 py-0.2 rounded border border-teal-200">Daily Ledger</span>
             </div>
-            <div class="text-[11px] text-slate-500 italic">
-              Survey details updated on daily basis &bull; Tracked centrally at CSO
+            <!-- Integrated Inline Progress Metrics -->
+            <div class="flex items-center space-x-2 text-[11px]">
+              <span class="text-emerald-700 font-semibold flex items-center">
+                Surveyed: <strong class="ml-1 text-slate-900 font-mono" id="dispProgressSurveyedText">0.00 ac</strong>
+              </span>
+              <span class="text-slate-300">&bull;</span>
+              <span class="text-amber-700 font-semibold flex items-center">
+                Remaining: <strong class="ml-1 text-slate-900 font-mono" id="dispProgressRemainingText">0.00 ac</strong>
+              </span>
+              <span class="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-1.5 py-0.2 rounded font-mono" id="dispProgressPercentText">0.0% Completed</span>
             </div>
           </div>
 
-          <!-- THREE STAT CARDS (MASTER, SURVEYED SO FAR, REMAINING) -->
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <!-- Master Extent -->
-            <div class="bg-white p-3.5 rounded-xl border border-slate-200/90 shadow-2xs">
-              <div class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1 flex items-center justify-between">
-                <span>Master Extent Area</span>
-                <i class="fa-solid fa-landmark text-slate-300 text-xs"></i>
+          <!-- UNIFIED COMPACT 3-PILL METRIC STRIP WITH INTEGRATED PROGRESS TRACK -->
+          <div class="bg-white p-1.5 sm:p-2 rounded-lg border border-teal-200/70 shadow-2xs space-y-1.5">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+              <!-- 1. Master Extent Area -->
+              <div class="flex items-center justify-between px-2.5 py-1 bg-slate-50 rounded border border-slate-200/80">
+                <div class="flex items-center space-x-1.5">
+                  <i class="fa-solid fa-landmark text-slate-400 text-[10px]"></i>
+                  <span class="text-[9px] font-semibold text-slate-500 uppercase tracking-wide">Master:</span>
+                </div>
+                <div class="flex items-baseline space-x-1 font-mono">
+                  <span class="font-black text-slate-900 text-xs sm:text-sm" id="dispModalMasterAcres">0.000 ac</span>
+                  <span class="text-[9px] text-slate-400 hidden sm:inline" id="dispModalMasterRaw">-</span>
+                </div>
               </div>
-              <div class="text-base font-black text-slate-900 font-mono" id="dispModalMasterAcres">0.000 ac</div>
-              <div class="text-[10px] text-slate-500 font-mono mt-0.5" id="dispModalMasterRaw">-</div>
+
+              <!-- 2. Area Surveyed So Far -->
+              <div class="flex items-center justify-between px-2.5 py-1 bg-emerald-50/70 rounded border border-emerald-200/80">
+                <div class="flex items-center space-x-1.5">
+                  <i class="fa-solid fa-circle-check text-emerald-600 text-[10px]"></i>
+                  <span class="text-[9px] font-bold text-emerald-800 uppercase tracking-wide">Surveyed:</span>
+                </div>
+                <div class="flex items-center space-x-1.5 font-mono">
+                  <span class="font-black text-emerald-800 text-xs sm:text-sm" id="dispModalSurveyedSoFar">0.000 ac</span>
+                  <span id="dispModalSurveyedPercent" class="text-[9px] bg-emerald-200/80 text-emerald-900 font-extrabold px-1.5 py-0.2 rounded">0.0%</span>
+                </div>
+              </div>
+
+              <!-- 3. Remaining Area -->
+              <div class="flex items-center justify-between px-2.5 py-1 bg-amber-50/70 rounded border border-amber-200/80">
+                <div class="flex items-center space-x-1.5">
+                  <i class="fa-solid fa-hourglass-half text-amber-600 text-[10px]"></i>
+                  <span class="text-[9px] font-bold text-amber-800 uppercase tracking-wide">Remaining:</span>
+                </div>
+                <div class="flex items-center space-x-1.5 font-mono">
+                  <span class="font-black text-amber-800 text-xs sm:text-sm" id="dispModalRemainingExtent">0.000 ac</span>
+                  <span id="dispModalRemainingPercent" class="text-[9px] bg-amber-200/80 text-amber-900 font-extrabold px-1.5 py-0.2 rounded">100.0%</span>
+                </div>
+              </div>
             </div>
 
-            <!-- Area Surveyed So Far (Completed) -->
-            <div class="bg-white p-3.5 rounded-xl border border-emerald-200/90 shadow-2xs bg-gradient-to-b from-white to-emerald-50/20">
-              <div class="text-[10px] font-semibold text-emerald-700 uppercase tracking-wider mb-1 flex items-center justify-between">
-                <span>Area Surveyed So Far</span>
-                <span id="dispModalSurveyedPercent" class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.2 rounded-full border border-emerald-200">0.0%</span>
-              </div>
-              <div class="text-base font-black text-emerald-800 font-mono" id="dispModalSurveyedSoFar">0.000 ac</div>
-              <div class="text-[10px] text-emerald-600 font-medium mt-0.5 flex items-center">
-                <i class="fa-solid fa-circle-check mr-1 text-[9px]"></i>Completed so far
-              </div>
-            </div>
-
-            <!-- Remaining Area -->
-            <div class="bg-white p-3.5 rounded-xl border border-amber-200/90 shadow-2xs bg-gradient-to-b from-white to-amber-50/20">
-              <div class="text-[10px] font-semibold text-amber-700 uppercase tracking-wider mb-1 flex items-center justify-between">
-                <span>Remaining Area</span>
-                <span id="dispModalRemainingPercent" class="text-[10px] bg-amber-100 text-amber-800 font-bold px-1.5 py-0.2 rounded-full border border-amber-200">100.0%</span>
-              </div>
-              <div class="text-base font-black text-amber-800 font-mono" id="dispModalRemainingExtent">0.000 ac</div>
-              <div class="text-[10px] text-amber-600 font-medium mt-0.5 flex items-center">
-                <i class="fa-solid fa-hourglass-half mr-1 text-[9px]"></i>Balance to survey
-              </div>
-            </div>
-          </div>
-
-          <!-- DYNAMIC PROGRESS BAR -->
-          <div class="bg-white p-3 rounded-lg border border-slate-200 space-y-1.5">
-            <div class="flex justify-between items-center text-[11px] font-semibold">
-              <span class="text-emerald-700 flex items-center">
-                <span class="w-2 h-2 rounded-full bg-emerald-500 mr-1.5"></span>
-                Surveyed: <strong class="ml-1 text-slate-800" id="dispProgressSurveyedText">0.00 ac</strong>
-              </span>
-              <span class="text-slate-500 font-mono text-[10px]" id="dispProgressPercentText">0.0% Completed</span>
-              <span class="text-amber-700 flex items-center">
-                Remaining: <strong class="ml-1 text-slate-800" id="dispProgressRemainingText">0.00 ac</strong>
-                <span class="w-2 h-2 rounded-full bg-amber-400 ml-1.5"></span>
-              </span>
-            </div>
-            <div class="w-full bg-slate-100 rounded-full h-3 flex overflow-hidden p-0.5 border border-slate-200/80">
+            <!-- Integrated Slim Progress Bar Track -->
+            <div class="w-full bg-slate-100 rounded-full h-2 flex overflow-hidden p-0.2 border border-slate-200/80">
               <div id="dispSurveyProgressBar" class="bg-gradient-to-r from-emerald-500 to-teal-600 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
             </div>
           </div>
 
-          <!-- DAILY SURVEY ENTRY INPUT CARD -->
-          <div class="bg-white p-3.5 sm:p-4 rounded-xl border border-indigo-200/90 shadow-2xs space-y-3">
+          <!-- DAILY SURVEY ENTRY INPUT CARD (TIGHT & EFFICIENT) -->
+          <div class="bg-white p-2.5 sm:p-3 rounded-xl border border-indigo-200/90 shadow-2xs space-y-2">
             <input type="hidden" id="formEditingDailySurveyLogId" value="" />
-            <div class="flex items-center justify-between pb-2 border-b border-indigo-100">
+            <div class="flex items-center justify-between pb-1.5 border-b border-indigo-100">
               <div class="flex items-center space-x-2">
                 <span class="text-xs font-bold text-indigo-950 flex items-center">
                   <i class="fa-solid fa-calendar-plus mr-1.5 text-indigo-600" id="headerIconDailySurvey"></i>
                   <span id="headerTitleDailySurvey">Record Today's Field Survey Extent</span>
                 </span>
-                <span id="badgeEditingDailySurvey" class="hidden text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full border border-amber-300 flex items-center space-x-1">
-                  <i class="fa-solid fa-pen-to-square text-[9px]"></i>
+                <span id="badgeEditingDailySurvey" class="hidden text-[9px] bg-amber-100 text-amber-800 font-bold px-1.5 py-0.2 rounded-full border border-amber-300 flex items-center space-x-1">
+                  <i class="fa-solid fa-pen-to-square text-[8px]"></i>
                   <span>Editing Mode</span>
                 </span>
               </div>
               <span class="text-[10px] text-slate-400" id="headerHelpDailySurvey">Updates cumulative "Completed So Far" instantly</span>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-end">
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 items-end">
               <!-- Date of Survey -->
               <div class="sm:col-span-4">
-                <label class="block font-semibold text-slate-700 mb-1">Date of Survey *</label>
+                <label class="block font-semibold text-slate-700 mb-0.5 text-[10px]">Date of Survey *</label>
                 <input type="date" id="formDailySurveyDate" 
-                  class="w-full p-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 font-medium text-slate-800 shadow-2xs text-xs" />
+                  class="w-full py-1.5 px-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 font-medium text-slate-800 shadow-2xs text-xs" />
               </div>
 
               <!-- Extent Surveyed on that Day -->
               <div class="sm:col-span-4">
-                <label class="block font-semibold text-slate-700 mb-1 flex items-center justify-between">
+                <label class="block font-semibold text-slate-700 mb-0.5 text-[10px] flex items-center justify-between">
                   <span>Extent Surveyed (That Day) *</span>
-                  <span class="text-[10px] text-slate-400 font-normal">Acres or Ac-Gts</span>
+                  <span class="text-[9px] text-slate-400 font-normal">Acres or Ac-Gts</span>
                 </label>
                 <input type="text" id="formDailySurveyExtent" placeholder="e.g. 15.5 or 15-20" 
-                  class="w-full p-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 font-bold text-slate-900 shadow-2xs text-xs font-mono" />
+                  class="w-full py-1.5 px-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 font-bold text-slate-900 shadow-2xs text-xs font-mono" />
               </div>
 
               <!-- Action Button Group -->
               <div class="sm:col-span-4 flex items-center space-x-1.5">
                 <button type="button" id="btnLogDailySurvey" onclick="handleLogDailySurveyEntry()" 
-                  class="w-full p-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-bold shadow transition flex items-center justify-center space-x-1.5 text-xs">
+                  class="w-full py-1.5 px-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-bold shadow transition flex items-center justify-center space-x-1.5 text-xs">
                   <i class="fa-solid fa-plus-circle" id="iconLogDailySurvey"></i>
                   <span id="textLogDailySurvey">Add Day's Survey</span>
                 </button>
                 <button type="button" id="btnCancelDailySurveyEdit" onclick="cancelDailySurveyEdit()" 
-                  class="hidden px-2.5 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-lg font-semibold transition text-xs flex items-center space-x-1 shrink-0" title="Cancel Edit">
+                  class="hidden px-2.5 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-lg font-semibold transition text-xs flex items-center space-x-1 shrink-0" title="Cancel Edit">
                   <i class="fa-solid fa-xmark"></i>
                   <span>Cancel</span>
                 </button>
@@ -2159,7 +2126,7 @@
               <!-- Optional remarks for day's survey -->
               <div class="sm:col-span-12">
                 <input type="text" id="formDailySurveyRemarks" placeholder="Optional notes for today's survey (e.g., Sector 2 North boundary, Patta land)..." 
-                  class="w-full p-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 text-xs focus:ring-2 focus:ring-indigo-500" />
+                  class="w-full py-1 px-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 text-xs focus:ring-1 focus:ring-indigo-500" />
               </div>
             </div>
           </div>
