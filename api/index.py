@@ -55,7 +55,10 @@ from core.database import (
     update_user_profile,
     reset_user_password,
     change_user_password,
-    delete_user
+    delete_user,
+    get_menu_permissions,
+    update_menu_permissions,
+    reset_menu_permissions
 )
 from core.export_service import generate_resurvey_excel
 
@@ -668,6 +671,67 @@ def remove_user(
         if not success:
             raise HTTPException(status_code=404, detail="User not found")
         return {"success": True, "message": f"User '{username}' successfully deleted"}
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+
+
+
+# ----------------- ROLE-BASED MENU ACCESS & ADMIN MANAGEMENT -----------------
+class MenuPermissionsUpdateRequest(BaseModel):
+    permissions: Dict[str, List[str]]
+
+@router.get("/admin/menu-permissions")
+@router.get("/menu-permissions")
+def list_menu_permissions():
+    """Returns the current role-to-menu permissions, menu catalog, and role definitions."""
+    return get_menu_permissions()
+
+@router.post("/admin/menu-permissions")
+@router.put("/admin/menu-permissions")
+def save_menu_permissions(
+    payload: MenuPermissionsUpdateRequest,
+    user: Dict[str, Any] = Depends(require_user)
+):
+    """Updates role-based menu display and access permissions (Admin only)."""
+    if user.get("role") != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access restricted: Only System Administrators can configure role-based menu access permissions."
+        )
+    try:
+        updated = update_menu_permissions(
+            role_permissions=payload.permissions,
+            admin_name=user.get("name") or user.get("username") or "Admin",
+            admin_role=user.get("role") or "admin"
+        )
+        return {
+            "success": True,
+            "message": "Role-based menu permissions successfully updated.",
+            "data": updated
+        }
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+
+@router.post("/admin/menu-permissions/reset")
+def reset_role_menu_permissions(
+    user: Dict[str, Any] = Depends(require_user)
+):
+    """Resets role-based menu permissions to system defaults (Admin only)."""
+    if user.get("role") != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Access restricted: Only System Administrators can reset role menu permissions."
+        )
+    try:
+        res = reset_menu_permissions(
+            admin_name=user.get("name") or user.get("username") or "Admin",
+            admin_role=user.get("role") or "admin"
+        )
+        return {
+            "success": True,
+            "message": "Role-based menu permissions successfully restored to system defaults.",
+            "data": res
+        }
     except ValueError as e:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
 

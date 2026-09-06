@@ -24,6 +24,7 @@ REPRESENTATIVES_FILE = os.path.join(DATA_DIR, "representatives.json")
 AUDIT_LOGS_FILE = os.path.join(DATA_DIR, "audit_logs.json")
 MASTER_VILLAGES_FILE = os.path.join(DATA_DIR, "master_villages.json")
 MASTER_MANDALS_FILE = os.path.join(DATA_DIR, "master_mandals.json")
+MENU_PERMISSIONS_FILE = os.path.join(DATA_DIR, "role_menu_permissions.json")
 
 MONGODB_URI = os.getenv("MONGODB_URI")
 DB_NAME = os.getenv("MONGODB_DB", "resurvey_portal")
@@ -1931,6 +1932,269 @@ def get_master_catalog() -> Dict[str, Any]:
             }
         ]
     }
+
+
+# ----------------- ROLE-BASED MENU PERMISSIONS & ADMIN MANAGEMENT -----------------
+MENU_CATALOG = [
+    {
+        "id": "tab-overview",
+        "title": "Overview Dashboard",
+        "icon": "fa-solid fa-chart-pie",
+        "badge": "KPIs",
+        "description": "Statewide high-level performance indicators, completion rates, and district progress comparisons."
+    },
+    {
+        "id": "tab-villages",
+        "title": "Resurvey Operations & Status",
+        "icon": "fa-solid fa-list-check",
+        "badge": "Live Progress",
+        "description": "Ground truthing status, shapefile generation, statutory notices, daily survey entries, and village submissions."
+    },
+    {
+        "id": "tab-qc",
+        "title": "QC Verification Desk",
+        "icon": "fa-solid fa-clipboard-check",
+        "badge": "Central QC",
+        "description": "Central Survey Office Quality Control verification queue, review approvals, rework notes, and defect tracking."
+    },
+    {
+        "id": "tab-cso",
+        "title": "CSO Daily Tracking",
+        "icon": "fa-solid fa-tower-broadcast",
+        "badge": "CSO Hub",
+        "description": "Central Survey Office daily monitoring hub with multi-period filters (Today, Week, Month, Custom) and pace analysis."
+    },
+    {
+        "id": "tab-executive",
+        "title": "Executive Briefing",
+        "icon": "fa-solid fa-chart-line",
+        "badge": "Leadership",
+        "description": "Executive summary, district risk radar, compliance scorecards, and critical bottleneck analysis for leadership."
+    },
+    {
+        "id": "tab-audit",
+        "title": "Change Audit Trail",
+        "icon": "fa-solid fa-clock-rotate-left",
+        "badge": "Audit Logs",
+        "description": "Immutable chronological timeline and audit trail of all village updates, survey logs, and account activities."
+    },
+    {
+        "id": "tab-master",
+        "title": "State Master Directory",
+        "icon": "fa-solid fa-database",
+        "badge": "10,888",
+        "description": "Permanent statewide territorial repository covering all 33 districts, mandals, and 10,888 revenue villages."
+    },
+    {
+        "id": "tab-admin",
+        "title": "Admin Management",
+        "icon": "fa-solid fa-sliders",
+        "badge": "Admin Hub",
+        "description": "User account governance, role assignment, password reset, and role-based menu display and access control matrix."
+    }
+]
+
+ROLE_DEFINITIONS = [
+    {
+        "role": "admin",
+        "label": "System Administrator",
+        "description": "Full administrative governance, user account management, and role-based menu access matrix control.",
+        "badge_color": "rose"
+    },
+    {
+        "role": "executive",
+        "label": "Executive Leadership",
+        "description": "Executive Project Director / Commissioner monitoring mode: scorecards, strategic briefing, and high-level progress.",
+        "badge_color": "purple"
+    },
+    {
+        "role": "district_rep",
+        "label": "District Representative",
+        "description": "District-level survey officer managing village operations, daily survey logs, and shapefile submissions.",
+        "badge_color": "emerald"
+    },
+    {
+        "role": "qc_engineer",
+        "label": "Central QC Engineer",
+        "description": "Quality control specialist reviewing shapefile submissions, ground truthing accuracy, and approvals.",
+        "badge_color": "amber"
+    },
+    {
+        "role": "cso_officer",
+        "label": "CSO Tracking Officer",
+        "description": "Central Survey Office coordinator tracking daily survey speed, session pacing, and CSO transmission.",
+        "badge_color": "indigo"
+    },
+    {
+        "role": "viewer",
+        "label": "Guest Auditor / Viewer",
+        "description": "Read-only auditor with access to high-level dashboards and general progress overviews.",
+        "badge_color": "slate"
+    }
+]
+
+DEFAULT_ROLE_MENU_PERMISSIONS = {
+    "admin": [
+        "tab-overview",
+        "tab-villages",
+        "tab-qc",
+        "tab-cso",
+        "tab-executive",
+        "tab-audit",
+        "tab-master",
+        "tab-admin"
+    ],
+    "executive": [
+        "tab-overview",
+        "tab-villages",
+        "tab-cso",
+        "tab-executive",
+        "tab-audit",
+        "tab-master"
+    ],
+    "district_rep": [
+        "tab-overview",
+        "tab-villages",
+        "tab-cso",
+        "tab-audit"
+    ],
+    "district_officer": [
+        "tab-overview",
+        "tab-villages",
+        "tab-cso",
+        "tab-audit"
+    ],
+    "qc_engineer": [
+        "tab-overview",
+        "tab-villages",
+        "tab-qc",
+        "tab-cso"
+    ],
+    "cso_officer": [
+        "tab-overview",
+        "tab-villages",
+        "tab-cso"
+    ],
+    "viewer": [
+        "tab-overview",
+        "tab-villages"
+    ]
+}
+
+def get_menu_permissions() -> Dict[str, Any]:
+    perms = None
+    if is_mongo and mongo_db is not None:
+        try:
+            doc = mongo_db.system_settings.find_one({"key": "role_menu_permissions"}, {"_id": 0})
+            if doc and "permissions" in doc:
+                perms = doc["permissions"]
+        except Exception as e:
+            logger.warning(f"MongoDB error fetching menu permissions: {e}")
+    
+    if not perms:
+        loaded = _load_json(MENU_PERMISSIONS_FILE)
+        if isinstance(loaded, dict) and loaded:
+            perms = loaded
+
+    if not perms:
+        perms = dict(DEFAULT_ROLE_MENU_PERMISSIONS)
+        try:
+            _save_json(MENU_PERMISSIONS_FILE, perms)
+        except Exception:
+            pass
+
+    # Ensure admin always has tab-admin and tab-overview to prevent accidental lockout
+    if "admin" in perms:
+        if "tab-admin" not in perms["admin"]:
+            perms["admin"].append("tab-admin")
+        if "tab-overview" not in perms["admin"]:
+            perms["admin"].append("tab-overview")
+
+    return {
+        "permissions": perms,
+        "catalog": MENU_CATALOG,
+        "roles": ROLE_DEFINITIONS
+    }
+
+def update_menu_permissions(role_permissions: Dict[str, List[str]], admin_name: str, admin_role: str) -> Dict[str, Any]:
+    if admin_role != "admin":
+        raise ValueError("Administrative privileges are required to modify role menu access permissions.")
+
+    # Sanitize and validate
+    valid_menu_ids = {m["id"] for m in MENU_CATALOG}
+    sanitized = {}
+    for role, menus in role_permissions.items():
+        if isinstance(menus, list):
+            clean_menus = [m for m in menus if m in valid_menu_ids]
+            sanitized[role] = clean_menus
+
+    # Guard: admin must retain tab-admin and tab-overview
+    if "admin" in sanitized:
+        if "tab-admin" not in sanitized["admin"]:
+            sanitized["admin"].append("tab-admin")
+        if "tab-overview" not in sanitized["admin"]:
+            sanitized["admin"].append("tab-overview")
+    else:
+        sanitized["admin"] = list(DEFAULT_ROLE_MENU_PERMISSIONS["admin"])
+
+    # Fallbacks for alias roles
+    if "district_rep" in sanitized and "district_officer" not in sanitized:
+        sanitized["district_officer"] = list(sanitized["district_rep"])
+    elif "district_officer" in sanitized and "district_rep" not in sanitized:
+        sanitized["district_rep"] = list(sanitized["district_officer"])
+
+    _save_json(MENU_PERMISSIONS_FILE, sanitized)
+
+    if is_mongo and mongo_db is not None:
+        try:
+            mongo_db.system_settings.update_one(
+                {"key": "role_menu_permissions"},
+                {"$set": {"key": "role_menu_permissions", "permissions": sanitized, "updated_at": datetime.utcnow().isoformat(), "updated_by": admin_name}},
+                upsert=True
+            )
+        except Exception as e:
+            logger.warning(f"MongoDB error saving menu permissions: {e}")
+
+    log_change(
+        record_id="config-menu-permissions",
+        village_name="Role-Based Menu Permissions",
+        district_name="All",
+        user_name=admin_name,
+        user_role=admin_role,
+        action="Updated Role Menu Access Matrix",
+        details=f"Updated menu permissions for {len(sanitized)} roles."
+    )
+
+    return get_menu_permissions()
+
+def reset_menu_permissions(admin_name: str, admin_role: str) -> Dict[str, Any]:
+    if admin_role != "admin":
+        raise ValueError("Administrative privileges are required to reset role menu access permissions.")
+
+    default_copy = dict(DEFAULT_ROLE_MENU_PERMISSIONS)
+    _save_json(MENU_PERMISSIONS_FILE, default_copy)
+
+    if is_mongo and mongo_db is not None:
+        try:
+            mongo_db.system_settings.update_one(
+                {"key": "role_menu_permissions"},
+                {"$set": {"key": "role_menu_permissions", "permissions": default_copy, "updated_at": datetime.utcnow().isoformat(), "updated_by": admin_name}},
+                upsert=True
+            )
+        except Exception as e:
+            logger.warning(f"MongoDB error resetting menu permissions: {e}")
+
+    log_change(
+        record_id="config-menu-permissions-reset",
+        village_name="Role-Based Menu Permissions",
+        district_name="All",
+        user_name=admin_name,
+        user_role=admin_role,
+        action="Reset Role Menu Permissions to Defaults",
+        details="Restored baseline role-based menu display and access permissions."
+    )
+
+    return get_menu_permissions()
 
 init_db()
 

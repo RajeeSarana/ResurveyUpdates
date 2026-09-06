@@ -1,5 +1,53 @@
 [
   {
+    "id": "log-1788669422061",
+    "timestamp": "2026-09-06T10:07:02.061354",
+    "record_id": "config-menu-permissions-reset",
+    "village_name": "Role-Based Menu Permissions",
+    "district_name": "All",
+    "user_name": "Project Administrator",
+    "user_role": "admin",
+    "action": "Reset Role Menu Permissions to Defaults",
+    "details": "Restored baseline role-based menu display and access permissions.",
+    "changes": {}
+  },
+  {
+    "id": "log-1788669422047",
+    "timestamp": "2026-09-06T10:07:02.047219",
+    "record_id": "config-menu-permissions",
+    "village_name": "Role-Based Menu Permissions",
+    "district_name": "All",
+    "user_name": "Project Administrator",
+    "user_role": "admin",
+    "action": "Updated Role Menu Access Matrix",
+    "details": "Updated menu permissions for 7 roles.",
+    "changes": {}
+  },
+  {
+    "id": "log-1788669026665",
+    "timestamp": "2026-09-06T10:00:26.665520",
+    "record_id": "config-menu-permissions-reset",
+    "village_name": "Role-Based Menu Permissions",
+    "district_name": "All",
+    "user_name": "Project Administrator",
+    "user_role": "admin",
+    "action": "Reset Role Menu Permissions to Defaults",
+    "details": "Restored baseline role-based menu display and access permissions.",
+    "changes": {}
+  },
+  {
+    "id": "log-1788669026654",
+    "timestamp": "2026-09-06T10:00:26.654696",
+    "record_id": "config-menu-permissions",
+    "village_name": "Role-Based Menu Permissions",
+    "district_name": "All",
+    "user_name": "Project Administrator",
+    "user_role": "admin",
+    "action": "Updated Role Menu Access Matrix",
+    "details": "Updated menu permissions for 7 roles.",
+    "changes": {}
+  },
+  {
     "id": "log-1788664924695",
     "timestamp": "2026-09-06T08:52:04.695528",
     "record_id": "vlg-002",

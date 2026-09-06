@@ -1,0 +1,47 @@
+{
+  "admin": [
+    "tab-overview",
+    "tab-villages",
+    "tab-qc",
+    "tab-cso",
+    "tab-executive",
+    "tab-audit",
+    "tab-master",
+    "tab-admin"
+  ],
+  "executive": [
+    "tab-overview",
+    "tab-villages",
+    "tab-cso",
+    "tab-executive",
+    "tab-audit",
+    "tab-master"
+  ],
+  "district_rep": [
+    "tab-overview",
+    "tab-villages",
+    "tab-cso",
+    "tab-audit"
+  ],
+  "district_officer": [
+    "tab-overview",
+    "tab-villages",
+    "tab-cso",
+    "tab-audit"
+  ],
+  "qc_engineer": [
+    "tab-overview",
+    "tab-villages",
+    "tab-qc",
+    "tab-cso"
+  ],
+  "cso_officer": [
+    "tab-overview",
+    "tab-villages",
+    "tab-cso"
+  ],
+  "viewer": [
+    "tab-overview",
+    "tab-villages"
+  ]
+}
