@@ -555,15 +555,94 @@ def _normalize_name_token(name: Optional[str]) -> str:
         s = s.replace(token, "")
     return re.sub(r"[^a-z0-9]", "", s)
 
+def _parse_extent_to_acres(val: Any) -> float:
+    if val is None:
+        return 0.0
+    if isinstance(val, (int, float)):
+        return round(float(val), 3)
+    s = str(val).strip()
+    if not s or s in ["-", "None", "null"]:
+        return 0.0
+    s = s.lower().replace("ac", "").replace("acres", "").replace("gts", "").strip()
+    try:
+        if "-" in s:
+            parts = s.split("-")
+            ac = float(parts[0] or 0)
+            gt = float(parts[1] or 0) if len(parts) > 1 else 0.0
+            return round(ac + (gt / 40.0), 3)
+        elif "." in s:
+            parts = s.split(".")
+            ac = float(parts[0] or 0)
+            gt = float(parts[1] or 0) if len(parts) > 1 else 0.0
+            if gt < 40:
+                return round(ac + (gt / 40.0), 3)
+            return round(float(s), 3)
+        return round(float(s), 3)
+    except Exception:
+        return 0.0
+
+def _calculate_non_abadi_extent(boundary: Optional[str], abadi: Optional[str]) -> Optional[str]:
+    """Calculate Non Abadi in Ac-Gts format: Boundary 25-26 minus Village Abadi."""
+    if not boundary or not str(boundary).strip() or str(boundary).strip() == "-":
+        return None
+    b_ac = _parse_extent_to_acres(boundary)
+    a_ac = _parse_extent_to_acres(abadi) if abadi else 0.0
+    if b_ac <= 0:
+        return None
+    diff_ac = max(0.0, b_ac - a_ac)
+    total_gts = round(diff_ac * 40)
+    ac_part = total_gts // 40
+    gt_part = total_gts % 40
+    return f"{ac_part}-{gt_part:02d}"
+
+def _get_target_survey_extent(v: Dict[str, Any]) -> float:
+    """Target extent for daily survey progress: Non Abadi extent (or fallback to master record)."""
+    # 1. Non Abadi extent
+    na_str = v.get("non_abadi_extent")
+    if na_str and str(na_str).strip() and str(na_str).strip() != "-":
+        na_acres = _parse_extent_to_acres(na_str)
+        if na_acres > 0:
+            return na_acres
+
+    # 2. Derive from Boundary 25-26 and Village Abadi if present
+    b_str = v.get("village_boundary_25_26")
+    a_str = v.get("village_abadi")
+    if b_str and str(b_str).strip() and str(b_str).strip() != "-":
+        calc_na = _calculate_non_abadi_extent(b_str, a_str)
+        if calc_na:
+            na_acres = _parse_extent_to_acres(calc_na)
+            if na_acres > 0:
+                return na_acres
+
+    # 3. Fallback to existing record master extent
+    m_ext = v.get("extent_acres_float")
+    if m_ext:
+        return float(m_ext)
+    return _parse_extent_to_acres(v.get("extent_existing_record") or v.get("extent_raw"))
+
 def _normalize_village_extent_fields(v: Dict[str, Any]) -> Dict[str, Any]:
     ext_rec = str(v.get("extent_existing_record") or v.get("extent_raw") or "").strip()
     v["extent_existing_record"] = ext_rec if ext_rec else (v.get("extent_raw") or "0-00")
     if not v.get("extent_raw") and ext_rec:
         v["extent_raw"] = ext_rec
-    v["village_boundary_25_26"] = str(v.get("village_boundary_25_26") or "").strip()
-    v["village_abadi"] = str(v.get("village_abadi") or "").strip()
-    surv_far = v.get("surveyed_extent_so_far")
-    v["non_abadi_extent"] = str(v.get("non_abadi_extent") or "").strip() or (f"{surv_far} ac" if surv_far else "")
+    b_val = str(v.get("village_boundary_25_26") or "").strip()
+    a_val = str(v.get("village_abadi") or "").strip()
+    v["village_boundary_25_26"] = b_val
+    v["village_abadi"] = a_val
+    na_val = str(v.get("non_abadi_extent") or "").strip()
+    if not na_val and b_val:
+        calc_na = _calculate_non_abadi_extent(b_val, a_val)
+        if calc_na:
+            na_val = calc_na
+    v["non_abadi_extent"] = na_val
+
+    # Recalculate remaining_extent based on Non Abadi target
+    target_ac = _get_target_survey_extent(v)
+    c_ac = float(v.get("surveyed_extent_so_far", 0.0) or 0.0)
+    v["target_extent"] = target_ac
+    v["master_extent"] = target_ac
+    v["surveyed_extent_so_far"] = c_ac
+    v["remaining_extent"] = max(0.0, round(target_ac - c_ac, 3)) if target_ac > 0 else 0.0
     return v
 
 # ----------------- VILLAGES OPERATIONS -----------------
@@ -613,12 +692,12 @@ def get_villages(
                             v_copy[k] = val
 
             # Default daily survey attributes and remaining area calculation
-            master_ac = float(v_copy.get("extent_acres_float", 0.0) or 0.0)
+            target_ac = _get_target_survey_extent(v_copy)
             c_ac = float(v_copy.get("surveyed_extent_so_far", 0.0) or 0.0)
-            v_copy["master_extent"] = master_ac
+            v_copy["target_extent"] = target_ac
+            v_copy["master_extent"] = target_ac
             v_copy["surveyed_extent_so_far"] = c_ac
-            if "remaining_extent" not in v_copy or v_copy["remaining_extent"] is None:
-                v_copy["remaining_extent"] = max(0.0, round(master_ac - c_ac, 3)) if master_ac > 0 else 0.0
+            v_copy["remaining_extent"] = max(0.0, round(target_ac - c_ac, 3)) if target_ac > 0 else 0.0
             if "daily_survey_logs" not in v_copy or v_copy["daily_survey_logs"] is None:
                 v_copy["daily_survey_logs"] = []
 
@@ -697,12 +776,12 @@ def get_villages(
         r_copy = dict(r)
         r_copy["is_picked_for_resurvey"] = bool(r_copy.get("is_picked_for_resurvey", True))
         r_copy["picked_for_resurvey"] = r_copy["is_picked_for_resurvey"]
-        master_ac = float(r_copy.get("extent_acres_float", 0.0) or 0.0)
+        target_ac = _get_target_survey_extent(r_copy)
         c_ac = float(r_copy.get("surveyed_extent_so_far", 0.0) or 0.0)
-        r_copy["master_extent"] = master_ac
+        r_copy["target_extent"] = target_ac
+        r_copy["master_extent"] = target_ac
         r_copy["surveyed_extent_so_far"] = c_ac
-        if "remaining_extent" not in r_copy or r_copy["remaining_extent"] is None:
-            r_copy["remaining_extent"] = max(0.0, round(master_ac - c_ac, 3)) if master_ac > 0 else 0.0
+        r_copy["remaining_extent"] = max(0.0, round(target_ac - c_ac, 3)) if target_ac > 0 else 0.0
         if "daily_survey_logs" not in r_copy or r_copy["daily_survey_logs"] is None:
             r_copy["daily_survey_logs"] = []
         
@@ -747,11 +826,12 @@ def get_village(village_id: str) -> Optional[Dict[str, Any]]:
         if res:
             res["is_picked_for_resurvey"] = bool(res.get("is_picked_for_resurvey", True))
             res["picked_for_resurvey"] = res["is_picked_for_resurvey"]
-            m_ac = float(res.get("extent_acres_float", 0.0) or 0.0)
+            target_ac = _get_target_survey_extent(res)
             c_ac = float(res.get("surveyed_extent_so_far", 0.0) or 0.0)
-            res["master_extent"] = m_ac
+            res["target_extent"] = target_ac
+            res["master_extent"] = target_ac
             res["surveyed_extent_so_far"] = c_ac
-            res["remaining_extent"] = max(0.0, round(m_ac - c_ac, 3)) if m_ac > 0 else 0.0
+            res["remaining_extent"] = max(0.0, round(target_ac - c_ac, 3)) if target_ac > 0 else 0.0
             if "daily_survey_logs" not in res or res["daily_survey_logs"] is None:
                 res["daily_survey_logs"] = []
             return _normalize_village_extent_fields(res)
@@ -761,11 +841,12 @@ def get_village(village_id: str) -> Optional[Dict[str, Any]]:
             v_copy = dict(v)
             v_copy["is_picked_for_resurvey"] = bool(v_copy.get("is_picked_for_resurvey", True))
             v_copy["picked_for_resurvey"] = v_copy["is_picked_for_resurvey"]
-            m_ac = float(v_copy.get("extent_acres_float", 0.0) or 0.0)
+            target_ac = _get_target_survey_extent(v_copy)
             c_ac = float(v_copy.get("surveyed_extent_so_far", 0.0) or 0.0)
-            v_copy["master_extent"] = m_ac
+            v_copy["target_extent"] = target_ac
+            v_copy["master_extent"] = target_ac
             v_copy["surveyed_extent_so_far"] = c_ac
-            v_copy["remaining_extent"] = max(0.0, round(m_ac - c_ac, 3)) if m_ac > 0 else 0.0
+            v_copy["remaining_extent"] = max(0.0, round(target_ac - c_ac, 3)) if target_ac > 0 else 0.0
             if "daily_survey_logs" not in v_copy or v_copy["daily_survey_logs"] is None:
                 v_copy["daily_survey_logs"] = []
             return _normalize_village_extent_fields(v_copy)
@@ -785,11 +866,12 @@ def get_village(village_id: str) -> Optional[Dict[str, Any]]:
                             if str(val).strip() != "" or not v_copy.get(k):
                                 v_copy[k] = val
                     break
-            m_ac = float(v_copy.get("extent_acres_float", 0.0) or 0.0)
+            target_ac = _get_target_survey_extent(v_copy)
             c_ac = float(v_copy.get("surveyed_extent_so_far", 0.0) or 0.0)
-            v_copy["master_extent"] = m_ac
+            v_copy["target_extent"] = target_ac
+            v_copy["master_extent"] = target_ac
             v_copy["surveyed_extent_so_far"] = c_ac
-            v_copy["remaining_extent"] = max(0.0, round(m_ac - c_ac, 3)) if m_ac > 0 else 0.0
+            v_copy["remaining_extent"] = max(0.0, round(target_ac - c_ac, 3)) if target_ac > 0 else 0.0
             if "daily_survey_logs" not in v_copy or v_copy["daily_survey_logs"] is None:
                 v_copy["daily_survey_logs"] = []
             return _normalize_village_extent_fields(v_copy)
@@ -855,6 +937,20 @@ def update_village(
         updates["extent_raw"] = updates["extent_existing_record"]
     elif "extent_raw" in updates and not updates.get("extent_existing_record"):
         updates["extent_existing_record"] = updates["extent_raw"]
+
+    # Calculate static Non Abadi extent (Boundary minus Abadi)
+    b_val = updates.get("village_boundary_25_26") or existing.get("village_boundary_25_26")
+    a_val = updates.get("village_abadi") or existing.get("village_abadi")
+    if b_val:
+        calc_na = _calculate_non_abadi_extent(b_val, a_val)
+        if calc_na:
+            if "village_boundary_25_26" in updates or "village_abadi" in updates or not updates.get("non_abadi_extent") or updates.get("non_abadi_extent") == "-":
+                updates["non_abadi_extent"] = calc_na
+
+    merged_temp = {**existing, **updates}
+    target_extent = _get_target_survey_extent(merged_temp)
+    cur_surveyed = float(updates.get("surveyed_extent_so_far", existing.get("surveyed_extent_so_far", 0.0)) or 0.0)
+    updates["remaining_extent"] = max(0.0, round(target_extent - cur_surveyed, 3)) if target_extent > 0 else 0.0
 
     diff = {}
     for k, v in updates.items():
@@ -1073,17 +1169,16 @@ def add_daily_survey_log(
     logs.append(entry)
 
     total_surveyed = round(sum(float(item.get("extent_acres", 0.0) or 0.0) for item in logs), 3)
-    master_extent = float(village.get("extent_acres_float", 0.0) or 0.0)
-    remaining = max(0.0, round(master_extent - total_surveyed, 3)) if master_extent > 0 else 0.0
+    target_extent = _get_target_survey_extent(village)
+    remaining = max(0.0, round(target_extent - total_surveyed, 3)) if target_extent > 0 else 0.0
 
     updates = {
         "daily_survey_logs": logs,
         "surveyed_extent_so_far": total_surveyed,
         "remaining_extent": remaining,
-        "last_survey_date": survey_date,
-        "non_abadi_extent": f"{total_surveyed} ac"
+        "last_survey_date": survey_date
     }
-    if total_surveyed >= master_extent and master_extent > 0:
+    if total_surveyed >= target_extent and target_extent > 0:
         updates["gt_status"] = "Completed"
     elif total_surveyed > 0:
         updates["gt_status"] = "In Progress"
@@ -1126,8 +1221,8 @@ def delete_daily_survey_log(
         raise ValueError("Daily survey log entry not found")
 
     total_surveyed = round(sum(float(item.get("extent_acres", 0.0) or 0.0) for item in logs), 3)
-    master_extent = float(village.get("extent_acres_float", 0.0) or 0.0)
-    remaining = max(0.0, round(master_extent - total_surveyed, 3)) if master_extent > 0 else 0.0
+    target_extent = _get_target_survey_extent(village)
+    remaining = max(0.0, round(target_extent - total_surveyed, 3)) if target_extent > 0 else 0.0
     dates = [item.get("survey_date") for item in logs if item.get("survey_date")]
     latest_date = max(dates) if dates else ""
 
@@ -1219,8 +1314,8 @@ def update_daily_survey_log(
     target_entry["updated_at"] = datetime.utcnow().isoformat()
 
     total_surveyed = round(sum(float(item.get("extent_acres", 0.0) or 0.0) for item in logs), 3)
-    master_extent = float(village.get("extent_acres_float", 0.0) or 0.0)
-    remaining = max(0.0, round(master_extent - total_surveyed, 3)) if master_extent > 0 else 0.0
+    target_extent = _get_target_survey_extent(village)
+    remaining = max(0.0, round(target_extent - total_surveyed, 3)) if target_extent > 0 else 0.0
     dates = [item.get("survey_date") for item in logs if item.get("survey_date")]
     latest_date = max(dates) if dates else ""
 
@@ -1228,10 +1323,9 @@ def update_daily_survey_log(
         "daily_survey_logs": logs,
         "surveyed_extent_so_far": total_surveyed,
         "remaining_extent": remaining,
-        "last_survey_date": latest_date,
-        "non_abadi_extent": f"{total_surveyed} ac"
+        "last_survey_date": latest_date
     }
-    if total_surveyed >= master_extent and master_extent > 0:
+    if total_surveyed >= target_extent and target_extent > 0:
         updates["gt_status"] = "Completed"
     elif total_surveyed > 0:
         updates["gt_status"] = "In Progress"
@@ -1294,10 +1388,10 @@ def get_cso_survey_tracking(
             continue
 
         logs = v.get("daily_survey_logs") or []
-        m_acres = float(v.get("extent_acres_float", 0.0) or 0.0)
+        target_acres = float(v.get("target_extent", 0.0) or _get_target_survey_extent(v) or 0.0)
         c_acres = float(v.get("surveyed_extent_so_far", 0.0) or 0.0)
-        r_acres = float(v.get("remaining_extent", 0.0) or (m_acres - c_acres))
-        pct = round((c_acres / m_acres * 100), 1) if m_acres > 0 else 0.0
+        r_acres = float(v.get("remaining_extent", 0.0) or max(0.0, round(target_acres - c_acres, 3)))
+        pct = round((c_acres / target_acres * 100), 1) if target_acres > 0 else 0.0
 
         for entry in logs:
             s_date = entry.get("survey_date") or ""
@@ -1325,7 +1419,8 @@ def get_cso_survey_tracking(
                 "surveyor_name": entry.get("surveyor_name", "District Rep"),
                 "surveyor_role": entry.get("surveyor_role", "district_rep"),
                 "created_at": entry.get("created_at", ""),
-                "master_extent_acres": m_acres,
+                "master_extent_acres": target_acres,
+                "target_extent_acres": target_acres,
                 "cumulative_surveyed_acres": c_acres,
                 "remaining_extent_acres": max(0.0, r_acres),
                 "completion_percentage": pct,

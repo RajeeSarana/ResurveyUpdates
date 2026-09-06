@@ -2278,7 +2278,7 @@
                 </label>
                 <span id="badgeBoundary2526Lock" class="text-[9px] px-1.5 py-0.2 rounded font-semibold bg-blue-100 text-blue-800">Boundary 25-26</span>
               </div>
-              <input type="text" id="formExtentBoundary2526" placeholder="e.g. 1376-39"
+              <input type="text" id="formExtentBoundary2526" placeholder="e.g. 1376-39" oninput="onBoundaryOrAbadiExtentChange()"
                 class="w-full py-1.5 px-2 bg-white border border-slate-300 rounded-lg font-mono font-bold text-xs text-slate-900 focus:ring-2 focus:ring-blue-500 shadow-2xs disabled:bg-slate-100 disabled:text-slate-500 disabled:cursor-not-allowed" />
               <p id="helpBoundary2526" class="text-[9px] text-slate-400 italic">District Rep enters; locked once saved</p>
             </div>
@@ -2292,23 +2292,23 @@
                 </label>
                 <span id="badgeAbadiLock" class="text-[9px] px-1.5 py-0.2 rounded font-semibold bg-purple-100 text-purple-800">Habitation Area</span>
               </div>
-              <input type="text" id="formExtentVillageAbadi" placeholder="e.g. 45-14"
+              <input type="text" id="formExtentVillageAbadi" placeholder="e.g. 45-14" oninput="onBoundaryOrAbadiExtentChange()"
                 class="w-full py-1.5 px-2 bg-white border border-slate-300 rounded-lg font-mono font-bold text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 shadow-2xs disabled:bg-slate-100 disabled:text-slate-500 disabled:cursor-not-allowed" />
               <p id="helpAbadi" class="text-[9px] text-slate-400 italic">District Rep enters; locked once saved</p>
             </div>
 
             <!-- 4. Non Abadi -->
-            <div class="p-2.5 rounded-xl border border-emerald-300/80 bg-emerald-50/50 space-y-1.5">
+            <div class="p-2.5 rounded-xl border border-teal-300/80 bg-teal-50/40 space-y-1.5">
               <div class="flex items-center justify-between">
-                <label class="block font-bold text-emerald-950 text-[11px] flex items-center space-x-1">
-                  <span class="w-3.5 h-3.5 rounded-full bg-emerald-600 text-white text-[8px] font-bold flex items-center justify-center">4</span>
+                <label class="block font-bold text-teal-950 text-[11px] flex items-center space-x-1">
+                  <span class="w-3.5 h-3.5 rounded-full bg-teal-600 text-white text-[8px] font-bold flex items-center justify-center">4</span>
                   <span>Non Abadi</span>
                 </label>
-                <span class="text-[9px] px-1.5 py-0.2 rounded font-bold bg-emerald-200 text-emerald-900">Daily Survey Updatable</span>
+                <span class="text-[9px] px-1.5 py-0.2 rounded font-bold bg-teal-100 text-teal-800 border border-teal-200" id="badgeNonAbadiLock">Static Target Extent</span>
               </div>
-              <input type="text" id="formExtentNonAbadi" placeholder="e.g. 85.75 or 1331-25"
-                class="w-full py-1.5 px-2 bg-white border border-emerald-400 rounded-lg font-mono font-black text-xs text-emerald-900 focus:ring-2 focus:ring-emerald-500 shadow-2xs" />
-              <p class="text-[9px] text-emerald-700 font-medium italic">Updated daily as field survey completes</p>
+              <input type="text" id="formExtentNonAbadi" placeholder="e.g. 1332-00" oninput="onNonAbadiExtentChange()"
+                class="w-full py-1.5 px-2 bg-white border border-teal-400 rounded-lg font-mono font-black text-xs text-teal-900 focus:ring-2 focus:ring-teal-500 shadow-2xs" />
+              <p class="text-[9px] text-teal-700 font-medium italic" id="helpNonAbadi">Boundary (25-26) minus Village Abadi</p>
             </div>
           </div>
         </div>
@@ -2340,15 +2340,15 @@
           <!-- UNIFIED COMPACT 3-PILL METRIC STRIP WITH INTEGRATED PROGRESS TRACK -->
           <div class="bg-white p-1.5 sm:p-2 rounded-lg border border-teal-200/70 shadow-2xs space-y-1.5">
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
-              <!-- 1. Master Extent Area -->
-              <div class="flex items-center justify-between px-2.5 py-1 bg-slate-50 rounded border border-slate-200/80">
+              <!-- 1. Non Abadi Target Extent Area -->
+              <div class="flex items-center justify-between px-2.5 py-1 bg-teal-50/70 rounded border border-teal-200/80">
                 <div class="flex items-center space-x-1.5">
-                  <i class="fa-solid fa-landmark text-slate-400 text-[10px]"></i>
-                  <span class="text-[9px] font-semibold text-slate-500 uppercase tracking-wide">Master:</span>
+                  <i class="fa-solid fa-draw-polygon text-teal-600 text-[10px]"></i>
+                  <span class="text-[9px] font-bold text-teal-800 uppercase tracking-wide">Non Abadi:</span>
                 </div>
                 <div class="flex items-baseline space-x-1 font-mono">
-                  <span class="font-black text-slate-900 text-xs sm:text-sm" id="dispModalMasterAcres">0.000 ac</span>
-                  <span class="text-[9px] text-slate-400 hidden sm:inline" id="dispModalMasterRaw">-</span>
+                  <span class="font-black text-teal-900 text-xs sm:text-sm" id="dispModalMasterAcres">0.000 ac</span>
+                  <span class="text-[9px] text-teal-600 font-bold hidden sm:inline" id="dispModalMasterRaw">-</span>
                 </div>
               </div>
 
@@ -4087,6 +4087,105 @@
         headers['Authorization'] = 'Bearer ' + authToken;
       }
       return headers;
+    }
+
+    // Extent & Non-Abadi Area Tracking Utilities
+    function parseExtentToAcresJS(val) {
+      if (val === null || val === undefined) return 0.0;
+      if (typeof val === 'number') return Math.round(val * 1000) / 1000;
+      let s = String(val).trim();
+      if (!s || s === '-' || s === 'None' || s === 'null') return 0.0;
+      s = s.toLowerCase().replace(/ac|acres|gts/g, '').trim();
+      try {
+        if (s.includes('-')) {
+          const parts = s.split('-');
+          const ac = parseFloat(parts[0] || 0);
+          const gt = parseFloat(parts[1] || 0);
+          return Math.round((ac + (gt / 40.0)) * 1000) / 1000;
+        } else if (s.includes('.')) {
+          const parts = s.split('.');
+          const ac = parseFloat(parts[0] || 0);
+          const gt = parseFloat(parts[1] || 0);
+          if (gt < 40 && parts[1].length <= 2) {
+            return Math.round((ac + (gt / 40.0)) * 1000) / 1000;
+          }
+          return Math.round(parseFloat(s) * 1000) / 1000;
+        }
+        return Math.round(parseFloat(s) * 1000) / 1000;
+      } catch (e) {
+        return 0.0;
+      }
+    }
+
+    function calculateNonAbadiAcGtsJS(boundary, abadi) {
+      if (!boundary || !String(boundary).trim() || String(boundary).trim() === '-') return null;
+      const bAc = parseExtentToAcresJS(boundary);
+      const aAc = abadi ? parseExtentToAcresJS(abadi) : 0.0;
+      if (bAc <= 0) return null;
+      const diffAc = Math.max(0, bAc - aAc);
+      const totalGts = Math.round(diffAc * 40);
+      const acPart = Math.floor(totalGts / 40);
+      const gtPart = totalGts % 40;
+      return `${acPart}-${String(gtPart).padStart(2, '0')}`;
+    }
+
+    function updateModalLedgerMetrics(targetAcres, targetRaw, villageObj = null) {
+      const villageId = document.getElementById('formVillageId')?.value;
+      const v = villageObj || allVillages.find(item => item.id === villageId) || {};
+      const surveyedSoFar = parseFloat((v.surveyed_extent_so_far !== undefined && v.surveyed_extent_so_far !== null) ? v.surveyed_extent_so_far : 0);
+      const remainingAcres = Math.max(0, Math.round((targetAcres - surveyedSoFar) * 1000) / 1000);
+      const completionPct = targetAcres > 0 ? Math.min(100, Math.round((surveyedSoFar / targetAcres) * 1000) / 10) : 0;
+      const remainingPct = targetAcres > 0 ? Math.max(0, Math.round((100 - completionPct) * 10) / 10) : 100;
+
+      if (document.getElementById('dispModalMasterAcres')) document.getElementById('dispModalMasterAcres').textContent = targetAcres.toFixed(3) + ' ac';
+      if (document.getElementById('dispModalMasterRaw')) document.getElementById('dispModalMasterRaw').textContent = targetRaw ? `${targetRaw} Ac-Gts` : '';
+
+      if (document.getElementById('dispModalSurveyedSoFar')) document.getElementById('dispModalSurveyedSoFar').textContent = surveyedSoFar.toFixed(3) + ' ac';
+      if (document.getElementById('dispModalSurveyedPercent')) document.getElementById('dispModalSurveyedPercent').textContent = completionPct + '%';
+
+      if (document.getElementById('dispModalRemainingExtent')) document.getElementById('dispModalRemainingExtent').textContent = remainingAcres.toFixed(3) + ' ac';
+      if (document.getElementById('dispModalRemainingPercent')) document.getElementById('dispModalRemainingPercent').textContent = remainingPct + '%';
+
+      if (document.getElementById('dispProgressSurveyedText')) document.getElementById('dispProgressSurveyedText').textContent = surveyedSoFar.toFixed(2) + ' ac';
+      if (document.getElementById('dispProgressRemainingText')) document.getElementById('dispProgressRemainingText').textContent = remainingAcres.toFixed(2) + ' ac';
+      if (document.getElementById('dispProgressPercentText')) document.getElementById('dispProgressPercentText').textContent = completionPct + '% Completed';
+
+      if (document.getElementById('dispSurveyProgressBar')) {
+        document.getElementById('dispSurveyProgressBar').style.width = Math.min(100, Math.max(0, completionPct)) + '%';
+      }
+    }
+
+    function onBoundaryOrAbadiExtentChange() {
+      const elBoundary = document.getElementById('formExtentBoundary2526');
+      const elAbadi = document.getElementById('formExtentVillageAbadi');
+      const elNonAbadi = document.getElementById('formExtentNonAbadi');
+      if (!elBoundary || !elAbadi || !elNonAbadi) return;
+
+      const boundaryVal = elBoundary.value.trim();
+      const abadiVal = elAbadi.value.trim();
+      if (boundaryVal) {
+        const calcNa = calculateNonAbadiAcGtsJS(boundaryVal, abadiVal);
+        if (calcNa) {
+          elNonAbadi.value = calcNa;
+          const targetAc = parseExtentToAcresJS(calcNa);
+          updateModalLedgerMetrics(targetAc, calcNa);
+          return;
+        }
+      }
+      const elExisting = document.getElementById('formExtentExistingRecord');
+      const existingVal = elExisting ? elExisting.value.trim() : '';
+      const fallbackAc = parseExtentToAcresJS(existingVal);
+      updateModalLedgerMetrics(fallbackAc, existingVal);
+    }
+
+    function onNonAbadiExtentChange() {
+      const elNonAbadi = document.getElementById('formExtentNonAbadi');
+      if (!elNonAbadi) return;
+      const naVal = elNonAbadi.value.trim();
+      if (naVal) {
+        const targetAc = parseExtentToAcresJS(naVal);
+        updateModalLedgerMetrics(targetAc, naVal);
+      }
     }
 
     async function loadAuthenticatedSession() {
@@ -6296,7 +6395,7 @@
           <td class="py-2.5 px-2.5 text-right font-mono font-bold text-slate-800">${v.extent_existing_record || v.extent_raw || '0-00'}</td>
           <td class="py-2.5 px-2.5 text-right font-mono text-slate-700">${v.village_boundary_25_26 || '-'}</td>
           <td class="py-2.5 px-2.5 text-right font-mono text-slate-700">${v.village_abadi || '-'}</td>
-          <td class="py-2.5 px-2.5 text-right font-mono font-bold text-emerald-700">${v.non_abadi_extent || (v.surveyed_extent_so_far ? v.surveyed_extent_so_far + ' ac' : '-')}</td>
+          <td class="py-2.5 px-2.5 text-right font-mono font-bold text-teal-700">${v.non_abadi_extent || (v.village_boundary_25_26 ? (calculateNonAbadiAcGtsJS(v.village_boundary_25_26, v.village_abadi) || '-') : '-')}</td>
           <td class="py-2.5 px-3 text-center no-print">
             <button onclick="startSurveyEntryForVillage('${v.id || ''}', '${encodeURIComponent(v.village_name)}', '${encodeURIComponent(v.mandal_name)}', '${encodeURIComponent(v.district_name)}', '${v.category}')" class="text-emerald-700 hover:text-emerald-900 font-semibold text-[11px] hover:underline whitespace-nowrap">
               <i class="fa-solid fa-pen-to-square mr-1"></i>Survey Data
@@ -6582,7 +6681,7 @@
           <td class="py-2.5 px-2.5 text-right font-mono font-bold text-slate-800">${v.extent_existing_record || v.extent_raw || '0-00'}</td>
           <td class="py-2.5 px-2.5 text-right font-mono text-slate-700">${v.village_boundary_25_26 || '-'}</td>
           <td class="py-2.5 px-2.5 text-right font-mono text-slate-700">${v.village_abadi || '-'}</td>
-          <td class="py-2.5 px-2.5 text-right font-mono font-bold text-emerald-700">${v.non_abadi_extent || (v.surveyed_extent_so_far ? v.surveyed_extent_so_far + ' ac' : '-')}</td>
+          <td class="py-2.5 px-2.5 text-right font-mono font-bold text-teal-700">${v.non_abadi_extent || (v.village_boundary_25_26 ? (calculateNonAbadiAcGtsJS(v.village_boundary_25_26, v.village_abadi) || '-') : '-')}</td>
           <td class="py-2.5 px-3 text-center no-print">
             <button onclick="startSurveyEntryForVillage('${v.id || ''}', '${encodeURIComponent(v.village_name)}', '${encodeURIComponent(v.mandal_name)}', '${encodeURIComponent(v.district_name)}', '${v.category}', 'view')" class="text-emerald-700 hover:text-emerald-900 font-semibold text-[11px] hover:underline whitespace-nowrap inline-flex items-center space-x-1" title="View Survey Data (Display Only)">
               <i class="fa-solid fa-eye text-[10px]"></i>
@@ -7471,7 +7570,11 @@
       if (elAbadi) elAbadi.value = abadiVal;
 
       const elNonAbadi = document.getElementById('formExtentNonAbadi');
-      const nonAbadiVal = String(v.non_abadi_extent || '').trim() || (v.surveyed_extent_so_far ? `${v.surveyed_extent_so_far} ac` : '');
+      let nonAbadiVal = String(v.non_abadi_extent || '').trim();
+      if ((!nonAbadiVal || nonAbadiVal === '-') && boundaryVal) {
+        const calcNa = calculateNonAbadiAcGtsJS(boundaryVal, abadiVal);
+        if (calcNa) nonAbadiVal = calcNa;
+      }
       if (elNonAbadi) elNonAbadi.value = nonAbadiVal;
 
       if (isReadOnly) {
@@ -7595,32 +7698,28 @@
         }
       }
 
-      // DAILY SURVEY PROGRESS & CUMULATIVE EXTENT TRACKING
-      const masterAcres = parseFloat((v.master_extent !== undefined && v.master_extent !== null) ? v.master_extent : (v.extent_acres_float || 0));
-      const surveyedSoFar = parseFloat((v.surveyed_extent_so_far !== undefined && v.surveyed_extent_so_far !== null) ? v.surveyed_extent_so_far : 0);
-      const remainingAcres = (v.remaining_extent !== undefined && v.remaining_extent !== null)
-        ? parseFloat(v.remaining_extent)
-        : Math.max(0, masterAcres - surveyedSoFar);
-
-      const completionPct = masterAcres > 0 ? Math.min(100, Math.round((surveyedSoFar / masterAcres) * 1000) / 10) : 0;
-      const remainingPct = masterAcres > 0 ? Math.max(0, Math.round((100 - completionPct) * 10) / 10) : 100;
-
-      if (document.getElementById('dispModalMasterAcres')) document.getElementById('dispModalMasterAcres').textContent = masterAcres.toFixed(3) + ' ac';
-      if (document.getElementById('dispModalMasterRaw')) document.getElementById('dispModalMasterRaw').textContent = (v.extent_raw && v.extent_raw !== '-') ? v.extent_raw + ' Ac-Gts' : 'Baseline Master';
-
-      if (document.getElementById('dispModalSurveyedSoFar')) document.getElementById('dispModalSurveyedSoFar').textContent = surveyedSoFar.toFixed(3) + ' ac';
-      if (document.getElementById('dispModalSurveyedPercent')) document.getElementById('dispModalSurveyedPercent').textContent = completionPct + '%';
-
-      if (document.getElementById('dispModalRemainingExtent')) document.getElementById('dispModalRemainingExtent').textContent = remainingAcres.toFixed(3) + ' ac';
-      if (document.getElementById('dispModalRemainingPercent')) document.getElementById('dispModalRemainingPercent').textContent = remainingPct + '%';
-
-      if (document.getElementById('dispProgressSurveyedText')) document.getElementById('dispProgressSurveyedText').textContent = surveyedSoFar.toFixed(2) + ' ac';
-      if (document.getElementById('dispProgressRemainingText')) document.getElementById('dispProgressRemainingText').textContent = remainingAcres.toFixed(2) + ' ac';
-      if (document.getElementById('dispProgressPercentText')) document.getElementById('dispProgressPercentText').textContent = completionPct + '% Completed';
-
-      if (document.getElementById('dispSurveyProgressBar')) {
-        document.getElementById('dispSurveyProgressBar').style.width = Math.min(100, Math.max(0, completionPct)) + '%';
+      // DAILY SURVEY PROGRESS & CUMULATIVE EXTENT TRACKING (NON ABADI TARGET EXTENT)
+      let targetAcres = 0.0;
+      let targetRaw = '';
+      if (nonAbadiVal && nonAbadiVal !== '-') {
+        targetAcres = parseExtentToAcresJS(nonAbadiVal);
+        targetRaw = nonAbadiVal;
+      } else if (boundaryVal && boundaryVal !== '-') {
+        const calcNa = calculateNonAbadiAcGtsJS(boundaryVal, abadiVal);
+        if (calcNa) {
+          targetAcres = parseExtentToAcresJS(calcNa);
+          targetRaw = calcNa;
+        }
       }
+      if (targetAcres <= 0) {
+        targetAcres = parseFloat((v.target_extent !== undefined && v.target_extent !== null) ? v.target_extent : ((v.master_extent !== undefined && v.master_extent !== null) ? v.master_extent : (v.extent_acres_float || 0)));
+        if (targetAcres <= 0) {
+          targetAcres = parseExtentToAcresJS(v.extent_existing_record || v.extent_raw);
+        }
+        targetRaw = (v.extent_raw && v.extent_raw !== '-') ? v.extent_raw : '';
+      }
+
+      updateModalLedgerMetrics(targetAcres, targetRaw, v);
 
       // Default Daily Survey Input Row (Today's date)
       if (document.getElementById('formDailySurveyDate')) {

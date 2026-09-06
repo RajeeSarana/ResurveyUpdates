@@ -27073,8 +27073,8 @@
     "workflow_stage": "QC Resubmitted",
     "verified_by": "Project Administrator (Central Systems Administrator)",
     "qc_notes": "Test Correction - boundary polygon mismatch found during central verification. Please correct.",
-    "updated_at": "2026-09-06T16:50:53.368346",
-    "updated_by": "Adilabad District Lead Rep (Primary)",
+    "updated_at": "2026-09-06T17:13:46.867074",
+    "updated_by": "Admin",
     "verified_at": "2026-09-06T12:41:56.468438",
     "village_name_telugu": "",
     "extent_existing_record": "687-32",
@@ -27088,7 +27088,7 @@
     "notice_9_2_status": "Notice to be given",
     "notice_9_2_date": "",
     "surveyed_extent_so_far": 10.0,
-    "remaining_extent": 677.8,
+    "remaining_extent": 1322.0,
     "last_survey_date": "2026-09-06",
     "daily_survey_logs": [
       {
