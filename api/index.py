@@ -33,6 +33,7 @@ from core.database import (
     verify_village,
     delete_village,
     add_daily_survey_log,
+    update_daily_survey_log,
     delete_daily_survey_log,
     get_cso_survey_tracking,
     get_dashboard_stats,
@@ -975,6 +976,54 @@ def delete_village_daily_survey_entry(
         updated = delete_daily_survey_log(
             village_id=village_id,
             log_id=log_id,
+            user_name=user["name"],
+            user_role=user["role"]
+        )
+        return updated
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+
+@router.put("/villages/{village_id}/daily-survey/{log_id}")
+def update_village_daily_survey_entry(
+    village_id: str,
+    log_id: str,
+    payload: DailySurveyEntryRequest,
+    user: Dict[str, Any] = Depends(require_user)
+):
+    if user.get("role") not in ["admin", "district_rep"]:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Permission denied: Only designated District Representatives and Administrators can update daily survey entries."
+        )
+
+    existing = get_village(village_id)
+    if not existing:
+        raise HTTPException(status_code=404, detail="Village record not found")
+
+    is_picked = bool(existing.get("is_picked_for_resurvey") or existing.get("picked_for_resurvey"))
+    if not is_picked:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Editing or entering survey data is not permitted for villages not picked for resurvey."
+        )
+
+    if user.get("role") == "district_rep":
+        assigned_district = (user.get("district") or "").lower()
+        existing_district = (existing.get("district_name") or "").lower()
+        if assigned_district != "all" and existing_district != assigned_district:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=f"Permission denied: You are assigned to {user.get('district')} and cannot submit survey records for {existing.get('district_name')}."
+            )
+
+    try:
+        updated = update_daily_survey_log(
+            village_id=village_id,
+            log_id=log_id,
+            survey_date=payload.survey_date,
+            extent_acres=payload.extent_acres,
+            extent_raw=payload.extent_raw,
+            remarks=payload.remarks,
             user_name=user["name"],
             user_role=user["role"]
         )

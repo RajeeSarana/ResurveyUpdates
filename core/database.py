@@ -969,6 +969,15 @@ def add_daily_survey_log(
     }
 
     logs = list(village.get("daily_survey_logs") or [])
+    
+    # Check if survey entry for this date already exists
+    existing_for_date = next((item for item in logs if item.get("survey_date") == survey_date), None)
+    if existing_for_date:
+        raise ValueError(
+            f"A survey entry for {survey_date} already exists for this village ({existing_for_date.get('extent_acres')} ac). "
+            "Please use the Edit button under Actions in the Daily Survey History table below to update this entry rather than adding a new one."
+        )
+
     logs.append(entry)
 
     total_surveyed = round(sum(float(item.get("extent_acres", 0.0) or 0.0) for item in logs), 3)
@@ -1050,6 +1059,106 @@ def delete_daily_survey_log(
             "surveyed_extent_so_far": {"from": village.get("surveyed_extent_so_far", 0.0), "to": total_surveyed}
         }
     )
+    return updated_v or get_village(village_id)
+
+def update_daily_survey_log(
+    village_id: str,
+    log_id: str,
+    survey_date: str,
+    extent_acres: Optional[float] = None,
+    extent_raw: Optional[str] = None,
+    remarks: Optional[str] = None,
+    user_name: str = "District Rep",
+    user_role: str = "district_rep"
+) -> Dict[str, Any]:
+    village = get_village(village_id)
+    if not village:
+        raise ValueError("Village not found")
+
+    is_picked = bool(village.get("is_picked_for_resurvey") or village.get("picked_for_resurvey"))
+    if not is_picked:
+        raise ValueError("Daily survey tracking is only allowed for villages picked for resurvey.")
+
+    logs = list(village.get("daily_survey_logs") or [])
+    target_entry = next((item for item in logs if item.get("id") == log_id), None)
+    if not target_entry:
+        raise ValueError("Daily survey log entry not found")
+
+    # Check for date collision with other entries
+    duplicate = next((item for item in logs if item.get("id") != log_id and item.get("survey_date") == survey_date), None)
+    if duplicate:
+        raise ValueError(f"Another survey entry already exists for date {survey_date}. Please edit that entry instead.")
+
+    # Parse extent if needed
+    ac = extent_acres
+    if ac is None or ac <= 0:
+        raw_str = (extent_raw or "").strip()
+        if raw_str:
+            try:
+                if "-" in raw_str:
+                    parts = raw_str.split("-")
+                    ac = float(parts[0] or 0) + (float(parts[1] or 0) / 40.0)
+                elif "." in raw_str:
+                    parts = raw_str.split(".")
+                    ac_part = float(parts[0] or 0)
+                    gt_part = float(parts[1] or 0)
+                    if gt_part < 40:
+                        ac = ac_part + (gt_part / 40.0)
+                    else:
+                        ac = float(raw_str)
+                else:
+                    ac = float(raw_str)
+            except Exception:
+                ac = 0.0
+        else:
+            ac = 0.0
+    ac = round(float(ac), 3)
+
+    old_date = target_entry.get("survey_date")
+    old_acres = target_entry.get("extent_acres")
+
+    target_entry["survey_date"] = survey_date
+    target_entry["extent_acres"] = ac
+    target_entry["extent_raw"] = extent_raw or f"{ac} ac"
+    target_entry["remarks"] = (remarks or "").strip()
+    target_entry["surveyor_name"] = user_name
+    target_entry["surveyor_role"] = user_role
+    target_entry["updated_at"] = datetime.utcnow().isoformat()
+
+    total_surveyed = round(sum(float(item.get("extent_acres", 0.0) or 0.0) for item in logs), 3)
+    master_extent = float(village.get("extent_acres_float", 0.0) or 0.0)
+    remaining = max(0.0, round(master_extent - total_surveyed, 3)) if master_extent > 0 else 0.0
+    dates = [item.get("survey_date") for item in logs if item.get("survey_date")]
+    latest_date = max(dates) if dates else ""
+
+    updates = {
+        "daily_survey_logs": logs,
+        "surveyed_extent_so_far": total_surveyed,
+        "remaining_extent": remaining,
+        "last_survey_date": latest_date
+    }
+    if total_surveyed >= master_extent and master_extent > 0:
+        updates["gt_status"] = "Completed"
+    elif total_surveyed > 0:
+        updates["gt_status"] = "In Progress"
+
+    updated_v = update_village(village_id, updates, user_name=user_name, user_role=user_role)
+
+    log_change(
+        record_id=village_id,
+        village_name=village.get("village_name", ""),
+        district_name=village.get("district_name", ""),
+        user_name=user_name,
+        user_role=user_role,
+        action="Daily Survey Log Updated",
+        details=f"Survey entry {log_id} updated by {user_name}: {old_date} ({old_acres} ac) -> {survey_date} ({ac} ac). Total surveyed: {total_surveyed} ac (Remaining: {remaining} ac).",
+        changes={
+            "survey_date": {"from": old_date, "to": survey_date},
+            "extent_acres": {"from": old_acres, "to": ac},
+            "surveyed_extent_so_far": {"from": village.get("surveyed_extent_so_far", 0.0), "to": total_surveyed}
+        }
+    )
+
     return updated_v or get_village(village_id)
 
 def get_cso_survey_tracking(

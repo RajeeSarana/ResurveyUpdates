@@ -2176,11 +2176,19 @@
 
           <!-- DAILY SURVEY ENTRY INPUT CARD -->
           <div class="bg-white p-3.5 sm:p-4 rounded-xl border border-indigo-200/90 shadow-2xs space-y-3">
+            <input type="hidden" id="formEditingDailySurveyLogId" value="" />
             <div class="flex items-center justify-between pb-2 border-b border-indigo-100">
-              <span class="text-xs font-bold text-indigo-950 flex items-center">
-                <i class="fa-solid fa-calendar-plus mr-1.5 text-indigo-600"></i>Record Today's Field Survey Extent
-              </span>
-              <span class="text-[10px] text-slate-400">Updates cumulative "Completed So Far" instantly</span>
+              <div class="flex items-center space-x-2">
+                <span class="text-xs font-bold text-indigo-950 flex items-center">
+                  <i class="fa-solid fa-calendar-plus mr-1.5 text-indigo-600" id="headerIconDailySurvey"></i>
+                  <span id="headerTitleDailySurvey">Record Today's Field Survey Extent</span>
+                </span>
+                <span id="badgeEditingDailySurvey" class="hidden text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full border border-amber-300 flex items-center space-x-1">
+                  <i class="fa-solid fa-pen-to-square text-[9px]"></i>
+                  <span>Editing Mode</span>
+                </span>
+              </div>
+              <span class="text-[10px] text-slate-400" id="headerHelpDailySurvey">Updates cumulative "Completed So Far" instantly</span>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-end">
@@ -2201,12 +2209,17 @@
                   class="w-full p-2 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 font-bold text-slate-900 shadow-2xs text-xs font-mono" />
               </div>
 
-              <!-- Action Button -->
-              <div class="sm:col-span-4">
-                <button type="button" onclick="handleLogDailySurveyEntry()" 
+              <!-- Action Button Group -->
+              <div class="sm:col-span-4 flex items-center space-x-1.5">
+                <button type="button" id="btnLogDailySurvey" onclick="handleLogDailySurveyEntry()" 
                   class="w-full p-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-bold shadow transition flex items-center justify-center space-x-1.5 text-xs">
-                  <i class="fa-solid fa-plus-circle"></i>
-                  <span>Add Day's Survey</span>
+                  <i class="fa-solid fa-plus-circle" id="iconLogDailySurvey"></i>
+                  <span id="textLogDailySurvey">Add Day's Survey</span>
+                </button>
+                <button type="button" id="btnCancelDailySurveyEdit" onclick="cancelDailySurveyEdit()" 
+                  class="hidden px-2.5 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-lg font-semibold transition text-xs flex items-center space-x-1 shrink-0" title="Cancel Edit">
+                  <i class="fa-solid fa-xmark"></i>
+                  <span>Cancel</span>
                 </button>
               </div>
 
@@ -6656,6 +6669,7 @@
       if (document.getElementById('formDailySurveyExtent')) document.getElementById('formDailySurveyExtent').value = '';
       if (document.getElementById('formDailySurveyRemarks')) document.getElementById('formDailySurveyRemarks').value = '';
 
+      cancelDailySurveyEdit();
       renderModalDailySurveyTable(v.daily_survey_logs || [], v.id);
 
       // Operational fields
@@ -6748,7 +6762,7 @@
       const sortedLogs = [...logs].sort((a, b) => (b.survey_date || '').localeCompare(a.survey_date || ''));
 
       tbody.innerHTML = sortedLogs.map(item => `
-        <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+        <tr class="hover:bg-slate-50 transition border-b border-slate-100" id="row-dsl-${item.id}">
           <td class="py-2 px-3 font-semibold text-slate-900 whitespace-nowrap">
             <span class="inline-flex items-center"><i class="fa-regular fa-calendar mr-1.5 text-indigo-500"></i>${item.survey_date}</span>
           </td>
@@ -6763,12 +6777,100 @@
             ${escapeHtml(item.remarks || '-')}
           </td>
           <td class="py-2 px-3 text-center whitespace-nowrap">
-            <button type="button" onclick="handleDeleteDailySurveyEntry('${villageId}', '${item.id}')" title="Delete this entry" class="text-rose-500 hover:text-rose-700 p-1 rounded hover:bg-rose-50 transition">
-              <i class="fa-regular fa-trash-can text-xs"></i>
-            </button>
+            <div class="inline-flex items-center space-x-1">
+              <button type="button" onclick="handleEditDailySurveyEntry('${villageId}', '${item.id}')" title="Edit/Correct this survey entry" class="text-indigo-600 hover:text-indigo-800 p-1.5 rounded hover:bg-indigo-50 border border-transparent hover:border-indigo-200 transition">
+                <i class="fa-solid fa-pen-to-square text-xs"></i>
+              </button>
+              <button type="button" onclick="handleDeleteDailySurveyEntry('${villageId}', '${item.id}')" title="Delete this entry" class="text-rose-500 hover:text-rose-700 p-1.5 rounded hover:bg-rose-50 border border-transparent hover:border-rose-200 transition">
+                <i class="fa-regular fa-trash-can text-xs"></i>
+              </button>
+            </div>
           </td>
         </tr>
       `).join('');
+    }
+
+    function handleEditDailySurveyEntry(villageId, logId) {
+      const v = allVillages.find(item => item.id === villageId);
+      if (!v) return;
+      const logs = v.daily_survey_logs || [];
+      const entry = logs.find(l => l.id === logId);
+      if (!entry) return;
+
+      const editInput = document.getElementById('formEditingDailySurveyLogId');
+      if (editInput) editInput.value = logId;
+
+      const dateInput = document.getElementById('formDailySurveyDate');
+      if (dateInput) dateInput.value = entry.survey_date || '';
+
+      const extentInput = document.getElementById('formDailySurveyExtent');
+      if (extentInput) extentInput.value = entry.extent_raw || entry.extent_acres || '';
+
+      const remarksInput = document.getElementById('formDailySurveyRemarks');
+      if (remarksInput) remarksInput.value = entry.remarks || '';
+
+      // Update button & header UI for Edit mode
+      const btn = document.getElementById('btnLogDailySurvey');
+      const text = document.getElementById('textLogDailySurvey');
+      const icon = document.getElementById('iconLogDailySurvey');
+      const cancelBtn = document.getElementById('btnCancelDailySurveyEdit');
+      const editBadge = document.getElementById('badgeEditingDailySurvey');
+      const headerTitle = document.getElementById('headerTitleDailySurvey');
+
+      if (text) text.textContent = 'Update Survey Entry';
+      if (icon) icon.className = 'fa-solid fa-check';
+      if (btn) {
+        btn.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
+        btn.classList.add('bg-amber-600', 'hover:bg-amber-700');
+      }
+      if (cancelBtn) cancelBtn.classList.remove('hidden');
+      if (editBadge) editBadge.classList.remove('hidden');
+      if (headerTitle) headerTitle.textContent = `Correct Survey Entry (${entry.survey_date})`;
+
+      // Highlight the row in the table
+      const rows = document.querySelectorAll('#dispDailySurveyLogsTableBody tr');
+      rows.forEach(r => r.classList.remove('bg-amber-50', 'ring-1', 'ring-amber-300'));
+      const activeRow = document.getElementById(`row-dsl-${logId}`);
+      if (activeRow) activeRow.classList.add('bg-amber-50', 'ring-1', 'ring-amber-300');
+
+      if (extentInput) {
+        extentInput.focus();
+        extentInput.select();
+      }
+    }
+
+    function cancelDailySurveyEdit() {
+      const editInput = document.getElementById('formEditingDailySurveyLogId');
+      if (editInput) editInput.value = '';
+
+      const dateInput = document.getElementById('formDailySurveyDate');
+      if (dateInput) dateInput.value = new Date().toISOString().split('T')[0];
+
+      const extentInput = document.getElementById('formDailySurveyExtent');
+      if (extentInput) extentInput.value = '';
+
+      const remarksInput = document.getElementById('formDailySurveyRemarks');
+      if (remarksInput) remarksInput.value = '';
+
+      const btn = document.getElementById('btnLogDailySurvey');
+      const text = document.getElementById('textLogDailySurvey');
+      const icon = document.getElementById('iconLogDailySurvey');
+      const cancelBtn = document.getElementById('btnCancelDailySurveyEdit');
+      const editBadge = document.getElementById('badgeEditingDailySurvey');
+      const headerTitle = document.getElementById('headerTitleDailySurvey');
+
+      if (text) text.textContent = "Add Day's Survey";
+      if (icon) icon.className = 'fa-solid fa-plus-circle';
+      if (btn) {
+        btn.classList.remove('bg-amber-600', 'hover:bg-amber-700');
+        btn.classList.add('bg-indigo-600', 'hover:bg-indigo-700');
+      }
+      if (cancelBtn) cancelBtn.classList.add('hidden');
+      if (editBadge) editBadge.classList.add('hidden');
+      if (headerTitle) headerTitle.textContent = "Record Today's Field Survey Extent";
+
+      const rows = document.querySelectorAll('#dispDailySurveyLogsTableBody tr');
+      rows.forEach(r => r.classList.remove('bg-amber-50', 'ring-1', 'ring-amber-300'));
     }
 
     async function handleLogDailySurveyEntry() {
@@ -6785,6 +6887,7 @@
       const surveyDate = document.getElementById('formDailySurveyDate').value;
       const extentVal = document.getElementById('formDailySurveyExtent').value.trim();
       const remarks = document.getElementById('formDailySurveyRemarks').value.trim();
+      const editingLogId = document.getElementById('formEditingDailySurveyLogId') ? document.getElementById('formEditingDailySurveyLogId').value : '';
 
       if (!surveyDate) {
         alert('Please select the Date of Survey.');
@@ -6795,15 +6898,38 @@
         return;
       }
 
+      // If NOT editing, check if an entry with this survey_date already exists:
+      if (!editingLogId) {
+        const currentVillage = allVillages.find(item => item.id === villageId);
+        const existingLogs = currentVillage ? (currentVillage.daily_survey_logs || []) : [];
+        const duplicateDateEntry = existingLogs.find(l => l.survey_date === surveyDate);
+        if (duplicateDateEntry) {
+          const proceedToEdit = confirm(
+            `An entry for survey date "${surveyDate}" already exists with ${duplicateDateEntry.extent_acres} acres.\n\n` +
+            `Please use the Edit button in the Daily Survey History table below to make corrections rather than adding a new entry.\n\n` +
+            `Would you like to edit the existing entry for ${surveyDate} now?`
+          );
+          if (proceedToEdit) {
+            handleEditDailySurveyEntry(villageId, duplicateDateEntry.id);
+          }
+          return;
+        }
+      }
+
       const payload = {
         survey_date: surveyDate,
         extent_raw: extentVal,
         remarks: remarks
       };
 
+      const url = editingLogId 
+        ? `/villages/${villageId}/daily-survey/${editingLogId}` 
+        : `/villages/${villageId}/daily-survey`;
+      const method = editingLogId ? 'PUT' : 'POST';
+
       try {
-        const res = await fetch(`/villages/${villageId}/daily-survey`, {
-          method: 'POST',
+        const res = await fetch(url, {
+          method: method,
           headers: getAuthHeaders(),
           body: JSON.stringify(payload)
         });
@@ -6819,15 +6945,18 @@
           allVillages[idx] = updatedVillage;
         }
 
+        cancelDailySurveyEdit();
+
         // Re-open modal with updated fields
         openEditVillageModal(villageId);
         if (typeof applyActiveFilters === 'function') {
           applyActiveFilters();
         }
         renderVillageMasterTable();
-        alert(`Daily survey entry for ${surveyDate} successfully logged!\nCumulative completed so far: ${updatedVillage.surveyed_extent_so_far} ac\nRemaining: ${updatedVillage.remaining_extent} ac.`);
+        const actionVerb = editingLogId ? 'corrected/updated' : 'logged';
+        alert(`Daily survey entry for ${surveyDate} successfully ${actionVerb}!\nCumulative completed so far: ${updatedVillage.surveyed_extent_so_far} ac\nRemaining: ${updatedVillage.remaining_extent} ac.`);
       } catch (err) {
-        alert('Error logging daily survey: ' + err.message);
+        alert('Error saving daily survey: ' + err.message);
       }
     }
 
@@ -6847,6 +6976,7 @@
         if (idx !== -1) {
           allVillages[idx] = updatedVillage;
         }
+        cancelDailySurveyEdit();
         openEditVillageModal(villageId);
         if (typeof applyActiveFilters === 'function') {
           applyActiveFilters();
