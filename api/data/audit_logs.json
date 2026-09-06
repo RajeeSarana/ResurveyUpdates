@@ -1,5 +1,120 @@
 [
   {
+    "id": "log-1788693653986",
+    "timestamp": "2026-09-06T16:50:53.986366",
+    "record_id": "vlg-1592",
+    "village_name": "Adegaon K",
+    "district_name": "Adilabad",
+    "user_name": "Adilabad District Lead Rep (Primary)",
+    "user_role": "district_rep",
+    "action": "Updated",
+    "details": "Record updated by Adilabad District Lead Rep (Primary) (district_rep): non_abadi_extent",
+    "changes": {
+      "non_abadi_extent": {
+        "from": "10.0 ac",
+        "to": "1332-00"
+      }
+    }
+  },
+  {
+    "id": "log-1788693653241",
+    "timestamp": "2026-09-06T16:50:53.241579",
+    "record_id": "vlg-1592",
+    "village_name": "Adegaon K",
+    "district_name": "Adilabad",
+    "user_name": "Adilabad District Lead Rep (Primary)",
+    "user_role": "district_rep",
+    "action": "Daily Survey Logged",
+    "details": "Survey on 2026-09-06: 10.0 acres logged by Adilabad District Lead Rep (Primary). Total surveyed so far: 10.0 ac (Remaining: 677.8 ac).",
+    "changes": {
+      "survey_date": {
+        "from": null,
+        "to": "2026-09-06"
+      },
+      "extent_surveyed_today": {
+        "from": null,
+        "to": 10.0
+      },
+      "surveyed_extent_so_far": {
+        "from": 0.0,
+        "to": 10.0
+      }
+    }
+  },
+  {
+    "id": "log-1788693653216",
+    "timestamp": "2026-09-06T16:50:53.216633",
+    "record_id": "vlg-1592",
+    "village_name": "Adegaon K",
+    "district_name": "Adilabad",
+    "user_name": "Adilabad District Lead Rep (Primary)",
+    "user_role": "district_rep",
+    "action": "Updated",
+    "details": "Record updated by Adilabad District Lead Rep (Primary) (district_rep): daily_survey_logs, surveyed_extent_so_far, remaining_extent, last_survey_date, non_abadi_extent, gt_status",
+    "changes": {
+      "daily_survey_logs": {
+        "from": [],
+        "to": [
+          {
+            "id": "dsl-1788693652479",
+            "survey_date": "2026-09-06",
+            "extent_acres": 10.0,
+            "extent_raw": "10-00",
+            "remarks": "Automated test survey entry",
+            "surveyor_name": "Adilabad District Lead Rep (Primary)",
+            "surveyor_role": "district_rep",
+            "created_at": "2026-09-06T16:50:52.479637"
+          }
+        ]
+      },
+      "surveyed_extent_so_far": {
+        "from": 0.0,
+        "to": 10.0
+      },
+      "remaining_extent": {
+        "from": 687.8,
+        "to": 677.8
+      },
+      "last_survey_date": {
+        "from": "",
+        "to": "2026-09-06"
+      },
+      "non_abadi_extent": {
+        "from": "1332-00",
+        "to": "10.0 ac"
+      },
+      "gt_status": {
+        "from": "Completed",
+        "to": "In Progress"
+      }
+    }
+  },
+  {
+    "id": "log-1788692567100",
+    "timestamp": "2026-09-06T16:32:47.102536",
+    "record_id": "vlg-1592",
+    "village_name": "Adegaon K",
+    "district_name": "Adilabad",
+    "user_name": "Adilabad District Lead Rep (Primary)",
+    "user_role": "district_rep",
+    "action": "Updated",
+    "details": "Record updated by Adilabad District Lead Rep (Primary) (district_rep): village_boundary_25_26, village_abadi, non_abadi_extent",
+    "changes": {
+      "village_boundary_25_26": {
+        "from": "",
+        "to": "1376-39"
+      },
+      "village_abadi": {
+        "from": "",
+        "to": "44-39"
+      },
+      "non_abadi_extent": {
+        "from": "",
+        "to": "1332-00"
+      }
+    }
+  },
+  {
     "id": "log-1788686679046",
     "timestamp": "2026-09-06T14:54:39.046785",
     "record_id": "vlg-001",

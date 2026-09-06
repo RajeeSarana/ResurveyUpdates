@@ -6339,6 +6339,7 @@
 
       if (distSelect) {
         const sortedDists = [...new Set(allDistricts.map(d => d.name || d.district).filter(Boolean))].sort();
+        const prevDistVal = distSelect.value;
         distSelect.innerHTML = '<option value="all">All Districts (32)</option>' + 
           sortedDists.map(d => `<option value="${d}">${d}</option>`).join('');
 
@@ -6351,8 +6352,12 @@
         } else {
           distSelect.disabled = false;
           if (lockIndicator) lockIndicator.classList.add('hidden');
-          const curVal = distSelect.value;
-          if (curVal === 'all' || !curVal) {
+          if (prevDistVal && prevDistVal !== 'all' && sortedDists.includes(prevDistVal)) {
+            distSelect.value = prevDistVal;
+            if (districtTitle) districtTitle.textContent = prevDistVal;
+            if (scopeSub) scopeSub.textContent = `${prevDistVal} District Revenue Villages & Area of Extent`;
+          } else {
+            distSelect.value = 'all';
             if (districtTitle) districtTitle.textContent = 'Statewide';
             if (scopeSub) scopeSub.textContent = '32 Districts • 604 Mandals • 10,888 Revenue Villages';
           }
@@ -7752,6 +7757,9 @@
         await fetchDashboardStats();
         await fetchAuditLogs();
         renderVillageMasterTable();
+        if (typeof fetchResurveyMasterVillages === 'function') {
+          fetchResurveyMasterVillages(currentResurveyMasterPage || 1);
+        }
         alert(`Village record successfully saved.\nAudit trail recorded under: ${currentUser.name}`);
       } catch (err) {
         alert('Error: ' + err.message);
@@ -7979,6 +7987,9 @@
           applyActiveFilters();
         }
         renderVillageMasterTable();
+        if (typeof fetchResurveyMasterVillages === 'function') {
+          fetchResurveyMasterVillages(currentResurveyMasterPage || 1);
+        }
         const actionVerb = editingLogId ? 'corrected/updated' : 'logged';
         alert(`Daily survey entry for ${surveyDate} successfully ${actionVerb}!\nCumulative completed so far: ${updatedVillage.surveyed_extent_so_far} ac\nRemaining: ${updatedVillage.remaining_extent} ac.`);
       } catch (err) {
@@ -8012,6 +8023,9 @@
           applyActiveFilters();
         }
         renderVillageMasterTable();
+        if (typeof fetchResurveyMasterVillages === 'function') {
+          fetchResurveyMasterVillages(currentResurveyMasterPage || 1);
+        }
       } catch (err) {
         alert('Error: ' + err.message);
       }

@@ -90,15 +90,26 @@ def _load_json(file_path: str) -> List[Dict[str, Any]]:
     with open(active_path, 'r', encoding='utf-8') as f:
         return json.load(f)
 
+def _find_repo_root() -> str:
+    curr = os.path.dirname(os.path.abspath(__file__))
+    for _ in range(5):
+        if os.path.isdir(os.path.join(curr, "data")) and os.path.isdir(os.path.join(curr, "api")):
+            return curr
+        parent = os.path.dirname(curr)
+        if parent == curr:
+            break
+        curr = parent
+    return os.getcwd()
+
 def _save_json(file_path: str, data: Any):
     try:
         with open(file_path, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
         # Also sync to peer data directory if present (e.g. data/ <-> api/data/)
         fname = os.path.basename(file_path)
-        base_parent = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        repo_root = _find_repo_root()
         for alt_rel in [os.path.join("data", fname), os.path.join("api", "data", fname)]:
-            alt_path = os.path.join(base_parent, alt_rel)
+            alt_path = os.path.join(repo_root, alt_rel)
             if os.path.exists(os.path.dirname(alt_path)) and os.path.abspath(alt_path) != os.path.abspath(file_path):
                 try:
                     with open(alt_path, 'w', encoding='utf-8') as f:
@@ -598,7 +609,8 @@ def get_villages(
             if match:
                 for k, val in match.items():
                     if val is not None and k not in ["district_name", "mandal_name", "village_name", "village_name_telugu"]:
-                        v_copy[k] = val
+                        if str(val).strip() != "" or not v_copy.get(k):
+                            v_copy[k] = val
 
             # Default daily survey attributes and remaining area calculation
             master_ac = float(v_copy.get("extent_acres_float", 0.0) or 0.0)
@@ -770,7 +782,8 @@ def get_village(village_id: str) -> Optional[Dict[str, Any]]:
                 if sv.get("id") == village_id:
                     for k, val in sv.items():
                         if val is not None and k not in ["district_name", "mandal_name", "village_name", "village_name_telugu"]:
-                            v_copy[k] = val
+                            if str(val).strip() != "" or not v_copy.get(k):
+                                v_copy[k] = val
                     break
             m_ac = float(v_copy.get("extent_acres_float", 0.0) or 0.0)
             c_ac = float(v_copy.get("surveyed_extent_so_far", 0.0) or 0.0)
@@ -882,11 +895,26 @@ def update_village(
 
     # Keep MASTER_VILLAGES_FILE synchronized
     master_records = _load_json(MASTER_VILLAGES_FILE)
+    matched_master = False
     for idx, mv in enumerate(master_records):
         if mv.get("id") == village_id:
             master_records[idx].update(updates)
-            _save_json(MASTER_VILLAGES_FILE, master_records)
+            matched_master = True
             break
+
+    if not matched_master and existing.get("village_name") and existing.get("mandal_name"):
+        k_exist = _normalize_name_token(existing.get("village_name")) + "_" + _normalize_name_token(existing.get("mandal_name"))
+        d_exist = (existing.get("district_name") or "").lower().strip()
+        for idx, mv in enumerate(master_records):
+            if (mv.get("district_name") or "").lower().strip() == d_exist:
+                k_mv = _normalize_name_token(mv.get("village_name")) + "_" + _normalize_name_token(mv.get("mandal_name"))
+                if k_mv == k_exist:
+                    master_records[idx].update(updates)
+                    matched_master = True
+                    break
+
+    if matched_master:
+        _save_json(MASTER_VILLAGES_FILE, master_records)
             
     # Log audit trail if diff exists
     if diff:
@@ -1967,8 +1995,11 @@ def get_master_villages(
                 "extent_existing_record", "village_boundary_25_26", "village_abadi", "non_abadi_extent",
                 "surveyed_extent_so_far", "remaining_extent", "gt_status", "shapefile_status", "verification_status"
             ]:
-                if sv.get(field) is not None:
-                    v_copy[field] = sv[field]
+                val = sv.get(field)
+                if val is not None and str(val).strip() != "":
+                    v_copy[field] = val
+                elif v_copy.get(field) is None and val is not None:
+                    v_copy[field] = val
         enriched_slice.append(_normalize_village_extent_fields(v_copy))
 
     return {
