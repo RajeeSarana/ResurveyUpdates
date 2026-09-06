@@ -277,6 +277,17 @@
           <span id="navVillageCountBadge" class="bg-emerald-500/20 text-emerald-300 text-[9px] font-bold px-1.5 py-0.2 rounded-full border border-emerald-500/30">91</span>
         </button>
 
+        <!-- 2B. Resurvey Master (District-Scoped Registry) -->
+        <button onclick="switchMainTab('tab-resurvey-master')" id="nav-tab-resurvey-master" class="sidebar-item w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition group text-left">
+          <div class="flex items-center space-x-2.5 min-w-0">
+            <div class="w-6 h-6 rounded-md bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20 group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-map-location-dot text-xs"></i>
+            </div>
+            <span class="truncate">Resurvey Master</span>
+          </div>
+          <span id="navResurveyMasterBadge" class="bg-emerald-500/20 text-emerald-300 text-[9px] font-bold px-1.5 py-0.2 rounded-full border border-emerald-500/30">Registry</span>
+        </button>
+
         <!-- 3. QC Verification Desk -->
         <button onclick="switchMainTab('tab-qc')" id="nav-tab-qc" class="sidebar-item w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition group text-left">
           <div class="flex items-center space-x-2.5 min-w-0">
@@ -743,6 +754,169 @@
           </div>
         </div>
       </section>
+    <!-- ========================================================================================= -->
+    <!-- VIEW TAB: RESURVEY MASTER (DISTRICT-SCOPED REVENUE VILLAGES & 4-PART AREA OF EXTENT)     -->
+    <!-- ========================================================================================= -->
+    <div id="tab-resurvey-master" class="hidden space-y-4">
+      <!-- Resurvey Master District Header Banner -->
+      <div class="bg-gradient-to-r from-slate-900 via-emerald-950 to-teal-900 rounded-xl p-4 text-white shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="bg-emerald-500/30 text-emerald-200 border border-emerald-400/40 text-[10px] font-extrabold uppercase px-2 py-0.5 rounded tracking-wider flex items-center">
+              <i class="fa-solid fa-map-location-dot mr-1 text-[9px]"></i>Resurvey Master Registry
+            </span>
+            <span class="text-xs text-emerald-200" id="resurveyMasterScopeSubtitle">District Revenue Villages &amp; Area of Extent</span>
+          </div>
+          <h2 class="text-lg font-black tracking-tight mt-1 text-white flex items-center space-x-2" id="resurveyMasterMainTitle">
+            <span id="resurveyMasterDistrictName">Adilabad</span>
+            <span class="text-emerald-300 text-sm font-semibold">District Resurvey Master</span>
+          </h2>
+          <p class="text-xs text-emerald-100/80 mt-0.5" id="resurveyMasterDesc">
+            Official territorial registry of all revenue villages with target categorization, survey progress, and the 4-part Area of Extent (Existing Record, Boundary 25-26, Village Abadi, Non Abadi).
+          </p>
+        </div>
+        <!-- District KPI Counters -->
+        <div class="flex flex-wrap items-center gap-2 text-xs">
+          <div class="bg-slate-950/70 border border-emerald-700/60 rounded-lg px-3 py-2 text-center min-w-[85px]">
+            <div class="text-[10px] uppercase font-bold text-emerald-300">Total Villages</div>
+            <div class="text-base font-extrabold text-white" id="rMasterKpiTotalVillages">-</div>
+          </div>
+          <div class="bg-slate-950/70 border border-emerald-700/60 rounded-lg px-3 py-2 text-center min-w-[85px]">
+            <div class="text-[10px] uppercase font-bold text-amber-300">Resurvey Target</div>
+            <div class="text-base font-extrabold text-amber-300" id="rMasterKpiTarget">-</div>
+          </div>
+          <div class="bg-slate-950/70 border border-emerald-700/60 rounded-lg px-3 py-2 text-center min-w-[85px]">
+            <div class="text-[10px] uppercase font-bold text-teal-300">Survey Done</div>
+            <div class="text-base font-extrabold text-teal-300" id="rMasterKpiCompleted">-</div>
+          </div>
+          <div class="bg-slate-950/70 border border-slate-700/60 rounded-lg px-3 py-2 text-center min-w-[85px]">
+            <div class="text-[10px] uppercase font-bold text-slate-300">Non-Survey</div>
+            <div class="text-base font-extrabold text-slate-200" id="rMasterKpiNonSurvey">-</div>
+          </div>
+          <div class="bg-slate-950/70 border border-blue-700/60 rounded-lg px-3 py-2 text-center min-w-[80px]">
+            <div class="text-[10px] uppercase font-bold text-blue-300">Mandals</div>
+            <div class="text-base font-extrabold text-blue-300" id="rMasterKpiMandals">-</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Table Container -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden space-y-4 p-4">
+        <!-- Filter Controls -->
+        <div class="flex flex-col gap-3">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+            <div class="flex items-center space-x-2">
+              <span class="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center text-xs font-bold">
+                <i class="fa-solid fa-layer-group"></i>
+              </span>
+              <h3 class="text-sm font-bold text-slate-900" id="rMasterTableHeading">Revenue Villages Registry</h3>
+              <span id="rMasterBadgeRecordCount" class="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">0 Records</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <button onclick="fetchResurveyMasterVillages(currentResurveyMasterPage || 1)" class="px-2.5 py-1.5 text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded-lg border border-slate-200 transition flex items-center space-x-1">
+                <i class="fa-solid fa-rotate text-[11px]"></i>
+                <span>Refresh</span>
+              </button>
+              <button onclick="exportResurveyMasterCsv()" class="px-2.5 py-1.5 text-xs bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg shadow-xs transition flex items-center space-x-1">
+                <i class="fa-solid fa-file-excel text-[11px]"></i>
+                <span>Export CSV</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Filter Dropdowns Row -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 text-xs">
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1 flex items-center justify-between">
+                <span>District</span>
+                <span id="rMasterDistrictLockIndicator" class="hidden text-[9px] text-amber-700 bg-amber-50 px-1 py-0.2 rounded border border-amber-200">
+                  <i class="fa-solid fa-lock text-[8px]"></i> Assigned
+                </span>
+              </label>
+              <select id="rMasterDistrictFilter" onchange="onResurveyMasterDistrictChange()" class="w-full py-2 px-2.5 bg-slate-50 border border-slate-200 rounded-lg font-semibold text-slate-800 focus:ring-2 focus:ring-emerald-500">
+                <option value="all">All Districts (32)</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Mandal</label>
+              <select id="rMasterMandalFilter" onchange="fetchResurveyMasterVillages(1)" class="w-full py-2 px-2.5 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 focus:ring-2 focus:ring-emerald-500">
+                <option value="all">All Mandals</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Category</label>
+              <select id="rMasterCategoryFilter" onchange="fetchResurveyMasterVillages(1)" class="w-full py-2 px-2.5 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 focus:ring-2 focus:ring-emerald-500">
+                <option value="all">All Categories</option>
+                <option value="Non-Cadastral">Non-Cadastral (100% Target)</option>
+                <option value="Cadastral">Cadastral</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Resurvey Status</label>
+              <select id="rMasterPickedFilter" onchange="fetchResurveyMasterVillages(1)" class="w-full py-2 px-2.5 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 focus:ring-2 focus:ring-emerald-500">
+                <option value="all">All Villages</option>
+                <option value="true">Picked for Resurvey (Target)</option>
+                <option value="false">Non-Survey Phase</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Search Village</label>
+              <div class="relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-slate-400 text-xs"></i>
+                <input type="text" id="rMasterSearch" placeholder="Village name..." oninput="debounceResurveyMasterSearch()" class="w-full pl-8 pr-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs focus:ring-2 focus:ring-emerald-500" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- The Table with 4 Area of Extent Columns -->
+        <div class="overflow-x-auto border border-slate-100 rounded-lg">
+          <table class="min-w-full divide-y divide-slate-200 text-left text-xs">
+            <thead class="bg-slate-100 text-slate-700 font-semibold uppercase tracking-wider text-[11px]">
+              <tr>
+                <th rowspan="2" class="py-2.5 px-3 w-12 text-center border-b border-slate-200">#</th>
+                <th rowspan="2" class="py-2.5 px-3 border-b border-slate-200">Village Name</th>
+                <th rowspan="2" class="py-2.5 px-3 border-b border-slate-200">Mandal</th>
+                <th rowspan="2" class="py-2.5 px-3 border-b border-slate-200">District</th>
+                <th rowspan="2" class="py-2.5 px-3 text-center border-b border-slate-200">Category</th>
+                <th rowspan="2" class="py-2.5 px-3 text-center border-b border-slate-200">Resurvey Target</th>
+                <th rowspan="2" class="py-2.5 px-3 text-center border-b border-slate-200">Survey Progress</th>
+                <th colspan="4" class="py-1.5 px-2 text-center bg-slate-900 text-amber-300 font-bold border-b border-x border-slate-800 tracking-wider text-[11px]">
+                  <i class="fa-solid fa-chart-area mr-1 text-amber-300"></i>Area of Extent (Ac-Gt)
+                </th>
+                <th rowspan="2" class="py-2.5 px-3 text-center no-print w-28 border-b border-slate-200">Action</th>
+              </tr>
+              <tr class="bg-slate-50 text-[10px] font-bold text-slate-700 uppercase tracking-wider border-b border-slate-200">
+                <th class="py-1.5 px-2.5 text-right border-l border-slate-200 whitespace-nowrap" title="Existing Baseline Record (1-time entry)">Existing Record</th>
+                <th class="py-1.5 px-2.5 text-right border-l border-slate-200 whitespace-nowrap" title="Village Boundary 25-26 (Saved by District Rep / Admin editable)">Boundary 25-26</th>
+                <th class="py-1.5 px-2.5 text-right border-l border-slate-200 whitespace-nowrap" title="Village Abadi (Saved by District Rep / Admin editable)">Village Abadi</th>
+                <th class="py-1.5 px-2.5 text-right border-l border-r border-slate-200 text-emerald-800 whitespace-nowrap" title="Non-Abadi (Updated daily on survey completion)">Non Abadi</th>
+              </tr>
+            </thead>
+            <tbody id="resurveyMasterTableBody" class="divide-y divide-slate-100">
+              <tr><td colspan="12" class="py-8 text-center text-slate-400">Loading resurvey master records...</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination Bar -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2 text-xs text-slate-600">
+          <div id="rMasterPageInfo">
+            Showing 0 to 0 of 0 villages
+          </div>
+          <div class="flex items-center space-x-1">
+            <button onclick="changeResurveyMasterPage(1)" id="btnRMasterFirstPage" class="px-2.5 py-1 rounded border border-slate-200 hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed">First</button>
+            <button onclick="changeResurveyMasterPage(currentResurveyMasterPage - 1)" id="btnRMasterPrevPage" class="px-2.5 py-1 rounded border border-slate-200 hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed">Previous</button>
+            <span class="px-3 py-1 font-bold text-slate-800" id="rMasterPageNumber">Page 1 of 1</span>
+            <button onclick="changeResurveyMasterPage(currentResurveyMasterPage + 1)" id="btnRMasterNextPage" class="px-2.5 py-1 rounded border border-slate-200 hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed">Next</button>
+            <button onclick="changeResurveyMasterPage(totalResurveyMasterPages)" id="btnRMasterLastPage" class="px-2.5 py-1 rounded border border-slate-200 hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed">Last</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- ========================================================================================= -->
@@ -1433,19 +1607,27 @@
           <table class="min-w-full divide-y divide-slate-200 text-left text-xs">
             <thead class="bg-slate-100 text-slate-700 font-semibold uppercase tracking-wider text-[11px]">
               <tr>
-                <th class="py-2.5 px-3 w-12 text-center">#</th>
-                <th class="py-2.5 px-3">Village Name</th>
-                <th class="py-2.5 px-3">Mandal</th>
-                <th class="py-2.5 px-3">District</th>
-                <th class="py-2.5 px-3 text-center">Category</th>
-                <th class="py-2.5 px-3 text-center">Resurvey Target</th>
-                <th class="py-2.5 px-3 text-center">Survey Progress</th>
-                <th class="py-2.5 px-3 text-right">Extent (Ac-Gt)</th>
-                <th class="py-2.5 px-3 text-center no-print w-28">Action</th>
+                <th rowspan="2" class="py-2.5 px-3 w-12 text-center border-b border-slate-200">#</th>
+                <th rowspan="2" class="py-2.5 px-3 border-b border-slate-200">Village Name</th>
+                <th rowspan="2" class="py-2.5 px-3 border-b border-slate-200">Mandal</th>
+                <th rowspan="2" class="py-2.5 px-3 border-b border-slate-200">District</th>
+                <th rowspan="2" class="py-2.5 px-3 text-center border-b border-slate-200">Category</th>
+                <th rowspan="2" class="py-2.5 px-3 text-center border-b border-slate-200">Resurvey Target</th>
+                <th rowspan="2" class="py-2.5 px-3 text-center border-b border-slate-200">Survey Progress</th>
+                <th colspan="4" class="py-1.5 px-2 text-center bg-slate-900 text-amber-300 font-bold border-b border-x border-slate-800 tracking-wider text-[11px]">
+                  <i class="fa-solid fa-chart-area mr-1 text-amber-300"></i>Area of Extent (Ac-Gt)
+                </th>
+                <th rowspan="2" class="py-2.5 px-3 text-center no-print w-28 border-b border-slate-200">Action</th>
+              </tr>
+              <tr class="bg-slate-50 text-[10px] font-bold text-slate-700 uppercase tracking-wider border-b border-slate-200">
+                <th class="py-1.5 px-2.5 text-right border-l border-slate-200 whitespace-nowrap" title="Existing Baseline Record (1-time entry)">Existing Record</th>
+                <th class="py-1.5 px-2.5 text-right border-l border-slate-200 whitespace-nowrap" title="Village Boundary 25-26 (Saved by District Rep / Admin editable)">Boundary 25-26</th>
+                <th class="py-1.5 px-2.5 text-right border-l border-slate-200 whitespace-nowrap" title="Village Abadi (Saved by District Rep / Admin editable)">Village Abadi</th>
+                <th class="py-1.5 px-2.5 text-right border-l border-r border-slate-200 text-emerald-800 whitespace-nowrap" title="Non-Abadi (Updated daily on survey completion)">Non Abadi</th>
               </tr>
             </thead>
             <tbody id="villageMasterTableBody" class="divide-y divide-slate-100">
-              <tr><td colspan="9" class="py-8 text-center text-slate-400">Loading master village records...</td></tr>
+              <tr><td colspan="12" class="py-8 text-center text-slate-400">Loading master village records...</td></tr>
             </tbody>
           </table>
         </div>
@@ -2025,6 +2207,82 @@
                   class="w-full py-1 px-1.5 bg-slate-100 border border-slate-200 rounded text-[11px] text-slate-400 transition focus:ring-1 focus:ring-emerald-500 disabled:cursor-not-allowed disabled:bg-slate-100 shadow-2xs" 
                   disabled />
               </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION: AREA OF EXTENT (ACRES - GUNTAS) GOVERNANCE -->
+        <div class="bg-white px-3.5 py-2.5 rounded-xl border border-slate-200/90 shadow-2xs space-y-2">
+          <div class="flex items-center justify-between pb-1.5 border-b border-slate-100">
+            <div class="flex items-center space-x-2">
+              <span class="w-5 h-5 rounded-md bg-amber-100 text-amber-800 flex items-center justify-center text-[10px] shadow-2xs">
+                <i class="fa-solid fa-chart-area text-[10px]"></i>
+              </span>
+              <span class="font-bold text-slate-800 text-xs sm:text-sm">Village Area of Extent (Ac-Gts)</span>
+              <span class="text-[9px] bg-amber-50 text-amber-800 font-bold px-2 py-0.5 rounded border border-amber-200">Official Extents</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <span id="extentRolePermissionBadge" class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-medium border border-slate-200 flex items-center">
+                <i class="fa-solid fa-user-shield mr-1 text-slate-400 text-[9px]"></i>Role Governance Active
+              </span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+            <!-- 1. Existing Record -->
+            <div class="p-2.5 rounded-xl border border-slate-200/90 bg-slate-50/70 space-y-1.5">
+              <div class="flex items-center justify-between">
+                <label class="block font-bold text-slate-800 text-[11px] flex items-center space-x-1">
+                  <span class="w-3.5 h-3.5 rounded-full bg-slate-600 text-white text-[8px] font-bold flex items-center justify-center">1</span>
+                  <span>Existing Record</span>
+                </label>
+                <span id="badgeExistingRecordLock" class="text-[9px] px-1.5 py-0.2 rounded font-semibold bg-slate-200 text-slate-700">1-Time Entry</span>
+              </div>
+              <input type="text" id="formExtentExistingRecord" placeholder="e.g. 560 or 1376-39"
+                class="w-full py-1.5 px-2 bg-white border border-slate-300 rounded-lg font-mono font-bold text-xs text-slate-900 focus:ring-2 focus:ring-emerald-500 shadow-2xs disabled:bg-slate-100 disabled:text-slate-500 disabled:cursor-not-allowed" />
+              <p id="helpExistingRecord" class="text-[9px] text-slate-400 italic">Baseline official record extent</p>
+            </div>
+
+            <!-- 2. Village Boundary 25-26 -->
+            <div class="p-2.5 rounded-xl border border-slate-200/90 bg-slate-50/70 space-y-1.5">
+              <div class="flex items-center justify-between">
+                <label class="block font-bold text-slate-800 text-[11px] flex items-center space-x-1">
+                  <span class="w-3.5 h-3.5 rounded-full bg-blue-600 text-white text-[8px] font-bold flex items-center justify-center">2</span>
+                  <span>Boundary 25-26</span>
+                </label>
+                <span id="badgeBoundary2526Lock" class="text-[9px] px-1.5 py-0.2 rounded font-semibold bg-blue-100 text-blue-800">Boundary 25-26</span>
+              </div>
+              <input type="text" id="formExtentBoundary2526" placeholder="e.g. 1376-39"
+                class="w-full py-1.5 px-2 bg-white border border-slate-300 rounded-lg font-mono font-bold text-xs text-slate-900 focus:ring-2 focus:ring-blue-500 shadow-2xs disabled:bg-slate-100 disabled:text-slate-500 disabled:cursor-not-allowed" />
+              <p id="helpBoundary2526" class="text-[9px] text-slate-400 italic">District Rep enters; locked once saved</p>
+            </div>
+
+            <!-- 3. Village Abadi -->
+            <div class="p-2.5 rounded-xl border border-slate-200/90 bg-slate-50/70 space-y-1.5">
+              <div class="flex items-center justify-between">
+                <label class="block font-bold text-slate-800 text-[11px] flex items-center space-x-1">
+                  <span class="w-3.5 h-3.5 rounded-full bg-purple-600 text-white text-[8px] font-bold flex items-center justify-center">3</span>
+                  <span>Village Abadi</span>
+                </label>
+                <span id="badgeAbadiLock" class="text-[9px] px-1.5 py-0.2 rounded font-semibold bg-purple-100 text-purple-800">Habitation Area</span>
+              </div>
+              <input type="text" id="formExtentVillageAbadi" placeholder="e.g. 45-14"
+                class="w-full py-1.5 px-2 bg-white border border-slate-300 rounded-lg font-mono font-bold text-xs text-slate-900 focus:ring-2 focus:ring-purple-500 shadow-2xs disabled:bg-slate-100 disabled:text-slate-500 disabled:cursor-not-allowed" />
+              <p id="helpAbadi" class="text-[9px] text-slate-400 italic">District Rep enters; locked once saved</p>
+            </div>
+
+            <!-- 4. Non Abadi -->
+            <div class="p-2.5 rounded-xl border border-emerald-300/80 bg-emerald-50/50 space-y-1.5">
+              <div class="flex items-center justify-between">
+                <label class="block font-bold text-emerald-950 text-[11px] flex items-center space-x-1">
+                  <span class="w-3.5 h-3.5 rounded-full bg-emerald-600 text-white text-[8px] font-bold flex items-center justify-center">4</span>
+                  <span>Non Abadi</span>
+                </label>
+                <span class="text-[9px] px-1.5 py-0.2 rounded font-bold bg-emerald-200 text-emerald-900">Daily Survey Updatable</span>
+              </div>
+              <input type="text" id="formExtentNonAbadi" placeholder="e.g. 85.75 or 1331-25"
+                class="w-full py-1.5 px-2 bg-white border border-emerald-400 rounded-lg font-mono font-black text-xs text-emerald-900 focus:ring-2 focus:ring-emerald-500 shadow-2xs" />
+              <p class="text-[9px] text-emerald-700 font-medium italic">Updated daily as field survey completes</p>
             </div>
           </div>
         </div>
@@ -3171,13 +3429,13 @@
     
     // ----------------- ROLE-BASED MENU ACCESS & ADMIN MANAGEMENT -----------------
     const DEFAULT_MENU_PERMISSIONS = {
-      admin: ['tab-overview', 'tab-villages', 'tab-qc', 'tab-cso', 'tab-executive', 'tab-audit', 'tab-master', 'tab-admin'],
-      executive: ['tab-overview', 'tab-villages', 'tab-cso', 'tab-executive', 'tab-audit', 'tab-master'],
-      district_rep: ['tab-overview', 'tab-villages', 'tab-cso', 'tab-audit'],
-      district_officer: ['tab-overview', 'tab-villages', 'tab-cso', 'tab-audit'],
-      qc_engineer: ['tab-overview', 'tab-villages', 'tab-qc', 'tab-cso'],
-      cso_officer: ['tab-overview', 'tab-villages', 'tab-cso'],
-      viewer: ['tab-overview', 'tab-villages']
+      admin: ['tab-overview', 'tab-villages', 'tab-resurvey-master', 'tab-qc', 'tab-cso', 'tab-executive', 'tab-audit', 'tab-master', 'tab-admin'],
+      executive: ['tab-overview', 'tab-villages', 'tab-resurvey-master', 'tab-cso', 'tab-executive', 'tab-audit', 'tab-master'],
+      district_rep: ['tab-overview', 'tab-villages', 'tab-resurvey-master', 'tab-cso', 'tab-audit'],
+      district_officer: ['tab-overview', 'tab-villages', 'tab-resurvey-master', 'tab-cso', 'tab-audit'],
+      qc_engineer: ['tab-overview', 'tab-villages', 'tab-resurvey-master', 'tab-qc', 'tab-cso'],
+      cso_officer: ['tab-overview', 'tab-villages', 'tab-resurvey-master', 'tab-cso'],
+      viewer: ['tab-overview', 'tab-villages', 'tab-resurvey-master']
     };
     let currentMenuPermissions = JSON.parse(JSON.stringify(DEFAULT_MENU_PERMISSIONS));
     let menuCatalogList = [];
@@ -3654,6 +3912,7 @@
       const allMenuIds = [
         'tab-overview',
         'tab-villages',
+        'tab-resurvey-master',
         'tab-qc',
         'tab-cso',
         'tab-executive',
@@ -3968,7 +4227,7 @@
       }
 
       currentActiveMainTab = tabId;
-      const allTabIds = ['tab-overview', 'tab-villages', 'tab-qc', 'tab-cso', 'tab-executive', 'tab-audit', 'tab-master', 'tab-admin'];
+      const allTabIds = ['tab-overview', 'tab-villages', 'tab-resurvey-master', 'tab-qc', 'tab-cso', 'tab-executive', 'tab-audit', 'tab-master', 'tab-admin'];
       
       allTabIds.forEach(id => {
         const panel = document.getElementById(id);
@@ -3989,7 +4248,9 @@
       // Close mobile drawer if open
       toggleSidebar(false);
 
-      if (tabId === 'tab-qc') {
+      if (tabId === 'tab-resurvey-master') {
+        initResurveyMasterView();
+      } else if (tabId === 'tab-qc') {
         renderQcQueue();
       } else if (tabId === 'tab-cso') {
         fetchCsoTrackingData();
@@ -4999,17 +5260,19 @@
             <div class="font-bold text-slate-800 telugu-text text-xs leading-tight">${v.village_name}</div>
             <div class="text-[11px] text-slate-500">${v.mandal_name}</div>
           </td>
-          <td class="py-2.5 px-2 text-right font-mono font-bold text-slate-800 whitespace-nowrap text-xs">
-            ${v.extent_raw || '-'}
-            <div class="text-[10px] text-slate-400 font-normal">${v.extent_acres_float ? v.extent_acres_float + ' ac' : ''}</div>
-            ${v.surveyed_extent_so_far && v.surveyed_extent_so_far > 0 ? `
-              <div class="text-[10px] text-emerald-700 font-bold mt-0.5 whitespace-nowrap">
+          <td class="py-2.5 px-2 text-right font-mono text-xs whitespace-nowrap">
+            <div class="font-bold text-slate-800" title="Existing Baseline Record">${v.extent_existing_record || v.extent_raw || '-'}</div>
+            ${v.village_boundary_25_26 ? `<div class="text-[10px] text-slate-600 font-medium" title="Village Boundary 25-26"><span class="text-slate-400 font-sans text-[9px]">Bdy:</span> ${v.village_boundary_25_26}</div>` : ''}
+            ${v.village_abadi ? `<div class="text-[10px] text-slate-600 font-medium" title="Village Abadi"><span class="text-slate-400 font-sans text-[9px]">Abadi:</span> ${v.village_abadi}</div>` : ''}
+            ${v.non_abadi_extent ? `
+              <div class="text-[10px] text-emerald-700 font-bold" title="Non-Abadi Extent">
+                <span class="text-emerald-500 font-sans text-[9px]">Non-Ab:</span> ${v.non_abadi_extent}
+              </div>
+            ` : (v.surveyed_extent_so_far && v.surveyed_extent_so_far > 0 ? `
+              <div class="text-[10px] text-emerald-700 font-bold mt-0.5 whitespace-nowrap" title="Surveyed so far">
                 <i class="fa-solid fa-chart-line mr-0.5 text-[9px]"></i>${v.surveyed_extent_so_far} ac
               </div>
-              <div class="text-[9px] text-amber-700 font-medium whitespace-nowrap">
-                Bal: ${(v.remaining_extent !== undefined ? v.remaining_extent : Math.max(0, (v.extent_acres_float || 0) - (v.surveyed_extent_so_far || 0))).toFixed(2)} ac
-              </div>
-            ` : ''}
+            ` : '')}
           </td>
           <td class="py-2.5 px-2 text-center whitespace-nowrap">
             <span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-medium text-[11px]">${v.gt_status || 'Completed'}</span>
@@ -5997,9 +6260,12 @@
           <td class="py-2.5 px-3 text-center">${catBadge}</td>
           <td class="py-2.5 px-3 text-center">${pickedBadge}</td>
           <td class="py-2.5 px-3 text-center">${opsBadge}</td>
-          <td class="py-2.5 px-3 text-right font-mono font-semibold text-slate-700">${v.extent_raw || '0-00'}</td>
+          <td class="py-2.5 px-2.5 text-right font-mono font-bold text-slate-800">${v.extent_existing_record || v.extent_raw || '0-00'}</td>
+          <td class="py-2.5 px-2.5 text-right font-mono text-slate-700">${v.village_boundary_25_26 || '-'}</td>
+          <td class="py-2.5 px-2.5 text-right font-mono text-slate-700">${v.village_abadi || '-'}</td>
+          <td class="py-2.5 px-2.5 text-right font-mono font-bold text-emerald-700">${v.non_abadi_extent || (v.surveyed_extent_so_far ? v.surveyed_extent_so_far + ' ac' : '-')}</td>
           <td class="py-2.5 px-3 text-center no-print">
-            <button onclick="startSurveyEntryForVillage('${encodeURIComponent(v.village_name)}', '${encodeURIComponent(v.mandal_name)}', '${encodeURIComponent(v.district_name)}', '${v.category}')" class="text-emerald-700 hover:text-emerald-900 font-semibold text-[11px] hover:underline whitespace-nowrap">
+            <button onclick="startSurveyEntryForVillage('${v.id || ''}', '${encodeURIComponent(v.village_name)}', '${encodeURIComponent(v.mandal_name)}', '${encodeURIComponent(v.district_name)}', '${v.category}')" class="text-emerald-700 hover:text-emerald-900 font-semibold text-[11px] hover:underline whitespace-nowrap">
               <i class="fa-solid fa-pen-to-square mr-1"></i>Survey Data
             </button>
           </td>
@@ -6020,7 +6286,329 @@
       fetchMasterVillages(newPage);
     }
 
-    function startSurveyEntryForVillage(encodedVName, encodedMName, encodedDName, category) {
+    // =========================================================================
+    // RESURVEY MASTER (DISTRICT-SCOPED REVENUE VILLAGES & 4-PART AREA OF EXTENT)
+    // =========================================================================
+    let currentResurveyMasterPage = 1;
+    let totalResurveyMasterPages = 1;
+    let rMasterSearchTimeout = null;
+
+    function initResurveyMasterView() {
+      if (!currentUser) return;
+      const role = currentUser.role || 'viewer';
+      const isDistrictRep = (role === 'district_rep' || role === 'district_officer');
+      const repDistrict = currentUser.district || '';
+
+      const distSelect = document.getElementById('rMasterDistrictFilter');
+      const lockIndicator = document.getElementById('rMasterDistrictLockIndicator');
+      const districtTitle = document.getElementById('resurveyMasterDistrictName');
+      const scopeSub = document.getElementById('resurveyMasterScopeSubtitle');
+
+      if (distSelect) {
+        const sortedDists = [...new Set(allDistricts.map(d => d.name || d.district).filter(Boolean))].sort();
+        distSelect.innerHTML = '<option value="all">All Districts (32)</option>' + 
+          sortedDists.map(d => `<option value="${d}">${d}</option>`).join('');
+
+        if (isDistrictRep && repDistrict && repDistrict.toLowerCase() !== 'all') {
+          distSelect.value = repDistrict;
+          distSelect.disabled = true;
+          if (lockIndicator) lockIndicator.classList.remove('hidden');
+          if (districtTitle) districtTitle.textContent = repDistrict;
+          if (scopeSub) scopeSub.textContent = `${repDistrict} District Revenue Villages & Area of Extent`;
+        } else {
+          distSelect.disabled = false;
+          if (lockIndicator) lockIndicator.classList.add('hidden');
+          const curVal = distSelect.value;
+          if (curVal === 'all' || !curVal) {
+            if (districtTitle) districtTitle.textContent = 'Statewide';
+            if (scopeSub) scopeSub.textContent = '32 Districts • 604 Mandals • 10,888 Revenue Villages';
+          }
+        }
+      }
+
+      populateResurveyMasterMandals();
+      fetchResurveyMasterVillages(1);
+    }
+
+    function onResurveyMasterDistrictChange() {
+      const dist = document.getElementById('rMasterDistrictFilter')?.value || 'all';
+      const districtTitle = document.getElementById('resurveyMasterDistrictName');
+      const scopeSub = document.getElementById('resurveyMasterScopeSubtitle');
+
+      if (dist === 'all') {
+        if (districtTitle) districtTitle.textContent = 'Statewide';
+        if (scopeSub) scopeSub.textContent = '32 Districts • 604 Mandals • 10,888 Revenue Villages';
+      } else {
+        if (districtTitle) districtTitle.textContent = dist;
+        if (scopeSub) scopeSub.textContent = `${dist} District Revenue Villages & Area of Extent`;
+      }
+
+      populateResurveyMasterMandals();
+      fetchResurveyMasterVillages(1);
+    }
+
+    function populateResurveyMasterMandals() {
+      const distSelect = document.getElementById('rMasterDistrictFilter');
+      const mndSelect = document.getElementById('rMasterMandalFilter');
+      if (!mndSelect) return;
+
+      const selectedDist = (distSelect ? distSelect.value : 'all').toLowerCase();
+      let mandals = [];
+
+      if (allMandals && allMandals.length > 0) {
+        mandals = allMandals
+          .filter(m => selectedDist === 'all' || (m.district_name || '').toLowerCase() === selectedDist)
+          .map(m => m.mandal_name || m.name)
+          .filter(Boolean);
+      }
+      const uniqueMandals = [...new Set(mandals)].sort();
+      mndSelect.innerHTML = '<option value="all">All Mandals</option>' + 
+        uniqueMandals.map(m => `<option value="${m}">${m}</option>`).join('');
+    }
+
+    function debounceResurveyMasterSearch() {
+      if (rMasterSearchTimeout) clearTimeout(rMasterSearchTimeout);
+      rMasterSearchTimeout = setTimeout(() => {
+        fetchResurveyMasterVillages(1);
+      }, 350);
+    }
+
+    function changeResurveyMasterPage(page) {
+      if (page < 1 || (totalResurveyMasterPages > 0 && page > totalResurveyMasterPages)) return;
+      fetchResurveyMasterVillages(page);
+    }
+
+    async function fetchResurveyMasterVillages(page = 1) {
+      currentResurveyMasterPage = page;
+      const role = currentUser ? currentUser.role : 'viewer';
+      const isDistrictRep = (role === 'district_rep' || role === 'district_officer');
+      const repDistrict = currentUser ? (currentUser.district || '') : '';
+
+      let dist = document.getElementById('rMasterDistrictFilter')?.value || 'all';
+      if (isDistrictRep && repDistrict && repDistrict.toLowerCase() !== 'all') {
+        dist = repDistrict;
+      }
+      const mnd = document.getElementById('rMasterMandalFilter')?.value || 'all';
+      const cat = document.getElementById('rMasterCategoryFilter')?.value || 'all';
+      const picked = document.getElementById('rMasterPickedFilter')?.value || 'all';
+      const search = (document.getElementById('rMasterSearch')?.value || '').trim();
+      const limit = 50;
+
+      updateResurveyMasterKpis(dist);
+
+      const tbody = document.getElementById('resurveyMasterTableBody');
+      if (tbody) {
+        tbody.innerHTML = '<tr><td colspan="12" class="py-8 text-center text-slate-400"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Loading resurvey master records...</td></tr>';
+      }
+
+      const params = new URLSearchParams();
+      params.set('page', page);
+      params.set('limit', limit);
+      if (dist !== 'all') params.set('district', dist);
+      if (mnd !== 'all') params.set('mandal', mnd);
+      if (cat !== 'all') params.set('category', cat);
+      if (picked === 'true') params.set('is_picked', 'true');
+      if (picked === 'false') params.set('is_picked', 'false');
+      if (search) params.set('search', search);
+
+      try {
+        const res = await fetch('/master/villages?' + params.toString(), {
+          headers: getAuthHeaders()
+        });
+        const data = await res.json();
+        totalResurveyMasterPages = data.total_pages || 1;
+        renderResurveyMasterRows(data.data, data.total, data.page, data.limit);
+      } catch (err) {
+        console.error('Error fetching resurvey master villages:', err);
+        if (tbody) {
+          tbody.innerHTML = `<tr><td colspan="12" class="py-8 text-center text-rose-500 font-semibold">Error loading resurvey master villages: ${err.message}</td></tr>`;
+        }
+      }
+    }
+
+    function updateResurveyMasterKpis(selectedDistrict) {
+      const dTotalEl = document.getElementById('rMasterKpiTotalVillages');
+      const dTargetEl = document.getElementById('rMasterKpiTarget');
+      const dDoneEl = document.getElementById('rMasterKpiCompleted');
+      const dNonSurveyEl = document.getElementById('rMasterKpiNonSurvey');
+      const dMandalsEl = document.getElementById('rMasterKpiMandals');
+
+      if (!dTotalEl) return;
+
+      if (selectedDistrict && selectedDistrict !== 'all') {
+        const dObj = allDistricts.find(d => (d.name || d.district || '').toLowerCase() === selectedDistrict.toLowerCase());
+        if (dObj) {
+          const totalV = Number(dObj.total_villages || 0);
+          const targetV = Number(dObj.total_resurvey_target || (Number(dObj.non_cadastral_target || 0) + Number(dObj.cadastral_target || 0)));
+          const completedV = Number(dObj.survey_completed || 0);
+          const nonSurveyV = Math.max(0, totalV - targetV);
+          const mandalsCount = Number(dObj.total_mandals || 0);
+
+          dTotalEl.textContent = totalV.toLocaleString();
+          dTargetEl.textContent = targetV.toLocaleString();
+          dDoneEl.textContent = completedV.toLocaleString();
+          dNonSurveyEl.textContent = nonSurveyV.toLocaleString();
+          dMandalsEl.textContent = mandalsCount.toLocaleString();
+          return;
+        }
+      }
+
+      let totalV = 10888;
+      let targetV = 2609;
+      let completedV = 90;
+      let nonSurveyV = 8279;
+      let mandalsCount = 604;
+
+      if (allDistricts && allDistricts.length > 0) {
+        totalV = allDistricts.reduce((acc, d) => acc + Number(d.total_villages || 0), 0) || 10888;
+        targetV = allDistricts.reduce((acc, d) => acc + Number(d.total_resurvey_target || (Number(d.non_cadastral_target || 0) + Number(d.cadastral_target || 0))), 0) || 2609;
+        completedV = allDistricts.reduce((acc, d) => acc + Number(d.survey_completed || 0), 0) || 90;
+        nonSurveyV = Math.max(0, totalV - targetV);
+        mandalsCount = allDistricts.reduce((acc, d) => acc + Number(d.total_mandals || 0), 0) || 604;
+      }
+
+      dTotalEl.textContent = totalV.toLocaleString();
+      dTargetEl.textContent = targetV.toLocaleString();
+      dDoneEl.textContent = completedV.toLocaleString();
+      dNonSurveyEl.textContent = nonSurveyV.toLocaleString();
+      dMandalsEl.textContent = mandalsCount.toLocaleString();
+    }
+
+    function renderResurveyMasterRows(villages, total, page, limit) {
+      const tbody = document.getElementById('resurveyMasterTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      const countBadge = document.getElementById('rMasterBadgeRecordCount');
+      if (countBadge) countBadge.textContent = `${total.toLocaleString()} Records`;
+
+      const startIdx = total > 0 ? (page - 1) * limit + 1 : 0;
+      const endIdx = Math.min(page * limit, total);
+      const pageInfo = document.getElementById('rMasterPageInfo');
+      if (pageInfo) {
+        pageInfo.innerHTML = `Showing <strong class="text-slate-900">${startIdx.toLocaleString()}</strong> to <strong class="text-slate-900">${endIdx.toLocaleString()}</strong> of <strong class="text-slate-900">${total.toLocaleString()}</strong> villages`;
+      }
+      const pageNumber = document.getElementById('rMasterPageNumber');
+      if (pageNumber) {
+        pageNumber.textContent = `Page ${page} of ${totalResurveyMasterPages}`;
+      }
+
+      const btnFirst = document.getElementById('btnRMasterFirstPage');
+      const btnPrev = document.getElementById('btnRMasterPrevPage');
+      const btnNext = document.getElementById('btnRMasterNextPage');
+      const btnLast = document.getElementById('btnRMasterLastPage');
+
+      if (btnFirst) btnFirst.disabled = page <= 1;
+      if (btnPrev) btnPrev.disabled = page <= 1;
+      if (btnNext) btnNext.disabled = page <= 1;
+      if (btnLast) btnLast.disabled = page >= totalResurveyMasterPages;
+
+      if (!villages || villages.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="12" class="py-8 text-center text-slate-400">No villages match the selected filters.</td></tr>';
+        return;
+      }
+
+      villages.forEach((v, idx) => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50 transition text-xs';
+        const globalIdx = (page - 1) * limit + idx + 1;
+
+        const catBadge = v.category === 'Non-Cadastral'
+          ? '<span class="bg-emerald-100 text-emerald-800 border border-emerald-300 px-2 py-0.5 rounded font-bold text-[10px]">NC (100% Target)</span>'
+          : '<span class="bg-blue-50 text-blue-800 border border-blue-200 px-2 py-0.5 rounded font-medium text-[10px]">Cadastral</span>';
+
+        const pickedBadge = v.is_picked_for_resurvey
+          ? '<span class="inline-flex items-center bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold px-2 py-0.5 rounded text-[10px]"><i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i>Picked for Resurvey</span>'
+          : '<span class="inline-flex items-center bg-slate-100 text-slate-600 border border-slate-200 font-normal px-2 py-0.5 rounded text-[10px]"><i class="fa-solid fa-clock text-slate-400 mr-1"></i>Non-Survey Phase</span>';
+
+        let opsBadge = '';
+        if (v.gt_status === 'Completed') {
+          const qcText = v.verification_status || 'Verified';
+          const color = qcText === 'Verified' ? 'text-emerald-700 bg-emerald-50 border-emerald-200' : 'text-amber-700 bg-amber-50 border-amber-200';
+          opsBadge = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold border ${color}"><i class="fa-solid fa-circle-check mr-1"></i>GT Done • ${qcText}</span>`;
+        } else {
+          opsBadge = '<span class="text-slate-400 italic text-[10px]">Pending Survey Submission</span>';
+        }
+
+        tr.innerHTML = `
+          <td class="py-2.5 px-3 text-slate-400 font-mono text-center">${globalIdx}</td>
+          <td class="py-2.5 px-3 font-bold text-slate-900">
+            ${v.village_name}
+            ${v.village_name_telugu ? `<div class="telugu-text text-[11px] text-slate-500 font-normal">${v.village_name_telugu}</div>` : ''}
+          </td>
+          <td class="py-2.5 px-3 font-medium text-slate-700">${v.mandal_name}</td>
+          <td class="py-2.5 px-3 font-semibold text-slate-800">${v.district_name}</td>
+          <td class="py-2.5 px-3 text-center">${catBadge}</td>
+          <td class="py-2.5 px-3 text-center">${pickedBadge}</td>
+          <td class="py-2.5 px-3 text-center">${opsBadge}</td>
+          <td class="py-2.5 px-2.5 text-right font-mono font-bold text-slate-800">${v.extent_existing_record || v.extent_raw || '0-00'}</td>
+          <td class="py-2.5 px-2.5 text-right font-mono text-slate-700">${v.village_boundary_25_26 || '-'}</td>
+          <td class="py-2.5 px-2.5 text-right font-mono text-slate-700">${v.village_abadi || '-'}</td>
+          <td class="py-2.5 px-2.5 text-right font-mono font-bold text-emerald-700">${v.non_abadi_extent || (v.surveyed_extent_so_far ? v.surveyed_extent_so_far + ' ac' : '-')}</td>
+          <td class="py-2.5 px-3 text-center no-print">
+            <button onclick="startSurveyEntryForVillage('${v.id || ''}', '${encodeURIComponent(v.village_name)}', '${encodeURIComponent(v.mandal_name)}', '${encodeURIComponent(v.district_name)}', '${v.category}')" class="text-emerald-700 hover:text-emerald-900 font-semibold text-[11px] hover:underline whitespace-nowrap">
+              <i class="fa-solid fa-pen-to-square mr-1"></i>Survey Data
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    async function exportResurveyMasterCsv() {
+      const role = currentUser ? currentUser.role : 'viewer';
+      const isDistrictRep = (role === 'district_rep' || role === 'district_officer');
+      const repDistrict = currentUser ? (currentUser.district || '') : '';
+      let dist = document.getElementById('rMasterDistrictFilter')?.value || 'all';
+      if (isDistrictRep && repDistrict && repDistrict.toLowerCase() !== 'all') {
+        dist = repDistrict;
+      }
+      const mnd = document.getElementById('rMasterMandalFilter')?.value || 'all';
+      const cat = document.getElementById('rMasterCategoryFilter')?.value || 'all';
+      const picked = document.getElementById('rMasterPickedFilter')?.value || 'all';
+      const search = (document.getElementById('rMasterSearch')?.value || '').trim();
+
+      const params = new URLSearchParams();
+      params.set('page', 1);
+      params.set('limit', 500);
+      if (dist !== 'all') params.set('district', dist);
+      if (mnd !== 'all') params.set('mandal', mnd);
+      if (cat !== 'all') params.set('category', cat);
+      if (picked === 'true') params.set('is_picked', 'true');
+      if (picked === 'false') params.set('is_picked', 'false');
+      if (search) params.set('search', search);
+
+      try {
+        const res = await fetch('/master/villages?' + params.toString(), { headers: getAuthHeaders() });
+        const data = await res.json();
+        const records = data.data || [];
+        if (records.length === 0) {
+          alert('No records to export with the current filter settings.');
+          return;
+        }
+
+        let csv = 'Village Name,Telugu Name,Mandal,District,Category,Resurvey Target,Survey Progress,Existing Record Extent,Boundary 25-26 Extent,Village Abadi Extent,Non Abadi Extent\n';
+        records.forEach(r => {
+          csv += `"${(r.village_name||'').replace(/"/g, '""')}","${(r.village_name_telugu||'').replace(/"/g, '""')}","${(r.mandal_name||'').replace(/"/g, '""')}","${(r.district_name||'').replace(/"/g, '""')}","${r.category||''}","${r.is_picked_for_resurvey ? 'Picked' : 'Non-Survey'}","${r.gt_status||'Pending'}","${r.extent_existing_record||r.extent_raw||'0-00'}","${r.village_boundary_25_26||'-'}","${r.village_abadi||'-'}","${r.non_abadi_extent||'-'}"\n`;
+        });
+
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `Resurvey_Master_${dist !== 'all' ? dist : 'All_Districts'}_${new Date().toISOString().split('T')[0]}.csv`;
+        a.click();
+        URL.revokeObjectURL(url);
+      } catch (err) {
+        alert('Failed to export CSV: ' + err.message);
+      }
+    }
+
+    async function startSurveyEntryForVillage(villageId, encodedVName, encodedMName, encodedDName, category) {
+      if (villageId) {
+        openEditVillageModal(villageId);
+        return;
+      }
       const vName = decodeURIComponent(encodedVName);
       const mName = decodeURIComponent(encodedMName);
       const dName = decodeURIComponent(encodedDName);
@@ -6496,18 +7084,61 @@
       }
       if (document.getElementById('dispDailyLogsCount')) document.getElementById('dispDailyLogsCount').textContent = '0 entries';
 
+      // Area of Extent Form Reset
+      if (document.getElementById('formExtentExistingRecord')) {
+        document.getElementById('formExtentExistingRecord').value = '';
+        document.getElementById('formExtentExistingRecord').disabled = false;
+      }
+      if (document.getElementById('badgeExistingRecordLock')) {
+        document.getElementById('badgeExistingRecordLock').className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-blue-100 text-blue-800 border border-blue-300';
+        document.getElementById('badgeExistingRecordLock').innerHTML = '<i class="fa-solid fa-pen mr-1 text-[8px]"></i>1-Time Entry';
+      }
+      if (document.getElementById('formExtentBoundary2526')) {
+        document.getElementById('formExtentBoundary2526').value = '';
+        document.getElementById('formExtentBoundary2526').disabled = false;
+      }
+      if (document.getElementById('badgeBoundary2526Lock')) {
+        document.getElementById('badgeBoundary2526Lock').className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-blue-100 text-blue-800 border border-blue-300';
+        document.getElementById('badgeBoundary2526Lock').innerHTML = '<i class="fa-solid fa-pen mr-1 text-[8px]"></i>Boundary 25-26';
+      }
+      if (document.getElementById('formExtentVillageAbadi')) {
+        document.getElementById('formExtentVillageAbadi').value = '';
+        document.getElementById('formExtentVillageAbadi').disabled = false;
+      }
+      if (document.getElementById('badgeAbadiLock')) {
+        document.getElementById('badgeAbadiLock').className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-purple-100 text-purple-800 border border-purple-300';
+        document.getElementById('badgeAbadiLock').innerHTML = '<i class="fa-solid fa-pen mr-1 text-[8px]"></i>Habitation Area';
+      }
+      if (document.getElementById('formExtentNonAbadi')) {
+        document.getElementById('formExtentNonAbadi').value = '';
+        document.getElementById('formExtentNonAbadi').disabled = false;
+      }
+
       document.getElementById('formGtStatus').value = 'Pending';
 
       document.getElementById('villageModal').classList.remove('hidden');
     }
 
-    function openEditVillageModal(id) {
+    async function openEditVillageModal(id) {
       if (!currentUser) {
         promptLoginRequired('sign in to edit village records');
         return;
       }
 
-      const v = allVillages.find(item => item.id === id);
+      let v = allVillages.find(item => item.id === id);
+      if (!v) {
+        try {
+          const res = await fetch(`/villages/${id}`, { headers: getAuthHeaders() });
+          if (res.ok) {
+            v = await res.json();
+            if (!allVillages.some(item => item.id === v.id)) {
+              allVillages.push(v);
+            }
+          }
+        } catch (e) {
+          console.error('Error fetching village:', e);
+        }
+      }
       if (!v) return;
 
       // Strict Rule: Non-picked villages cannot be edited or modified
@@ -6637,6 +7268,130 @@
       document.getElementById('formNotice92Date').value = v.notice_9_2_date || '';
       toggleNoticeDateField('formNotice92Status', 'formNotice92Date', 'formNotice92DateHelp');
 
+      // -------------------------------------------------------------
+      // AREA OF EXTENT (4 VALUES) WITH ROLE-BASED LOCKING
+      // -------------------------------------------------------------
+      const isAdmin = currentUser.role === 'admin';
+      const isRep = currentUser.role === 'district_rep';
+
+      const permBadge = document.getElementById('extentRolePermissionBadge');
+      if (permBadge) {
+        if (isAdmin) {
+          permBadge.className = 'text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold border border-emerald-300 flex items-center';
+          permBadge.innerHTML = '<i class="fa-solid fa-unlock-keyhole mr-1 text-[9px]"></i>Project Admin (Full Access)';
+        } else if (isRep) {
+          permBadge.className = 'text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-bold border border-blue-300 flex items-center';
+          permBadge.innerHTML = '<i class="fa-solid fa-user-gear mr-1 text-[9px]"></i>District Rep (Saved Extents Protected)';
+        } else {
+          permBadge.className = 'text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-medium border border-slate-200 flex items-center';
+          permBadge.innerHTML = '<i class="fa-solid fa-eye mr-1 text-[9px]"></i>Read-Only View';
+        }
+      }
+
+      // 1. Existing Record
+      const elExisting = document.getElementById('formExtentExistingRecord');
+      const badgeExisting = document.getElementById('badgeExistingRecordLock');
+      const helpExisting = document.getElementById('helpExistingRecord');
+      const existingVal = String(v.extent_existing_record || v.extent_raw || '').trim();
+      if (elExisting) elExisting.value = existingVal;
+
+      if (elExisting && badgeExisting && helpExisting) {
+        if (isAdmin) {
+          elExisting.disabled = false;
+          badgeExisting.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300';
+          badgeExisting.innerHTML = '<i class="fa-solid fa-unlock mr-1 text-[8px]"></i>Admin Edit';
+          helpExisting.textContent = 'Admin has full edit permission';
+        } else if (isRep) {
+          if (existingVal && existingVal !== '0-00' && existingVal !== '0' && existingVal !== '-') {
+            elExisting.disabled = true;
+            badgeExisting.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-amber-100 text-amber-800 border border-amber-300';
+            badgeExisting.innerHTML = '<i class="fa-solid fa-lock mr-1 text-[8px]"></i>1-Time Saved (Locked)';
+            helpExisting.textContent = '1-time entry saved. Contact Admin to change.';
+          } else {
+            elExisting.disabled = false;
+            badgeExisting.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-blue-100 text-blue-800 border border-blue-300';
+            badgeExisting.innerHTML = '<i class="fa-solid fa-pen mr-1 text-[8px]"></i>1-Time Entry';
+            helpExisting.textContent = 'Enter baseline record. Locks once saved.';
+          }
+        } else {
+          elExisting.disabled = true;
+          badgeExisting.textContent = 'Read Only';
+          helpExisting.textContent = 'Read-only access';
+        }
+      }
+
+      // 2. Village Boundary 25-26
+      const elBoundary = document.getElementById('formExtentBoundary2526');
+      const badgeBoundary = document.getElementById('badgeBoundary2526Lock');
+      const helpBoundary = document.getElementById('helpBoundary2526');
+      const boundaryVal = String(v.village_boundary_25_26 || '').trim();
+      if (elBoundary) elBoundary.value = boundaryVal;
+
+      if (elBoundary && badgeBoundary && helpBoundary) {
+        if (isAdmin) {
+          elBoundary.disabled = false;
+          badgeBoundary.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300';
+          badgeBoundary.innerHTML = '<i class="fa-solid fa-unlock mr-1 text-[8px]"></i>Admin Edit';
+          helpBoundary.textContent = 'Admin has full edit permission';
+        } else if (isRep) {
+          if (boundaryVal && boundaryVal !== '-' && boundaryVal !== '0' && boundaryVal !== '0-00') {
+            elBoundary.disabled = true;
+            badgeBoundary.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-amber-100 text-amber-800 border border-amber-300';
+            badgeBoundary.innerHTML = '<i class="fa-solid fa-lock mr-1 text-[8px]"></i>Saved (Locked)';
+            helpBoundary.textContent = 'Saved by Rep. Only Admin can modify.';
+          } else {
+            elBoundary.disabled = false;
+            badgeBoundary.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-blue-100 text-blue-800 border border-blue-300';
+            badgeBoundary.innerHTML = '<i class="fa-solid fa-pen mr-1 text-[8px]"></i>Enter Extent';
+            helpBoundary.textContent = 'Enter boundary extent. Locks once saved.';
+          }
+        } else {
+          elBoundary.disabled = true;
+          badgeBoundary.textContent = 'Read Only';
+          helpBoundary.textContent = 'Read-only access';
+        }
+      }
+
+      // 3. Village Abadi
+      const elAbadi = document.getElementById('formExtentVillageAbadi');
+      const badgeAbadi = document.getElementById('badgeAbadiLock');
+      const helpAbadi = document.getElementById('helpAbadi');
+      const abadiVal = String(v.village_abadi || '').trim();
+      if (elAbadi) elAbadi.value = abadiVal;
+
+      if (elAbadi && badgeAbadi && helpAbadi) {
+        if (isAdmin) {
+          elAbadi.disabled = false;
+          badgeAbadi.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300';
+          badgeAbadi.innerHTML = '<i class="fa-solid fa-unlock mr-1 text-[8px]"></i>Admin Edit';
+          helpAbadi.textContent = 'Admin has full edit permission';
+        } else if (isRep) {
+          if (abadiVal && abadiVal !== '-' && abadiVal !== '0' && abadiVal !== '0-00') {
+            elAbadi.disabled = true;
+            badgeAbadi.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-amber-100 text-amber-800 border border-amber-300';
+            badgeAbadi.innerHTML = '<i class="fa-solid fa-lock mr-1 text-[8px]"></i>Saved (Locked)';
+            helpAbadi.textContent = 'Saved by Rep. Only Admin can modify.';
+          } else {
+            elAbadi.disabled = false;
+            badgeAbadi.className = 'text-[9px] px-1.5 py-0.2 rounded font-semibold bg-blue-100 text-blue-800 border border-blue-300';
+            badgeAbadi.innerHTML = '<i class="fa-solid fa-pen mr-1 text-[8px]"></i>Enter Extent';
+            helpAbadi.textContent = 'Enter village abadi. Locks once saved.';
+          }
+        } else {
+          elAbadi.disabled = true;
+          badgeAbadi.textContent = 'Read Only';
+          helpAbadi.textContent = 'Read-only access';
+        }
+      }
+
+      // 4. Non Abadi (Updated on daily basis as survey completes by District Rep)
+      const elNonAbadi = document.getElementById('formExtentNonAbadi');
+      const nonAbadiVal = String(v.non_abadi_extent || '').trim() || (v.surveyed_extent_so_far ? `${v.surveyed_extent_so_far} ac` : '');
+      if (elNonAbadi) {
+        elNonAbadi.value = nonAbadiVal;
+        elNonAbadi.disabled = !(isAdmin || isRep);
+      }
+
       // DAILY SURVEY PROGRESS & CUMULATIVE EXTENT TRACKING
       const masterAcres = parseFloat((v.master_extent !== undefined && v.master_extent !== null) ? v.master_extent : (v.extent_acres_float || 0));
       const surveyedSoFar = parseFloat((v.surveyed_extent_so_far !== undefined && v.surveyed_extent_so_far !== null) ? v.surveyed_extent_so_far : 0);
@@ -6727,13 +7482,22 @@
         submittedSentCso = false;
       }
 
+      const formExistingRec = document.getElementById('formExtentExistingRecord') ? document.getElementById('formExtentExistingRecord').value.trim() : '';
+      const formBoundary = document.getElementById('formExtentBoundary2526') ? document.getElementById('formExtentBoundary2526').value.trim() : '';
+      const formAbadi = document.getElementById('formExtentVillageAbadi') ? document.getElementById('formExtentVillageAbadi').value.trim() : '';
+      const formNonAbadi = document.getElementById('formExtentNonAbadi') ? document.getElementById('formExtentNonAbadi').value.trim() : '';
+
       const payload = {
         district_name: document.getElementById('formDistrict').value,
         category: document.getElementById('formCategory').value,
         village_name: document.getElementById('formVillageName').value.trim(),
         village_name_telugu: document.getElementById('formVillageNameTelugu')?.value.trim() || '',
         mandal_name: document.getElementById('formMandalName').value.trim(),
-        extent_raw: document.getElementById('formExtentRaw').value.trim(),
+        extent_raw: formExistingRec || document.getElementById('formExtentRaw').value.trim(),
+        extent_existing_record: formExistingRec,
+        village_boundary_25_26: formBoundary,
+        village_abadi: formAbadi,
+        non_abadi_extent: formNonAbadi,
         gt_status: document.getElementById('formGtStatus').value,
         sent_to_cso: submittedSentCso,
         shapefile_status: submittedSfStatus,

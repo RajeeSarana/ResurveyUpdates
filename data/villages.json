@@ -12,11 +12,11 @@
     "id": "vlg-001",
     "gt_status": "In Progress",
     "extent_acres_float": 1376.975,
-    "updated_by": "K. Ravinder Reddy (Lead QC & Verification Engineer)",
+    "updated_by": "Project Administrator HQ",
     "verification_status": "Verified",
     "verified_by": "K. Ravinder Reddy (Lead QC & Verification Engineer)",
     "qc_notes": "GIS boundaries checked and certified",
-    "updated_at": "2026-09-05T09:21:34.497474",
+    "updated_at": "2026-09-06T14:54:38.948690",
     "verified_at": "2026-09-05T09:21:34.494876",
     "daily_survey_logs": [
       {
@@ -62,7 +62,11 @@
     ],
     "surveyed_extent_so_far": 85.75,
     "remaining_extent": 1291.225,
-    "last_survey_date": "2026-09-06"
+    "last_survey_date": "2026-09-06",
+    "extent_existing_record": "1376-39",
+    "village_boundary_25_26": "1380-00",
+    "village_abadi": "48-00",
+    "non_abadi_extent": "1332-00"
   },
   {
     "district_name": "Asifabad",

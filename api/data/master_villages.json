@@ -14,7 +14,11 @@
     "verification_status": "Verified",
     "extent_raw": "560",
     "extent_acres_float": 560.0,
-    "remarks": "Shape file completed"
+    "remarks": "Shape file completed",
+    "extent_existing_record": "560",
+    "village_boundary_25_26": "560-00",
+    "village_abadi": "32-00",
+    "non_abadi_extent": "528-00"
   },
   {
     "id": "vlg-2",
@@ -31,7 +35,11 @@
     "verification_status": "Verified",
     "extent_raw": "1376-39",
     "extent_acres_float": 1376.975,
-    "remarks": "data sent to the CSO"
+    "remarks": "data sent to the CSO",
+    "extent_existing_record": "1376-39",
+    "village_boundary_25_26": "1376-39",
+    "village_abadi": "45-14",
+    "non_abadi_extent": "85.75 ac"
   },
   {
     "id": "vlg-3",

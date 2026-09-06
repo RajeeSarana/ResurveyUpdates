@@ -2,6 +2,7 @@
   "admin": [
     "tab-overview",
     "tab-villages",
+    "tab-resurvey-master",
     "tab-qc",
     "tab-cso",
     "tab-executive",
@@ -12,6 +13,7 @@
   "executive": [
     "tab-overview",
     "tab-villages",
+    "tab-resurvey-master",
     "tab-cso",
     "tab-executive",
     "tab-audit",
@@ -20,28 +22,33 @@
   "district_rep": [
     "tab-overview",
     "tab-villages",
+    "tab-resurvey-master",
     "tab-cso",
     "tab-audit"
   ],
   "district_officer": [
     "tab-overview",
     "tab-villages",
+    "tab-resurvey-master",
     "tab-cso",
     "tab-audit"
   ],
   "qc_engineer": [
     "tab-overview",
     "tab-villages",
+    "tab-resurvey-master",
     "tab-qc",
     "tab-cso"
   ],
   "cso_officer": [
     "tab-overview",
     "tab-villages",
+    "tab-resurvey-master",
     "tab-cso"
   ],
   "viewer": [
     "tab-overview",
-    "tab-villages"
+    "tab-villages",
+    "tab-resurvey-master"
   ]
 }

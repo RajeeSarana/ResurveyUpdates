@@ -135,6 +135,10 @@ class VillageCreateRequest(BaseModel):
     mandal_name: str
     mandal_id: Optional[str] = None
     extent_raw: Optional[str] = ""
+    extent_existing_record: Optional[str] = ""
+    village_boundary_25_26: Optional[str] = ""
+    village_abadi: Optional[str] = ""
+    non_abadi_extent: Optional[str] = ""
     gt_status: Optional[str] = "Completed"
     shapefile_status: Optional[str] = "Pending"
     sent_to_cso: Optional[bool] = False
@@ -160,6 +164,10 @@ class VillageUpdateRequest(BaseModel):
     mandal_name: Optional[str] = None
     mandal_id: Optional[str] = None
     extent_raw: Optional[str] = None
+    extent_existing_record: Optional[str] = None
+    village_boundary_25_26: Optional[str] = None
+    village_abadi: Optional[str] = None
+    non_abadi_extent: Optional[str] = None
     gt_status: Optional[str] = None
     shapefile_status: Optional[str] = None
     sent_to_cso: Optional[bool] = None
@@ -747,8 +755,16 @@ def list_master_villages(
     is_picked: Optional[bool] = Query(None),
     search: Optional[str] = Query(None),
     page: int = Query(1, ge=1),
-    limit: int = Query(50, ge=1, le=500)
+    limit: int = Query(50, ge=1, le=500),
+    authorization: Optional[str] = Header(None),
+    x_auth_token: Optional[str] = Header(None)
 ):
+    current_user = get_current_user(authorization, x_auth_token)
+    if current_user and current_user.get("role") in ["district_rep", "district_officer"]:
+        user_district = (current_user.get("district") or "").strip()
+        if user_district and user_district.lower() != "all":
+            district = user_district
+
     return get_master_villages(
         district=district,
         mandal=mandal,
@@ -853,7 +869,7 @@ def edit_village(
             detail="Editing or entering survey data is not permitted for villages not picked for resurvey."
         )
 
-    # If district representative, enforce assigned district match
+    # If district representative, enforce assigned district match and Area of Extent lock rules
     if user.get("role") == "district_rep":
         assigned_district = (user.get("district") or "").lower()
         existing_district = (existing.get("district_name") or "").lower()
@@ -863,13 +879,48 @@ def edit_village(
                 detail=f"Permission denied: You are assigned to {user.get('district')} district and cannot modify records for {existing.get('district_name')}."
             )
 
+        # 1. Existing Record: 1-time entry; once saved, District Rep cannot alter it
+        old_existing = str(existing.get("extent_existing_record") or existing.get("extent_raw") or "").strip()
+        if old_existing and old_existing not in ["-", "0", "0-00", "0.0"]:
+            new_existing = str(payload.extent_existing_record or "").strip() if payload.extent_existing_record is not None else ""
+            if payload.extent_existing_record is not None and new_existing and new_existing != old_existing:
+                raise HTTPException(
+                    status_code=status.HTTP_403_FORBIDDEN,
+                    detail="Permission denied: 'Existing Record' extent is a 1-time entry and cannot be updated once saved by District Rep. Only Project Admin can update it."
+                )
+
+        # 2. Village Boundary 25-26: once saved, District Rep cannot alter it
+        old_boundary = str(existing.get("village_boundary_25_26") or "").strip()
+        if old_boundary and old_boundary not in ["-", "0", "0-00", "0.0"]:
+            new_boundary = str(payload.village_boundary_25_26 or "").strip() if payload.village_boundary_25_26 is not None else ""
+            if payload.village_boundary_25_26 is not None and new_boundary and new_boundary != old_boundary:
+                raise HTTPException(
+                    status_code=status.HTTP_403_FORBIDDEN,
+                    detail="Permission denied: 'Village Boundary 25-26' has already been saved and cannot be updated by District Rep. Only Project Admin can update it."
+                )
+
+        # 3. Village Abadi: once saved, District Rep cannot alter it
+        old_abadi = str(existing.get("village_abadi") or "").strip()
+        if old_abadi and old_abadi not in ["-", "0", "0-00", "0.0"]:
+            new_abadi = str(payload.village_abadi or "").strip() if payload.village_abadi is not None else ""
+            if payload.village_abadi is not None and new_abadi and new_abadi != old_abadi:
+                raise HTTPException(
+                    status_code=status.HTTP_403_FORBIDDEN,
+                    detail="Permission denied: 'Village Abadi' has already been saved and cannot be updated by District Rep. Only Project Admin can update it."
+                )
+
     data = payload.dict()
     data.pop("updated_by", None)
     data.pop("user_role", None)
     updates = {k: v for k, v in data.items() if v is not None}
     
-    if "extent_raw" in updates:
+    if "extent_existing_record" in updates and updates["extent_existing_record"]:
+        updates["extent_raw"] = updates["extent_existing_record"]
+        updates["extent_acres_float"] = calculate_acres(updates["extent_existing_record"])
+    elif "extent_raw" in updates:
         updates["extent_acres_float"] = calculate_acres(updates["extent_raw"])
+        if "extent_existing_record" not in updates:
+            updates["extent_existing_record"] = updates["extent_raw"]
         
     try:
         updated = update_village(village_id, updates, user_name=user["name"], user_role=user["role"])

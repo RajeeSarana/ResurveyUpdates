@@ -544,6 +544,17 @@ def _normalize_name_token(name: Optional[str]) -> str:
         s = s.replace(token, "")
     return re.sub(r"[^a-z0-9]", "", s)
 
+def _normalize_village_extent_fields(v: Dict[str, Any]) -> Dict[str, Any]:
+    ext_rec = str(v.get("extent_existing_record") or v.get("extent_raw") or "").strip()
+    v["extent_existing_record"] = ext_rec if ext_rec else (v.get("extent_raw") or "0-00")
+    if not v.get("extent_raw") and ext_rec:
+        v["extent_raw"] = ext_rec
+    v["village_boundary_25_26"] = str(v.get("village_boundary_25_26") or "").strip()
+    v["village_abadi"] = str(v.get("village_abadi") or "").strip()
+    surv_far = v.get("surveyed_extent_so_far")
+    v["non_abadi_extent"] = str(v.get("non_abadi_extent") or "").strip() or (f"{surv_far} ac" if surv_far else "")
+    return v
+
 # ----------------- VILLAGES OPERATIONS -----------------
 def get_villages(
     district: Optional[str] = None,
@@ -636,7 +647,7 @@ def get_villages(
                 if s not in v_name and s not in m_name and s not in rem and s not in q_notes:
                     continue
             
-            filtered.append(v_copy)
+            filtered.append(_normalize_village_extent_fields(v_copy))
         
         # Deterministic sorting: Picked villages first (True before False), then alphabetical by village_name
         filtered.sort(key=lambda x: (not x.get("is_picked_for_resurvey", False), (x.get("village_name") or "").lower()))
@@ -664,6 +675,7 @@ def get_villages(
         for r in records:
             r["is_picked_for_resurvey"] = True
             r["picked_for_resurvey"] = True
+            _normalize_village_extent_fields(r)
         records.sort(key=lambda x: (not x.get("is_picked_for_resurvey", True), (x.get("village_name") or "").lower()))
         return records
 
@@ -712,7 +724,7 @@ def get_villages(
             q_notes = (r_copy.get("qc_notes") or "").lower()
             if s not in v_name and s not in m_name and s not in rem and s not in q_notes:
                 continue
-        filtered.append(r_copy)
+        filtered.append(_normalize_village_extent_fields(r_copy))
     
     filtered.sort(key=lambda x: (not x.get("is_picked_for_resurvey", True), (x.get("village_name") or "").lower()))
     return filtered
@@ -730,7 +742,7 @@ def get_village(village_id: str) -> Optional[Dict[str, Any]]:
             res["remaining_extent"] = max(0.0, round(m_ac - c_ac, 3)) if m_ac > 0 else 0.0
             if "daily_survey_logs" not in res or res["daily_survey_logs"] is None:
                 res["daily_survey_logs"] = []
-            return res
+            return _normalize_village_extent_fields(res)
             
     for v in _load_json(VILLAGES_FILE):
         if v.get("id") == village_id:
@@ -744,7 +756,7 @@ def get_village(village_id: str) -> Optional[Dict[str, Any]]:
             v_copy["remaining_extent"] = max(0.0, round(m_ac - c_ac, 3)) if m_ac > 0 else 0.0
             if "daily_survey_logs" not in v_copy or v_copy["daily_survey_logs"] is None:
                 v_copy["daily_survey_logs"] = []
-            return v_copy
+            return _normalize_village_extent_fields(v_copy)
             
     for v in _load_json(MASTER_VILLAGES_FILE):
         if v.get("id") == village_id:
@@ -767,7 +779,7 @@ def get_village(village_id: str) -> Optional[Dict[str, Any]]:
             v_copy["remaining_extent"] = max(0.0, round(m_ac - c_ac, 3)) if m_ac > 0 else 0.0
             if "daily_survey_logs" not in v_copy or v_copy["daily_survey_logs"] is None:
                 v_copy["daily_survey_logs"] = []
-            return v_copy
+            return _normalize_village_extent_fields(v_copy)
     return None
 
 def add_village(
@@ -825,6 +837,11 @@ def update_village(
     is_picked = bool(existing.get("is_picked_for_resurvey") or existing.get("picked_for_resurvey"))
     if not is_picked:
         raise ValueError("Editing or entering survey data is not permitted for villages not picked for resurvey.")
+
+    if "extent_existing_record" in updates and updates["extent_existing_record"]:
+        updates["extent_raw"] = updates["extent_existing_record"]
+    elif "extent_raw" in updates and not updates.get("extent_existing_record"):
+        updates["extent_existing_record"] = updates["extent_raw"]
 
     diff = {}
     for k, v in updates.items():
@@ -1035,7 +1052,8 @@ def add_daily_survey_log(
         "daily_survey_logs": logs,
         "surveyed_extent_so_far": total_surveyed,
         "remaining_extent": remaining,
-        "last_survey_date": survey_date
+        "last_survey_date": survey_date,
+        "non_abadi_extent": f"{total_surveyed} ac"
     }
     if total_surveyed >= master_extent and master_extent > 0:
         updates["gt_status"] = "Completed"
@@ -1182,7 +1200,8 @@ def update_daily_survey_log(
         "daily_survey_logs": logs,
         "surveyed_extent_so_far": total_surveyed,
         "remaining_extent": remaining,
-        "last_survey_date": latest_date
+        "last_survey_date": latest_date,
+        "non_abadi_extent": f"{total_surveyed} ac"
     }
     if total_surveyed >= master_extent and master_extent > 0:
         updates["gt_status"] = "Completed"
@@ -1926,8 +1945,34 @@ def get_master_villages(
     offset = (safe_page - 1) * limit
     slice_data = filtered[offset : offset + limit]
 
+    # Overlay active survey operational records and ensure 4 Area of Extent fields are present
+    survey_records = list(mongo_db.villages.find({}, {"_id": 0})) if (is_mongo and mongo_db is not None) else _load_json(VILLAGES_FILE)
+    survey_by_id = {v["id"]: v for v in survey_records if v.get("id")}
+    survey_by_key = {}
+    for sv in survey_records:
+        if sv.get("village_name") and sv.get("mandal_name"):
+            k = _normalize_name_token(sv.get("village_name")) + "_" + _normalize_name_token(sv.get("mandal_name"))
+            if k not in survey_by_key:
+                survey_by_key[k] = sv
+
+    enriched_slice = []
+    for item in slice_data:
+        v_copy = dict(item)
+        sv = survey_by_id.get(v_copy.get("id"))
+        if not sv:
+            k = _normalize_name_token(v_copy.get("village_name")) + "_" + _normalize_name_token(v_copy.get("mandal_name"))
+            sv = survey_by_key.get(k)
+        if sv:
+            for field in [
+                "extent_existing_record", "village_boundary_25_26", "village_abadi", "non_abadi_extent",
+                "surveyed_extent_so_far", "remaining_extent", "gt_status", "shapefile_status", "verification_status"
+            ]:
+                if sv.get(field) is not None:
+                    v_copy[field] = sv[field]
+        enriched_slice.append(_normalize_village_extent_fields(v_copy))
+
     return {
-        "data": slice_data,
+        "data": enriched_slice,
         "total": total_matches,
         "page": safe_page,
         "limit": limit,
@@ -1994,7 +2039,7 @@ def get_master_catalog() -> Dict[str, Any]:
                 "count": 10888,
                 "status": "Active",
                 "description": "Complete state territorial registry of 10,888 revenue villages (373 Non-Cadastral + 10,515 Cadastral; 2,609 Picked for Resurvey).",
-                "fields": ["id", "village_name", "mandal_name", "district_name", "category", "is_picked_for_resurvey", "resurvey_phase"]
+                "fields": ["id", "village_name", "mandal_name", "district_name", "category", "is_picked_for_resurvey", "extent_existing_record", "village_boundary_25_26", "village_abadi", "non_abadi_extent", "resurvey_phase"]
             },
             {
                 "entity_key": "representatives",
@@ -2135,6 +2180,13 @@ MENU_CATALOG = [
         "description": "Immutable chronological timeline and audit trail of all village updates, survey logs, and account activities."
     },
     {
+        "id": "tab-resurvey-master",
+        "title": "Resurvey Master",
+        "icon": "fa-solid fa-map-location-dot",
+        "badge": "District Registry",
+        "description": "District-scoped resurvey master view of revenue villages with 4-part Area of Extent and survey progress."
+    },
+    {
         "id": "tab-master",
         "title": "State Master Directory",
         "icon": "fa-solid fa-database",
@@ -2193,6 +2245,7 @@ DEFAULT_ROLE_MENU_PERMISSIONS = {
     "admin": [
         "tab-overview",
         "tab-villages",
+        "tab-resurvey-master",
         "tab-qc",
         "tab-cso",
         "tab-executive",
@@ -2203,6 +2256,7 @@ DEFAULT_ROLE_MENU_PERMISSIONS = {
     "executive": [
         "tab-overview",
         "tab-villages",
+        "tab-resurvey-master",
         "tab-cso",
         "tab-executive",
         "tab-audit",
@@ -2211,29 +2265,34 @@ DEFAULT_ROLE_MENU_PERMISSIONS = {
     "district_rep": [
         "tab-overview",
         "tab-villages",
+        "tab-resurvey-master",
         "tab-cso",
         "tab-audit"
     ],
     "district_officer": [
         "tab-overview",
         "tab-villages",
+        "tab-resurvey-master",
         "tab-cso",
         "tab-audit"
     ],
     "qc_engineer": [
         "tab-overview",
         "tab-villages",
+        "tab-resurvey-master",
         "tab-qc",
         "tab-cso"
     ],
     "cso_officer": [
         "tab-overview",
         "tab-villages",
+        "tab-resurvey-master",
         "tab-cso"
     ],
     "viewer": [
         "tab-overview",
-        "tab-villages"
+        "tab-villages",
+        "tab-resurvey-master"
     ]
 }
 

@@ -1,5 +1,107 @@
 [
   {
+    "id": "log-1788686679046",
+    "timestamp": "2026-09-06T14:54:39.046785",
+    "record_id": "vlg-001",
+    "village_name": "Dhanapur (V)",
+    "district_name": "Asifabad",
+    "user_name": "Project Administrator HQ",
+    "user_role": "admin",
+    "action": "Updated",
+    "details": "Record updated by Project Administrator HQ (admin): non_abadi_extent",
+    "changes": {
+      "non_abadi_extent": {
+        "from": "92.50 ac",
+        "to": "1332-00"
+      }
+    }
+  },
+  {
+    "id": "log-1788686678929",
+    "timestamp": "2026-09-06T14:54:38.929143",
+    "record_id": "vlg-001",
+    "village_name": "Dhanapur (V)",
+    "district_name": "Asifabad",
+    "user_name": "K. Rajesh (District Rep)",
+    "user_role": "district_rep",
+    "action": "Updated",
+    "details": "Record updated by K. Rajesh (District Rep) (district_rep): non_abadi_extent",
+    "changes": {
+      "non_abadi_extent": {
+        "from": "1332-00",
+        "to": "92.50 ac"
+      }
+    }
+  },
+  {
+    "id": "log-1788685094189",
+    "timestamp": "2026-09-06T14:28:14.189287",
+    "record_id": "vlg-001",
+    "village_name": "Dhanapur (V)",
+    "district_name": "Asifabad",
+    "user_name": "Project Administrator HQ",
+    "user_role": "admin",
+    "action": "Updated",
+    "details": "Record updated by Project Administrator HQ (admin): non_abadi_extent",
+    "changes": {
+      "non_abadi_extent": {
+        "from": "92.50 ac",
+        "to": "1332-00"
+      }
+    }
+  },
+  {
+    "id": "log-1788685094085",
+    "timestamp": "2026-09-06T14:28:14.085796",
+    "record_id": "vlg-001",
+    "village_name": "Dhanapur (V)",
+    "district_name": "Asifabad",
+    "user_name": "K. Rajesh (District Rep)",
+    "user_role": "district_rep",
+    "action": "Updated",
+    "details": "Record updated by K. Rajesh (District Rep) (district_rep): non_abadi_extent",
+    "changes": {
+      "non_abadi_extent": {
+        "from": "1332-00",
+        "to": "92.50 ac"
+      }
+    }
+  },
+  {
+    "id": "log-1788684093861",
+    "timestamp": "2026-09-06T14:11:33.861464",
+    "record_id": "vlg-001",
+    "village_name": "Dhanapur (V)",
+    "district_name": "Asifabad",
+    "user_name": "Project Administrator HQ",
+    "user_role": "admin",
+    "action": "Updated",
+    "details": "Record updated by Project Administrator HQ (admin): non_abadi_extent",
+    "changes": {
+      "non_abadi_extent": {
+        "from": "92.50 ac",
+        "to": "1332-00"
+      }
+    }
+  },
+  {
+    "id": "log-1788684093740",
+    "timestamp": "2026-09-06T14:11:33.740854",
+    "record_id": "vlg-001",
+    "village_name": "Dhanapur (V)",
+    "district_name": "Asifabad",
+    "user_name": "K. Rajesh (District Rep)",
+    "user_role": "district_rep",
+    "action": "Updated",
+    "details": "Record updated by K. Rajesh (District Rep) (district_rep): non_abadi_extent",
+    "changes": {
+      "non_abadi_extent": {
+        "from": "1332-00",
+        "to": "92.50 ac"
+      }
+    }
+  },
+  {
     "id": "log-1788678716916",
     "timestamp": "2026-09-06T12:41:56.916629",
     "record_id": "vlg-1592",
