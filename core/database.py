@@ -557,6 +557,8 @@ def get_villages(
             # Default daily survey attributes and remaining area calculation
             master_ac = float(v_copy.get("extent_acres_float", 0.0) or 0.0)
             c_ac = float(v_copy.get("surveyed_extent_so_far", 0.0) or 0.0)
+            v_copy["master_extent"] = master_ac
+            v_copy["surveyed_extent_so_far"] = c_ac
             if "remaining_extent" not in v_copy or v_copy["remaining_extent"] is None:
                 v_copy["remaining_extent"] = max(0.0, round(master_ac - c_ac, 3)) if master_ac > 0 else 0.0
             if "daily_survey_logs" not in v_copy or v_copy["daily_survey_logs"] is None:
@@ -630,6 +632,8 @@ def get_villages(
         r_copy["picked_for_resurvey"] = r_copy["is_picked_for_resurvey"]
         master_ac = float(r_copy.get("extent_acres_float", 0.0) or 0.0)
         c_ac = float(r_copy.get("surveyed_extent_so_far", 0.0) or 0.0)
+        r_copy["master_extent"] = master_ac
+        r_copy["surveyed_extent_so_far"] = c_ac
         if "remaining_extent" not in r_copy or r_copy["remaining_extent"] is None:
             r_copy["remaining_extent"] = max(0.0, round(master_ac - c_ac, 3)) if master_ac > 0 else 0.0
         if "daily_survey_logs" not in r_copy or r_copy["daily_survey_logs"] is None:
@@ -668,6 +672,13 @@ def get_village(village_id: str) -> Optional[Dict[str, Any]]:
         if res:
             res["is_picked_for_resurvey"] = bool(res.get("is_picked_for_resurvey", True))
             res["picked_for_resurvey"] = res["is_picked_for_resurvey"]
+            m_ac = float(res.get("extent_acres_float", 0.0) or 0.0)
+            c_ac = float(res.get("surveyed_extent_so_far", 0.0) or 0.0)
+            res["master_extent"] = m_ac
+            res["surveyed_extent_so_far"] = c_ac
+            res["remaining_extent"] = max(0.0, round(m_ac - c_ac, 3)) if m_ac > 0 else 0.0
+            if "daily_survey_logs" not in res or res["daily_survey_logs"] is None:
+                res["daily_survey_logs"] = []
             return res
             
     for v in _load_json(VILLAGES_FILE):
@@ -675,6 +686,13 @@ def get_village(village_id: str) -> Optional[Dict[str, Any]]:
             v_copy = dict(v)
             v_copy["is_picked_for_resurvey"] = bool(v_copy.get("is_picked_for_resurvey", True))
             v_copy["picked_for_resurvey"] = v_copy["is_picked_for_resurvey"]
+            m_ac = float(v_copy.get("extent_acres_float", 0.0) or 0.0)
+            c_ac = float(v_copy.get("surveyed_extent_so_far", 0.0) or 0.0)
+            v_copy["master_extent"] = m_ac
+            v_copy["surveyed_extent_so_far"] = c_ac
+            v_copy["remaining_extent"] = max(0.0, round(m_ac - c_ac, 3)) if m_ac > 0 else 0.0
+            if "daily_survey_logs" not in v_copy or v_copy["daily_survey_logs"] is None:
+                v_copy["daily_survey_logs"] = []
             return v_copy
             
     for v in _load_json(MASTER_VILLAGES_FILE):
@@ -683,6 +701,20 @@ def get_village(village_id: str) -> Optional[Dict[str, Any]]:
             p_val = bool(v_copy.get("is_picked_for_resurvey") or v_copy.get("picked_for_resurvey"))
             v_copy["is_picked_for_resurvey"] = p_val
             v_copy["picked_for_resurvey"] = p_val
+            # Check if survey operations exist in VILLAGES_FILE
+            for sv in _load_json(VILLAGES_FILE):
+                if sv.get("id") == village_id:
+                    for k, val in sv.items():
+                        if val is not None and k not in ["district_name", "mandal_name", "village_name", "village_name_telugu"]:
+                            v_copy[k] = val
+                    break
+            m_ac = float(v_copy.get("extent_acres_float", 0.0) or 0.0)
+            c_ac = float(v_copy.get("surveyed_extent_so_far", 0.0) or 0.0)
+            v_copy["master_extent"] = m_ac
+            v_copy["surveyed_extent_so_far"] = c_ac
+            v_copy["remaining_extent"] = max(0.0, round(m_ac - c_ac, 3)) if m_ac > 0 else 0.0
+            if "daily_survey_logs" not in v_copy or v_copy["daily_survey_logs"] is None:
+                v_copy["daily_survey_logs"] = []
             return v_copy
     return None
 

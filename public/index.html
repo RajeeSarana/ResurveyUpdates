@@ -5643,8 +5643,8 @@
       toggleNoticeDateField('formNotice92Status', 'formNotice92Date', 'formNotice92DateHelp');
 
       // DAILY SURVEY PROGRESS & CUMULATIVE EXTENT TRACKING
-      const masterAcres = parseFloat(v.extent_acres_float || 0);
-      const surveyedSoFar = parseFloat(v.surveyed_extent_so_far || 0);
+      const masterAcres = parseFloat((v.master_extent !== undefined && v.master_extent !== null) ? v.master_extent : (v.extent_acres_float || 0));
+      const surveyedSoFar = parseFloat((v.surveyed_extent_so_far !== undefined && v.surveyed_extent_so_far !== null) ? v.surveyed_extent_so_far : 0);
       const remainingAcres = (v.remaining_extent !== undefined && v.remaining_extent !== null)
         ? parseFloat(v.remaining_extent)
         : Math.max(0, masterAcres - surveyedSoFar);
