@@ -1,3 +1,15 @@
 {
-  "cleanUrls": true
+  "version": 2,
+  "cleanUrls": true,
+  "functions": {
+    "api/index.py": {
+      "includeFiles": "{api/data/**,api/core/**,data/**,core/**}"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(api|status|villages|districts|mandals|master-catalog|master|dashboard|executive|audit-logs|representatives|users|auth|export)(.*)",
+      "destination": "/api/index.py"
+    }
+  ]
 }

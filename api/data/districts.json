@@ -1,0 +1,290 @@
+[
+  {
+    "district_id": "asifabad",
+    "name": "Asifabad",
+    "non_cadastral_target": 36,
+    "cadastral_target": 70,
+    "total_mandals": 15,
+    "total_villages": 434,
+    "total_resurvey_target": 106
+  },
+  {
+    "district_id": "mancherial",
+    "name": "Mancherial",
+    "non_cadastral_target": 11,
+    "cadastral_target": 70,
+    "total_mandals": 18,
+    "total_villages": 384,
+    "total_resurvey_target": 81
+  },
+  {
+    "district_id": "peddapally",
+    "name": "Peddapally",
+    "non_cadastral_target": 0,
+    "cadastral_target": 70,
+    "total_mandals": 14,
+    "total_villages": 213,
+    "total_resurvey_target": 70
+  },
+  {
+    "district_id": "bhupapally",
+    "name": "Bhupapally",
+    "non_cadastral_target": 13,
+    "cadastral_target": 70,
+    "total_mandals": 12,
+    "total_villages": 223,
+    "total_resurvey_target": 83
+  },
+  {
+    "district_id": "mulugu",
+    "name": "Mulugu",
+    "non_cadastral_target": 2,
+    "cadastral_target": 70,
+    "total_mandals": 10,
+    "total_villages": 337,
+    "total_resurvey_target": 72
+  },
+  {
+    "district_id": "adilabad",
+    "name": "Adilabad",
+    "non_cadastral_target": 8,
+    "cadastral_target": 70,
+    "total_mandals": 21,
+    "total_villages": 508,
+    "total_resurvey_target": 78
+  },
+  {
+    "district_id": "nirmal",
+    "name": "Nirmal",
+    "non_cadastral_target": 14,
+    "cadastral_target": 70,
+    "total_mandals": 19,
+    "total_villages": 428,
+    "total_resurvey_target": 84
+  },
+  {
+    "district_id": "nizamabad",
+    "name": "Nizamabad",
+    "non_cadastral_target": 0,
+    "cadastral_target": 70,
+    "total_mandals": 33,
+    "total_villages": 453,
+    "total_resurvey_target": 70
+  },
+  {
+    "district_id": "jagitial",
+    "name": "Jagitial",
+    "non_cadastral_target": 20,
+    "cadastral_target": 70,
+    "total_mandals": 20,
+    "total_villages": 300,
+    "total_resurvey_target": 90
+  },
+  {
+    "district_id": "kamareddy",
+    "name": "Kamareddy",
+    "non_cadastral_target": 16,
+    "cadastral_target": 70,
+    "total_mandals": 25,
+    "total_villages": 474,
+    "total_resurvey_target": 86
+  },
+  {
+    "district_id": "siddipet",
+    "name": "Siddipet",
+    "non_cadastral_target": 22,
+    "cadastral_target": 70,
+    "total_mandals": 26,
+    "total_villages": 386,
+    "total_resurvey_target": 92
+  },
+  {
+    "district_id": "medak",
+    "name": "Medak",
+    "non_cadastral_target": 24,
+    "cadastral_target": 70,
+    "total_mandals": 21,
+    "total_villages": 391,
+    "total_resurvey_target": 94
+  },
+  {
+    "district_id": "rajanna_siricilla",
+    "name": "Rajanna Siricilla",
+    "non_cadastral_target": 0,
+    "cadastral_target": 70,
+    "total_mandals": 13,
+    "total_villages": 171,
+    "total_resurvey_target": 70
+  },
+  {
+    "district_id": "karimnagar",
+    "name": "Karimnagar",
+    "non_cadastral_target": 1,
+    "cadastral_target": 70,
+    "total_mandals": 16,
+    "total_villages": 210,
+    "total_resurvey_target": 71
+  },
+  {
+    "district_id": "warangal",
+    "name": "Warangal",
+    "non_cadastral_target": 6,
+    "cadastral_target": 70,
+    "total_mandals": 13,
+    "total_villages": 191,
+    "total_resurvey_target": 76
+  },
+  {
+    "district_id": "hanumakonda",
+    "name": "Hanumakonda",
+    "non_cadastral_target": 2,
+    "cadastral_target": 70,
+    "total_mandals": 14,
+    "total_villages": 163,
+    "total_resurvey_target": 72
+  },
+  {
+    "district_id": "mahabubabad",
+    "name": "Mahabubabad",
+    "non_cadastral_target": 1,
+    "cadastral_target": 70,
+    "total_mandals": 18,
+    "total_villages": 287,
+    "total_resurvey_target": 71
+  },
+  {
+    "district_id": "khammam",
+    "name": "Khammam",
+    "non_cadastral_target": 0,
+    "cadastral_target": 70,
+    "total_mandals": 20,
+    "total_villages": 380,
+    "total_resurvey_target": 70
+  },
+  {
+    "district_id": "kothagudem",
+    "name": "Kothagudem",
+    "non_cadastral_target": 8,
+    "cadastral_target": 69,
+    "total_mandals": 23,
+    "total_villages": 379,
+    "total_resurvey_target": 77
+  },
+  {
+    "district_id": "nalgonda",
+    "name": "Nalgonda",
+    "non_cadastral_target": 0,
+    "cadastral_target": 70,
+    "total_mandals": 33,
+    "total_villages": 570,
+    "total_resurvey_target": 70
+  },
+  {
+    "district_id": "yadadri_bhuvanagiri",
+    "name": "Yadadri Bhuvanagiri",
+    "non_cadastral_target": 6,
+    "cadastral_target": 70,
+    "total_mandals": 17,
+    "total_villages": 319,
+    "total_resurvey_target": 76
+  },
+  {
+    "district_id": "suryapet",
+    "name": "Suryapet",
+    "non_cadastral_target": 14,
+    "cadastral_target": 70,
+    "total_mandals": 23,
+    "total_villages": 279,
+    "total_resurvey_target": 84
+  },
+  {
+    "district_id": "janagaon",
+    "name": "Janagaon",
+    "non_cadastral_target": 12,
+    "cadastral_target": 70,
+    "total_mandals": 12,
+    "total_villages": 176,
+    "total_resurvey_target": 82
+  },
+  {
+    "district_id": "rangareddy",
+    "name": "Rangareddy",
+    "non_cadastral_target": 44,
+    "cadastral_target": 67,
+    "total_mandals": 27,
+    "total_villages": 617,
+    "total_resurvey_target": 111
+  },
+  {
+    "district_id": "medchal_malkajgiri",
+    "name": "Medchal Malkajgiri",
+    "non_cadastral_target": 4,
+    "cadastral_target": 70,
+    "total_mandals": 15,
+    "total_villages": 162,
+    "total_resurvey_target": 74
+  },
+  {
+    "district_id": "vikarabad",
+    "name": "Vikarabad",
+    "non_cadastral_target": 38,
+    "cadastral_target": 70,
+    "total_mandals": 20,
+    "total_villages": 510,
+    "total_resurvey_target": 108
+  },
+  {
+    "district_id": "sangareddy",
+    "name": "Sangareddy",
+    "non_cadastral_target": 17,
+    "cadastral_target": 70,
+    "total_mandals": 28,
+    "total_villages": 604,
+    "total_resurvey_target": 87
+  },
+  {
+    "district_id": "mahabubnagar",
+    "name": "Mahabubnagar",
+    "non_cadastral_target": 16,
+    "cadastral_target": 70,
+    "total_mandals": 17,
+    "total_villages": 307,
+    "total_resurvey_target": 86
+  },
+  {
+    "district_id": "narayanapet",
+    "name": "Narayanapet",
+    "non_cadastral_target": 33,
+    "cadastral_target": 70,
+    "total_mandals": 13,
+    "total_villages": 251,
+    "total_resurvey_target": 103
+  },
+  {
+    "district_id": "wanaparthy",
+    "name": "Wanaparthy",
+    "non_cadastral_target": 0,
+    "cadastral_target": 70,
+    "total_mandals": 15,
+    "total_villages": 228,
+    "total_resurvey_target": 70
+  },
+  {
+    "district_id": "nagarkurnool",
+    "name": "Nagarkurnool",
+    "non_cadastral_target": 5,
+    "cadastral_target": 70,
+    "total_mandals": 20,
+    "total_villages": 354,
+    "total_resurvey_target": 75
+  },
+  {
+    "district_id": "jogulamba_gadwal",
+    "name": "Jogulamba Gadwal",
+    "non_cadastral_target": 0,
+    "cadastral_target": 70,
+    "total_mandals": 13,
+    "total_villages": 199,
+    "total_resurvey_target": 70
+  }
+]

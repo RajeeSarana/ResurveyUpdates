@@ -1,0 +1,2647 @@
+[
+  {
+    "id": "log-1788610182485",
+    "timestamp": "2026-09-05T17:39:42.485392",
+    "record_id": "vlg-1592",
+    "village_name": "Adegaon K",
+    "district_name": "Adilabad",
+    "user_name": "Adilabad District Lead Rep (Primary)",
+    "user_role": "district_rep",
+    "action": "Updated",
+    "details": "Record updated by Adilabad District Lead Rep (Primary) (district_rep): shapefile_status, remarks",
+    "changes": {
+      "shapefile_status": {
+        "from": "Error",
+        "to": "Completed"
+      },
+      "remarks": {
+        "from": "villages data Sent to CSO. Shape file Error",
+        "to": "Authorized update by Adilabad rep"
+      }
+    }
+  },
+  {
+    "id": "log-1788600030637",
+    "timestamp": "2026-09-05T14:50:30.637438",
+    "record_id": "user-test_rep_khammam",
+    "village_name": "Account: test_rep_khammam",
+    "district_name": "Khammam",
+    "user_name": "Project Administrator",
+    "user_role": "admin",
+    "action": "User Account Deleted",
+    "details": "Administrator 'Project Administrator' deleted user account 'test_rep_khammam'.",
+    "changes": {
+      "deleted_user": "test_rep_khammam"
+    }
+  },
+  {
+    "id": "log-1788600030610",
+    "timestamp": "2026-09-05T14:50:30.610721",
+    "record_id": "user-test_rep_khammam",
+    "village_name": "Account: test_rep_khammam",
+    "district_name": "Khammam",
+    "user_name": "Project Administrator",
+    "user_role": "admin",
+    "action": "User Account Updated",
+    "details": "Admin 'Project Administrator' updated details for user 'test_rep_khammam' -> 'test_rep_khammam': {'designation': 'Senior District Surveyor', 'status': 'Active', 'updated_at': '2026-09-05T14:50:30.608835'}",
+    "changes": {
+      "designation": "Senior District Surveyor",
+      "status": "Active",
+      "updated_at": "2026-09-05T14:50:30.608835",
+      "username": "test_rep_khammam"
+    }
+  },
+  {
+    "id": "log-1788600030584",
+    "timestamp": "2026-09-05T14:50:30.584118",
+    "record_id": "user-test_rep_khammam",
+    "village_name": "Account: test_rep_khammam",
+    "district_name": "Khammam",
+    "user_name": "Project Administrator",
+    "user_role": "admin",
+    "action": "Password Reset by Admin",
+    "details": "Administrator 'Project Administrator' reset password for user 'test_rep_khammam' to temporary default.",
+    "changes": {
+      "is_default_password": true
+    }
+  },
+  {
+    "id": "log-1788600030558",
+    "timestamp": "2026-09-05T14:50:30.558293",
+    "record_id": "user-test_rep_khammam",
+    "village_name": "Account: test_rep_khammam",
+    "district_name": "Khammam",
+    "user_name": "K. Venkatesh",
+    "user_role": "district_rep",
+    "action": "Password Changed by User",
+    "details": "User 'test_rep_khammam' successfully updated their personal account password.",
+    "changes": {
+      "is_default_password": false
+    }
+  },
+  {
+    "id": "log-1788600030512",
+    "timestamp": "2026-09-05T14:50:30.512908",
+    "record_id": "user-test_rep_khammam",
+    "village_name": "Account: test_rep_khammam",
+    "district_name": "Khammam",
+    "user_name": "Project Administrator",
+    "user_role": "admin",
+    "action": "User Account Created",
+    "details": "Created officer account 'test_rep_khammam' (Role: district_rep, District: Khammam) with default password.",
+    "changes": {
+      "role": "district_rep",
+      "district": "Khammam",
+      "status": "Active"
+    }
+  },
+  {
+    "id": "log-1788600001678",
+    "timestamp": "2026-09-05T14:50:01.678343",
+    "record_id": "user-asifabad_rep1",
+    "village_name": "Account: asifabad_rep1",
+    "district_name": "Asifabad",
+    "user_name": "Project Administrator",
+    "user_role": "admin",
+    "action": "Password Reset by Admin",
+    "details": "Administrator 'Project Administrator' reset password for user 'asifabad_rep1' to temporary default.",
+    "changes": {
+      "is_default_password": true
+    }
+  },
+  {
+    "id": "log-1788600001644",
+    "timestamp": "2026-09-05T14:50:01.644536",
+    "record_id": "user-asifabad_rep1",
+    "village_name": "Account: asifabad_rep1",
+    "district_name": "Asifabad",
+    "user_name": "Sri K. Ramesh Reddy (Lead Officer)",
+    "user_role": "district_rep",
+    "action": "Password Changed by User",
+    "details": "User 'asifabad_rep1' successfully updated their personal account password.",
+    "changes": {
+      "is_default_password": false
+    }
+  },
+  {
+    "id": "log-1788600001618",
+    "timestamp": "2026-09-05T14:50:01.618463",
+    "record_id": "user-asifabad_rep1",
+    "village_name": "Account: asifabad_rep1",
+    "district_name": "Asifabad",
+    "user_name": "Sri K. Ramesh Reddy (Lead Officer)",
+    "user_role": "district_rep",
+    "action": "User Profile Updated",
+    "details": "Officer updated personal profile: ID=asifabad_rep1, Name=Sri K. Ramesh Reddy (Lead Officer), Contact=+91 98480 12345",
+    "changes": {
+      "old_username": "asifabad_leadrep",
+      "new_username": "asifabad_rep1",
+      "name": "Sri K. Ramesh Reddy (Lead Officer)"
+    }
+  },
+  {
+    "id": "log-1788600001587",
+    "timestamp": "2026-09-05T14:50:01.587939",
+    "record_id": "user-asifabad_leadrep",
+    "village_name": "Account: asifabad_leadrep",
+    "district_name": "Asifabad",
+    "user_name": "Sri K. Ramesh Reddy (Lead Officer)",
+    "user_role": "district_rep",
+    "action": "User Profile Updated",
+    "details": "Officer updated personal profile: ID=asifabad_leadrep, Name=Sri K. Ramesh Reddy (Lead Officer), Contact=+91 98480 12345",
+    "changes": {
+      "old_username": "asifabad_rep1",
+      "new_username": "asifabad_leadrep",
+      "name": "Sri K. Ramesh Reddy (Lead Officer)"
+    }
+  },
+  {
+    "id": "log-1788600001565",
+    "timestamp": "2026-09-05T14:50:01.565351",
+    "record_id": "user-asifabad_rep1",
+    "village_name": "Account: asifabad_rep1",
+    "district_name": "Asifabad",
+    "user_name": "Sri K. Ramesh Reddy (Lead Officer)",
+    "user_role": "district_rep",
+    "action": "User Profile Updated",
+    "details": "Officer updated personal profile: ID=asifabad_rep1, Name=Sri K. Ramesh Reddy (Lead Officer), Contact=+91 98480 12345",
+    "changes": {
+      "old_username": "asifabad_rep1",
+      "new_username": "asifabad_rep1",
+      "name": "Sri K. Ramesh Reddy (Lead Officer)"
+    }
+  },
+  {
+    "id": "log-1788599887186",
+    "timestamp": "2026-09-05T14:48:07.186899",
+    "record_id": "user-asifabad_rep1",
+    "village_name": "Account: asifabad_rep1",
+    "district_name": "Asifabad",
+    "user_name": "Project Administrator",
+    "user_role": "admin",
+    "action": "Password Reset by Admin",
+    "details": "Administrator 'Project Administrator' reset password for user 'asifabad_rep1' to temporary default.",
+    "changes": {
+      "is_default_password": true
+    }
+  },
+  {
+    "id": "log-1788599887167",
+    "timestamp": "2026-09-05T14:48:07.167956",
+    "record_id": "user-asifabad_rep1",
+    "village_name": "Account: asifabad_rep1",
+    "district_name": "Asifabad",
+    "user_name": "Sri K. Ramesh Reddy (Lead Officer)",
+    "user_role": "district_rep",
+    "action": "Password Changed by User",
+    "details": "User 'asifabad_rep1' successfully updated their personal account password.",
+    "changes": {
+      "is_default_password": false
+    }
+  },
+  {
+    "id": "log-1788599887152",
+    "timestamp": "2026-09-05T14:48:07.152585",
+    "record_id": "user-asifabad_rep1",
+    "village_name": "Account: asifabad_rep1",
+    "district_name": "Asifabad",
+    "user_name": "Sri K. Ramesh Reddy (Lead Officer)",
+    "user_role": "district_rep",
+    "action": "User Profile Updated",
+    "details": "Officer updated personal profile: ID=asifabad_rep1, Name=Sri K. Ramesh Reddy (Lead Officer), Contact=+91 98480 12345",
+    "changes": {
+      "old_username": "asifabad_leadrep",
+      "new_username": "asifabad_rep1",
+      "name": "Sri K. Ramesh Reddy (Lead Officer)"
+    }
+  },
+  {
+    "id": "log-1788599887134",
+    "timestamp": "2026-09-05T14:48:07.134649",
+    "record_id": "user-asifabad_leadrep",
+    "village_name": "Account: asifabad_leadrep",
+    "district_name": "Asifabad",
+    "user_name": "Sri K. Ramesh Reddy (Lead Officer)",
+    "user_role": "district_rep",
+    "action": "User Profile Updated",
+    "details": "Officer updated personal profile: ID=asifabad_leadrep, Name=Sri K. Ramesh Reddy (Lead Officer), Contact=+91 98480 12345",
+    "changes": {
+      "old_username": "asifabad_rep1",
+      "new_username": "asifabad_leadrep",
+      "name": "Sri K. Ramesh Reddy (Lead Officer)"
+    }
+  },
+  {
+    "id": "log-1788599887118",
+    "timestamp": "2026-09-05T14:48:07.118325",
+    "record_id": "user-asifabad_rep1",
+    "village_name": "Account: asifabad_rep1",
+    "district_name": "Asifabad",
+    "user_name": "Sri K. Ramesh Reddy (Lead Officer)",
+    "user_role": "district_rep",
+    "action": "User Profile Updated",
+    "details": "Officer updated personal profile: ID=asifabad_rep1, Name=Sri K. Ramesh Reddy (Lead Officer), Contact=+91 98480 12345",
+    "changes": {
+      "old_username": "asifabad_rep1",
+      "new_username": "asifabad_rep1",
+      "name": "Sri K. Ramesh Reddy (Lead Officer)"
+    }
+  },
+  {
+    "id": "log-1788598261474",
+    "timestamp": "2026-09-05T14:21:01.474676",
+    "record_id": "user-test_rep_khammam",
+    "village_name": "Account: test_rep_khammam",
+    "district_name": "Khammam",
+    "user_name": "Project Administrator",
+    "user_role": "admin",
+    "action": "User Account Deleted",
+    "details": "Administrator 'Project Administrator' deleted user account 'test_rep_khammam'.",
+    "changes": {
+      "deleted_user": "test_rep_khammam"
+    }
+  },
+  {
+    "id": "log-1788598261442",
+    "timestamp": "2026-09-05T14:21:01.442195",
+    "record_id": "user-test_rep_khammam",
+    "village_name": "Account: test_rep_khammam",
+    "district_name": "Khammam",
+    "user_name": "Project Administrator",
+    "user_role": "admin",
+    "action": "User Account Updated",
+    "details": "Updated details for user 'test_rep_khammam': {'designation': 'Senior District Surveyor', 'status': 'Active', 'updated_at': '2026-09-05T14:21:01.439865'}",
+    "changes": {
+      "designation": "Senior District Surveyor",
+      "status": "Active",
+      "updated_at": "2026-09-05T14:21:01.439865"
+    }
+  },
+  {
+    "id": "log-1788598261400",
+    "timestamp": "2026-09-05T14:21:01.400693",
+    "record_id": "user-test_rep_khammam",
+    "village_name": "Account: test_rep_khammam",
+    "district_name": "Khammam",
+    "user_name": "Project Administrator",
+    "user_role": "admin",
+    "action": "Password Reset by Admin",
+    "details": "Administrator 'Project Administrator' reset password for user 'test_rep_khammam' to temporary default.",
+    "changes": {
+      "is_default_password": true
+    }
+  },
+  {
+    "id": "log-1788598261350",
+    "timestamp": "2026-09-05T14:21:01.350141",
+    "record_id": "user-test_rep_khammam",
+    "village_name": "Account: test_rep_khammam",
+    "district_name": "Khammam",
+    "user_name": "K. Venkatesh",
+    "user_role": "district_rep",
+    "action": "Password Changed by User",
+    "details": "User 'test_rep_khammam' successfully updated their personal account password.",
+    "changes": {
+      "is_default_password": false
+    }
+  },
+  {
+    "id": "log-1788598261300",
+    "timestamp": "2026-09-05T14:21:01.300033",
+    "record_id": "user-test_rep_khammam",
+    "village_name": "Account: test_rep_khammam",
+    "district_name": "Khammam",
+    "user_name": "Project Administrator",
+    "user_role": "admin",
+    "action": "User Account Created",
+    "details": "Created officer account 'test_rep_khammam' (Role: district_rep, District: Khammam) with default password.",
+    "changes": {
+      "role": "district_rep",
+      "district": "Khammam",
+      "status": "Active"
+    }
+  },
+  {
+    "id": "log-1788598261282",
+    "timestamp": "2026-09-05T14:21:01.282625",
+    "record_id": "user-test_rep_khammam",
+    "village_name": "Account: test_rep_khammam",
+    "district_name": "Khammam",
+    "user_name": "Project Administrator",
+    "user_role": "admin",
+    "action": "User Account Deleted",
+    "details": "Administrator 'Project Administrator' deleted user account 'test_rep_khammam'.",
+    "changes": {
+      "deleted_user": "test_rep_khammam"
+    }
+  },
+  {
+    "id": "log-1788580294509",
+    "timestamp": "2026-09-05T09:21:34.509634",
+    "record_id": "vlg-001",
+    "village_name": "Dhanapur (V)",
+    "district_name": "Asifabad",
+    "user_name": "K. Ravinder Reddy (Lead QC & Verification Engineer)",
+    "user_role": "qc_engineer",
+    "action": "QC Verification: Verified",
+    "details": "QC Review completed: Verified. Notes: GIS boundaries checked and certified",
+    "changes": {
+      "verification_status": {
+        "from": "Verified",
+        "to": "Verified"
+      },
+      "qc_notes": {
+        "from": "Verified and approved for Central Office submission.",
+        "to": "GIS boundaries checked and certified"
+      }
+    }
+  },
+  {
+    "id": "log-1788580294502",
+    "timestamp": "2026-09-05T09:21:34.502080",
+    "record_id": "vlg-001",
+    "village_name": "Dhanapur (V)",
+    "district_name": "Asifabad",
+    "user_name": "K. Ravinder Reddy (Lead QC & Verification Engineer)",
+    "user_role": "qc_engineer",
+    "action": "Updated",
+    "details": "Record updated by K. Ravinder Reddy (Lead QC & Verification Engineer) (qc_engineer): verified_by, qc_notes",
+    "changes": {
+      "verified_by": {
+        "from": "K. Ravinder Reddy (Lead QC)",
+        "to": "K. Ravinder Reddy (Lead QC & Verification Engineer)"
+      },
+      "qc_notes": {
+        "from": "Verified and approved for Central Office submission.",
+        "to": "GIS boundaries checked and certified"
+      }
+    }
+  },
+  {
+    "id": "log-1788580294458",
+    "timestamp": "2026-09-05T09:21:34.458482",
+    "record_id": "vlg-001",
+    "village_name": "Dhanapur (V)",
+    "district_name": "Asifabad",
+    "user_name": "Asifabad District Lead Rep (Primary)",
+    "user_role": "district_rep",
+    "action": "Updated",
+    "details": "Record updated by Asifabad District Lead Rep (Primary) (district_rep): workflow_stage",
+    "changes": {
+      "workflow_stage": {
+        "from": "Shapefile Sent to CSO",
+        "to": "Polygon Work"
+      }
+    }
+  },
+  {
+    "id": "log-0001",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-001",
+    "village_name": "Dhanapur (V)",
+    "district_name": "Asifabad",
+    "user_name": "Asifabad District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Dhanapur (V), Asifabad (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "1376-39"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0002",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-002",
+    "village_name": "Seethanagar (V)",
+    "district_name": "Asifabad",
+    "user_name": "Asifabad District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Seethanagar (V), Kagaznagar (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "560"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0003",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-003",
+    "village_name": "Rampur (V)",
+    "district_name": "Mancherial",
+    "user_name": "Mancherial District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Rampur (V), Tandur (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "593-05"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0004",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-004",
+    "village_name": "Pannur (V)",
+    "district_name": "Peddapally",
+    "user_name": "Peddapally District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Pannur (V), Ramagiri (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "521-05"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0005",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-005",
+    "village_name": "Medaram (V)",
+    "district_name": "Mulugu",
+    "user_name": "Mulugu District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Medaram (V), Tadavai (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "652-00"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Returned for Correction"
+      }
+    }
+  },
+  {
+    "id": "log-0006",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-006",
+    "village_name": "Ramachandrapur (V)",
+    "district_name": "Mulugu",
+    "user_name": "Mulugu District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Ramachandrapur (V), Mallampally (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "10300-00"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Pending QC"
+      }
+    }
+  },
+  {
+    "id": "log-0007",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-007",
+    "village_name": "Laxmipur (K) (V)",
+    "district_name": "Adilabad",
+    "user_name": "Adilabad District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Laxmipur (K) (V), Sirikonda (New) (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "687-32"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Returned for Correction"
+      }
+    }
+  },
+  {
+    "id": "log-0008",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-008",
+    "village_name": "Kupti (B) (V)",
+    "district_name": "Adilabad",
+    "user_name": "Adilabad District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Kupti (B) (V), Neradigonda (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": ""
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0009",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-009",
+    "village_name": "Heerapur (V)",
+    "district_name": "Adilabad",
+    "user_name": "Adilabad District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Heerapur (V), Utnoor (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "85-38"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0010",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-010",
+    "village_name": "Gangapoor (V)",
+    "district_name": "Adilabad",
+    "user_name": "Adilabad District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Gangapoor (V), Bazahatnoor (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "280.09"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0011",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-011",
+    "village_name": "Tejapur (J) (V)",
+    "district_name": "Adilabad",
+    "user_name": "Adilabad District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Tejapur (J) (V), Utnoor (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "149.25"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0012",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-012",
+    "village_name": "Babulgaon (V)",
+    "district_name": "Nirmal",
+    "user_name": "Nirmal District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Babulgaon (V), Bhainsa (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "743-26"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Pending QC"
+      }
+    }
+  },
+  {
+    "id": "log-0013",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-013",
+    "village_name": "Bavapur.R (V)",
+    "district_name": "Nirmal",
+    "user_name": "Nirmal District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Bavapur.R (V), Khanapur (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "545-01"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Pending QC"
+      }
+    }
+  },
+  {
+    "id": "log-0014",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-014",
+    "village_name": "Mallapur (V)",
+    "district_name": "Nirmal",
+    "user_name": "Nirmal District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Mallapur (V), Laxmanchanda (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "872-22"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Pending QC"
+      }
+    }
+  },
+  {
+    "id": "log-0015",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-015",
+    "village_name": "Danthalapalle (V)",
+    "district_name": "Nirmal",
+    "user_name": "Nirmal District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Danthalapalle (V), Mamada (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "853"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Pending QC"
+      }
+    }
+  },
+  {
+    "id": "log-0016",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-016",
+    "village_name": "బాబాపూర్ (Babapur)",
+    "district_name": "Nizamabad",
+    "user_name": "Nizamabad District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for బాబాపూర్ (Babapur), భీంగల్ (Bheemgal)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "153-17"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Pending QC"
+      }
+    }
+  },
+  {
+    "id": "log-0017",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-017",
+    "village_name": "రోజాపూర్ (Rojapur)",
+    "district_name": "Nizamabad",
+    "user_name": "Nizamabad District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for రోజాపూర్ (Rojapur), కోటగిరి (Kotagiri)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "94-19"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Pending QC"
+      }
+    }
+  },
+  {
+    "id": "log-0018",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-018",
+    "village_name": "కమలాపూర్ (Kamalapur)",
+    "district_name": "Nizamabad",
+    "user_name": "Nizamabad District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for కమలాపూర్ (Kamalapur), డిచ్ పల్లి (Dichpally)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "186-08"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Returned for Correction"
+      }
+    }
+  },
+  {
+    "id": "log-0019",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-019",
+    "village_name": "లక్ష్మాపూర్ (Laxmapur)",
+    "district_name": "Nizamabad",
+    "user_name": "Nizamabad District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for లక్ష్మాపూర్ (Laxmapur), నిజామాబాద్ రూరల్ (Nizamabad Rural)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "131-32"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Pending QC"
+      }
+    }
+  },
+  {
+    "id": "log-0020",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-020",
+    "village_name": "Annaram (V)",
+    "district_name": "Jagitial",
+    "user_name": "Jagitial District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Annaram (V), Beerpur (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "246-03"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Returned for Correction"
+      }
+    }
+  },
+  {
+    "id": "log-0021",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-021",
+    "village_name": "Vachunur H/o Komanpalli (V)",
+    "district_name": "Jagitial",
+    "user_name": "Jagitial District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Vachunur H/o Komanpalli (V), Beerpur (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "65-13"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Returned for Correction"
+      }
+    }
+  },
+  {
+    "id": "log-0022",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-022",
+    "village_name": "Nednoor (V)",
+    "district_name": "Jagitial",
+    "user_name": "Jagitial District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Nednoor (V), Beerpur (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "120"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Pending QC"
+      }
+    }
+  },
+  {
+    "id": "log-0023",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-023",
+    "village_name": "Chinnapur (V)",
+    "district_name": "Kamareddy",
+    "user_name": "Kamareddy District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Chinnapur (V), Gandhari (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "557-38"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Returned for Correction"
+      }
+    }
+  },
+  {
+    "id": "log-0024",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-024",
+    "village_name": "Sawargoan (V)",
+    "district_name": "Kamareddy",
+    "user_name": "Kamareddy District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Sawargoan (V), Jukkal (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "678-08"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0025",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-025",
+    "village_name": "Devunipally (V)",
+    "district_name": "Kamareddy",
+    "user_name": "Kamareddy District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Devunipally (V), Palwancha (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "731-30"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0026",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-026",
+    "village_name": "Elegaon (V)",
+    "district_name": "Kamareddy",
+    "user_name": "Kamareddy District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Elegaon (V), Dongli (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "182-05"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0027",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-027",
+    "village_name": "Muradabad (V)",
+    "district_name": "Siddipet",
+    "user_name": "Siddipet District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Muradabad (V), Nagnoor (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "539-00"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0028",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-028",
+    "village_name": "Rajakkapet (V)",
+    "district_name": "Siddipet",
+    "user_name": "Siddipet District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Rajakkapet (V), Dubbaka (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "1050-16"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0029",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-029",
+    "village_name": "Sriramulapally (V)",
+    "district_name": "Siddipet",
+    "user_name": "Siddipet District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Sriramulapally (V), Koheda (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "903-00"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0030",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-030",
+    "village_name": "Lakshmakkapally (V)",
+    "district_name": "Siddipet",
+    "user_name": "Siddipet District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Lakshmakkapally (V), Mulugu (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "710-39"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0031",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-031",
+    "village_name": "Srirampur (V)",
+    "district_name": "Siddipet",
+    "user_name": "Siddipet District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Srirampur (V), Mulugu (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "1084-27"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0032",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-032",
+    "village_name": "Chinnamasanpally (V)",
+    "district_name": "Siddipet",
+    "user_name": "Siddipet District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Chinnamasanpally (V), Raipole (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "842"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0033",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-033",
+    "village_name": "Gangapur (V)",
+    "district_name": "Siddipet",
+    "user_name": "Siddipet District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Gangapur (V), Chinnakodur (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "1741"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Returned for Correction"
+      }
+    }
+  },
+  {
+    "id": "log-0034",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-034",
+    "village_name": "Gollapally (V)",
+    "district_name": "Siddipet",
+    "user_name": "Siddipet District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Gollapally (V), Jagdevpoor (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "1732"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0035",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-035",
+    "village_name": "Tunki Maktha (V)",
+    "district_name": "Siddipet",
+    "user_name": "Siddipet District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Tunki Maktha (V), Wargal (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "54"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0036",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-036",
+    "village_name": "Koodavelly (V)",
+    "district_name": "Siddipet",
+    "user_name": "Siddipet District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Koodavelly (V), Akbarpet Boompally (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "121.29"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0037",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-037",
+    "village_name": "Pampally (V)",
+    "district_name": "Medak",
+    "user_name": "Medak District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Pampally (V), Kowdipally (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "175-00"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0038",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-038",
+    "village_name": "Naimatullaguda (V)",
+    "district_name": "Medak",
+    "user_name": "Medak District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Naimatullaguda (V), Narsapur (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "161-00"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0039",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-039",
+    "village_name": "Pashapur (V)",
+    "district_name": "Medak",
+    "user_name": "Medak District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Pashapur (V), Medak (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "305-00"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0040",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-040",
+    "village_name": "Konaipally (V)",
+    "district_name": "Medak",
+    "user_name": "Medak District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Konaipally (V), Manoharabad (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "651-00"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0041",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-041",
+    "village_name": "Akkannapet (V)",
+    "district_name": "Medak",
+    "user_name": "Medak District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Akkannapet (V), Ramayampet (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "2638-00"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Returned for Correction"
+      }
+    }
+  },
+  {
+    "id": "log-0042",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-042",
+    "village_name": "Sherivari guntham (V)",
+    "district_name": "Medak",
+    "user_name": "Medak District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Sherivari guntham (V), Kulcharam (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "126-00"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0043",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-043",
+    "village_name": "Chintha Laxmapoor (V)",
+    "district_name": "Medak",
+    "user_name": "Medak District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Chintha Laxmapoor (V), Shankarampet (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "539-11"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0044",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-044",
+    "village_name": "Anantharam (V)",
+    "district_name": "Medak",
+    "user_name": "Medak District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Anantharam (V), Kowdipally (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "711-26"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0045",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-045",
+    "village_name": "Ellapu (V)",
+    "district_name": "Medak",
+    "user_name": "Medak District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Ellapu (V), Narsapoor (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "837"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0046",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-046",
+    "village_name": "Malkapoor (V)",
+    "district_name": "Medak",
+    "user_name": "Medak District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Malkapoor (V), Toopran (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "1919"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0047",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-047",
+    "village_name": "Srinivasapuram (V)",
+    "district_name": "Rajanna Siricilla",
+    "user_name": "Rajanna Siricilla District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Srinivasapuram (V), Gambhiraopet (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "147-19"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0048",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-048",
+    "village_name": "Chandragiri (V)",
+    "district_name": "Rajanna Siricilla",
+    "user_name": "Rajanna Siricilla District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Chandragiri (V), Vemulawada (U)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "347-01"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0049",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-049",
+    "village_name": "Lachapet (V)",
+    "district_name": "Rajanna Siricilla",
+    "user_name": "Rajanna Siricilla District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Lachapet (V), Konaraopet (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "155-07"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0050",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-050",
+    "village_name": "Ananthapalli (PK)",
+    "district_name": "Rajanna Siricilla",
+    "user_name": "Rajanna Siricilla District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Ananthapalli (PK), Chandurthi (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "707-03"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0051",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-051",
+    "village_name": "Kothapally (V)",
+    "district_name": "Karimnagar",
+    "user_name": "Karimnagar District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Kothapally (V), Thimmapoor (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "1768.18"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0052",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-052",
+    "village_name": "Madiramandapally (V)",
+    "district_name": "Warangal",
+    "user_name": "Warangal District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Madiramandapally (V), Duggondi (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "289.02"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Pending QC"
+      }
+    }
+  },
+  {
+    "id": "log-0053",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-053",
+    "village_name": "Kothur (V)",
+    "district_name": "Warangal",
+    "user_name": "Warangal District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Kothur (V), Khanapur (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "452.13"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Pending QC"
+      }
+    }
+  },
+  {
+    "id": "log-0054",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-054",
+    "village_name": "Janakipoor (V)",
+    "district_name": "Hanumakonda",
+    "user_name": "Hanumakonda District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Janakipoor (V), Dharmasagar (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "1568.27"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Returned for Correction"
+      }
+    }
+  },
+  {
+    "id": "log-0055",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-055",
+    "village_name": "Mucherla (V)",
+    "district_name": "Hanumakonda",
+    "user_name": "Hanumakonda District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Mucherla (V), Hasanparthy (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "3442.19"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0056",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-056",
+    "village_name": "Sarvapur (V)",
+    "district_name": "Hanumakonda",
+    "user_name": "Hanumakonda District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Sarvapur (V), Nadikuda (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "556.10"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Returned for Correction"
+      }
+    }
+  },
+  {
+    "id": "log-0057",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-057",
+    "village_name": "Ammavaripet (V)",
+    "district_name": "Hanumakonda",
+    "user_name": "Hanumakonda District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Ammavaripet (V), Kazipet (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "1540.13"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0058",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-058",
+    "village_name": "Valabhapur (V)",
+    "district_name": "Hanumakonda",
+    "user_name": "Hanumakonda District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Valabhapur (V), Elkathurthy (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "896.19"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0059",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-059",
+    "village_name": "Rajipet (V)",
+    "district_name": "Hanumakonda",
+    "user_name": "Hanumakonda District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Rajipet (V), Parkal (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "810.19"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0060",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-060",
+    "village_name": "Madhannapet (V)",
+    "district_name": "Hanumakonda",
+    "user_name": "Hanumakonda District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Madhannapet (V), Kamalapur (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "799.32"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0061",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-061",
+    "village_name": "Narayanapuram (V)",
+    "district_name": "Mahabubabad",
+    "user_name": "Mahabubabad District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Narayanapuram (V), Kesamudram (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "1857"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0062",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-062",
+    "village_name": "Mulugumadu (V)",
+    "district_name": "Khammam",
+    "user_name": "Khammam District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Mulugumadu (V), Yerrupalem (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "852.12"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0063",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-063",
+    "village_name": "Kakravai (V)",
+    "district_name": "Khammam",
+    "user_name": "Khammam District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Kakravai (V), Tirumalayapalem (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "3789.31"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Returned for Correction"
+      }
+    }
+  },
+  {
+    "id": "log-0064",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-064",
+    "village_name": "Bhagavathaveedu (V)",
+    "district_name": "Khammam",
+    "user_name": "Khammam District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Bhagavathaveedu (V), Kusumanchi (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "1253.19"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0065",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-065",
+    "village_name": "Subbampeta (G) (V)",
+    "district_name": "Kothagudem",
+    "user_name": "Kothagudem District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Subbampeta (G) (V), Cherla (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": ""
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0066",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-066",
+    "village_name": "Peddavenkatapur (V)",
+    "district_name": "Kothagudem",
+    "user_name": "Kothagudem District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Peddavenkatapur (V), Allapalli (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "153"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0067",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-067",
+    "village_name": "Sareakal (V)",
+    "district_name": "Kothagudem",
+    "user_name": "Kothagudem District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Sareakal (V), Palwancha (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "84-24"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0068",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-068",
+    "village_name": "Koyagattu (V)",
+    "district_name": "Kothagudem",
+    "user_name": "Kothagudem District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Koyagattu (V), Palwancha (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "619.15"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0069",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-069",
+    "village_name": "Gurralabayalu (V)",
+    "district_name": "Kothagudem",
+    "user_name": "Kothagudem District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Gurralabayalu (V), Dummugudem (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "225"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0070",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-070",
+    "village_name": "Sangam (V)",
+    "district_name": "Kothagudem",
+    "user_name": "Kothagudem District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Sangam (V), Dummugudem (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": ""
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0071",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-071",
+    "village_name": "Kondapuram (V)",
+    "district_name": "Nalgonda",
+    "user_name": "Nalgonda District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Kondapuram (V), Gurrampode (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "364-26"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0072",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-072",
+    "village_name": "Chakali Sheripally (V)",
+    "district_name": "Nalgonda",
+    "user_name": "Nalgonda District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Chakali Sheripally (V), Chinthapally (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "277-06"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0073",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-073",
+    "village_name": "Vardamanigudem (V)",
+    "district_name": "Nalgonda",
+    "user_name": "Nalgonda District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Vardamanigudem (V), Konda Mallepally (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "423-13"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0074",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-074",
+    "village_name": "Anthampet (V)",
+    "district_name": "Nalgonda",
+    "user_name": "Nalgonda District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Anthampet (V), Gattuppal (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "484-35"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0075",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-075",
+    "village_name": "Kummandanigudem (V)",
+    "district_name": "Nalgonda",
+    "user_name": "Nalgonda District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Kummandanigudem (V), Chandur (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "538-20"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0076",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-076",
+    "village_name": "Vaddipamula (V)",
+    "district_name": "Nalgonda",
+    "user_name": "Nalgonda District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Vaddipamula (V), Shaligouraram (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "274-36"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0077",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-077",
+    "village_name": "Venkatadripalem (V)",
+    "district_name": "Nalgonda",
+    "user_name": "Nalgonda District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Venkatadripalem (V), Anumula (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "500-25"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0078",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-078",
+    "village_name": "Sabbidigudem (V)",
+    "district_name": "Nalgonda",
+    "user_name": "Nalgonda District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Sabbidigudem (V), Narkatpally (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "301-22"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Pending QC"
+      }
+    }
+  },
+  {
+    "id": "log-0079",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-079",
+    "village_name": "Laxminarayanpu (V)",
+    "district_name": "Janagaon",
+    "user_name": "Janagaon District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Laxminarayanpu (V), Palakurthi (KM)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "757-08"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Pending QC"
+      }
+    }
+  },
+  {
+    "id": "log-0080",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-080",
+    "village_name": "Akkirajupally (V)",
+    "district_name": "Janagaon",
+    "user_name": "Janagaon District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Akkirajupally (V), Tharigoppula (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "866.02"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Pending QC"
+      }
+    }
+  },
+  {
+    "id": "log-0081",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-081",
+    "village_name": "Ismail khanguda (V)",
+    "district_name": "Medchal Malkajgiri",
+    "user_name": "Medchal Malkajgiri District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Ismail khanguda (V), Ghatkesar (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "367-17"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Returned for Correction"
+      }
+    }
+  },
+  {
+    "id": "log-0082",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-082",
+    "village_name": "Majharguda (V)",
+    "district_name": "Medchal Malkajgiri",
+    "user_name": "Medchal Malkajgiri District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Majharguda (V), Ghatkesar (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "75.35"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0083",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-083",
+    "village_name": "Girmapur (V)",
+    "district_name": "Vikarabad",
+    "user_name": "Vikarabad District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Girmapur (V), Peddemul (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "584-32"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Verified"
+      }
+    }
+  },
+  {
+    "id": "log-0084",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-084",
+    "village_name": "Pothireddyguda (V)",
+    "district_name": "Vikarabad",
+    "user_name": "Vikarabad District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Pothireddyguda (V), Pudur (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "358-30"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Returned for Correction"
+      }
+    }
+  },
+  {
+    "id": "log-0085",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-085",
+    "village_name": "Mustafapur (V)",
+    "district_name": "Sangareddy",
+    "user_name": "Sangareddy District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Mustafapur (V), Raikode (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "584-18"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Pending QC"
+      }
+    }
+  },
+  {
+    "id": "log-0086",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-086",
+    "village_name": "Mogdumpur (V)",
+    "district_name": "Sangareddy",
+    "user_name": "Sangareddy District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Mogdumpur (V), Manoor (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "629-19"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Pending QC"
+      }
+    }
+  },
+  {
+    "id": "log-0087",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-087",
+    "village_name": "Raipalle (V)",
+    "district_name": "Sangareddy",
+    "user_name": "Sangareddy District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Raipalle (V), Manoor (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "1187-12"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Returned for Correction"
+      }
+    }
+  },
+  {
+    "id": "log-0088",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-088",
+    "village_name": "PoosalaPadu (V)",
+    "district_name": "Jogulamba Gadwal",
+    "user_name": "Jogulamba Gadwal District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for PoosalaPadu (V), Manopad (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "424.18"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Pending QC"
+      }
+    }
+  },
+  {
+    "id": "log-0089",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-089",
+    "village_name": "Mangampeta (V)",
+    "district_name": "Jogulamba Gadwal",
+    "user_name": "Jogulamba Gadwal District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Mangampeta (V), Manopad (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "153.00"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Pending QC"
+      }
+    }
+  },
+  {
+    "id": "log-0090",
+    "timestamp": "2026-09-04T09:30:00",
+    "record_id": "vlg-090",
+    "village_name": "Sarekal (V) [Resubmission]",
+    "district_name": "Kothagudem",
+    "user_name": "Kothagudem District Rep",
+    "user_role": "district_rep",
+    "action": "Initial Submission",
+    "details": "Initial survey progress submitted for Sarekal (V) [Resubmission], Palwancha (M)",
+    "changes": {
+      "extent": {
+        "from": null,
+        "to": "84-24"
+      },
+      "gt_status": {
+        "from": null,
+        "to": "Completed"
+      },
+      "verification_status": {
+        "from": null,
+        "to": "Returned for Correction"
+      }
+    }
+  }
+]

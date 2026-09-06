@@ -1,0 +1,5438 @@
+[
+  {
+    "id": "mndl-1",
+    "mandal_id": "adilabad_adilabad_rural",
+    "mandal_name": "Adilabad Rural",
+    "district_name": "Adilabad",
+    "total_villages": 34,
+    "resurvey_villages_count": 3,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-2",
+    "mandal_id": "adilabad_adilabad_urban",
+    "mandal_name": "Adilabad Urban",
+    "district_name": "Adilabad",
+    "total_villages": 3,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-3",
+    "mandal_id": "adilabad_bazarhathnoor",
+    "mandal_name": "Bazarhathnoor",
+    "district_name": "Adilabad",
+    "total_villages": 31,
+    "resurvey_villages_count": 31,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-4",
+    "mandal_id": "adilabad_bela",
+    "mandal_name": "Bela",
+    "district_name": "Adilabad",
+    "total_villages": 40,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-5",
+    "mandal_id": "adilabad_bheempur",
+    "mandal_name": "Bheempur",
+    "district_name": "Adilabad",
+    "total_villages": 19,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-6",
+    "mandal_id": "adilabad_bhoraj",
+    "mandal_name": "Bhoraj",
+    "district_name": "Adilabad",
+    "total_villages": 28,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-7",
+    "mandal_id": "adilabad_boath",
+    "mandal_name": "Boath",
+    "district_name": "Adilabad",
+    "total_villages": 29,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-8",
+    "mandal_id": "adilabad_gadiguda",
+    "mandal_name": "Gadiguda*",
+    "district_name": "Adilabad",
+    "total_villages": 30,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-9",
+    "mandal_id": "adilabad_gudi_hathnur",
+    "mandal_name": "Gudi Hathnur",
+    "district_name": "Adilabad",
+    "total_villages": 21,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-10",
+    "mandal_id": "adilabad_ichoda",
+    "mandal_name": "Ichoda",
+    "district_name": "Adilabad",
+    "total_villages": 35,
+    "resurvey_villages_count": 2,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-11",
+    "mandal_id": "adilabad_indervally",
+    "mandal_name": "Indervally",
+    "district_name": "Adilabad",
+    "total_villages": 27,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-12",
+    "mandal_id": "adilabad_jainad",
+    "mandal_name": "Jainad",
+    "district_name": "Adilabad",
+    "total_villages": 20,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-13",
+    "mandal_id": "adilabad_mavala",
+    "mandal_name": "Mavala",
+    "district_name": "Adilabad",
+    "total_villages": 4,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-14",
+    "mandal_id": "adilabad_narnoor",
+    "mandal_name": "Narnoor",
+    "district_name": "Adilabad",
+    "total_villages": 23,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-15",
+    "mandal_id": "adilabad_neradigonda",
+    "mandal_name": "Neradigonda",
+    "district_name": "Adilabad",
+    "total_villages": 43,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-16",
+    "mandal_id": "adilabad_sathnala",
+    "mandal_name": "Sathnala",
+    "district_name": "Adilabad",
+    "total_villages": 18,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-17",
+    "mandal_id": "adilabad_sirikonda__new",
+    "mandal_name": "Sirikonda (New)",
+    "district_name": "Adilabad",
+    "total_villages": 14,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-18",
+    "mandal_id": "adilabad_sonala",
+    "mandal_name": "Sonala",
+    "district_name": "Adilabad",
+    "total_villages": 10,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-19",
+    "mandal_id": "adilabad_talamadugu",
+    "mandal_name": "Talamadugu",
+    "district_name": "Adilabad",
+    "total_villages": 28,
+    "resurvey_villages_count": 28,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-20",
+    "mandal_id": "adilabad_tamsi",
+    "mandal_name": "Tamsi",
+    "district_name": "Adilabad",
+    "total_villages": 12,
+    "resurvey_villages_count": 12,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-21",
+    "mandal_id": "adilabad_utnoor",
+    "mandal_name": "Utnoor",
+    "district_name": "Adilabad",
+    "total_villages": 39,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-22",
+    "mandal_id": "asifabad_asifabad",
+    "mandal_name": "Asifabad",
+    "district_name": "Asifabad",
+    "total_villages": 64,
+    "resurvey_villages_count": 53,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-23",
+    "mandal_id": "asifabad_bejjur",
+    "mandal_name": "Bejjur",
+    "district_name": "Asifabad",
+    "total_villages": 22,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-24",
+    "mandal_id": "asifabad_chinthalamanepally",
+    "mandal_name": "Chinthalamanepally",
+    "district_name": "Asifabad",
+    "total_villages": 21,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-25",
+    "mandal_id": "asifabad_dahegaon",
+    "mandal_name": "Dahegaon",
+    "district_name": "Asifabad",
+    "total_villages": 31,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-26",
+    "mandal_id": "asifabad_jainoor",
+    "mandal_name": "Jainoor",
+    "district_name": "Asifabad",
+    "total_villages": 18,
+    "resurvey_villages_count": 18,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-27",
+    "mandal_id": "asifabad_kagaznagar",
+    "mandal_name": "Kagaznagar",
+    "district_name": "Asifabad",
+    "total_villages": 35,
+    "resurvey_villages_count": 35,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-28",
+    "mandal_id": "asifabad_kerameri",
+    "mandal_name": "Kerameri",
+    "district_name": "Asifabad",
+    "total_villages": 46,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-29",
+    "mandal_id": "asifabad_kouthala",
+    "mandal_name": "Kouthala",
+    "district_name": "Asifabad",
+    "total_villages": 20,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-30",
+    "mandal_id": "asifabad_lingapur",
+    "mandal_name": "Lingapur",
+    "district_name": "Asifabad",
+    "total_villages": 11,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-31",
+    "mandal_id": "asifabad_penchikalpet",
+    "mandal_name": "Penchikalpet",
+    "district_name": "Asifabad",
+    "total_villages": 19,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-32",
+    "mandal_id": "asifabad_rebbana",
+    "mandal_name": "Rebbana",
+    "district_name": "Asifabad",
+    "total_villages": 31,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-33",
+    "mandal_id": "asifabad_sirpur_town",
+    "mandal_name": "Sirpur Town",
+    "district_name": "Asifabad",
+    "total_villages": 24,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-34",
+    "mandal_id": "asifabad_sirpur_u",
+    "mandal_name": "Sirpur U",
+    "district_name": "Asifabad",
+    "total_villages": 16,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-35",
+    "mandal_id": "asifabad_tiryani",
+    "mandal_name": "Tiryani",
+    "district_name": "Asifabad",
+    "total_villages": 39,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-36",
+    "mandal_id": "asifabad_wankdi",
+    "mandal_name": "Wankdi",
+    "district_name": "Asifabad",
+    "total_villages": 37,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-37",
+    "mandal_id": "bhupapally_bhupalpally",
+    "mandal_name": "Bhupalpally",
+    "district_name": "Bhupapally",
+    "total_villages": 21,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-38",
+    "mandal_id": "bhupapally_chityala",
+    "mandal_name": "Chityala",
+    "district_name": "Bhupapally",
+    "total_villages": 16,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-39",
+    "mandal_id": "bhupapally_ghanpur",
+    "mandal_name": "Ghanpur",
+    "district_name": "Bhupapally",
+    "total_villages": 9,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-40",
+    "mandal_id": "bhupapally_kataram",
+    "mandal_name": "Kataram",
+    "district_name": "Bhupapally",
+    "total_villages": 31,
+    "resurvey_villages_count": 31,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-41",
+    "mandal_id": "bhupapally_kothapallyghori",
+    "mandal_name": "Kothapallyghori",
+    "district_name": "Bhupapally",
+    "total_villages": 7,
+    "resurvey_villages_count": 7,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-42",
+    "mandal_id": "bhupapally_mahadevpoor",
+    "mandal_name": "Mahadevpoor",
+    "district_name": "Bhupapally",
+    "total_villages": 32,
+    "resurvey_villages_count": 32,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-43",
+    "mandal_id": "bhupapally_malharrao",
+    "mandal_name": "Malharrao",
+    "district_name": "Bhupapally",
+    "total_villages": 22,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-44",
+    "mandal_id": "bhupapally_mogullapally",
+    "mandal_name": "Mogullapally",
+    "district_name": "Bhupapally",
+    "total_villages": 17,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-45",
+    "mandal_id": "bhupapally_mutharam_mahadevpur",
+    "mandal_name": "Mutharam Mahadevpur",
+    "district_name": "Bhupapally",
+    "total_villages": 22,
+    "resurvey_villages_count": 2,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-46",
+    "mandal_id": "bhupapally_palimela",
+    "mandal_name": "Palimela",
+    "district_name": "Bhupapally",
+    "total_villages": 17,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-47",
+    "mandal_id": "bhupapally_regonda",
+    "mandal_name": "Regonda",
+    "district_name": "Bhupapally",
+    "total_villages": 11,
+    "resurvey_villages_count": 11,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-48",
+    "mandal_id": "bhupapally_tekumatla",
+    "mandal_name": "Tekumatla",
+    "district_name": "Bhupapally",
+    "total_villages": 18,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-49",
+    "mandal_id": "hanumakonda_athmakur",
+    "mandal_name": "Athmakur",
+    "district_name": "Hanumakonda",
+    "total_villages": 12,
+    "resurvey_villages_count": 12,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-50",
+    "mandal_id": "hanumakonda_bheemadeverapally",
+    "mandal_name": "Bheemadeverapally",
+    "district_name": "Hanumakonda",
+    "total_villages": 12,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-51",
+    "mandal_id": "hanumakonda_damera",
+    "mandal_name": "Damera",
+    "district_name": "Hanumakonda",
+    "total_villages": 10,
+    "resurvey_villages_count": 10,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-52",
+    "mandal_id": "hanumakonda_dharmasagar",
+    "mandal_name": "Dharmasagar",
+    "district_name": "Hanumakonda",
+    "total_villages": 13,
+    "resurvey_villages_count": 13,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-53",
+    "mandal_id": "hanumakonda_elukathurthy",
+    "mandal_name": "Elukathurthy",
+    "district_name": "Hanumakonda",
+    "total_villages": 13,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-54",
+    "mandal_id": "hanumakonda_hanumakonda",
+    "mandal_name": "Hanumakonda",
+    "district_name": "Hanumakonda",
+    "total_villages": 6,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-55",
+    "mandal_id": "hanumakonda_hasanparthy",
+    "mandal_name": "Hasanparthy",
+    "district_name": "Hanumakonda",
+    "total_villages": 18,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-56",
+    "mandal_id": "hanumakonda_inavolu",
+    "mandal_name": "Inavolu",
+    "district_name": "Hanumakonda",
+    "total_villages": 10,
+    "resurvey_villages_count": 10,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-57",
+    "mandal_id": "hanumakonda_kamalapur",
+    "mandal_name": "Kamalapur",
+    "district_name": "Hanumakonda",
+    "total_villages": 16,
+    "resurvey_villages_count": 16,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-58",
+    "mandal_id": "hanumakonda_khazipet",
+    "mandal_name": "Khazipet",
+    "district_name": "Hanumakonda",
+    "total_villages": 10,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-59",
+    "mandal_id": "hanumakonda_nadikooda",
+    "mandal_name": "Nadikooda",
+    "district_name": "Hanumakonda",
+    "total_villages": 12,
+    "resurvey_villages_count": 7,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-60",
+    "mandal_id": "hanumakonda_parkal",
+    "mandal_name": "Parkal",
+    "district_name": "Hanumakonda",
+    "total_villages": 11,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-61",
+    "mandal_id": "hanumakonda_shayampet",
+    "mandal_name": "Shayampet",
+    "district_name": "Hanumakonda",
+    "total_villages": 13,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-62",
+    "mandal_id": "hanumakonda_velair",
+    "mandal_name": "Velair",
+    "district_name": "Hanumakonda",
+    "total_villages": 7,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-63",
+    "mandal_id": "jagitial_beerpur",
+    "mandal_name": "Beerpur",
+    "district_name": "Jagitial",
+    "total_villages": 18,
+    "resurvey_villages_count": 13,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-64",
+    "mandal_id": "jagitial_bheemaram",
+    "mandal_name": "Bheemaram",
+    "district_name": "Jagitial",
+    "total_villages": 9,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-65",
+    "mandal_id": "jagitial_buggaram",
+    "mandal_name": "Buggaram",
+    "district_name": "Jagitial",
+    "total_villages": 10,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-66",
+    "mandal_id": "jagitial_dharmapuri",
+    "mandal_name": "Dharmapuri",
+    "district_name": "Jagitial",
+    "total_villages": 15,
+    "resurvey_villages_count": 3,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-67",
+    "mandal_id": "jagitial_endapalli",
+    "mandal_name": "Endapalli",
+    "district_name": "Jagitial",
+    "total_villages": 13,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-68",
+    "mandal_id": "jagitial_gollapalle",
+    "mandal_name": "Gollapalle",
+    "district_name": "Jagitial",
+    "total_villages": 21,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-69",
+    "mandal_id": "jagitial_ibrahimpatnam",
+    "mandal_name": "Ibrahimpatnam",
+    "district_name": "Jagitial",
+    "total_villages": 16,
+    "resurvey_villages_count": 15,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-70",
+    "mandal_id": "jagitial_jagtial",
+    "mandal_name": "Jagtial",
+    "district_name": "Jagitial",
+    "total_villages": 4,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-71",
+    "mandal_id": "jagitial_jagtial_rural",
+    "mandal_name": "Jagtial Rural",
+    "district_name": "Jagitial",
+    "total_villages": 20,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-72",
+    "mandal_id": "jagitial_kathlapur",
+    "mandal_name": "Kathlapur",
+    "district_name": "Jagitial",
+    "total_villages": 19,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-73",
+    "mandal_id": "jagitial_kodimial",
+    "mandal_name": "Kodimial",
+    "district_name": "Jagitial",
+    "total_villages": 15,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-74",
+    "mandal_id": "jagitial_korutla",
+    "mandal_name": "Korutla",
+    "district_name": "Jagitial",
+    "total_villages": 15,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-75",
+    "mandal_id": "jagitial_mallapur",
+    "mandal_name": "Mallapur",
+    "district_name": "Jagitial",
+    "total_villages": 22,
+    "resurvey_villages_count": 21,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-76",
+    "mandal_id": "jagitial_mallial",
+    "mandal_name": "Mallial",
+    "district_name": "Jagitial",
+    "total_villages": 15,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-77",
+    "mandal_id": "jagitial_medipalle",
+    "mandal_name": "Medipalle",
+    "district_name": "Jagitial",
+    "total_villages": 10,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-78",
+    "mandal_id": "jagitial_metpalli",
+    "mandal_name": "Metpalli",
+    "district_name": "Jagitial",
+    "total_villages": 19,
+    "resurvey_villages_count": 4,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-79",
+    "mandal_id": "jagitial_pegadapalle",
+    "mandal_name": "Pegadapalle",
+    "district_name": "Jagitial",
+    "total_villages": 14,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-80",
+    "mandal_id": "jagitial_raikal",
+    "mandal_name": "Raikal",
+    "district_name": "Jagitial",
+    "total_villages": 20,
+    "resurvey_villages_count": 20,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-81",
+    "mandal_id": "jagitial_sarangapur",
+    "mandal_name": "Sarangapur",
+    "district_name": "Jagitial",
+    "total_villages": 12,
+    "resurvey_villages_count": 12,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-82",
+    "mandal_id": "jagitial_velgatoor",
+    "mandal_name": "Velgatoor",
+    "district_name": "Jagitial",
+    "total_villages": 13,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-83",
+    "mandal_id": "janagaon_bachannapeta",
+    "mandal_name": "Bachannapeta",
+    "district_name": "Janagaon",
+    "total_villages": 23,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-84",
+    "mandal_id": "janagaon_chilpur",
+    "mandal_name": "Chilpur",
+    "district_name": "Janagaon",
+    "total_villages": 12,
+    "resurvey_villages_count": 12,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-85",
+    "mandal_id": "janagaon_devaroopla",
+    "mandal_name": "Devaroopla",
+    "district_name": "Janagaon",
+    "total_villages": 13,
+    "resurvey_villages_count": 13,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-86",
+    "mandal_id": "janagaon_janagaon",
+    "mandal_name": "Janagaon",
+    "district_name": "Janagaon",
+    "total_villages": 20,
+    "resurvey_villages_count": 20,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-87",
+    "mandal_id": "janagaon_kodakandla",
+    "mandal_name": "Kodakandla",
+    "district_name": "Janagaon",
+    "total_villages": 9,
+    "resurvey_villages_count": 9,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-88",
+    "mandal_id": "janagaon_lingala_ghanpur",
+    "mandal_name": "Lingala Ghanpur",
+    "district_name": "Janagaon",
+    "total_villages": 14,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-89",
+    "mandal_id": "janagaon_narmetta",
+    "mandal_name": "Narmetta",
+    "district_name": "Janagaon",
+    "total_villages": 8,
+    "resurvey_villages_count": 8,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-90",
+    "mandal_id": "janagaon_palakurthy",
+    "mandal_name": "Palakurthy",
+    "district_name": "Janagaon",
+    "total_villages": 21,
+    "resurvey_villages_count": 6,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-91",
+    "mandal_id": "janagaon_raghunathapally",
+    "mandal_name": "Raghunathapally",
+    "district_name": "Janagaon",
+    "total_villages": 19,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-92",
+    "mandal_id": "janagaon_st_ghanapoor",
+    "mandal_name": "St.Ghanapoor",
+    "district_name": "Janagaon",
+    "total_villages": 13,
+    "resurvey_villages_count": 13,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-93",
+    "mandal_id": "janagaon_tharigoppula",
+    "mandal_name": "Tharigoppula *",
+    "district_name": "Janagaon",
+    "total_villages": 8,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-94",
+    "mandal_id": "janagaon_zaffergadh",
+    "mandal_name": "Zaffergadh",
+    "district_name": "Janagaon",
+    "total_villages": 16,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-95",
+    "mandal_id": "jogulamba_gadwal_alampur__p",
+    "mandal_name": "Alampur (P)",
+    "district_name": "Jogulamba Gadwal",
+    "total_villages": 16,
+    "resurvey_villages_count": 16,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-96",
+    "mandal_id": "jogulamba_gadwal_dharoor",
+    "mandal_name": "Dharoor",
+    "district_name": "Jogulamba Gadwal",
+    "total_villages": 15,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-97",
+    "mandal_id": "jogulamba_gadwal_gadval",
+    "mandal_name": "Gadval",
+    "district_name": "Jogulamba Gadwal",
+    "total_villages": 18,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-98",
+    "mandal_id": "jogulamba_gadwal_gattu",
+    "mandal_name": "Gattu",
+    "district_name": "Jogulamba Gadwal",
+    "total_villages": 18,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-99",
+    "mandal_id": "jogulamba_gadwal_ieeza",
+    "mandal_name": "Ieeza",
+    "district_name": "Jogulamba Gadwal",
+    "total_villages": 19,
+    "resurvey_villages_count": 19,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-100",
+    "mandal_id": "jogulamba_gadwal_itikyala",
+    "mandal_name": "Itikyala",
+    "district_name": "Jogulamba Gadwal",
+    "total_villages": 10,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-101",
+    "mandal_id": "jogulamba_gadwal_kallur_thimman_donddi",
+    "mandal_name": "Kallur-Thimman Donddi",
+    "district_name": "Jogulamba Gadwal",
+    "total_villages": 16,
+    "resurvey_villages_count": 5,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-102",
+    "mandal_id": "jogulamba_gadwal_maldakal",
+    "mandal_name": "Maldakal",
+    "district_name": "Jogulamba Gadwal",
+    "total_villages": 19,
+    "resurvey_villages_count": 19,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-103",
+    "mandal_id": "jogulamba_gadwal_manopadu",
+    "mandal_name": "Manopadu",
+    "district_name": "Jogulamba Gadwal",
+    "total_villages": 20,
+    "resurvey_villages_count": 2,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-104",
+    "mandal_id": "jogulamba_gadwal_rajoli",
+    "mandal_name": "Rajoli",
+    "district_name": "Jogulamba Gadwal",
+    "total_villages": 11,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-105",
+    "mandal_id": "jogulamba_gadwal_undavelly",
+    "mandal_name": "Undavelly",
+    "district_name": "Jogulamba Gadwal",
+    "total_villages": 17,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-106",
+    "mandal_id": "jogulamba_gadwal_waddepally",
+    "mandal_name": "Waddepally",
+    "district_name": "Jogulamba Gadwal",
+    "total_villages": 9,
+    "resurvey_villages_count": 9,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-107",
+    "mandal_id": "jogulamba_gadwal_yerravalli",
+    "mandal_name": "Yerravalli",
+    "district_name": "Jogulamba Gadwal",
+    "total_villages": 11,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-108",
+    "mandal_id": "kamareddy_banswada",
+    "mandal_name": "Banswada",
+    "district_name": "Kamareddy",
+    "total_villages": 19,
+    "resurvey_villages_count": 19,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-109",
+    "mandal_id": "kamareddy_bhiknoor",
+    "mandal_name": "Bhiknoor",
+    "district_name": "Kamareddy",
+    "total_villages": 15,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-110",
+    "mandal_id": "kamareddy_bibipet",
+    "mandal_name": "Bibipet",
+    "district_name": "Kamareddy",
+    "total_villages": 11,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-111",
+    "mandal_id": "kamareddy_bichkunda",
+    "mandal_name": "Bichkunda",
+    "district_name": "Kamareddy",
+    "total_villages": 29,
+    "resurvey_villages_count": 29,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-112",
+    "mandal_id": "kamareddy_birkur",
+    "mandal_name": "Birkur",
+    "district_name": "Kamareddy",
+    "total_villages": 15,
+    "resurvey_villages_count": 15,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-113",
+    "mandal_id": "kamareddy_domakonda",
+    "mandal_name": "Domakonda",
+    "district_name": "Kamareddy",
+    "total_villages": 10,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-114",
+    "mandal_id": "kamareddy_dongli",
+    "mandal_name": "Dongli",
+    "district_name": "Kamareddy",
+    "total_villages": 15,
+    "resurvey_villages_count": 15,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-115",
+    "mandal_id": "kamareddy_gandhari",
+    "mandal_name": "Gandhari",
+    "district_name": "Kamareddy",
+    "total_villages": 33,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-116",
+    "mandal_id": "kamareddy_jukkal",
+    "mandal_name": "Jukkal",
+    "district_name": "Kamareddy",
+    "total_villages": 31,
+    "resurvey_villages_count": 7,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-117",
+    "mandal_id": "kamareddy_kamareddy",
+    "mandal_name": "Kamareddy",
+    "district_name": "Kamareddy",
+    "total_villages": 22,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-118",
+    "mandal_id": "kamareddy_lingampet",
+    "mandal_name": "Lingampet",
+    "district_name": "Kamareddy",
+    "total_villages": 23,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-119",
+    "mandal_id": "kamareddy_machareddy",
+    "mandal_name": "Machareddy",
+    "district_name": "Kamareddy",
+    "total_villages": 10,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-120",
+    "mandal_id": "kamareddy_madnoor",
+    "mandal_name": "Madnoor",
+    "district_name": "Kamareddy",
+    "total_villages": 27,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-121",
+    "mandal_id": "kamareddy_mohammadnagar",
+    "mandal_name": "Mohammadnagar",
+    "district_name": "Kamareddy",
+    "total_villages": 18,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-122",
+    "mandal_id": "kamareddy_nagireddypet",
+    "mandal_name": "Nagireddypet",
+    "district_name": "Kamareddy",
+    "total_villages": 22,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-123",
+    "mandal_id": "kamareddy_nasrullabad",
+    "mandal_name": "Nasrullabad",
+    "district_name": "Kamareddy",
+    "total_villages": 16,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-124",
+    "mandal_id": "kamareddy_nizamsagar",
+    "mandal_name": "Nizamsagar",
+    "district_name": "Kamareddy",
+    "total_villages": 12,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-125",
+    "mandal_id": "kamareddy_palvancha",
+    "mandal_name": "Palvancha",
+    "district_name": "Kamareddy",
+    "total_villages": 10,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-126",
+    "mandal_id": "kamareddy_pedda_kodapgal",
+    "mandal_name": "Pedda Kodapgal",
+    "district_name": "Kamareddy",
+    "total_villages": 14,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-127",
+    "mandal_id": "kamareddy_pitlam",
+    "mandal_name": "Pitlam",
+    "district_name": "Kamareddy",
+    "total_villages": 27,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-128",
+    "mandal_id": "kamareddy_rajampet",
+    "mandal_name": "Rajampet",
+    "district_name": "Kamareddy",
+    "total_villages": 8,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-129",
+    "mandal_id": "kamareddy_ramareddy",
+    "mandal_name": "Ramareddy",
+    "district_name": "Kamareddy",
+    "total_villages": 14,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-130",
+    "mandal_id": "kamareddy_sadasivanagar",
+    "mandal_name": "Sadasivanagar",
+    "district_name": "Kamareddy",
+    "total_villages": 22,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-131",
+    "mandal_id": "kamareddy_tadwai",
+    "mandal_name": "Tadwai",
+    "district_name": "Kamareddy",
+    "total_villages": 20,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-132",
+    "mandal_id": "kamareddy_yellareddy",
+    "mandal_name": "Yellareddy",
+    "district_name": "Kamareddy",
+    "total_villages": 31,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-133",
+    "mandal_id": "karimnagar_chigurumamidi",
+    "mandal_name": "Chigurumamidi",
+    "district_name": "Karimnagar",
+    "total_villages": 11,
+    "resurvey_villages_count": 11,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-134",
+    "mandal_id": "karimnagar_choppadandi",
+    "mandal_name": "Choppadandi",
+    "district_name": "Karimnagar",
+    "total_villages": 12,
+    "resurvey_villages_count": 12,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-135",
+    "mandal_id": "karimnagar_ellanthaknta",
+    "mandal_name": "Ellanthaknta",
+    "district_name": "Karimnagar",
+    "total_villages": 10,
+    "resurvey_villages_count": 10,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-136",
+    "mandal_id": "karimnagar_gangadhara",
+    "mandal_name": "Gangadhara",
+    "district_name": "Karimnagar",
+    "total_villages": 19,
+    "resurvey_villages_count": 19,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-137",
+    "mandal_id": "karimnagar_ganneruvaram",
+    "mandal_name": "Ganneruvaram",
+    "district_name": "Karimnagar",
+    "total_villages": 12,
+    "resurvey_villages_count": 12,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-138",
+    "mandal_id": "karimnagar_huzurabad",
+    "mandal_name": "Huzurabad",
+    "district_name": "Karimnagar",
+    "total_villages": 12,
+    "resurvey_villages_count": 6,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-139",
+    "mandal_id": "karimnagar_jammikunta",
+    "mandal_name": "Jammikunta",
+    "district_name": "Karimnagar",
+    "total_villages": 9,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-140",
+    "mandal_id": "karimnagar_karimnagar_rural",
+    "mandal_name": "Karimnagar Rural",
+    "district_name": "Karimnagar",
+    "total_villages": 14,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-141",
+    "mandal_id": "karimnagar_karimnagar_urban",
+    "mandal_name": "Karimnagar Urban",
+    "district_name": "Karimnagar",
+    "total_villages": 3,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-142",
+    "mandal_id": "karimnagar_keshavapuram__shankarapatnam",
+    "mandal_name": "Keshavapuram (Shankarapatnam)",
+    "district_name": "Karimnagar",
+    "total_villages": 17,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-143",
+    "mandal_id": "karimnagar_kothapalli",
+    "mandal_name": "Kothapalli",
+    "district_name": "Karimnagar",
+    "total_villages": 12,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-144",
+    "mandal_id": "karimnagar_manakondur",
+    "mandal_name": "Manakondur",
+    "district_name": "Karimnagar",
+    "total_villages": 18,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-145",
+    "mandal_id": "karimnagar_ramadugu",
+    "mandal_name": "Ramadugu",
+    "district_name": "Karimnagar",
+    "total_villages": 19,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-146",
+    "mandal_id": "karimnagar_saidapoor",
+    "mandal_name": "Saidapoor",
+    "district_name": "Karimnagar",
+    "total_villages": 14,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-147",
+    "mandal_id": "karimnagar_thimmapur",
+    "mandal_name": "Thimmapur",
+    "district_name": "Karimnagar",
+    "total_villages": 14,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-148",
+    "mandal_id": "karimnagar_veenavanka",
+    "mandal_name": "Veenavanka",
+    "district_name": "Karimnagar",
+    "total_villages": 14,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-149",
+    "mandal_id": "khammam_bonakal",
+    "mandal_name": "Bonakal",
+    "district_name": "Khammam",
+    "total_villages": 18,
+    "resurvey_villages_count": 18,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-150",
+    "mandal_id": "khammam_chinthakani",
+    "mandal_name": "Chinthakani",
+    "district_name": "Khammam",
+    "total_villages": 16,
+    "resurvey_villages_count": 16,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-151",
+    "mandal_id": "khammam_enkuru",
+    "mandal_name": "Enkuru",
+    "district_name": "Khammam",
+    "total_villages": 11,
+    "resurvey_villages_count": 11,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-152",
+    "mandal_id": "khammam_kalluru",
+    "mandal_name": "Kalluru",
+    "district_name": "Khammam",
+    "total_villages": 23,
+    "resurvey_villages_count": 22,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-153",
+    "mandal_id": "khammam_kamepalli",
+    "mandal_name": "Kamepalli",
+    "district_name": "Khammam",
+    "total_villages": 13,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-154",
+    "mandal_id": "khammam_khammam_rural",
+    "mandal_name": "Khammam_Rural",
+    "district_name": "Khammam",
+    "total_villages": 21,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-155",
+    "mandal_id": "khammam_khammam_urban",
+    "mandal_name": "Khammam_Urban",
+    "district_name": "Khammam",
+    "total_villages": 9,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-156",
+    "mandal_id": "khammam_konijerla",
+    "mandal_name": "Konijerla",
+    "district_name": "Khammam",
+    "total_villages": 18,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-157",
+    "mandal_id": "khammam_kusumanchi",
+    "mandal_name": "Kusumanchi",
+    "district_name": "Khammam",
+    "total_villages": 18,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-158",
+    "mandal_id": "khammam_madhira",
+    "mandal_name": "Madhira",
+    "district_name": "Khammam",
+    "total_villages": 25,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-159",
+    "mandal_id": "khammam_mudigonda",
+    "mandal_name": "Mudigonda",
+    "district_name": "Khammam",
+    "total_villages": 23,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-160",
+    "mandal_id": "khammam_nelakondapalle",
+    "mandal_name": "Nelakondapalle",
+    "district_name": "Khammam",
+    "total_villages": 23,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-161",
+    "mandal_id": "khammam_penuballi",
+    "mandal_name": "Penuballi",
+    "district_name": "Khammam",
+    "total_villages": 21,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-162",
+    "mandal_id": "khammam_raghunadhapalem",
+    "mandal_name": "Raghunadhapalem",
+    "district_name": "Khammam",
+    "total_villages": 10,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-163",
+    "mandal_id": "khammam_sathupalle",
+    "mandal_name": "Sathupalle",
+    "district_name": "Khammam",
+    "total_villages": 16,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-164",
+    "mandal_id": "khammam_singareni",
+    "mandal_name": "Singareni",
+    "district_name": "Khammam",
+    "total_villages": 11,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-165",
+    "mandal_id": "khammam_tallada",
+    "mandal_name": "Tallada",
+    "district_name": "Khammam",
+    "total_villages": 19,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-166",
+    "mandal_id": "khammam_thirumalayapalem",
+    "mandal_name": "Thirumalayapalem",
+    "district_name": "Khammam",
+    "total_villages": 25,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-167",
+    "mandal_id": "khammam_vemsoor",
+    "mandal_name": "Vemsoor",
+    "district_name": "Khammam",
+    "total_villages": 14,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-168",
+    "mandal_id": "khammam_wyra",
+    "mandal_name": "Wyra",
+    "district_name": "Khammam",
+    "total_villages": 46,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-169",
+    "mandal_id": "kothagudem_allapally",
+    "mandal_name": "Allapally",
+    "district_name": "Kothagudem",
+    "total_villages": 8,
+    "resurvey_villages_count": 8,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-170",
+    "mandal_id": "kothagudem_annapureddypally",
+    "mandal_name": "Annapureddypally",
+    "district_name": "Kothagudem",
+    "total_villages": 10,
+    "resurvey_villages_count": 10,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-171",
+    "mandal_id": "kothagudem_aswapuram",
+    "mandal_name": "Aswapuram",
+    "district_name": "Kothagudem",
+    "total_villages": 11,
+    "resurvey_villages_count": 11,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-172",
+    "mandal_id": "kothagudem_aswraopeta",
+    "mandal_name": "Aswraopeta",
+    "district_name": "Kothagudem",
+    "total_villages": 20,
+    "resurvey_villages_count": 20,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-173",
+    "mandal_id": "kothagudem_bhadrachalam",
+    "mandal_name": "Bhadrachalam",
+    "district_name": "Kothagudem",
+    "total_villages": 1,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-174",
+    "mandal_id": "kothagudem_burgampadu",
+    "mandal_name": "Burgampadu",
+    "district_name": "Kothagudem",
+    "total_villages": 12,
+    "resurvey_villages_count": 10,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-175",
+    "mandal_id": "kothagudem_chandrugonda",
+    "mandal_name": "Chandrugonda",
+    "district_name": "Kothagudem",
+    "total_villages": 10,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-176",
+    "mandal_id": "kothagudem_cherla",
+    "mandal_name": "Cherla",
+    "district_name": "Kothagudem",
+    "total_villages": 76,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-177",
+    "mandal_id": "kothagudem_chunchupalle",
+    "mandal_name": "Chunchupalle",
+    "district_name": "Kothagudem",
+    "total_villages": 4,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-178",
+    "mandal_id": "kothagudem_dammapeta",
+    "mandal_name": "Dammapeta",
+    "district_name": "Kothagudem",
+    "total_villages": 22,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-179",
+    "mandal_id": "kothagudem_dummugudem",
+    "mandal_name": "Dummugudem",
+    "district_name": "Kothagudem",
+    "total_villages": 83,
+    "resurvey_villages_count": 2,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-180",
+    "mandal_id": "kothagudem_gundala",
+    "mandal_name": "Gundala",
+    "district_name": "Kothagudem",
+    "total_villages": 13,
+    "resurvey_villages_count": 13,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-181",
+    "mandal_id": "kothagudem_julurupad",
+    "mandal_name": "Julurupad",
+    "district_name": "Kothagudem",
+    "total_villages": 8,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-182",
+    "mandal_id": "kothagudem_karakagudem",
+    "mandal_name": "Karakagudem",
+    "district_name": "Kothagudem",
+    "total_villages": 9,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-183",
+    "mandal_id": "kothagudem_kothagudem",
+    "mandal_name": "Kothagudem",
+    "district_name": "Kothagudem",
+    "total_villages": 2,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-184",
+    "mandal_id": "kothagudem_laxmidevipally",
+    "mandal_name": "Laxmidevipally",
+    "district_name": "Kothagudem",
+    "total_villages": 9,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-185",
+    "mandal_id": "kothagudem_manuguru",
+    "mandal_name": "Manuguru",
+    "district_name": "Kothagudem",
+    "total_villages": 10,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-186",
+    "mandal_id": "kothagudem_mulakalapally",
+    "mandal_name": "Mulakalapally",
+    "district_name": "Kothagudem",
+    "total_villages": 14,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-187",
+    "mandal_id": "kothagudem_palvancha",
+    "mandal_name": "Palvancha",
+    "district_name": "Kothagudem",
+    "total_villages": 20,
+    "resurvey_villages_count": 2,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-188",
+    "mandal_id": "kothagudem_pinapaka",
+    "mandal_name": "Pinapaka",
+    "district_name": "Kothagudem",
+    "total_villages": 18,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-189",
+    "mandal_id": "kothagudem_sujathanagar",
+    "mandal_name": "Sujathanagar",
+    "district_name": "Kothagudem",
+    "total_villages": 6,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-190",
+    "mandal_id": "kothagudem_teakulapally",
+    "mandal_name": "Teakulapally",
+    "district_name": "Kothagudem",
+    "total_villages": 6,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-191",
+    "mandal_id": "kothagudem_yellandu",
+    "mandal_name": "Yellandu",
+    "district_name": "Kothagudem",
+    "total_villages": 7,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-192",
+    "mandal_id": "mahabubabad_bayyaram",
+    "mandal_name": "Bayyaram",
+    "district_name": "Mahabubabad",
+    "total_villages": 17,
+    "resurvey_villages_count": 17,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-193",
+    "mandal_id": "mahabubabad_chinnagudur",
+    "mandal_name": "Chinnagudur",
+    "district_name": "Mahabubabad",
+    "total_villages": 5,
+    "resurvey_villages_count": 5,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-194",
+    "mandal_id": "mahabubabad_danthalapally",
+    "mandal_name": "Danthalapally",
+    "district_name": "Mahabubabad",
+    "total_villages": 11,
+    "resurvey_villages_count": 11,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-195",
+    "mandal_id": "mahabubabad_dornakal",
+    "mandal_name": "Dornakal",
+    "district_name": "Mahabubabad",
+    "total_villages": 12,
+    "resurvey_villages_count": 12,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-196",
+    "mandal_id": "mahabubabad_gangavaram",
+    "mandal_name": "Gangavaram",
+    "district_name": "Mahabubabad",
+    "total_villages": 22,
+    "resurvey_villages_count": 22,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-197",
+    "mandal_id": "mahabubabad_garla",
+    "mandal_name": "Garla",
+    "district_name": "Mahabubabad",
+    "total_villages": 11,
+    "resurvey_villages_count": 3,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-198",
+    "mandal_id": "mahabubabad_gudur",
+    "mandal_name": "Gudur",
+    "district_name": "Mahabubabad",
+    "total_villages": 28,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-199",
+    "mandal_id": "mahabubabad_ingurthy",
+    "mandal_name": "Ingurthy",
+    "district_name": "Mahabubabad",
+    "total_villages": 4,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-200",
+    "mandal_id": "mahabubabad_kesamudhram",
+    "mandal_name": "Kesamudhram",
+    "district_name": "Mahabubabad",
+    "total_villages": 15,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-201",
+    "mandal_id": "mahabubabad_kothaguda",
+    "mandal_name": "Kothaguda",
+    "district_name": "Mahabubabad",
+    "total_villages": 46,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-202",
+    "mandal_id": "mahabubabad_kuravi",
+    "mandal_name": "Kuravi",
+    "district_name": "Mahabubabad",
+    "total_villages": 15,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-203",
+    "mandal_id": "mahabubabad_mahabubabad",
+    "mandal_name": "Mahabubabad",
+    "district_name": "Mahabubabad",
+    "total_villages": 20,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-204",
+    "mandal_id": "mahabubabad_marripeda",
+    "mandal_name": "Marripeda",
+    "district_name": "Mahabubabad",
+    "total_villages": 19,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-205",
+    "mandal_id": "mahabubabad_narsimhulapet",
+    "mandal_name": "Narsimhulapet",
+    "district_name": "Mahabubabad",
+    "total_villages": 9,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-206",
+    "mandal_id": "mahabubabad_nellikudur",
+    "mandal_name": "Nellikudur",
+    "district_name": "Mahabubabad",
+    "total_villages": 15,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-207",
+    "mandal_id": "mahabubabad_peddavangara",
+    "mandal_name": "Peddavangara",
+    "district_name": "Mahabubabad",
+    "total_villages": 10,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-208",
+    "mandal_id": "mahabubabad_seerole",
+    "mandal_name": "Seerole",
+    "district_name": "Mahabubabad",
+    "total_villages": 6,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-209",
+    "mandal_id": "mahabubabad_thorrur",
+    "mandal_name": "Thorrur",
+    "district_name": "Mahabubabad",
+    "total_villages": 22,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-210",
+    "mandal_id": "mahabubnagar_addakal",
+    "mandal_name": "Addakal",
+    "district_name": "Mahabubnagar",
+    "total_villages": 14,
+    "resurvey_villages_count": 14,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-211",
+    "mandal_id": "mahabubnagar_balanagar",
+    "mandal_name": "Balanagar",
+    "district_name": "Mahabubnagar",
+    "total_villages": 21,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-212",
+    "mandal_id": "mahabubnagar_boothpur",
+    "mandal_name": "Boothpur",
+    "district_name": "Mahabubnagar",
+    "total_villages": 16,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-213",
+    "mandal_id": "mahabubnagar_chinnachintakunta",
+    "mandal_name": "Chinnachintakunta",
+    "district_name": "Mahabubnagar",
+    "total_villages": 17,
+    "resurvey_villages_count": 17,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-214",
+    "mandal_id": "mahabubnagar_devarkadra",
+    "mandal_name": "Devarkadra",
+    "district_name": "Mahabubnagar",
+    "total_villages": 21,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-215",
+    "mandal_id": "mahabubnagar_gandeed",
+    "mandal_name": "Gandeed",
+    "district_name": "Mahabubnagar",
+    "total_villages": 19,
+    "resurvey_villages_count": 19,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-216",
+    "mandal_id": "mahabubnagar_hanwada",
+    "mandal_name": "Hanwada",
+    "district_name": "Mahabubnagar",
+    "total_villages": 20,
+    "resurvey_villages_count": 20,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-217",
+    "mandal_id": "mahabubnagar_jadcherla",
+    "mandal_name": "Jadcherla",
+    "district_name": "Mahabubnagar",
+    "total_villages": 31,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-218",
+    "mandal_id": "mahabubnagar_koilkonda",
+    "mandal_name": "Koilkonda",
+    "district_name": "Mahabubnagar",
+    "total_villages": 36,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-219",
+    "mandal_id": "mahabubnagar_koukuntla",
+    "mandal_name": "Koukuntla",
+    "district_name": "Mahabubnagar",
+    "total_villages": 9,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-220",
+    "mandal_id": "mahabubnagar_mahabubnagar_rural",
+    "mandal_name": "Mahabubnagar Rural",
+    "district_name": "Mahabubnagar",
+    "total_villages": 16,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-221",
+    "mandal_id": "mahabubnagar_mahabubnagar_urban",
+    "mandal_name": "Mahabubnagar Urban",
+    "district_name": "Mahabubnagar",
+    "total_villages": 6,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-222",
+    "mandal_id": "mahabubnagar_midjil",
+    "mandal_name": "Midjil",
+    "district_name": "Mahabubnagar",
+    "total_villages": 16,
+    "resurvey_villages_count": 16,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-223",
+    "mandal_id": "mahabubnagar_mohammadabad",
+    "mandal_name": "Mohammadabad",
+    "district_name": "Mahabubnagar",
+    "total_villages": 10,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-224",
+    "mandal_id": "mahabubnagar_moosapet",
+    "mandal_name": "Moosapet",
+    "district_name": "Mahabubnagar",
+    "total_villages": 13,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-225",
+    "mandal_id": "mahabubnagar_nawabpet",
+    "mandal_name": "Nawabpet",
+    "district_name": "Mahabubnagar",
+    "total_villages": 26,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-226",
+    "mandal_id": "mahabubnagar_rajapur",
+    "mandal_name": "Rajapur",
+    "district_name": "Mahabubnagar",
+    "total_villages": 16,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-227",
+    "mandal_id": "mancherial_bellampally",
+    "mandal_name": "Bellampally",
+    "district_name": "Mancherial",
+    "total_villages": 13,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-228",
+    "mandal_id": "mancherial_bheemaram",
+    "mandal_name": "Bheemaram",
+    "district_name": "Mancherial",
+    "total_villages": 12,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-229",
+    "mandal_id": "mancherial_bheemini",
+    "mandal_name": "Bheemini",
+    "district_name": "Mancherial",
+    "total_villages": 21,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-230",
+    "mandal_id": "mancherial_chennur",
+    "mandal_name": "Chennur",
+    "district_name": "Mancherial",
+    "total_villages": 34,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-231",
+    "mandal_id": "mancherial_dandepalle",
+    "mandal_name": "Dandepalle",
+    "district_name": "Mancherial",
+    "total_villages": 31,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-232",
+    "mandal_id": "mancherial_hajipur",
+    "mandal_name": "Hajipur",
+    "district_name": "Mancherial",
+    "total_villages": 21,
+    "resurvey_villages_count": 15,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-233",
+    "mandal_id": "mancherial_jaipur",
+    "mandal_name": "Jaipur",
+    "district_name": "Mancherial",
+    "total_villages": 23,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-234",
+    "mandal_id": "mancherial_jannaram",
+    "mandal_name": "Jannaram",
+    "district_name": "Mancherial",
+    "total_villages": 26,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-235",
+    "mandal_id": "mancherial_kannepalle",
+    "mandal_name": "Kannepalle",
+    "district_name": "Mancherial",
+    "total_villages": 24,
+    "resurvey_villages_count": 24,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-236",
+    "mandal_id": "mancherial_kasipet",
+    "mandal_name": "Kasipet",
+    "district_name": "Mancherial",
+    "total_villages": 21,
+    "resurvey_villages_count": 21,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-237",
+    "mandal_id": "mancherial_kotapalle",
+    "mandal_name": "Kotapalle",
+    "district_name": "Mancherial",
+    "total_villages": 37,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-238",
+    "mandal_id": "mancherial_luxettipet",
+    "mandal_name": "Luxettipet",
+    "district_name": "Mancherial",
+    "total_villages": 20,
+    "resurvey_villages_count": 20,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-239",
+    "mandal_id": "mancherial_mancheriyal",
+    "mandal_name": "Mancheriyal",
+    "district_name": "Mancherial",
+    "total_villages": 2,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-240",
+    "mandal_id": "mancherial_mandamarri",
+    "mandal_name": "Mandamarri",
+    "district_name": "Mancherial",
+    "total_villages": 11,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-241",
+    "mandal_id": "mancherial_naspur",
+    "mandal_name": "Naspur",
+    "district_name": "Mancherial",
+    "total_villages": 5,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-242",
+    "mandal_id": "mancherial_nennal",
+    "mandal_name": "Nennal",
+    "district_name": "Mancherial",
+    "total_villages": 29,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-243",
+    "mandal_id": "mancherial_tandur",
+    "mandal_name": "Tandur",
+    "district_name": "Mancherial",
+    "total_villages": 24,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-244",
+    "mandal_id": "mancherial_vemanpalle",
+    "mandal_name": "Vemanpalle",
+    "district_name": "Mancherial",
+    "total_villages": 30,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-245",
+    "mandal_id": "medak_alladurg",
+    "mandal_name": "Alladurg",
+    "district_name": "Medak",
+    "total_villages": 14,
+    "resurvey_villages_count": 14,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-246",
+    "mandal_id": "medak_chegunta",
+    "mandal_name": "Chegunta",
+    "district_name": "Medak",
+    "total_villages": 20,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-247",
+    "mandal_id": "medak_chilipched",
+    "mandal_name": "Chilipched",
+    "district_name": "Medak",
+    "total_villages": 16,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-248",
+    "mandal_id": "medak_haveli_ghanpur",
+    "mandal_name": "Haveli Ghanpur",
+    "district_name": "Medak",
+    "total_villages": 22,
+    "resurvey_villages_count": 22,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-249",
+    "mandal_id": "medak_kowdipalle",
+    "mandal_name": "Kowdipalle",
+    "district_name": "Medak",
+    "total_villages": 24,
+    "resurvey_villages_count": 2,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-250",
+    "mandal_id": "medak_kulcharam",
+    "mandal_name": "Kulcharam",
+    "district_name": "Medak",
+    "total_villages": 21,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-251",
+    "mandal_id": "medak_manoharabad",
+    "mandal_name": "Manoharabad",
+    "district_name": "Medak",
+    "total_villages": 16,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-252",
+    "mandal_id": "medak_masaipet",
+    "mandal_name": "Masaipet",
+    "district_name": "Medak",
+    "total_villages": 9,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-253",
+    "mandal_id": "medak_medak",
+    "mandal_name": "Medak",
+    "district_name": "Medak",
+    "total_villages": 15,
+    "resurvey_villages_count": 15,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-254",
+    "mandal_id": "medak_narsapur",
+    "mandal_name": "Narsapur",
+    "district_name": "Medak",
+    "total_villages": 35,
+    "resurvey_villages_count": 2,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-255",
+    "mandal_id": "medak_narsingi",
+    "mandal_name": "Narsingi",
+    "district_name": "Medak",
+    "total_villages": 7,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-256",
+    "mandal_id": "medak_nizampet",
+    "mandal_name": "Nizampet",
+    "district_name": "Medak",
+    "total_villages": 8,
+    "resurvey_villages_count": 8,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-257",
+    "mandal_id": "medak_papannapet",
+    "mandal_name": "Papannapet",
+    "district_name": "Medak",
+    "total_villages": 26,
+    "resurvey_villages_count": 26,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-258",
+    "mandal_id": "medak_ramayampet",
+    "mandal_name": "Ramayampet",
+    "district_name": "Medak",
+    "total_villages": 16,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-259",
+    "mandal_id": "medak_regode",
+    "mandal_name": "Regode",
+    "district_name": "Medak",
+    "total_villages": 17,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-260",
+    "mandal_id": "medak_shankarampet_a",
+    "mandal_name": "Shankarampet(A)",
+    "district_name": "Medak",
+    "total_villages": 24,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-261",
+    "mandal_id": "medak_shankarampet_r",
+    "mandal_name": "Shankarampet(R)",
+    "district_name": "Medak",
+    "total_villages": 17,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-262",
+    "mandal_id": "medak_shivampet",
+    "mandal_name": "Shivampet",
+    "district_name": "Medak",
+    "total_villages": 26,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-263",
+    "mandal_id": "medak_tekmal",
+    "mandal_name": "Tekmal",
+    "district_name": "Medak",
+    "total_villages": 20,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-264",
+    "mandal_id": "medak_toopran",
+    "mandal_name": "Toopran",
+    "district_name": "Medak",
+    "total_villages": 22,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-265",
+    "mandal_id": "medak_yeldurthy",
+    "mandal_name": "Yeldurthy",
+    "district_name": "Medak",
+    "total_villages": 16,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-266",
+    "mandal_id": "medchal_malkajgiri_alwal",
+    "mandal_name": "Alwal*",
+    "district_name": "Medchal Malkajgiri",
+    "total_villages": 10,
+    "resurvey_villages_count": 10,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-267",
+    "mandal_id": "medchal_malkajgiri_bachupally",
+    "mandal_name": "Bachupally",
+    "district_name": "Medchal Malkajgiri",
+    "total_villages": 2,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-268",
+    "mandal_id": "medchal_malkajgiri_balanagar",
+    "mandal_name": "Balanagar",
+    "district_name": "Medchal Malkajgiri",
+    "total_villages": 8,
+    "resurvey_villages_count": 8,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-269",
+    "mandal_id": "medchal_malkajgiri_dundigal_gandimaisamma",
+    "mandal_name": "Dundigal Gandimaisamma",
+    "district_name": "Medchal Malkajgiri",
+    "total_villages": 10,
+    "resurvey_villages_count": 10,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-270",
+    "mandal_id": "medchal_malkajgiri_ghatkesar",
+    "mandal_name": "Ghatkesar",
+    "district_name": "Medchal Malkajgiri",
+    "total_villages": 19,
+    "resurvey_villages_count": 19,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-271",
+    "mandal_id": "medchal_malkajgiri_kapra",
+    "mandal_name": "Kapra*",
+    "district_name": "Medchal Malkajgiri",
+    "total_villages": 3,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-272",
+    "mandal_id": "medchal_malkajgiri_keesara",
+    "mandal_name": "Keesara",
+    "district_name": "Medchal Malkajgiri",
+    "total_villages": 15,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-273",
+    "mandal_id": "medchal_malkajgiri_kukatpally",
+    "mandal_name": "Kukatpally",
+    "district_name": "Medchal Malkajgiri",
+    "total_villages": 6,
+    "resurvey_villages_count": 6,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-274",
+    "mandal_id": "medchal_malkajgiri_malkajgiri",
+    "mandal_name": "Malkajgiri*",
+    "district_name": "Medchal Malkajgiri",
+    "total_villages": 2,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-275",
+    "mandal_id": "medchal_malkajgiri_medchal",
+    "mandal_name": "Medchal",
+    "district_name": "Medchal Malkajgiri",
+    "total_villages": 27,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-276",
+    "mandal_id": "medchal_malkajgiri_medipally",
+    "mandal_name": "Medipally",
+    "district_name": "Medchal Malkajgiri",
+    "total_villages": 8,
+    "resurvey_villages_count": 7,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-277",
+    "mandal_id": "medchal_malkajgiri_muduchinthala_pally",
+    "mandal_name": "Muduchinthala Pally",
+    "district_name": "Medchal Malkajgiri",
+    "total_villages": 17,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-278",
+    "mandal_id": "medchal_malkajgiri_quthbullapur",
+    "mandal_name": "Quthbullapur",
+    "district_name": "Medchal Malkajgiri",
+    "total_villages": 6,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-279",
+    "mandal_id": "medchal_malkajgiri_shameerpet",
+    "mandal_name": "Shameerpet",
+    "district_name": "Medchal Malkajgiri",
+    "total_villages": 15,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-280",
+    "mandal_id": "medchal_malkajgiri_uppal",
+    "mandal_name": "Uppal*",
+    "district_name": "Medchal Malkajgiri",
+    "total_villages": 14,
+    "resurvey_villages_count": 14,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-281",
+    "mandal_id": "mulugu_eturunagaram",
+    "mandal_name": "Eturunagaram",
+    "district_name": "Mulugu",
+    "total_villages": 39,
+    "resurvey_villages_count": 22,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-282",
+    "mandal_id": "mulugu_govindraopet",
+    "mandal_name": "Govindraopet",
+    "district_name": "Mulugu",
+    "total_villages": 14,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-283",
+    "mandal_id": "mulugu_kannaigudem",
+    "mandal_name": "Kannaigudem*",
+    "district_name": "Mulugu",
+    "total_villages": 25,
+    "resurvey_villages_count": 25,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-284",
+    "mandal_id": "mulugu_mallampalle",
+    "mandal_name": "Mallampalle",
+    "district_name": "Mulugu",
+    "total_villages": 3,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-285",
+    "mandal_id": "mulugu_mangapet",
+    "mandal_name": "Mangapet",
+    "district_name": "Mulugu",
+    "total_villages": 24,
+    "resurvey_villages_count": 24,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-286",
+    "mandal_id": "mulugu_mulugu",
+    "mandal_name": "Mulugu",
+    "district_name": "Mulugu",
+    "total_villages": 16,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-287",
+    "mandal_id": "mulugu_tadvai",
+    "mandal_name": "Tadvai",
+    "district_name": "Mulugu",
+    "total_villages": 73,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-288",
+    "mandal_id": "mulugu_venkatapoor",
+    "mandal_name": "Venkatapoor",
+    "district_name": "Mulugu",
+    "total_villages": 10,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-289",
+    "mandal_id": "mulugu_venkatapuram",
+    "mandal_name": "Venkatapuram",
+    "district_name": "Mulugu",
+    "total_villages": 72,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-290",
+    "mandal_id": "mulugu_wazeed",
+    "mandal_name": "Wazeed",
+    "district_name": "Mulugu",
+    "total_villages": 61,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-291",
+    "mandal_id": "nagarkurnool_acham_pet",
+    "mandal_name": "Acham Pet",
+    "district_name": "Nagarkurnool",
+    "total_villages": 22,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-292",
+    "mandal_id": "nagarkurnool_amrabad",
+    "mandal_name": "Amrabad",
+    "district_name": "Nagarkurnool",
+    "total_villages": 8,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-293",
+    "mandal_id": "nagarkurnool_balmoor",
+    "mandal_name": "Balmoor",
+    "district_name": "Nagarkurnool",
+    "total_villages": 22,
+    "resurvey_villages_count": 6,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-294",
+    "mandal_id": "nagarkurnool_bijinepally",
+    "mandal_name": "Bijinepally",
+    "district_name": "Nagarkurnool",
+    "total_villages": 24,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-295",
+    "mandal_id": "nagarkurnool_charakonda",
+    "mandal_name": "Charakonda",
+    "district_name": "Nagarkurnool",
+    "total_villages": 7,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-296",
+    "mandal_id": "nagarkurnool_kalwakurthy",
+    "mandal_name": "Kalwakurthy",
+    "district_name": "Nagarkurnool",
+    "total_villages": 19,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-297",
+    "mandal_id": "nagarkurnool_kodair",
+    "mandal_name": "Kodair",
+    "district_name": "Nagarkurnool",
+    "total_villages": 13,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-298",
+    "mandal_id": "nagarkurnool_kollapur",
+    "mandal_name": "Kollapur",
+    "district_name": "Nagarkurnool",
+    "total_villages": 22,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-299",
+    "mandal_id": "nagarkurnool_lingal",
+    "mandal_name": "Lingal",
+    "district_name": "Nagarkurnool",
+    "total_villages": 18,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-300",
+    "mandal_id": "nagarkurnool_nagarkurnool",
+    "mandal_name": "Nagarkurnool",
+    "district_name": "Nagarkurnool",
+    "total_villages": 27,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-301",
+    "mandal_id": "nagarkurnool_padara",
+    "mandal_name": "Padara",
+    "district_name": "Nagarkurnool",
+    "total_villages": 8,
+    "resurvey_villages_count": 8,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-302",
+    "mandal_id": "nagarkurnool_peddakothapally",
+    "mandal_name": "Peddakothapally",
+    "district_name": "Nagarkurnool",
+    "total_villages": 26,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-303",
+    "mandal_id": "nagarkurnool_pentlavelly",
+    "mandal_name": "Pentlavelly",
+    "district_name": "Nagarkurnool",
+    "total_villages": 8,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-304",
+    "mandal_id": "nagarkurnool_tadoor",
+    "mandal_name": "Tadoor",
+    "district_name": "Nagarkurnool",
+    "total_villages": 22,
+    "resurvey_villages_count": 22,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-305",
+    "mandal_id": "nagarkurnool_telkapally",
+    "mandal_name": "Telkapally",
+    "district_name": "Nagarkurnool",
+    "total_villages": 20,
+    "resurvey_villages_count": 20,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-306",
+    "mandal_id": "nagarkurnool_thimmajipet",
+    "mandal_name": "Thimmajipet",
+    "district_name": "Nagarkurnool",
+    "total_villages": 19,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-307",
+    "mandal_id": "nagarkurnool_uppunoothala",
+    "mandal_name": "Uppunoothala",
+    "district_name": "Nagarkurnool",
+    "total_villages": 22,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-308",
+    "mandal_id": "nagarkurnool_urkonda",
+    "mandal_name": "Urkonda",
+    "district_name": "Nagarkurnool",
+    "total_villages": 12,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-309",
+    "mandal_id": "nagarkurnool_vangoor",
+    "mandal_name": "Vangoor",
+    "district_name": "Nagarkurnool",
+    "total_villages": 19,
+    "resurvey_villages_count": 19,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-310",
+    "mandal_id": "nagarkurnool_veldanda",
+    "mandal_name": "Veldanda",
+    "district_name": "Nagarkurnool",
+    "total_villages": 16,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-311",
+    "mandal_id": "nalgonda_adavidevulapally",
+    "mandal_name": "Adavidevulapally",
+    "district_name": "Nalgonda",
+    "total_villages": 6,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-312",
+    "mandal_id": "nalgonda_anumula",
+    "mandal_name": "Anumula",
+    "district_name": "Nalgonda",
+    "total_villages": 19,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-313",
+    "mandal_id": "nalgonda_chandampeta",
+    "mandal_name": "Chandampeta",
+    "district_name": "Nalgonda",
+    "total_villages": 17,
+    "resurvey_villages_count": 17,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-314",
+    "mandal_id": "nalgonda_chandur",
+    "mandal_name": "Chandur",
+    "district_name": "Nalgonda",
+    "total_villages": 16,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-315",
+    "mandal_id": "nalgonda_chintha_palle",
+    "mandal_name": "Chintha Palle",
+    "district_name": "Nalgonda",
+    "total_villages": 22,
+    "resurvey_villages_count": 22,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-316",
+    "mandal_id": "nalgonda_chityal",
+    "mandal_name": "Chityal",
+    "district_name": "Nalgonda",
+    "total_villages": 16,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-317",
+    "mandal_id": "nalgonda_damercherla",
+    "mandal_name": "Damercherla",
+    "district_name": "Nalgonda",
+    "total_villages": 12,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-318",
+    "mandal_id": "nalgonda_devarakonda",
+    "mandal_name": "Devarakonda",
+    "district_name": "Nalgonda",
+    "total_villages": 15,
+    "resurvey_villages_count": 15,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-319",
+    "mandal_id": "nalgonda_gattuppal",
+    "mandal_name": "Gattuppal",
+    "district_name": "Nalgonda",
+    "total_villages": 6,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-320",
+    "mandal_id": "nalgonda_gudipally",
+    "mandal_name": "Gudipally",
+    "district_name": "Nalgonda",
+    "total_villages": 11,
+    "resurvey_villages_count": 9,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-321",
+    "mandal_id": "nalgonda_gundla_palle",
+    "mandal_name": "Gundla Palle",
+    "district_name": "Nalgonda",
+    "total_villages": 22,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-322",
+    "mandal_id": "nalgonda_gurrampode",
+    "mandal_name": "Gurrampode",
+    "district_name": "Nalgonda",
+    "total_villages": 28,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-323",
+    "mandal_id": "nalgonda_kangal",
+    "mandal_name": "Kangal",
+    "district_name": "Nalgonda",
+    "total_villages": 24,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-324",
+    "mandal_id": "nalgonda_kattangur",
+    "mandal_name": "Kattangur",
+    "district_name": "Nalgonda",
+    "total_villages": 18,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-325",
+    "mandal_id": "nalgonda_kethepally",
+    "mandal_name": "Kethepally",
+    "district_name": "Nalgonda",
+    "total_villages": 13,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-326",
+    "mandal_id": "nalgonda_konda_mallepally",
+    "mandal_name": "Konda Mallepally",
+    "district_name": "Nalgonda",
+    "total_villages": 14,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-327",
+    "mandal_id": "nalgonda_madugulapally",
+    "mandal_name": "Madugulapally",
+    "district_name": "Nalgonda",
+    "total_villages": 21,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-328",
+    "mandal_id": "nalgonda_marri_guda",
+    "mandal_name": "Marri Guda",
+    "district_name": "Nalgonda",
+    "total_villages": 14,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-329",
+    "mandal_id": "nalgonda_miryalaguda",
+    "mandal_name": "Miryalaguda",
+    "district_name": "Nalgonda",
+    "total_villages": 24,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-330",
+    "mandal_id": "nalgonda_munugode",
+    "mandal_name": "Munugode",
+    "district_name": "Nalgonda",
+    "total_villages": 21,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-331",
+    "mandal_id": "nalgonda_nakrekal",
+    "mandal_name": "Nakrekal",
+    "district_name": "Nalgonda",
+    "total_villages": 16,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-332",
+    "mandal_id": "nalgonda_nalgonda",
+    "mandal_name": "Nalgonda",
+    "district_name": "Nalgonda",
+    "total_villages": 34,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-333",
+    "mandal_id": "nalgonda_nampally",
+    "mandal_name": "Nampally",
+    "district_name": "Nalgonda",
+    "total_villages": 28,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-334",
+    "mandal_id": "nalgonda_narketpalle",
+    "mandal_name": "Narketpalle",
+    "district_name": "Nalgonda",
+    "total_villages": 19,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-335",
+    "mandal_id": "nalgonda_neredugommu",
+    "mandal_name": "Neredugommu",
+    "district_name": "Nalgonda",
+    "total_villages": 9,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-336",
+    "mandal_id": "nalgonda_nidamanur",
+    "mandal_name": "Nidamanur",
+    "district_name": "Nalgonda",
+    "total_villages": 15,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-337",
+    "mandal_id": "nalgonda_peda_adisharla_palli",
+    "mandal_name": "Peda Adisharla Palli",
+    "district_name": "Nalgonda",
+    "total_villages": 13,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-338",
+    "mandal_id": "nalgonda_peddavoora",
+    "mandal_name": "Peddavoora",
+    "district_name": "Nalgonda",
+    "total_villages": 21,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-339",
+    "mandal_id": "nalgonda_shaligouraram",
+    "mandal_name": "Shaligouraram",
+    "district_name": "Nalgonda",
+    "total_villages": 20,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-340",
+    "mandal_id": "nalgonda_tipparthy",
+    "mandal_name": "Tipparthy",
+    "district_name": "Nalgonda",
+    "total_villages": 13,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-341",
+    "mandal_id": "nalgonda_tirumalagiri__sagar",
+    "mandal_name": "Tirumalagiri (Sagar)",
+    "district_name": "Nalgonda",
+    "total_villages": 14,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-342",
+    "mandal_id": "nalgonda_tripuraram",
+    "mandal_name": "Tripuraram",
+    "district_name": "Nalgonda",
+    "total_villages": 16,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-343",
+    "mandal_id": "nalgonda_vemulapally",
+    "mandal_name": "Vemulapally",
+    "district_name": "Nalgonda",
+    "total_villages": 13,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-344",
+    "mandal_id": "narayanapet_damaragidda",
+    "mandal_name": "Damaragidda",
+    "district_name": "Narayanapet",
+    "total_villages": 27,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-345",
+    "mandal_id": "narayanapet_dhanwada",
+    "mandal_name": "Dhanwada",
+    "district_name": "Narayanapet",
+    "total_villages": 10,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-346",
+    "mandal_id": "narayanapet_gundmal",
+    "mandal_name": "Gundmal",
+    "district_name": "Narayanapet",
+    "total_villages": 10,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-347",
+    "mandal_id": "narayanapet_kosgi",
+    "mandal_name": "Kosgi",
+    "district_name": "Narayanapet",
+    "total_villages": 16,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-348",
+    "mandal_id": "narayanapet_kothapally",
+    "mandal_name": "Kothapally",
+    "district_name": "Narayanapet",
+    "total_villages": 11,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-349",
+    "mandal_id": "narayanapet_krishna",
+    "mandal_name": "Krishna",
+    "district_name": "Narayanapet",
+    "total_villages": 14,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-350",
+    "mandal_id": "narayanapet_maddur",
+    "mandal_name": "Maddur",
+    "district_name": "Narayanapet",
+    "total_villages": 17,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-351",
+    "mandal_id": "narayanapet_maganoor",
+    "mandal_name": "Maganoor",
+    "district_name": "Narayanapet",
+    "total_villages": 20,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-352",
+    "mandal_id": "narayanapet_makthal",
+    "mandal_name": "Makthal",
+    "district_name": "Narayanapet",
+    "total_villages": 39,
+    "resurvey_villages_count": 16,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-353",
+    "mandal_id": "narayanapet_marikal",
+    "mandal_name": "Marikal",
+    "district_name": "Narayanapet",
+    "total_villages": 14,
+    "resurvey_villages_count": 14,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-354",
+    "mandal_id": "narayanapet_narayanpet",
+    "mandal_name": "Narayanpet",
+    "district_name": "Narayanapet",
+    "total_villages": 26,
+    "resurvey_villages_count": 26,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-355",
+    "mandal_id": "narayanapet_narwa",
+    "mandal_name": "Narwa",
+    "district_name": "Narayanapet",
+    "total_villages": 20,
+    "resurvey_villages_count": 20,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-356",
+    "mandal_id": "narayanapet_utkoor",
+    "mandal_name": "Utkoor",
+    "district_name": "Narayanapet",
+    "total_villages": 27,
+    "resurvey_villages_count": 27,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-357",
+    "mandal_id": "nirmal_basar",
+    "mandal_name": "Basar",
+    "district_name": "Nirmal",
+    "total_villages": 17,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-358",
+    "mandal_id": "nirmal_bhainsa",
+    "mandal_name": "Bhainsa",
+    "district_name": "Nirmal",
+    "total_villages": 34,
+    "resurvey_villages_count": 34,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-359",
+    "mandal_id": "nirmal_dhasturabad",
+    "mandal_name": "Dhasturabad",
+    "district_name": "Nirmal",
+    "total_villages": 8,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-360",
+    "mandal_id": "nirmal_dilawarpur",
+    "mandal_name": "Dilawarpur",
+    "district_name": "Nirmal",
+    "total_villages": 21,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-361",
+    "mandal_id": "nirmal_kadampeddur",
+    "mandal_name": "Kadampeddur",
+    "district_name": "Nirmal",
+    "total_villages": 29,
+    "resurvey_villages_count": 29,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-362",
+    "mandal_id": "nirmal_khanapur",
+    "mandal_name": "Khanapur",
+    "district_name": "Nirmal",
+    "total_villages": 21,
+    "resurvey_villages_count": 19,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-363",
+    "mandal_id": "nirmal_kubeer",
+    "mandal_name": "Kubeer",
+    "district_name": "Nirmal",
+    "total_villages": 38,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-364",
+    "mandal_id": "nirmal_kuntala",
+    "mandal_name": "Kuntala",
+    "district_name": "Nirmal",
+    "total_villages": 16,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-365",
+    "mandal_id": "nirmal_laxmanchanda",
+    "mandal_name": "Laxmanchanda",
+    "district_name": "Nirmal",
+    "total_villages": 18,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-366",
+    "mandal_id": "nirmal_lokeshwaram",
+    "mandal_name": "Lokeshwaram",
+    "district_name": "Nirmal",
+    "total_villages": 31,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-367",
+    "mandal_id": "nirmal_mamada",
+    "mandal_name": "Mamada",
+    "district_name": "Nirmal",
+    "total_villages": 33,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-368",
+    "mandal_id": "nirmal_mudhole",
+    "mandal_name": "Mudhole",
+    "district_name": "Nirmal",
+    "total_villages": 24,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-369",
+    "mandal_id": "nirmal_narsapur",
+    "mandal_name": "Narsapur",
+    "district_name": "Nirmal",
+    "total_villages": 21,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-370",
+    "mandal_id": "nirmal_nirmal_rural",
+    "mandal_name": "Nirmal-Rural",
+    "district_name": "Nirmal",
+    "total_villages": 27,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-371",
+    "mandal_id": "nirmal_nirmal_urban",
+    "mandal_name": "Nirmal-Urban",
+    "district_name": "Nirmal",
+    "total_villages": 4,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-372",
+    "mandal_id": "nirmal_pembi",
+    "mandal_name": "Pembi",
+    "district_name": "Nirmal",
+    "total_villages": 12,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-373",
+    "mandal_id": "nirmal_sarangapur",
+    "mandal_name": "Sarangapur",
+    "district_name": "Nirmal",
+    "total_villages": 27,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-374",
+    "mandal_id": "nirmal_soan",
+    "mandal_name": "Soan",
+    "district_name": "Nirmal",
+    "total_villages": 14,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-375",
+    "mandal_id": "nirmal_tanoor",
+    "mandal_name": "Tanoor",
+    "district_name": "Nirmal",
+    "total_villages": 33,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-376",
+    "mandal_id": "nizamabad_aloor",
+    "mandal_name": "Aloor",
+    "district_name": "Nizamabad",
+    "total_villages": 7,
+    "resurvey_villages_count": 7,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-377",
+    "mandal_id": "nizamabad_armoor",
+    "mandal_name": "Armoor",
+    "district_name": "Nizamabad",
+    "total_villages": 18,
+    "resurvey_villages_count": 18,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-378",
+    "mandal_id": "nizamabad_balkonda",
+    "mandal_name": "Balkonda",
+    "district_name": "Nizamabad",
+    "total_villages": 11,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-379",
+    "mandal_id": "nizamabad_bheemgal",
+    "mandal_name": "Bheemgal",
+    "district_name": "Nizamabad",
+    "total_villages": 24,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-380",
+    "mandal_id": "nizamabad_bodhan",
+    "mandal_name": "Bodhan",
+    "district_name": "Nizamabad",
+    "total_villages": 33,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-381",
+    "mandal_id": "nizamabad_chandur",
+    "mandal_name": "Chandur",
+    "district_name": "Nizamabad",
+    "total_villages": 5,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-382",
+    "mandal_id": "nizamabad_dharpally",
+    "mandal_name": "Dharpally",
+    "district_name": "Nizamabad",
+    "total_villages": 12,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-383",
+    "mandal_id": "nizamabad_dichpaly",
+    "mandal_name": "Dichpaly",
+    "district_name": "Nizamabad",
+    "total_villages": 17,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-384",
+    "mandal_id": "nizamabad_donkeshwar",
+    "mandal_name": "Donkeshwar",
+    "district_name": "Nizamabad",
+    "total_villages": 12,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-385",
+    "mandal_id": "nizamabad_indalwai",
+    "mandal_name": "Indalwai",
+    "district_name": "Nizamabad",
+    "total_villages": 10,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-386",
+    "mandal_id": "nizamabad_jankarnpally",
+    "mandal_name": "Jankarnpally",
+    "district_name": "Nizamabad",
+    "total_villages": 16,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-387",
+    "mandal_id": "nizamabad_kamarpally",
+    "mandal_name": "Kamarpally",
+    "district_name": "Nizamabad",
+    "total_villages": 17,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-388",
+    "mandal_id": "nizamabad_kotagiri",
+    "mandal_name": "Kotagiri",
+    "district_name": "Nizamabad",
+    "total_villages": 20,
+    "resurvey_villages_count": 20,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-389",
+    "mandal_id": "nizamabad_makloor",
+    "mandal_name": "Makloor",
+    "district_name": "Nizamabad",
+    "total_villages": 21,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-390",
+    "mandal_id": "nizamabad_mendora",
+    "mandal_name": "Mendora",
+    "district_name": "Nizamabad",
+    "total_villages": 8,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-391",
+    "mandal_id": "nizamabad_morthad",
+    "mandal_name": "Morthad",
+    "district_name": "Nizamabad",
+    "total_villages": 9,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-392",
+    "mandal_id": "nizamabad_mosra",
+    "mandal_name": "Mosra",
+    "district_name": "Nizamabad",
+    "total_villages": 6,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-393",
+    "mandal_id": "nizamabad_mugpal",
+    "mandal_name": "Mugpal",
+    "district_name": "Nizamabad",
+    "total_villages": 15,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-394",
+    "mandal_id": "nizamabad_mukpal",
+    "mandal_name": "Mukpal",
+    "district_name": "Nizamabad",
+    "total_villages": 7,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-395",
+    "mandal_id": "nizamabad_nandipet",
+    "mandal_name": "Nandipet",
+    "district_name": "Nizamabad",
+    "total_villages": 20,
+    "resurvey_villages_count": 5,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-396",
+    "mandal_id": "nizamabad_navipet",
+    "mandal_name": "Navipet",
+    "district_name": "Nizamabad",
+    "total_villages": 32,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-397",
+    "mandal_id": "nizamabad_nizamabad_north",
+    "mandal_name": "Nizamabad North",
+    "district_name": "Nizamabad",
+    "total_villages": 2,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-398",
+    "mandal_id": "nizamabad_nizamabad_south",
+    "mandal_name": "Nizamabad South",
+    "district_name": "Nizamabad",
+    "total_villages": 1,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-399",
+    "mandal_id": "nizamabad_nizamabad_rural",
+    "mandal_name": "Nizamabad-Rural",
+    "district_name": "Nizamabad",
+    "total_villages": 19,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-400",
+    "mandal_id": "nizamabad_pothan_gal",
+    "mandal_name": "Pothan Gal",
+    "district_name": "Nizamabad",
+    "total_villages": 14,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-401",
+    "mandal_id": "nizamabad_renjal",
+    "mandal_name": "Renjal",
+    "district_name": "Nizamabad",
+    "total_villages": 10,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-402",
+    "mandal_id": "nizamabad_rudrur",
+    "mandal_name": "Rudrur",
+    "district_name": "Nizamabad",
+    "total_villages": 10,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-403",
+    "mandal_id": "nizamabad_saloora",
+    "mandal_name": "Saloora",
+    "district_name": "Nizamabad",
+    "total_villages": 10,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-404",
+    "mandal_id": "nizamabad_sirikonda",
+    "mandal_name": "Sirikonda",
+    "district_name": "Nizamabad",
+    "total_villages": 19,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-405",
+    "mandal_id": "nizamabad_vailpoor",
+    "mandal_name": "Vailpoor",
+    "district_name": "Nizamabad",
+    "total_villages": 17,
+    "resurvey_villages_count": 17,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-406",
+    "mandal_id": "nizamabad_varni",
+    "mandal_name": "Varni",
+    "district_name": "Nizamabad",
+    "total_villages": 12,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-407",
+    "mandal_id": "nizamabad_yedapalli",
+    "mandal_name": "Yedapalli",
+    "district_name": "Nizamabad",
+    "total_villages": 12,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-408",
+    "mandal_id": "nizamabad_yergatla",
+    "mandal_name": "Yergatla",
+    "district_name": "Nizamabad",
+    "total_villages": 7,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-409",
+    "mandal_id": "peddapally_anthergaon",
+    "mandal_name": "Anthergaon",
+    "district_name": "Peddapally",
+    "total_villages": 14,
+    "resurvey_villages_count": 14,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-410",
+    "mandal_id": "peddapally_dharmaram",
+    "mandal_name": "Dharmaram",
+    "district_name": "Peddapally",
+    "total_villages": 16,
+    "resurvey_villages_count": 16,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-411",
+    "mandal_id": "peddapally_eligade",
+    "mandal_name": "Eligade",
+    "district_name": "Peddapally",
+    "total_villages": 9,
+    "resurvey_villages_count": 9,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-412",
+    "mandal_id": "peddapally_julapally",
+    "mandal_name": "Julapally",
+    "district_name": "Peddapally",
+    "total_villages": 7,
+    "resurvey_villages_count": 7,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-413",
+    "mandal_id": "peddapally_kamanpur",
+    "mandal_name": "Kamanpur",
+    "district_name": "Peddapally",
+    "total_villages": 11,
+    "resurvey_villages_count": 11,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-414",
+    "mandal_id": "peddapally_manthani",
+    "mandal_name": "Manthani",
+    "district_name": "Peddapally",
+    "total_villages": 35,
+    "resurvey_villages_count": 12,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-415",
+    "mandal_id": "peddapally_mutharam_manthani",
+    "mandal_name": "Mutharam Manthani",
+    "district_name": "Peddapally",
+    "total_villages": 15,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-416",
+    "mandal_id": "peddapally_odela",
+    "mandal_name": "Odela",
+    "district_name": "Peddapally",
+    "total_villages": 11,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-417",
+    "mandal_id": "peddapally_palakurthy",
+    "mandal_name": "Palakurthy",
+    "district_name": "Peddapally",
+    "total_villages": 10,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-418",
+    "mandal_id": "peddapally_peddapalle",
+    "mandal_name": "Peddapalle",
+    "district_name": "Peddapally",
+    "total_villages": 23,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-419",
+    "mandal_id": "peddapally_ramagiri",
+    "mandal_name": "Ramagiri",
+    "district_name": "Peddapally",
+    "total_villages": 16,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-420",
+    "mandal_id": "peddapally_ramagundam",
+    "mandal_name": "Ramagundam",
+    "district_name": "Peddapally",
+    "total_villages": 8,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-421",
+    "mandal_id": "peddapally_srirampur",
+    "mandal_name": "Srirampur",
+    "district_name": "Peddapally",
+    "total_villages": 17,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-422",
+    "mandal_id": "peddapally_sultanabad",
+    "mandal_name": "Sultanabad",
+    "district_name": "Peddapally",
+    "total_villages": 21,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-423",
+    "mandal_id": "rajanna_siricilla_boinpalle",
+    "mandal_name": "Boinpalle",
+    "district_name": "Rajanna Siricilla",
+    "total_villages": 16,
+    "resurvey_villages_count": 16,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-424",
+    "mandal_id": "rajanna_siricilla_chandurthi",
+    "mandal_name": "Chandurthi",
+    "district_name": "Rajanna Siricilla",
+    "total_villages": 11,
+    "resurvey_villages_count": 11,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-425",
+    "mandal_id": "rajanna_siricilla_gambhiraopet",
+    "mandal_name": "Gambhiraopet",
+    "district_name": "Rajanna Siricilla",
+    "total_villages": 18,
+    "resurvey_villages_count": 18,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-426",
+    "mandal_id": "rajanna_siricilla_illanthakunta",
+    "mandal_name": "Illanthakunta",
+    "district_name": "Rajanna Siricilla",
+    "total_villages": 21,
+    "resurvey_villages_count": 21,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-427",
+    "mandal_id": "rajanna_siricilla_konaraopeta",
+    "mandal_name": "Konaraopeta",
+    "district_name": "Rajanna Siricilla",
+    "total_villages": 20,
+    "resurvey_villages_count": 3,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-428",
+    "mandal_id": "rajanna_siricilla_mustabad",
+    "mandal_name": "Mustabad",
+    "district_name": "Rajanna Siricilla",
+    "total_villages": 16,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-429",
+    "mandal_id": "rajanna_siricilla_rudrangi",
+    "mandal_name": "Rudrangi",
+    "district_name": "Rajanna Siricilla",
+    "total_villages": 2,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-430",
+    "mandal_id": "rajanna_siricilla_sirsilla",
+    "mandal_name": "Sirsilla",
+    "district_name": "Rajanna Siricilla",
+    "total_villages": 5,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-431",
+    "mandal_id": "rajanna_siricilla_thangallapalli",
+    "mandal_name": "Thangallapalli",
+    "district_name": "Rajanna Siricilla",
+    "total_villages": 16,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-432",
+    "mandal_id": "rajanna_siricilla_veernapalli",
+    "mandal_name": "Veernapalli",
+    "district_name": "Rajanna Siricilla",
+    "total_villages": 6,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-433",
+    "mandal_id": "rajanna_siricilla_vemulawada",
+    "mandal_name": "Vemulawada",
+    "district_name": "Rajanna Siricilla",
+    "total_villages": 8,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-434",
+    "mandal_id": "rajanna_siricilla_vemulawada_rural",
+    "mandal_name": "Vemulawada Rural",
+    "district_name": "Rajanna Siricilla",
+    "total_villages": 15,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-435",
+    "mandal_id": "rajanna_siricilla_yella_reddi_peta",
+    "mandal_name": "Yella Reddi Peta",
+    "district_name": "Rajanna Siricilla",
+    "total_villages": 17,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-436",
+    "mandal_id": "rangareddy_abdullapurmet",
+    "mandal_name": "Abdullapurmet",
+    "district_name": "Rangareddy",
+    "total_villages": 35,
+    "resurvey_villages_count": 29,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-437",
+    "mandal_id": "rangareddy_amangal",
+    "mandal_name": "Amangal",
+    "district_name": "Rangareddy",
+    "total_villages": 9,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-438",
+    "mandal_id": "rangareddy_balapur",
+    "mandal_name": "Balapur",
+    "district_name": "Rangareddy",
+    "total_villages": 17,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-439",
+    "mandal_id": "rangareddy_chevella",
+    "mandal_name": "Chevella",
+    "district_name": "Rangareddy",
+    "total_villages": 36,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-440",
+    "mandal_id": "rangareddy_farooqnagar",
+    "mandal_name": "Farooqnagar",
+    "district_name": "Rangareddy",
+    "total_villages": 36,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-441",
+    "mandal_id": "rangareddy_gandipet",
+    "mandal_name": "Gandipet*",
+    "district_name": "Rangareddy",
+    "total_villages": 25,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-442",
+    "mandal_id": "rangareddy_hayathnagar",
+    "mandal_name": "Hayathnagar",
+    "district_name": "Rangareddy",
+    "total_villages": 6,
+    "resurvey_villages_count": 6,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-443",
+    "mandal_id": "rangareddy_ibrahimpatnam",
+    "mandal_name": "Ibrahimpatnam",
+    "district_name": "Rangareddy",
+    "total_villages": 31,
+    "resurvey_villages_count": 31,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-444",
+    "mandal_id": "rangareddy_jilled_chowdargudem",
+    "mandal_name": "Jilled Chowdargudem",
+    "district_name": "Rangareddy",
+    "total_villages": 19,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-445",
+    "mandal_id": "rangareddy_kadthal",
+    "mandal_name": "Kadthal",
+    "district_name": "Rangareddy",
+    "total_villages": 15,
+    "resurvey_villages_count": 15,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-446",
+    "mandal_id": "rangareddy_kandukur",
+    "mandal_name": "Kandukur",
+    "district_name": "Rangareddy",
+    "total_villages": 30,
+    "resurvey_villages_count": 30,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-447",
+    "mandal_id": "rangareddy_keshampet",
+    "mandal_name": "Keshampet",
+    "district_name": "Rangareddy",
+    "total_villages": 20,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-448",
+    "mandal_id": "rangareddy_kondurg",
+    "mandal_name": "Kondurg",
+    "district_name": "Rangareddy",
+    "total_villages": 20,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-449",
+    "mandal_id": "rangareddy_kothur",
+    "mandal_name": "Kothur",
+    "district_name": "Rangareddy",
+    "total_villages": 12,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-450",
+    "mandal_id": "rangareddy_madgul",
+    "mandal_name": "Madgul",
+    "district_name": "Rangareddy",
+    "total_villages": 15,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-451",
+    "mandal_id": "rangareddy_maheshwaram",
+    "mandal_name": "Maheshwaram",
+    "district_name": "Rangareddy",
+    "total_villages": 33,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-452",
+    "mandal_id": "rangareddy_manchal",
+    "mandal_name": "Manchal",
+    "district_name": "Rangareddy",
+    "total_villages": 24,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-453",
+    "mandal_id": "rangareddy_moinabad",
+    "mandal_name": "Moinabad",
+    "district_name": "Rangareddy",
+    "total_villages": 33,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-454",
+    "mandal_id": "rangareddy_nandigama",
+    "mandal_name": "Nandigama",
+    "district_name": "Rangareddy",
+    "total_villages": 5,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-455",
+    "mandal_id": "rangareddy_rajendernagar",
+    "mandal_name": "Rajendernagar",
+    "district_name": "Rangareddy",
+    "total_villages": 16,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-456",
+    "mandal_id": "rangareddy_sarronagar",
+    "mandal_name": "Sarronagar",
+    "district_name": "Rangareddy",
+    "total_villages": 12,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-457",
+    "mandal_id": "rangareddy_serlingampally",
+    "mandal_name": "Serlingampally",
+    "district_name": "Rangareddy",
+    "total_villages": 27,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-458",
+    "mandal_id": "rangareddy_shabad",
+    "mandal_name": "Shabad",
+    "district_name": "Rangareddy",
+    "total_villages": 25,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-459",
+    "mandal_id": "rangareddy_shamshabad",
+    "mandal_name": "Shamshabad",
+    "district_name": "Rangareddy",
+    "total_villages": 48,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-460",
+    "mandal_id": "rangareddy_shankarpally",
+    "mandal_name": "Shankarpally",
+    "district_name": "Rangareddy",
+    "total_villages": 26,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-461",
+    "mandal_id": "rangareddy_talakondapally",
+    "mandal_name": "Talakondapally",
+    "district_name": "Rangareddy",
+    "total_villages": 21,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-462",
+    "mandal_id": "rangareddy_yacharam",
+    "mandal_name": "Yacharam",
+    "district_name": "Rangareddy",
+    "total_villages": 21,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-463",
+    "mandal_id": "sangareddy_ameenpur",
+    "mandal_name": "Ameenpur",
+    "district_name": "Sangareddy",
+    "total_villages": 8,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-464",
+    "mandal_id": "sangareddy_andole",
+    "mandal_name": "Andole",
+    "district_name": "Sangareddy",
+    "total_villages": 27,
+    "resurvey_villages_count": 27,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-465",
+    "mandal_id": "sangareddy_chowtakur",
+    "mandal_name": "Chowtakur",
+    "district_name": "Sangareddy",
+    "total_villages": 14,
+    "resurvey_villages_count": 14,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-466",
+    "mandal_id": "sangareddy_gummadidala",
+    "mandal_name": "Gummadidala",
+    "district_name": "Sangareddy",
+    "total_villages": 12,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-467",
+    "mandal_id": "sangareddy_hathnoor",
+    "mandal_name": "Hathnoor",
+    "district_name": "Sangareddy",
+    "total_villages": 33,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-468",
+    "mandal_id": "sangareddy_jharasangam",
+    "mandal_name": "Jharasangam",
+    "district_name": "Sangareddy",
+    "total_villages": 35,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-469",
+    "mandal_id": "sangareddy_jinnaram",
+    "mandal_name": "Jinnaram",
+    "district_name": "Sangareddy",
+    "total_villages": 19,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-470",
+    "mandal_id": "sangareddy_kalher",
+    "mandal_name": "Kalher",
+    "district_name": "Sangareddy",
+    "total_villages": 10,
+    "resurvey_villages_count": 10,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-471",
+    "mandal_id": "sangareddy_kandi",
+    "mandal_name": "Kandi",
+    "district_name": "Sangareddy",
+    "total_villages": 17,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-472",
+    "mandal_id": "sangareddy_kangti",
+    "mandal_name": "Kangti",
+    "district_name": "Sangareddy",
+    "total_villages": 26,
+    "resurvey_villages_count": 17,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-473",
+    "mandal_id": "sangareddy_kohir",
+    "mandal_name": "Kohir",
+    "district_name": "Sangareddy",
+    "total_villages": 23,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-474",
+    "mandal_id": "sangareddy_kondapur",
+    "mandal_name": "Kondapur",
+    "district_name": "Sangareddy",
+    "total_villages": 23,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-475",
+    "mandal_id": "sangareddy_manoor",
+    "mandal_name": "Manoor",
+    "district_name": "Sangareddy",
+    "total_villages": 24,
+    "resurvey_villages_count": 2,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-476",
+    "mandal_id": "sangareddy_mogudampally",
+    "mandal_name": "Mogudampally",
+    "district_name": "Sangareddy",
+    "total_villages": 16,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-477",
+    "mandal_id": "sangareddy_munipally",
+    "mandal_name": "Munipally",
+    "district_name": "Sangareddy",
+    "total_villages": 32,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-478",
+    "mandal_id": "sangareddy_nagalgidda",
+    "mandal_name": "Nagalgidda",
+    "district_name": "Sangareddy",
+    "total_villages": 21,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-479",
+    "mandal_id": "sangareddy_narayankhed",
+    "mandal_name": "Narayankhed",
+    "district_name": "Sangareddy",
+    "total_villages": 33,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-480",
+    "mandal_id": "sangareddy_nizampet",
+    "mandal_name": "Nizampet",
+    "district_name": "Sangareddy",
+    "total_villages": 9,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-481",
+    "mandal_id": "sangareddy_nyalkal",
+    "mandal_name": "Nyalkal",
+    "district_name": "Sangareddy",
+    "total_villages": 39,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-482",
+    "mandal_id": "sangareddy_patancheru",
+    "mandal_name": "Patancheru",
+    "district_name": "Sangareddy",
+    "total_villages": 19,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-483",
+    "mandal_id": "sangareddy_pulkal",
+    "mandal_name": "Pulkal",
+    "district_name": "Sangareddy",
+    "total_villages": 16,
+    "resurvey_villages_count": 16,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-484",
+    "mandal_id": "sangareddy_raikode",
+    "mandal_name": "Raikode",
+    "district_name": "Sangareddy",
+    "total_villages": 37,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-485",
+    "mandal_id": "sangareddy_ramachandrapuram",
+    "mandal_name": "Ramachandrapuram",
+    "district_name": "Sangareddy",
+    "total_villages": 9,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-486",
+    "mandal_id": "sangareddy_sadasivpet",
+    "mandal_name": "Sadasivpet",
+    "district_name": "Sangareddy",
+    "total_villages": 30,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-487",
+    "mandal_id": "sangareddy_sangareddy",
+    "mandal_name": "Sangareddy",
+    "district_name": "Sangareddy",
+    "total_villages": 13,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-488",
+    "mandal_id": "sangareddy_sirgapoor",
+    "mandal_name": "Sirgapoor",
+    "district_name": "Sangareddy",
+    "total_villages": 17,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-489",
+    "mandal_id": "sangareddy_vatpally",
+    "mandal_name": "Vatpally",
+    "district_name": "Sangareddy",
+    "total_villages": 19,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-490",
+    "mandal_id": "sangareddy_zahirabad",
+    "mandal_name": "Zahirabad",
+    "district_name": "Sangareddy",
+    "total_villages": 23,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-491",
+    "mandal_id": "siddipet_akbarpet_bhoompally",
+    "mandal_name": "Akbarpet-Bhoompally",
+    "district_name": "Siddipet",
+    "total_villages": 13,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-492",
+    "mandal_id": "siddipet_akkannapet",
+    "mandal_name": "Akkannapet",
+    "district_name": "Siddipet",
+    "total_villages": 14,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-493",
+    "mandal_id": "siddipet_bejjanki",
+    "mandal_name": "Bejjanki",
+    "district_name": "Siddipet",
+    "total_villages": 14,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-494",
+    "mandal_id": "siddipet_cheriyal",
+    "mandal_name": "Cheriyal",
+    "district_name": "Siddipet",
+    "total_villages": 14,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-495",
+    "mandal_id": "siddipet_chinnakodur",
+    "mandal_name": "Chinnakodur",
+    "district_name": "Siddipet",
+    "total_villages": 20,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-496",
+    "mandal_id": "siddipet_dhoolmitta",
+    "mandal_name": "Dhoolmitta",
+    "district_name": "Siddipet",
+    "total_villages": 8,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-497",
+    "mandal_id": "siddipet_doultabad",
+    "mandal_name": "Doultabad",
+    "district_name": "Siddipet",
+    "total_villages": 20,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-498",
+    "mandal_id": "siddipet_dubbak",
+    "mandal_name": "Dubbak",
+    "district_name": "Siddipet",
+    "total_villages": 21,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-499",
+    "mandal_id": "siddipet_gajwel",
+    "mandal_name": "Gajwel",
+    "district_name": "Siddipet",
+    "total_villages": 28,
+    "resurvey_villages_count": 28,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-500",
+    "mandal_id": "siddipet_husnabad",
+    "mandal_name": "Husnabad",
+    "district_name": "Siddipet",
+    "total_villages": 11,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-501",
+    "mandal_id": "siddipet_jagdevpur",
+    "mandal_name": "Jagdevpur",
+    "district_name": "Siddipet",
+    "total_villages": 18,
+    "resurvey_villages_count": 18,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-502",
+    "mandal_id": "siddipet_koheda",
+    "mandal_name": "Koheda",
+    "district_name": "Siddipet",
+    "total_villages": 16,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-503",
+    "mandal_id": "siddipet_komuravelli",
+    "mandal_name": "Komuravelli",
+    "district_name": "Siddipet",
+    "total_villages": 9,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-504",
+    "mandal_id": "siddipet_kondapak",
+    "mandal_name": "Kondapak",
+    "district_name": "Siddipet",
+    "total_villages": 11,
+    "resurvey_villages_count": 11,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-505",
+    "mandal_id": "siddipet_kukunoorpally",
+    "mandal_name": "Kukunoorpally",
+    "district_name": "Siddipet",
+    "total_villages": 15,
+    "resurvey_villages_count": 15,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-506",
+    "mandal_id": "siddipet_maddur",
+    "mandal_name": "Maddur",
+    "district_name": "Siddipet",
+    "total_villages": 11,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-507",
+    "mandal_id": "siddipet_markook",
+    "mandal_name": "Markook",
+    "district_name": "Siddipet",
+    "total_villages": 9,
+    "resurvey_villages_count": 9,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-508",
+    "mandal_id": "siddipet_mirdoddi",
+    "mandal_name": "Mirdoddi",
+    "district_name": "Siddipet",
+    "total_villages": 9,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-509",
+    "mandal_id": "siddipet_mulug",
+    "mandal_name": "Mulug",
+    "district_name": "Siddipet",
+    "total_villages": 24,
+    "resurvey_villages_count": 4,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-510",
+    "mandal_id": "siddipet_nanganoor",
+    "mandal_name": "Nanganoor",
+    "district_name": "Siddipet",
+    "total_villages": 21,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-511",
+    "mandal_id": "siddipet_narayanraopet",
+    "mandal_name": "Narayanraopet",
+    "district_name": "Siddipet",
+    "total_villages": 5,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-512",
+    "mandal_id": "siddipet_raipole",
+    "mandal_name": "Raipole",
+    "district_name": "Siddipet",
+    "total_villages": 13,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-513",
+    "mandal_id": "siddipet_siddipet__urban",
+    "mandal_name": "Siddipet (Urban)",
+    "district_name": "Siddipet",
+    "total_villages": 12,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-514",
+    "mandal_id": "siddipet_siddipet_rural",
+    "mandal_name": "Siddipet Rural",
+    "district_name": "Siddipet",
+    "total_villages": 12,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-515",
+    "mandal_id": "siddipet_thoguta",
+    "mandal_name": "Thoguta",
+    "district_name": "Siddipet",
+    "total_villages": 16,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-516",
+    "mandal_id": "siddipet_wargal",
+    "mandal_name": "Wargal",
+    "district_name": "Siddipet",
+    "total_villages": 22,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-517",
+    "mandal_id": "suryapet_ananthagiri",
+    "mandal_name": "Ananthagiri",
+    "district_name": "Suryapet",
+    "total_villages": 10,
+    "resurvey_villages_count": 10,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-518",
+    "mandal_id": "suryapet_athmakur__s",
+    "mandal_name": "Athmakur (S)",
+    "district_name": "Suryapet",
+    "total_villages": 20,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-519",
+    "mandal_id": "suryapet_chilkur",
+    "mandal_name": "Chilkur",
+    "district_name": "Suryapet",
+    "total_villages": 4,
+    "resurvey_villages_count": 4,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-520",
+    "mandal_id": "suryapet_chinthalapalem__mallareddygudem",
+    "mandal_name": "Chinthalapalem (Mallareddygudem)",
+    "district_name": "Suryapet",
+    "total_villages": 10,
+    "resurvey_villages_count": 10,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-521",
+    "mandal_id": "suryapet_chivvemla",
+    "mandal_name": "Chivvemla",
+    "district_name": "Suryapet",
+    "total_villages": 15,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-522",
+    "mandal_id": "suryapet_garide_palle",
+    "mandal_name": "Garide Palle",
+    "district_name": "Suryapet",
+    "total_villages": 11,
+    "resurvey_villages_count": 11,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-523",
+    "mandal_id": "suryapet_huzurnagar",
+    "mandal_name": "Huzurnagar",
+    "district_name": "Suryapet",
+    "total_villages": 7,
+    "resurvey_villages_count": 7,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-524",
+    "mandal_id": "suryapet_jajireddy_gudem",
+    "mandal_name": "Jajireddy Gudem",
+    "district_name": "Suryapet",
+    "total_villages": 12,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-525",
+    "mandal_id": "suryapet_kodad",
+    "mandal_name": "Kodad",
+    "district_name": "Suryapet",
+    "total_villages": 12,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-526",
+    "mandal_id": "suryapet_maddirala",
+    "mandal_name": "Maddirala",
+    "district_name": "Suryapet",
+    "total_villages": 13,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-527",
+    "mandal_id": "suryapet_mattampalle",
+    "mandal_name": "Mattampalle",
+    "district_name": "Suryapet",
+    "total_villages": 10,
+    "resurvey_villages_count": 10,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-528",
+    "mandal_id": "suryapet_mellacheruvu",
+    "mandal_name": "Mellacheruvu",
+    "district_name": "Suryapet",
+    "total_villages": 4,
+    "resurvey_villages_count": 4,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-529",
+    "mandal_id": "suryapet_mothey",
+    "mandal_name": "Mothey",
+    "district_name": "Suryapet",
+    "total_villages": 17,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-530",
+    "mandal_id": "suryapet_munagala",
+    "mandal_name": "Munagala",
+    "district_name": "Suryapet",
+    "total_villages": 11,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-531",
+    "mandal_id": "suryapet_nadigudem",
+    "mandal_name": "Nadigudem",
+    "district_name": "Suryapet",
+    "total_villages": 11,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-532",
+    "mandal_id": "suryapet_nagaram",
+    "mandal_name": "Nagaram",
+    "district_name": "Suryapet",
+    "total_villages": 10,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-533",
+    "mandal_id": "suryapet_nereducherla",
+    "mandal_name": "Nereducherla",
+    "district_name": "Suryapet",
+    "total_villages": 13,
+    "resurvey_villages_count": 13,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-534",
+    "mandal_id": "suryapet_noothanakal",
+    "mandal_name": "Noothanakal",
+    "district_name": "Suryapet",
+    "total_villages": 14,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-535",
+    "mandal_id": "suryapet_palakeedu",
+    "mandal_name": "Palakeedu",
+    "district_name": "Suryapet",
+    "total_villages": 14,
+    "resurvey_villages_count": 14,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-536",
+    "mandal_id": "suryapet_penpahad",
+    "mandal_name": "Penpahad",
+    "district_name": "Suryapet",
+    "total_villages": 17,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-537",
+    "mandal_id": "suryapet_suryapet",
+    "mandal_name": "Suryapet",
+    "district_name": "Suryapet",
+    "total_villages": 20,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-538",
+    "mandal_id": "suryapet_thirumalagiri",
+    "mandal_name": "Thirumalagiri",
+    "district_name": "Suryapet",
+    "total_villages": 12,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-539",
+    "mandal_id": "suryapet_thungathurthy",
+    "mandal_name": "Thungathurthy",
+    "district_name": "Suryapet",
+    "total_villages": 12,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-540",
+    "mandal_id": "vikarabad_bantwaram",
+    "mandal_name": "Bantwaram",
+    "district_name": "Vikarabad",
+    "total_villages": 13,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-541",
+    "mandal_id": "vikarabad_basheerabad",
+    "mandal_name": "Basheerabad",
+    "district_name": "Vikarabad",
+    "total_villages": 31,
+    "resurvey_villages_count": 31,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-542",
+    "mandal_id": "vikarabad_bomraspet_m",
+    "mandal_name": "Bomraspet(M)",
+    "district_name": "Vikarabad",
+    "total_villages": 17,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-543",
+    "mandal_id": "vikarabad_chowdapur",
+    "mandal_name": "Chowdapur",
+    "district_name": "Vikarabad",
+    "total_villages": 14,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-544",
+    "mandal_id": "vikarabad_dharur",
+    "mandal_name": "Dharur",
+    "district_name": "Vikarabad",
+    "total_villages": 34,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-545",
+    "mandal_id": "vikarabad_doma",
+    "mandal_name": "Doma",
+    "district_name": "Vikarabad",
+    "total_villages": 28,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-546",
+    "mandal_id": "vikarabad_doulathabad",
+    "mandal_name": "Doulathabad",
+    "district_name": "Vikarabad",
+    "total_villages": 25,
+    "resurvey_villages_count": 25,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-547",
+    "mandal_id": "vikarabad_dudiyal",
+    "mandal_name": "Dudiyal",
+    "district_name": "Vikarabad",
+    "total_villages": 12,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-548",
+    "mandal_id": "vikarabad_kodangal",
+    "mandal_name": "Kodangal",
+    "district_name": "Vikarabad",
+    "total_villages": 18,
+    "resurvey_villages_count": 17,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-549",
+    "mandal_id": "vikarabad_koteapally",
+    "mandal_name": "Koteapally",
+    "district_name": "Vikarabad",
+    "total_villages": 18,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-550",
+    "mandal_id": "vikarabad_kulkacherla",
+    "mandal_name": "Kulkacherla",
+    "district_name": "Vikarabad",
+    "total_villages": 16,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-551",
+    "mandal_id": "vikarabad_marpally",
+    "mandal_name": "Marpally",
+    "district_name": "Vikarabad",
+    "total_villages": 28,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-552",
+    "mandal_id": "vikarabad_mominpet",
+    "mandal_name": "Mominpet",
+    "district_name": "Vikarabad",
+    "total_villages": 23,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-553",
+    "mandal_id": "vikarabad_nawabpet",
+    "mandal_name": "Nawabpet",
+    "district_name": "Vikarabad",
+    "total_villages": 22,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-554",
+    "mandal_id": "vikarabad_pargi",
+    "mandal_name": "Pargi",
+    "district_name": "Vikarabad",
+    "total_villages": 37,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-555",
+    "mandal_id": "vikarabad_peddemul",
+    "mandal_name": "Peddemul",
+    "district_name": "Vikarabad",
+    "total_villages": 29,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-556",
+    "mandal_id": "vikarabad_pudur",
+    "mandal_name": "Pudur",
+    "district_name": "Vikarabad",
+    "total_villages": 34,
+    "resurvey_villages_count": 34,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-557",
+    "mandal_id": "vikarabad_tandur",
+    "mandal_name": "Tandur",
+    "district_name": "Vikarabad",
+    "total_villages": 38,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-558",
+    "mandal_id": "vikarabad_vikarabad",
+    "mandal_name": "Vikarabad",
+    "district_name": "Vikarabad",
+    "total_villages": 39,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-559",
+    "mandal_id": "vikarabad_yelal",
+    "mandal_name": "Yelal",
+    "district_name": "Vikarabad",
+    "total_villages": 34,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-560",
+    "mandal_id": "wanaparthy_amarchinta",
+    "mandal_name": "Amarchinta *",
+    "district_name": "Wanaparthy",
+    "total_villages": 14,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-561",
+    "mandal_id": "wanaparthy_atmakur",
+    "mandal_name": "Atmakur",
+    "district_name": "Wanaparthy",
+    "total_villages": 17,
+    "resurvey_villages_count": 17,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-562",
+    "mandal_id": "wanaparthy_chinnambavi",
+    "mandal_name": "Chinnambavi *",
+    "district_name": "Wanaparthy",
+    "total_villages": 17,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-563",
+    "mandal_id": "wanaparthy_ghanpur",
+    "mandal_name": "Ghanpur",
+    "district_name": "Wanaparthy",
+    "total_villages": 20,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-564",
+    "mandal_id": "wanaparthy_gopalpet",
+    "mandal_name": "Gopalpet",
+    "district_name": "Wanaparthy",
+    "total_villages": 9,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-565",
+    "mandal_id": "wanaparthy_kothakota",
+    "mandal_name": "Kothakota",
+    "district_name": "Wanaparthy",
+    "total_villages": 22,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-566",
+    "mandal_id": "wanaparthy_madanapur",
+    "mandal_name": "Madanapur",
+    "district_name": "Wanaparthy",
+    "total_villages": 16,
+    "resurvey_villages_count": 16,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-567",
+    "mandal_id": "wanaparthy_pangal",
+    "mandal_name": "Pangal",
+    "district_name": "Wanaparthy",
+    "total_villages": 22,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-568",
+    "mandal_id": "wanaparthy_pebbair",
+    "mandal_name": "Pebbair",
+    "district_name": "Wanaparthy",
+    "total_villages": 21,
+    "resurvey_villages_count": 21,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-569",
+    "mandal_id": "wanaparthy_peddamandadi",
+    "mandal_name": "Peddamandadi",
+    "district_name": "Wanaparthy",
+    "total_villages": 14,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-570",
+    "mandal_id": "wanaparthy_revally",
+    "mandal_name": "Revally",
+    "district_name": "Wanaparthy",
+    "total_villages": 7,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-571",
+    "mandal_id": "wanaparthy_srirangapur",
+    "mandal_name": "Srirangapur *",
+    "district_name": "Wanaparthy",
+    "total_villages": 8,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-572",
+    "mandal_id": "wanaparthy_veepangandla",
+    "mandal_name": "Veepangandla",
+    "district_name": "Wanaparthy",
+    "total_villages": 11,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-573",
+    "mandal_id": "wanaparthy_wanaparthy",
+    "mandal_name": "Wanaparthy",
+    "district_name": "Wanaparthy",
+    "total_villages": 22,
+    "resurvey_villages_count": 16,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-574",
+    "mandal_id": "wanaparthy_yedula",
+    "mandal_name": "Yedula*",
+    "district_name": "Wanaparthy",
+    "total_villages": 8,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-575",
+    "mandal_id": "warangal_chennaraopet",
+    "mandal_name": "Chennaraopet",
+    "district_name": "Warangal",
+    "total_villages": 11,
+    "resurvey_villages_count": 11,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-576",
+    "mandal_id": "warangal_duggondi",
+    "mandal_name": "Duggondi",
+    "district_name": "Warangal",
+    "total_villages": 18,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-577",
+    "mandal_id": "warangal_geesukonda",
+    "mandal_name": "Geesukonda",
+    "district_name": "Warangal",
+    "total_villages": 16,
+    "resurvey_villages_count": 16,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-578",
+    "mandal_id": "warangal_khanapue",
+    "mandal_name": "Khanapue",
+    "district_name": "Warangal",
+    "total_villages": 14,
+    "resurvey_villages_count": 1,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-579",
+    "mandal_id": "warangal_khilawarangal",
+    "mandal_name": "Khilawarangal",
+    "district_name": "Warangal",
+    "total_villages": 11,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-580",
+    "mandal_id": "warangal_nallabelly",
+    "mandal_name": "Nallabelly",
+    "district_name": "Warangal",
+    "total_villages": 19,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-581",
+    "mandal_id": "warangal_narsampet",
+    "mandal_name": "Narsampet",
+    "district_name": "Warangal",
+    "total_villages": 15,
+    "resurvey_villages_count": 15,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-582",
+    "mandal_id": "warangal_nekkonda",
+    "mandal_name": "Nekkonda",
+    "district_name": "Warangal",
+    "total_villages": 18,
+    "resurvey_villages_count": 18,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-583",
+    "mandal_id": "warangal_parvathagiri",
+    "mandal_name": "Parvathagiri",
+    "district_name": "Warangal",
+    "total_villages": 14,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-584",
+    "mandal_id": "warangal_rayaparthi",
+    "mandal_name": "Rayaparthi",
+    "district_name": "Warangal",
+    "total_villages": 18,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-585",
+    "mandal_id": "warangal_sangeem",
+    "mandal_name": "Sangeem",
+    "district_name": "Warangal",
+    "total_villages": 17,
+    "resurvey_villages_count": 2,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-586",
+    "mandal_id": "warangal_warangal",
+    "mandal_name": "Warangal",
+    "district_name": "Warangal",
+    "total_villages": 8,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-587",
+    "mandal_id": "warangal_wardhannapet",
+    "mandal_name": "Wardhannapet",
+    "district_name": "Warangal",
+    "total_villages": 12,
+    "resurvey_villages_count": 12,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-588",
+    "mandal_id": "yadadri_bhuvanagiri_addagudur",
+    "mandal_name": "Addagudur",
+    "district_name": "Yadadri Bhuvanagiri",
+    "total_villages": 11,
+    "resurvey_villages_count": 11,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-589",
+    "mandal_id": "yadadri_bhuvanagiri_alair",
+    "mandal_name": "Alair",
+    "district_name": "Yadadri Bhuvanagiri",
+    "total_villages": 10,
+    "resurvey_villages_count": 10,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-590",
+    "mandal_id": "yadadri_bhuvanagiri_athmakur_m",
+    "mandal_name": "Athmakur(M)",
+    "district_name": "Yadadri Bhuvanagiri",
+    "total_villages": 17,
+    "resurvey_villages_count": 17,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-591",
+    "mandal_id": "yadadri_bhuvanagiri_b_pochampally",
+    "mandal_name": "B.Pochampally",
+    "district_name": "Yadadri Bhuvanagiri",
+    "total_villages": 23,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-592",
+    "mandal_id": "yadadri_bhuvanagiri_bhongir",
+    "mandal_name": "Bhongir",
+    "district_name": "Yadadri Bhuvanagiri",
+    "total_villages": 29,
+    "resurvey_villages_count": 29,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-593",
+    "mandal_id": "yadadri_bhuvanagiri_bibinagar",
+    "mandal_name": "Bibinagar",
+    "district_name": "Yadadri Bhuvanagiri",
+    "total_villages": 25,
+    "resurvey_villages_count": 9,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-594",
+    "mandal_id": "yadadri_bhuvanagiri_bommalaramaram",
+    "mandal_name": "Bommalaramaram",
+    "district_name": "Yadadri Bhuvanagiri",
+    "total_villages": 23,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-595",
+    "mandal_id": "yadadri_bhuvanagiri_choutuppal",
+    "mandal_name": "Choutuppal",
+    "district_name": "Yadadri Bhuvanagiri",
+    "total_villages": 18,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-596",
+    "mandal_id": "yadadri_bhuvanagiri_gundala",
+    "mandal_name": "Gundala",
+    "district_name": "Yadadri Bhuvanagiri",
+    "total_villages": 17,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-597",
+    "mandal_id": "yadadri_bhuvanagiri_motakondur",
+    "mandal_name": "Motakondur",
+    "district_name": "Yadadri Bhuvanagiri",
+    "total_villages": 11,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-598",
+    "mandal_id": "yadadri_bhuvanagiri_mothkur",
+    "mandal_name": "Mothkur",
+    "district_name": "Yadadri Bhuvanagiri",
+    "total_villages": 13,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-599",
+    "mandal_id": "yadadri_bhuvanagiri_narayanapoor",
+    "mandal_name": "Narayanapoor",
+    "district_name": "Yadadri Bhuvanagiri",
+    "total_villages": 14,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-600",
+    "mandal_id": "yadadri_bhuvanagiri_rajapet",
+    "mandal_name": "Rajapet",
+    "district_name": "Yadadri Bhuvanagiri",
+    "total_villages": 19,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-601",
+    "mandal_id": "yadadri_bhuvanagiri_ramannapeta",
+    "mandal_name": "Ramannapeta",
+    "district_name": "Yadadri Bhuvanagiri",
+    "total_villages": 21,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-602",
+    "mandal_id": "yadadri_bhuvanagiri_thurkapally",
+    "mandal_name": "Thurkapally",
+    "district_name": "Yadadri Bhuvanagiri",
+    "total_villages": 22,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-603",
+    "mandal_id": "yadadri_bhuvanagiri_valigonda",
+    "mandal_name": "Valigonda",
+    "district_name": "Yadadri Bhuvanagiri",
+    "total_villages": 31,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  },
+  {
+    "id": "mndl-604",
+    "mandal_id": "yadadri_bhuvanagiri_yadagirigutta",
+    "mandal_name": "Yadagirigutta",
+    "district_name": "Yadadri Bhuvanagiri",
+    "total_villages": 15,
+    "resurvey_villages_count": 0,
+    "status": "Active"
+  }
+]

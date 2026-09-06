@@ -7,9 +7,12 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-if ROOT_DIR not in sys.path:
-    sys.path.insert(0, ROOT_DIR)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+for p in [current_dir, parent_dir]:
+    if p not in sys.path:
+        sys.path.insert(0, p)
+ROOT_DIR = parent_dir
 
 from core.database import (
     get_db_status,
@@ -823,7 +826,13 @@ def export_excel(
 app.include_router(router, prefix="/api")
 app.include_router(router, prefix="")
 
-PUBLIC_DIR = os.path.join(ROOT_DIR, "public")
+possible_public = [
+    os.path.join(ROOT_DIR, "public"),
+    os.path.join(current_dir, "public"),
+    os.path.join(os.getcwd(), "public"),
+    os.path.join(os.getcwd(), "api", "public"),
+]
+PUBLIC_DIR = next((p for p in possible_public if os.path.exists(p)), os.path.join(ROOT_DIR, "public"))
 if os.path.exists(PUBLIC_DIR):
     @app.get("/")
     def serve_index():

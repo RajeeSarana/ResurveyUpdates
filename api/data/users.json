@@ -1,0 +1,816 @@
+[
+  {
+    "username": "admin",
+    "password": "admin123",
+    "name": "Project Administrator",
+    "role": "admin",
+    "district": "All",
+    "designation": "Central Systems Administrator"
+  },
+  {
+    "username": "qc_lead",
+    "password": "qc123",
+    "name": "K. Ravinder Reddy",
+    "role": "qc_engineer",
+    "district": "All",
+    "designation": "Lead QC & Verification Engineer"
+  },
+  {
+    "username": "qc_sneha",
+    "password": "qc123",
+    "name": "P. Sneha Lata",
+    "role": "qc_engineer",
+    "district": "All",
+    "designation": "GIS Quality Analyst"
+  },
+  {
+    "username": "executive_dir",
+    "password": "exec123",
+    "name": "V. S. Murthy",
+    "role": "executive",
+    "district": "All",
+    "designation": "Executive Project Director"
+  },
+  {
+    "username": "asifabad_rep1",
+    "password": "rep123",
+    "name": "Sri K. Ramesh Reddy (Lead Officer)",
+    "role": "district_rep",
+    "district": "Asifabad",
+    "designation": "Assistant Director of Survey & Land Records",
+    "phone": "+91 98480 12345",
+    "email": "k.ramesh@telangana.gov.in",
+    "profile_updated_at": "2026-09-05T14:50:01.615539",
+    "is_default_password": true,
+    "password_updated_at": "2026-09-05T14:50:01.675678",
+    "status": "Active"
+  },
+  {
+    "username": "asifabad_rep",
+    "password": "rep123",
+    "name": "Asifabad District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Asifabad",
+    "designation": "Asifabad District Survey Coordinator"
+  },
+  {
+    "username": "asifabad_rep2",
+    "password": "rep123",
+    "name": "Asifabad Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Asifabad",
+    "designation": "Asifabad Field Operations Assistant"
+  },
+  {
+    "username": "mancherial_rep1",
+    "password": "rep123",
+    "name": "Mancherial District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Mancherial",
+    "designation": "Mancherial District Survey Coordinator"
+  },
+  {
+    "username": "mancherial_rep",
+    "password": "rep123",
+    "name": "Mancherial District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Mancherial",
+    "designation": "Mancherial District Survey Coordinator"
+  },
+  {
+    "username": "mancherial_rep2",
+    "password": "rep123",
+    "name": "Mancherial Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Mancherial",
+    "designation": "Mancherial Field Operations Assistant"
+  },
+  {
+    "username": "peddapally_rep1",
+    "password": "rep123",
+    "name": "Peddapally District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Peddapally",
+    "designation": "Peddapally District Survey Coordinator"
+  },
+  {
+    "username": "peddapally_rep",
+    "password": "rep123",
+    "name": "Peddapally District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Peddapally",
+    "designation": "Peddapally District Survey Coordinator"
+  },
+  {
+    "username": "peddapally_rep2",
+    "password": "rep123",
+    "name": "Peddapally Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Peddapally",
+    "designation": "Peddapally Field Operations Assistant"
+  },
+  {
+    "username": "bhupapally_rep1",
+    "password": "rep123",
+    "name": "Bhupapally District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Bhupapally",
+    "designation": "Bhupapally District Survey Coordinator"
+  },
+  {
+    "username": "bhupapally_rep",
+    "password": "rep123",
+    "name": "Bhupapally District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Bhupapally",
+    "designation": "Bhupapally District Survey Coordinator"
+  },
+  {
+    "username": "bhupapally_rep2",
+    "password": "rep123",
+    "name": "Bhupapally Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Bhupapally",
+    "designation": "Bhupapally Field Operations Assistant"
+  },
+  {
+    "username": "mulugu_rep1",
+    "password": "rep123",
+    "name": "Mulugu District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Mulugu",
+    "designation": "Mulugu District Survey Coordinator"
+  },
+  {
+    "username": "mulugu_rep",
+    "password": "rep123",
+    "name": "Mulugu District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Mulugu",
+    "designation": "Mulugu District Survey Coordinator"
+  },
+  {
+    "username": "mulugu_rep2",
+    "password": "rep123",
+    "name": "Mulugu Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Mulugu",
+    "designation": "Mulugu Field Operations Assistant"
+  },
+  {
+    "username": "adilabad_rep1",
+    "password": "rep123",
+    "name": "Adilabad District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Adilabad",
+    "designation": "Adilabad District Survey Coordinator"
+  },
+  {
+    "username": "adilabad_rep",
+    "password": "rep123",
+    "name": "Adilabad District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Adilabad",
+    "designation": "Adilabad District Survey Coordinator"
+  },
+  {
+    "username": "adilabad_rep2",
+    "password": "rep123",
+    "name": "Adilabad Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Adilabad",
+    "designation": "Adilabad Field Operations Assistant"
+  },
+  {
+    "username": "nirmal_rep1",
+    "password": "rep123",
+    "name": "Nirmal District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Nirmal",
+    "designation": "Nirmal District Survey Coordinator"
+  },
+  {
+    "username": "nirmal_rep",
+    "password": "rep123",
+    "name": "Nirmal District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Nirmal",
+    "designation": "Nirmal District Survey Coordinator"
+  },
+  {
+    "username": "nirmal_rep2",
+    "password": "rep123",
+    "name": "Nirmal Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Nirmal",
+    "designation": "Nirmal Field Operations Assistant"
+  },
+  {
+    "username": "nizamabad_rep1",
+    "password": "rep123",
+    "name": "Nizamabad District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Nizamabad",
+    "designation": "Nizamabad District Survey Coordinator"
+  },
+  {
+    "username": "nizamabad_rep",
+    "password": "rep123",
+    "name": "Nizamabad District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Nizamabad",
+    "designation": "Nizamabad District Survey Coordinator"
+  },
+  {
+    "username": "nizamabad_rep2",
+    "password": "rep123",
+    "name": "Nizamabad Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Nizamabad",
+    "designation": "Nizamabad Field Operations Assistant"
+  },
+  {
+    "username": "jagitial_rep1",
+    "password": "rep123",
+    "name": "Jagitial District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Jagitial",
+    "designation": "Jagitial District Survey Coordinator"
+  },
+  {
+    "username": "jagitial_rep",
+    "password": "rep123",
+    "name": "Jagitial District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Jagitial",
+    "designation": "Jagitial District Survey Coordinator"
+  },
+  {
+    "username": "jagitial_rep2",
+    "password": "rep123",
+    "name": "Jagitial Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Jagitial",
+    "designation": "Jagitial Field Operations Assistant"
+  },
+  {
+    "username": "kamareddy_rep1",
+    "password": "rep123",
+    "name": "Kamareddy District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Kamareddy",
+    "designation": "Kamareddy District Survey Coordinator"
+  },
+  {
+    "username": "kamareddy_rep",
+    "password": "rep123",
+    "name": "Kamareddy District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Kamareddy",
+    "designation": "Kamareddy District Survey Coordinator"
+  },
+  {
+    "username": "kamareddy_rep2",
+    "password": "rep123",
+    "name": "Kamareddy Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Kamareddy",
+    "designation": "Kamareddy Field Operations Assistant"
+  },
+  {
+    "username": "siddipet_rep1",
+    "password": "rep123",
+    "name": "Siddipet District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Siddipet",
+    "designation": "Siddipet District Survey Coordinator"
+  },
+  {
+    "username": "siddipet_rep",
+    "password": "rep123",
+    "name": "Siddipet District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Siddipet",
+    "designation": "Siddipet District Survey Coordinator"
+  },
+  {
+    "username": "siddipet_rep2",
+    "password": "rep123",
+    "name": "Siddipet Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Siddipet",
+    "designation": "Siddipet Field Operations Assistant"
+  },
+  {
+    "username": "medak_rep1",
+    "password": "rep123",
+    "name": "Medak District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Medak",
+    "designation": "Medak District Survey Coordinator"
+  },
+  {
+    "username": "medak_rep",
+    "password": "rep123",
+    "name": "Medak District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Medak",
+    "designation": "Medak District Survey Coordinator"
+  },
+  {
+    "username": "medak_rep2",
+    "password": "rep123",
+    "name": "Medak Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Medak",
+    "designation": "Medak Field Operations Assistant"
+  },
+  {
+    "username": "rajannasiricilla_rep1",
+    "password": "rep123",
+    "name": "Rajanna Siricilla District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Rajanna Siricilla",
+    "designation": "Rajanna Siricilla District Survey Coordinator"
+  },
+  {
+    "username": "rajannasiricilla_rep",
+    "password": "rep123",
+    "name": "Rajanna Siricilla District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Rajanna Siricilla",
+    "designation": "Rajanna Siricilla District Survey Coordinator"
+  },
+  {
+    "username": "rajannasiricilla_rep2",
+    "password": "rep123",
+    "name": "Rajanna Siricilla Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Rajanna Siricilla",
+    "designation": "Rajanna Siricilla Field Operations Assistant"
+  },
+  {
+    "username": "karimnagar_rep1",
+    "password": "rep123",
+    "name": "Karimnagar District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Karimnagar",
+    "designation": "Karimnagar District Survey Coordinator"
+  },
+  {
+    "username": "karimnagar_rep",
+    "password": "rep123",
+    "name": "Karimnagar District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Karimnagar",
+    "designation": "Karimnagar District Survey Coordinator"
+  },
+  {
+    "username": "karimnagar_rep2",
+    "password": "rep123",
+    "name": "Karimnagar Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Karimnagar",
+    "designation": "Karimnagar Field Operations Assistant"
+  },
+  {
+    "username": "warangal_rep1",
+    "password": "rep123",
+    "name": "Warangal District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Warangal",
+    "designation": "Warangal District Survey Coordinator"
+  },
+  {
+    "username": "warangal_rep",
+    "password": "rep123",
+    "name": "Warangal District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Warangal",
+    "designation": "Warangal District Survey Coordinator"
+  },
+  {
+    "username": "warangal_rep2",
+    "password": "rep123",
+    "name": "Warangal Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Warangal",
+    "designation": "Warangal Field Operations Assistant"
+  },
+  {
+    "username": "hanumakonda_rep1",
+    "password": "rep123",
+    "name": "Hanumakonda District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Hanumakonda",
+    "designation": "Hanumakonda District Survey Coordinator"
+  },
+  {
+    "username": "hanumakonda_rep",
+    "password": "rep123",
+    "name": "Hanumakonda District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Hanumakonda",
+    "designation": "Hanumakonda District Survey Coordinator"
+  },
+  {
+    "username": "hanumakonda_rep2",
+    "password": "rep123",
+    "name": "Hanumakonda Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Hanumakonda",
+    "designation": "Hanumakonda Field Operations Assistant"
+  },
+  {
+    "username": "mahabubabad_rep1",
+    "password": "rep123",
+    "name": "Mahabubabad District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Mahabubabad",
+    "designation": "Mahabubabad District Survey Coordinator"
+  },
+  {
+    "username": "mahabubabad_rep",
+    "password": "rep123",
+    "name": "Mahabubabad District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Mahabubabad",
+    "designation": "Mahabubabad District Survey Coordinator"
+  },
+  {
+    "username": "mahabubabad_rep2",
+    "password": "rep123",
+    "name": "Mahabubabad Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Mahabubabad",
+    "designation": "Mahabubabad Field Operations Assistant"
+  },
+  {
+    "username": "khammam_rep1",
+    "password": "rep123",
+    "name": "Khammam District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Khammam",
+    "designation": "Khammam District Survey Coordinator"
+  },
+  {
+    "username": "khammam_rep",
+    "password": "rep123",
+    "name": "Khammam District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Khammam",
+    "designation": "Khammam District Survey Coordinator"
+  },
+  {
+    "username": "khammam_rep2",
+    "password": "rep123",
+    "name": "Khammam Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Khammam",
+    "designation": "Khammam Field Operations Assistant"
+  },
+  {
+    "username": "kothagudem_rep1",
+    "password": "rep123",
+    "name": "Kothagudem District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Kothagudem",
+    "designation": "Kothagudem District Survey Coordinator"
+  },
+  {
+    "username": "kothagudem_rep",
+    "password": "rep123",
+    "name": "Kothagudem District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Kothagudem",
+    "designation": "Kothagudem District Survey Coordinator"
+  },
+  {
+    "username": "kothagudem_rep2",
+    "password": "rep123",
+    "name": "Kothagudem Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Kothagudem",
+    "designation": "Kothagudem Field Operations Assistant"
+  },
+  {
+    "username": "nalgonda_rep1",
+    "password": "rep123",
+    "name": "Nalgonda District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Nalgonda",
+    "designation": "Nalgonda District Survey Coordinator"
+  },
+  {
+    "username": "nalgonda_rep",
+    "password": "rep123",
+    "name": "Nalgonda District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Nalgonda",
+    "designation": "Nalgonda District Survey Coordinator"
+  },
+  {
+    "username": "nalgonda_rep2",
+    "password": "rep123",
+    "name": "Nalgonda Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Nalgonda",
+    "designation": "Nalgonda Field Operations Assistant"
+  },
+  {
+    "username": "yadadribhuvanagiri_rep1",
+    "password": "rep123",
+    "name": "Yadadri Bhuvanagiri District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Yadadri Bhuvanagiri",
+    "designation": "Yadadri Bhuvanagiri District Survey Coordinator"
+  },
+  {
+    "username": "yadadribhuvanagiri_rep",
+    "password": "rep123",
+    "name": "Yadadri Bhuvanagiri District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Yadadri Bhuvanagiri",
+    "designation": "Yadadri Bhuvanagiri District Survey Coordinator"
+  },
+  {
+    "username": "yadadribhuvanagiri_rep2",
+    "password": "rep123",
+    "name": "Yadadri Bhuvanagiri Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Yadadri Bhuvanagiri",
+    "designation": "Yadadri Bhuvanagiri Field Operations Assistant"
+  },
+  {
+    "username": "suryapet_rep1",
+    "password": "rep123",
+    "name": "Suryapet District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Suryapet",
+    "designation": "Suryapet District Survey Coordinator"
+  },
+  {
+    "username": "suryapet_rep",
+    "password": "rep123",
+    "name": "Suryapet District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Suryapet",
+    "designation": "Suryapet District Survey Coordinator"
+  },
+  {
+    "username": "suryapet_rep2",
+    "password": "rep123",
+    "name": "Suryapet Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Suryapet",
+    "designation": "Suryapet Field Operations Assistant"
+  },
+  {
+    "username": "janagaon_rep1",
+    "password": "rep123",
+    "name": "Janagaon District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Janagaon",
+    "designation": "Janagaon District Survey Coordinator"
+  },
+  {
+    "username": "janagaon_rep",
+    "password": "rep123",
+    "name": "Janagaon District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Janagaon",
+    "designation": "Janagaon District Survey Coordinator"
+  },
+  {
+    "username": "janagaon_rep2",
+    "password": "rep123",
+    "name": "Janagaon Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Janagaon",
+    "designation": "Janagaon Field Operations Assistant"
+  },
+  {
+    "username": "rangareddy_rep1",
+    "password": "rep123",
+    "name": "Rangareddy District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Rangareddy",
+    "designation": "Rangareddy District Survey Coordinator"
+  },
+  {
+    "username": "rangareddy_rep",
+    "password": "rep123",
+    "name": "Rangareddy District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Rangareddy",
+    "designation": "Rangareddy District Survey Coordinator"
+  },
+  {
+    "username": "rangareddy_rep2",
+    "password": "rep123",
+    "name": "Rangareddy Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Rangareddy",
+    "designation": "Rangareddy Field Operations Assistant"
+  },
+  {
+    "username": "medchalmalkajgiri_rep1",
+    "password": "rep123",
+    "name": "Medchal Malkajgiri District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Medchal Malkajgiri",
+    "designation": "Medchal Malkajgiri District Survey Coordinator"
+  },
+  {
+    "username": "medchalmalkajgiri_rep",
+    "password": "rep123",
+    "name": "Medchal Malkajgiri District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Medchal Malkajgiri",
+    "designation": "Medchal Malkajgiri District Survey Coordinator"
+  },
+  {
+    "username": "medchalmalkajgiri_rep2",
+    "password": "rep123",
+    "name": "Medchal Malkajgiri Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Medchal Malkajgiri",
+    "designation": "Medchal Malkajgiri Field Operations Assistant"
+  },
+  {
+    "username": "vikarabad_rep1",
+    "password": "rep123",
+    "name": "Vikarabad District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Vikarabad",
+    "designation": "Vikarabad District Survey Coordinator"
+  },
+  {
+    "username": "vikarabad_rep",
+    "password": "rep123",
+    "name": "Vikarabad District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Vikarabad",
+    "designation": "Vikarabad District Survey Coordinator"
+  },
+  {
+    "username": "vikarabad_rep2",
+    "password": "rep123",
+    "name": "Vikarabad Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Vikarabad",
+    "designation": "Vikarabad Field Operations Assistant"
+  },
+  {
+    "username": "sangareddy_rep1",
+    "password": "rep123",
+    "name": "Sangareddy District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Sangareddy",
+    "designation": "Sangareddy District Survey Coordinator"
+  },
+  {
+    "username": "sangareddy_rep",
+    "password": "rep123",
+    "name": "Sangareddy District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Sangareddy",
+    "designation": "Sangareddy District Survey Coordinator"
+  },
+  {
+    "username": "sangareddy_rep2",
+    "password": "rep123",
+    "name": "Sangareddy Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Sangareddy",
+    "designation": "Sangareddy Field Operations Assistant"
+  },
+  {
+    "username": "mahabubnagar_rep1",
+    "password": "rep123",
+    "name": "Mahabubnagar District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Mahabubnagar",
+    "designation": "Mahabubnagar District Survey Coordinator"
+  },
+  {
+    "username": "mahabubnagar_rep",
+    "password": "rep123",
+    "name": "Mahabubnagar District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Mahabubnagar",
+    "designation": "Mahabubnagar District Survey Coordinator"
+  },
+  {
+    "username": "mahabubnagar_rep2",
+    "password": "rep123",
+    "name": "Mahabubnagar Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Mahabubnagar",
+    "designation": "Mahabubnagar Field Operations Assistant"
+  },
+  {
+    "username": "narayanapet_rep1",
+    "password": "rep123",
+    "name": "Narayanapet District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Narayanapet",
+    "designation": "Narayanapet District Survey Coordinator"
+  },
+  {
+    "username": "narayanapet_rep",
+    "password": "rep123",
+    "name": "Narayanapet District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Narayanapet",
+    "designation": "Narayanapet District Survey Coordinator"
+  },
+  {
+    "username": "narayanapet_rep2",
+    "password": "rep123",
+    "name": "Narayanapet Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Narayanapet",
+    "designation": "Narayanapet Field Operations Assistant"
+  },
+  {
+    "username": "wanaparthy_rep1",
+    "password": "rep123",
+    "name": "Wanaparthy District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Wanaparthy",
+    "designation": "Wanaparthy District Survey Coordinator"
+  },
+  {
+    "username": "wanaparthy_rep",
+    "password": "rep123",
+    "name": "Wanaparthy District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Wanaparthy",
+    "designation": "Wanaparthy District Survey Coordinator"
+  },
+  {
+    "username": "wanaparthy_rep2",
+    "password": "rep123",
+    "name": "Wanaparthy Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Wanaparthy",
+    "designation": "Wanaparthy Field Operations Assistant"
+  },
+  {
+    "username": "nagarkurnool_rep1",
+    "password": "rep123",
+    "name": "Nagarkurnool District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Nagarkurnool",
+    "designation": "Nagarkurnool District Survey Coordinator"
+  },
+  {
+    "username": "nagarkurnool_rep",
+    "password": "rep123",
+    "name": "Nagarkurnool District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Nagarkurnool",
+    "designation": "Nagarkurnool District Survey Coordinator"
+  },
+  {
+    "username": "nagarkurnool_rep2",
+    "password": "rep123",
+    "name": "Nagarkurnool Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Nagarkurnool",
+    "designation": "Nagarkurnool Field Operations Assistant"
+  },
+  {
+    "username": "jogulambagadwal_rep1",
+    "password": "rep123",
+    "name": "Jogulamba Gadwal District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Jogulamba Gadwal",
+    "designation": "Jogulamba Gadwal District Survey Coordinator"
+  },
+  {
+    "username": "jogulambagadwal_rep",
+    "password": "rep123",
+    "name": "Jogulamba Gadwal District Lead Rep (Primary)",
+    "role": "district_rep",
+    "district": "Jogulamba Gadwal",
+    "designation": "Jogulamba Gadwal District Survey Coordinator"
+  },
+  {
+    "username": "jogulambagadwal_rep2",
+    "password": "rep123",
+    "name": "Jogulamba Gadwal Field Assistant (Secondary)",
+    "role": "district_rep",
+    "district": "Jogulamba Gadwal",
+    "designation": "Jogulamba Gadwal Field Operations Assistant"
+  },
+  {
+    "username": "viewer",
+    "password": "guest",
+    "name": "Public Auditor / Guest",
+    "role": "viewer",
+    "district": "All",
+    "designation": "Public Transparency Observer"
+  }
+]
