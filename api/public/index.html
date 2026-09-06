@@ -167,42 +167,41 @@
   <div id="authenticatedApp" class="hidden min-h-screen flex flex-col">
 
   <!-- TOP HEADER -->
-  <header class="bg-gradient-to-r from-teal-900 via-emerald-800 to-teal-950 text-white shadow-lg sticky top-0 z-40">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-20">
+  <header class="bg-gradient-to-r from-teal-900 via-emerald-800 to-teal-950 text-white shadow-md sticky top-0 z-40 border-b border-teal-700/40 flex-shrink-0">
+    <div class="w-full px-3 sm:px-5 lg:px-6">
+      <div class="flex items-center justify-between min-h-[4.25rem] py-2 gap-3">
         <!-- Logo & Title -->
-        <div class="flex items-center space-x-4">
-          <button onclick="toggleSidebar()" id="sidebarToggleBtn" class="md:hidden text-emerald-300 hover:text-white p-2 rounded-lg bg-white/10 border border-white/20 focus:outline-none mr-1" title="Toggle Navigation Menu">
-            <i class="fa-solid fa-bars text-lg"></i>
+        <div class="flex items-center space-x-3 min-w-0">
+          <button onclick="toggleSidebar()" id="sidebarToggleBtn" class="md:hidden text-emerald-300 hover:text-white p-1.5 rounded-lg bg-white/10 border border-white/20 focus:outline-none flex-shrink-0" title="Toggle Navigation Menu">
+            <i class="fa-solid fa-bars text-base"></i>
           </button>
 
-          <div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center border border-white/20 shadow-inner">
-            <i class="fa-solid fa-map-location-dot text-emerald-300 text-2xl"></i>
+          <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center border border-white/20 shadow-inner flex-shrink-0">
+            <i class="fa-solid fa-map-location-dot text-emerald-300 text-xl"></i>
           </div>
-          <div>
-            <div class="flex items-center space-x-2">
-              <span class="text-xs uppercase tracking-widest text-emerald-300 font-semibold">Field Operations Portal</span>
-              <span class="text-xs bg-emerald-400/20 text-emerald-200 px-2 py-0.5 rounded-full border border-emerald-400/30">ResurveyUpdates</span>
-              <span class="text-xs bg-teal-500/30 text-teal-200 px-2 py-0.5 rounded-full border border-teal-400/30 hidden md:inline">Authenticated Sessions</span>
-              <span id="districtScopeBadge" class="hidden text-xs bg-amber-400/20 text-amber-200 px-2.5 py-0.5 rounded-full border border-amber-400/40 font-bold flex items-center space-x-1.5">
-                <i class="fa-solid fa-location-dot text-amber-300"></i>
+          <div class="min-w-0">
+            <div class="flex flex-wrap items-center gap-1.5 leading-none">
+              <span class="text-[10px] uppercase tracking-widest text-emerald-300 font-bold">Field Operations Portal</span>
+              <span class="text-[10px] bg-emerald-400/20 text-emerald-200 px-1.5 py-0.5 rounded-full border border-emerald-400/30 hidden sm:inline">ResurveyUpdates</span>
+              <span id="districtScopeBadge" class="hidden text-[10px] bg-amber-400/20 text-amber-200 px-2 py-0.5 rounded-full border border-amber-400/40 font-bold items-center space-x-1">
+                <i class="fa-solid fa-location-dot text-amber-300 text-[9px]"></i>
                 <span id="districtScopeText">District Workspace</span>
               </span>
             </div>
-            <h1 class="text-lg sm:text-xl font-bold tracking-tight text-white">Resurvey Monitoring & Verification Portal</h1>
-            <p id="portalSubtitle" class="text-xs text-slate-300 hidden sm:block">100% Completed Villages Tracking (Cadastral & Non-Cadastral) as on 04.09.2026</p>
+            <h1 class="text-base sm:text-lg font-bold tracking-tight text-white leading-tight mt-0.5 truncate">Resurvey Monitoring &amp; Verification Portal</h1>
+            <p id="portalSubtitle" class="text-xs text-emerald-100/80 leading-normal mt-0.5 truncate">100% Completed Villages Tracking (Cadastral &amp; Non-Cadastral) as on 04.09.2026</p>
           </div>
         </div>
 
         <!-- Controls: User Role, Login/Logout & Actions -->
-        <div class="flex items-center space-x-3 no-print">
+        <div class="flex items-center space-x-2.5 no-print flex-shrink-0">
           <!-- DB Engine Badge -->
-          <div id="dbStatusBadge" class="hidden sm:flex items-center space-x-2 bg-emerald-950/60 border border-emerald-500/30 px-3 py-1.5 rounded-lg text-xs">
+          <div id="dbStatusBadge" class="hidden xl:flex items-center space-x-2 bg-emerald-950/60 border border-emerald-500/30 px-2.5 py-1.5 rounded-lg text-xs">
             <span class="relative flex h-2 w-2">
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
-            <span class="text-emerald-200 font-medium" id="dbEngineText">MongoDB Atlas Ready</span>
+            <span class="text-emerald-200 font-medium" id="dbEngineText">MongoDB Ready</span>
           </div>
 
           <!-- AUTH CONTAINER: LOGGED IN vs LOGGED OUT -->
@@ -211,153 +210,152 @@
           </div>
 
           <!-- Excel Export -->
-          <button onclick="downloadExcel()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium px-3 py-2 rounded-lg shadow flex items-center space-x-1.5 transition">
+          <button onclick="downloadExcel()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium px-3 py-1.5 rounded-lg shadow flex items-center space-x-1.5 transition">
             <i class="fa-solid fa-file-excel text-emerald-200"></i>
             <span class="hidden md:inline">Export Excel</span>
           </button>
 
           <!-- Print Button -->
-          <button onclick="window.print()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium px-3 py-2 rounded-lg border border-slate-600 shadow flex items-center space-x-1.5 transition">
+          <button onclick="window.print()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium px-3 py-1.5 rounded-lg border border-slate-600 shadow flex items-center space-x-1.5 transition">
             <i class="fa-solid fa-print"></i>
             <span class="hidden md:inline">Print</span>
           </button>
         </div>
       </div>
     </div>
-
-      </header>
+  </header>
 
   <!-- BODY WORKSPACE: VERTICAL SIDEBAR + MAIN CONTENT -->
   <div class="flex-1 flex overflow-hidden w-full relative bg-slate-100">
-    <!-- LEFT VERTICAL NAVIGATION SIDEBAR -->
-    <aside id="sidebarNav" class="w-64 xl:w-72 bg-slate-900 text-slate-200 border-r border-slate-800 flex flex-col flex-shrink-0 transition-all duration-300 z-30 shadow-2xl md:static fixed inset-y-0 left-0 -translate-x-full md:translate-x-0 h-[calc(100vh-5rem)]">
+    <!-- LEFT VERTICAL NAVIGATION SIDEBAR (Shortened to w-52 / w-56 for more right-side space) -->
+    <aside id="sidebarNav" class="w-52 lg:w-56 bg-slate-900 text-slate-200 border-r border-slate-800 flex flex-col flex-shrink-0 transition-all duration-300 z-30 shadow-2xl md:static fixed inset-y-0 left-0 -translate-x-full md:translate-x-0 h-full">
       
       <!-- Sidebar Top Header -->
-      <div class="p-3.5 border-b border-slate-800/80 bg-slate-950/70 flex items-center justify-between">
-        <div class="flex items-center space-x-2.5 min-w-0">
-          <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30 flex-shrink-0">
-            <i class="fa-solid fa-compass text-sm"></i>
+      <div class="p-2.5 border-b border-slate-800/80 bg-slate-950/70 flex items-center justify-between">
+        <div class="flex items-center space-x-2 min-w-0">
+          <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30 flex-shrink-0">
+            <i class="fa-solid fa-compass text-xs"></i>
           </div>
           <div class="min-w-0">
-            <div class="text-[10px] uppercase tracking-wider text-emerald-400 font-bold">Portal Menus</div>
+            <div class="text-[9px] uppercase tracking-wider text-emerald-400 font-bold">Portal Menus</div>
             <div class="text-xs font-semibold text-white truncate" id="sidebarRoleLabel">Executive Leadership</div>
           </div>
         </div>
         <button onclick="toggleSidebar(false)" class="md:hidden text-slate-400 hover:text-white p-1 rounded">
-          <i class="fa-solid fa-xmark text-lg"></i>
+          <i class="fa-solid fa-xmark text-base"></i>
         </button>
       </div>
 
       <!-- Role Access Badge in Sidebar -->
-      <div class="px-3 pt-3 pb-1">
-        <div class="bg-slate-800/60 rounded-lg p-2 border border-slate-700/50 flex items-center justify-between text-[11px]">
-          <span class="text-slate-400 font-medium">Access Scope:</span>
-          <span class="font-bold text-emerald-300" id="sidebarRoleBadge">EXECUTIVE</span>
+      <div class="px-2.5 pt-2 pb-1">
+        <div class="bg-slate-800/60 rounded-lg px-2 py-1.5 border border-slate-700/50 flex items-center justify-between text-[11px]">
+          <span class="text-slate-400 font-medium text-[10px]">Scope:</span>
+          <span class="font-bold text-emerald-300 text-[10px] truncate ml-1" id="sidebarRoleBadge">EXECUTIVE</span>
         </div>
       </div>
 
       <!-- Vertical Navigation Menu List -->
-      <nav id="verticalMenuList" class="flex-1 px-2.5 py-3 space-y-1 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-700">
+      <nav id="verticalMenuList" class="flex-1 px-2 py-1.5 space-y-0.5 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-700">
         <!-- 1. Overview Dashboard -->
-        <button onclick="switchMainTab('tab-overview')" id="nav-tab-overview" class="sidebar-item w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition group text-left">
-          <div class="flex items-center space-x-3 min-w-0">
-            <div class="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20 group-hover:scale-105 transition-transform">
+        <button onclick="switchMainTab('tab-overview')" id="nav-tab-overview" class="sidebar-item w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition group text-left">
+          <div class="flex items-center space-x-2.5 min-w-0">
+            <div class="w-6 h-6 rounded-md bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-chart-pie text-xs"></i>
             </div>
-            <span class="truncate">Overview Dashboard</span>
+            <span class="truncate">Overview</span>
           </div>
         </button>
 
         <!-- 2. Resurvey Operations & Status -->
-        <button onclick="switchMainTab('tab-villages')" id="nav-tab-villages" class="sidebar-item w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition group text-left">
-          <div class="flex items-center space-x-3 min-w-0">
-            <div class="w-7 h-7 rounded-lg bg-teal-500/10 text-teal-400 flex items-center justify-center border border-teal-500/20 group-hover:scale-105 transition-transform">
+        <button onclick="switchMainTab('tab-villages')" id="nav-tab-villages" class="sidebar-item w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition group text-left">
+          <div class="flex items-center space-x-2.5 min-w-0">
+            <div class="w-6 h-6 rounded-md bg-teal-500/10 text-teal-400 flex items-center justify-center border border-teal-500/20 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-list-check text-xs"></i>
             </div>
-            <span class="truncate">Resurvey Operations &amp; Status</span>
+            <span class="truncate">Resurvey Ops</span>
           </div>
-          <span id="navVillageCountBadge" class="bg-emerald-500/20 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-500/30">91</span>
+          <span id="navVillageCountBadge" class="bg-emerald-500/20 text-emerald-300 text-[9px] font-bold px-1.5 py-0.2 rounded-full border border-emerald-500/30">91</span>
         </button>
 
         <!-- 3. QC Verification Desk -->
-        <button onclick="switchMainTab('tab-qc')" id="nav-tab-qc" class="sidebar-item w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition group text-left">
-          <div class="flex items-center space-x-3 min-w-0">
-            <div class="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center border border-amber-500/20 group-hover:scale-105 transition-transform">
+        <button onclick="switchMainTab('tab-qc')" id="nav-tab-qc" class="sidebar-item w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition group text-left">
+          <div class="flex items-center space-x-2.5 min-w-0">
+            <div class="w-6 h-6 rounded-md bg-amber-500/10 text-amber-400 flex items-center justify-center border border-amber-500/20 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-clipboard-check text-xs"></i>
             </div>
-            <span class="truncate">QC Verification Desk</span>
+            <span class="truncate">QC Desk</span>
           </div>
-          <span id="navPendingQcBadge" class="bg-amber-500/20 text-amber-300 text-[10px] font-bold px-2 py-0.5 rounded-full border border-amber-500/30">18</span>
+          <span id="navPendingQcBadge" class="bg-amber-500/20 text-amber-300 text-[9px] font-bold px-1.5 py-0.2 rounded-full border border-amber-500/30">18</span>
         </button>
 
         <!-- 4. CSO Daily Tracking -->
-        <button onclick="switchMainTab('tab-cso')" id="nav-tab-cso" class="sidebar-item w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition group text-left">
-          <div class="flex items-center space-x-3 min-w-0">
-            <div class="w-7 h-7 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center border border-indigo-500/20 group-hover:scale-105 transition-transform">
+        <button onclick="switchMainTab('tab-cso')" id="nav-tab-cso" class="sidebar-item w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition group text-left">
+          <div class="flex items-center space-x-2.5 min-w-0">
+            <div class="w-6 h-6 rounded-md bg-indigo-500/10 text-indigo-400 flex items-center justify-center border border-indigo-500/20 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-tower-broadcast text-xs"></i>
             </div>
-            <span class="truncate">CSO Daily Tracking</span>
+            <span class="truncate">CSO Tracking</span>
           </div>
-          <span id="navCsoBadge" class="bg-indigo-500/20 text-indigo-300 text-[10px] font-bold px-2 py-0.5 rounded-full border border-indigo-500/30">CSO</span>
+          <span id="navCsoBadge" class="bg-indigo-500/20 text-indigo-300 text-[9px] font-bold px-1.5 py-0.2 rounded-full border border-indigo-500/30">CSO</span>
         </button>
 
         <!-- 5. Executive Briefing -->
-        <button onclick="switchMainTab('tab-executive')" id="nav-tab-executive" class="sidebar-item w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition group text-left">
-          <div class="flex items-center space-x-3 min-w-0">
-            <div class="w-7 h-7 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center border border-blue-500/20 group-hover:scale-105 transition-transform">
+        <button onclick="switchMainTab('tab-executive')" id="nav-tab-executive" class="sidebar-item w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition group text-left">
+          <div class="flex items-center space-x-2.5 min-w-0">
+            <div class="w-6 h-6 rounded-md bg-blue-500/10 text-blue-400 flex items-center justify-center border border-blue-500/20 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-chart-line text-xs"></i>
             </div>
-            <span class="truncate">Executive Briefing</span>
+            <span class="truncate">Executive Brief</span>
           </div>
         </button>
 
         <!-- 6. Change Audit Trail -->
-        <button onclick="switchMainTab('tab-audit')" id="nav-tab-audit" class="sidebar-item w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition group text-left">
-          <div class="flex items-center space-x-3 min-w-0">
-            <div class="w-7 h-7 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center border border-cyan-500/20 group-hover:scale-105 transition-transform">
+        <button onclick="switchMainTab('tab-audit')" id="nav-tab-audit" class="sidebar-item w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition group text-left">
+          <div class="flex items-center space-x-2.5 min-w-0">
+            <div class="w-6 h-6 rounded-md bg-cyan-500/10 text-cyan-400 flex items-center justify-center border border-cyan-500/20 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-clock-rotate-left text-xs"></i>
             </div>
-            <span class="truncate">Change Audit Trail</span>
+            <span class="truncate">Audit Trail</span>
           </div>
         </button>
 
         <!-- 7. State Master Directory -->
-        <button onclick="switchMainTab('tab-master')" id="nav-tab-master" class="sidebar-item w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition group text-left">
-          <div class="flex items-center space-x-3 min-w-0">
-            <div class="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20 group-hover:scale-105 transition-transform">
+        <button onclick="switchMainTab('tab-master')" id="nav-tab-master" class="sidebar-item w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition group text-left">
+          <div class="flex items-center space-x-2.5 min-w-0">
+            <div class="w-6 h-6 rounded-md bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-database text-xs"></i>
             </div>
-            <span class="truncate">State Master Directory</span>
+            <span class="truncate">Master Directory</span>
           </div>
-          <span class="bg-teal-500/20 text-teal-300 text-[10px] font-bold px-2 py-0.5 rounded-full border border-teal-500/30">10,888</span>
+          <span class="bg-teal-500/20 text-teal-300 text-[9px] font-bold px-1.5 py-0.2 rounded-full border border-teal-500/30">10k</span>
         </button>
 
         <!-- 8. Admin Management -->
-        <button onclick="switchMainTab('tab-admin')" id="nav-tab-admin" class="sidebar-item w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition group text-left">
-          <div class="flex items-center space-x-3 min-w-0">
-            <div class="w-7 h-7 rounded-lg bg-rose-500/10 text-rose-400 flex items-center justify-center border border-rose-500/20 group-hover:scale-105 transition-transform">
+        <button onclick="switchMainTab('tab-admin')" id="nav-tab-admin" class="sidebar-item w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition group text-left">
+          <div class="flex items-center space-x-2.5 min-w-0">
+            <div class="w-6 h-6 rounded-md bg-rose-500/10 text-rose-400 flex items-center justify-center border border-rose-500/20 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-sliders text-xs"></i>
             </div>
-            <span class="truncate">Admin Management</span>
+            <span class="truncate">Admin Control</span>
           </div>
-          <span class="bg-rose-500/20 text-rose-300 text-[10px] font-bold px-2 py-0.5 rounded-full border border-rose-500/30">Admin</span>
+          <span class="bg-rose-500/20 text-rose-300 text-[9px] font-bold px-1.5 py-0.2 rounded-full border border-rose-500/30">Admin</span>
         </button>
       </nav>
 
       <!-- Sidebar Footer -->
-      <div class="p-3 border-t border-slate-800 bg-slate-950/70">
+      <div class="p-2.5 border-t border-slate-800 bg-slate-950/70">
         <div class="flex items-center justify-between text-xs">
-          <div class="flex items-center space-x-2.5 min-w-0">
-            <div class="w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 flex items-center justify-center font-bold text-xs" id="sidebarAvatarInitial">
+          <div class="flex items-center space-x-2 min-w-0">
+            <div class="w-7 h-7 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 flex items-center justify-center font-bold text-xs flex-shrink-0" id="sidebarAvatarInitial">
               A
             </div>
             <div class="min-w-0">
-              <div class="font-semibold text-white truncate text-xs" id="sidebarUserName">Project Admin</div>
-              <div class="text-[10px] text-slate-400 truncate" id="sidebarUserRole">Administrator</div>
+              <div class="font-semibold text-white truncate text-[11px]" id="sidebarUserName">Project Admin</div>
+              <div class="text-[9px] text-slate-400 truncate" id="sidebarUserRole">Administrator</div>
             </div>
           </div>
-          <button onclick="handleLogout()" title="Sign Out" class="text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 p-1.5 rounded-lg transition">
-            <i class="fa-solid fa-right-from-bracket"></i>
+          <button onclick="handleLogout()" title="Sign Out" class="text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 p-1.5 rounded-lg transition flex-shrink-0">
+            <i class="fa-solid fa-right-from-bracket text-xs"></i>
           </button>
         </div>
       </div>
@@ -366,12 +364,11 @@
     <!-- Mobile Backdrop -->
     <div id="sidebarBackdrop" onclick="toggleSidebar(false)" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-20 hidden md:hidden"></div>
 
-    <!-- MAIN VIEWPORT CONTAINER -->
-    <main id="mainContentViewport" class="flex-1 min-w-0 overflow-y-auto max-h-[calc(100vh-5rem)] p-4 sm:p-6 lg:p-8 space-y-6">
+    <!-- MAIN VIEWPORT CONTAINER (Expanded width with compact padding) -->
+    <main id="mainContentViewport" class="flex-1 min-w-0 overflow-y-auto h-full p-3 sm:p-4 lg:p-5 space-y-4">
 
-
-    <!-- ROLE / SESSION NOTIFICATION BANNER -->
-    <div id="roleAlertBanner" class="p-3.5 rounded-xl border flex items-center justify-between text-xs transition bg-blue-50 border-blue-200 text-blue-900">
+    <!-- ROLE / SESSION NOTIFICATION BANNER (Hidden per user requirement) -->
+    <div id="roleAlertBanner" class="hidden">
       <div class="flex items-center space-x-3">
         <i class="fa-solid fa-shield-halved text-blue-600 text-base" id="roleAlertIcon"></i>
         <div>
@@ -379,9 +376,7 @@
           <span class="ml-1 text-slate-700" id="roleAlertMessage">Loading session...</span>
         </div>
       </div>
-      <div id="bannerActionBtn">
-        <!-- Rendered dynamically: 'Sign In' or 'Switch Account' -->
-      </div>
+      <div id="bannerActionBtn"></div>
     </div>
 
     <!-- ========================================================================================= -->
@@ -584,12 +579,7 @@
           </h3>
           <p class="text-xs text-slate-500 mt-0.5" id="villageExplorerSub">Tracking Ground Truthing (GT), Shapefile generation, CSO delivery, and Central QC Verification for ongoing resurvey submissions. For the permanent official territorial master of all 10,888 villages, view the <a href="javascript:void(0)" onclick="switchMainTab('tab-master')" class="text-emerald-700 underline font-semibold">State Master Directory &rarr;</a></p>
         </div>
-        <div class="flex items-center space-x-2 no-print" id="villageActionsContainer">
-          <button onclick="handleAddVillageClick()" id="btnAddVillage" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold px-3.5 py-2 rounded-lg shadow flex items-center space-x-1.5 transition">
-            <i class="fa-solid fa-plus"></i>
-            <span>Add Survey Submission</span>
-          </button>
-        </div>
+        <div class="hidden no-print" id="villageActionsContainer"></div>
       </div>
 
       <section class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
@@ -722,20 +712,20 @@
         <div class="overflow-x-auto">
           <table class="min-w-full divide-y divide-slate-200 text-left text-xs">
             <thead class="bg-slate-100 text-slate-600 font-semibold uppercase tracking-wider">
-              <tr>
-                <th class="py-3 px-3 w-10 text-center">#</th>
-                <th class="py-3 px-3">District</th>
-                <th class="py-3 px-3 text-center">Resurvey Status</th>
-                <th class="py-3 px-3">Category</th>
-                <th class="py-3 px-4">Village & Mandal</th>
-                <th class="py-3 px-3 text-right">Extent (Ac-Gts)</th>
-                <th class="py-3 px-3 text-center">GT Status</th>
-                <th class="py-3 px-3 text-center">Shapefile Status</th>
-                <th class="py-3 px-3 text-center">CSO Sent</th>
-                <th class="py-3 px-3 text-center">QC Status</th>
-                <th class="py-3 px-3">Workflow Stage</th>
-                <th class="py-3 px-4 max-w-xs">Remarks / Observations</th>
-                <th class="py-3 px-3 text-center no-print w-28">Actions</th>
+              <tr class="text-[11px]">
+                <th class="py-2.5 px-2 w-8 text-center">#</th>
+                <th class="py-2.5 px-2">District</th>
+                <th class="py-2.5 px-2 text-center whitespace-nowrap">Resurvey Status</th>
+                <th class="py-2.5 px-2">Category</th>
+                <th class="py-2.5 px-2.5">Village &amp; Mandal</th>
+                <th class="py-2.5 px-2 text-right whitespace-nowrap">Extent (Ac-Gts)</th>
+                <th class="py-2.5 px-2 text-center whitespace-nowrap">GT Status</th>
+                <th class="py-2.5 px-2 text-center whitespace-nowrap">Shapefile Status</th>
+                <th class="py-2.5 px-1.5 text-center whitespace-nowrap">CSO Sent</th>
+                <th class="py-2.5 px-2 text-center whitespace-nowrap">QC Status</th>
+                <th class="py-2.5 px-2 whitespace-nowrap">Workflow Stage</th>
+                <th class="py-2.5 px-2.5 max-w-xs">Remarks / Observations</th>
+                <th class="py-2.5 px-2.5 text-center no-print sticky right-0 bg-slate-100 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.06)] min-w-[120px] z-10">Actions</th>
               </tr>
             </thead>
             <tbody id="villagesTableBody" class="divide-y divide-slate-100 bg-white">
@@ -3177,7 +3167,7 @@
         }
 
         if (subtitle) {
-          subtitle.textContent = `${dName} District Representative Workspace - Displaying all villages in ${dName} (Picked Resurvey Villages Prioritized)`;
+          subtitle.textContent = `${dName} District Workspace • Displaying territorial villages (Picked Prioritized)`;
         }
 
         if (explorerTitle) {
@@ -3964,11 +3954,14 @@
           </div>
         `;
 
-        bannerBtn.innerHTML = `
-          <button onclick="openLoginModal()" class="text-xs font-semibold underline underline-offset-2 hover:opacity-80">
-            Switch Account
-          </button>
-        `;
+        // Hide role alert banner completely per user requirement (no Switch Account line needed)
+        if (roleBanner) {
+          roleBanner.classList.add('hidden');
+          roleBanner.style.display = 'none';
+        }
+        if (bannerBtn) {
+          bannerBtn.innerHTML = '';
+        }
       } else {
         // Unauthenticated / Guest State
         roleBanner.className = 'p-3.5 rounded-xl border flex items-center justify-between text-xs bg-slate-100 border-slate-200 text-slate-700';
@@ -5013,15 +5006,15 @@
         const canDelete = isAuth && currentUser.role === 'admin';
 
         tr.innerHTML = `
-          <td class="py-3 px-3 text-slate-400 font-mono text-center">${idx + 1}</td>
-          <td class="py-3 px-3 font-semibold text-slate-900">${v.district_name}</td>
-          <td class="py-3 px-3 text-center">${resurveyStatusBadge}</td>
-          <td class="py-3 px-3">${catBadge}</td>
-          <td class="py-3 px-4">
-            <div class="font-bold text-slate-800 telugu-text">${v.village_name}</div>
+          <td class="py-2.5 px-2 text-slate-400 font-mono text-center text-[11px]">${idx + 1}</td>
+          <td class="py-2.5 px-2 font-semibold text-slate-900 whitespace-nowrap text-xs">${v.district_name}</td>
+          <td class="py-2.5 px-2 text-center whitespace-nowrap">${resurveyStatusBadge}</td>
+          <td class="py-2.5 px-2 whitespace-nowrap">${catBadge}</td>
+          <td class="py-2.5 px-2.5">
+            <div class="font-bold text-slate-800 telugu-text text-xs leading-tight">${v.village_name}</div>
             <div class="text-[11px] text-slate-500">${v.mandal_name}</div>
           </td>
-          <td class="py-3 px-3 text-right font-mono font-bold text-slate-800">
+          <td class="py-2.5 px-2 text-right font-mono font-bold text-slate-800 whitespace-nowrap text-xs">
             ${v.extent_raw || '-'}
             <div class="text-[10px] text-slate-400 font-normal">${v.extent_acres_float ? v.extent_acres_float + ' ac' : ''}</div>
             ${v.surveyed_extent_so_far && v.surveyed_extent_so_far > 0 ? `
@@ -5033,49 +5026,51 @@
               </div>
             ` : ''}
           </td>
-          <td class="py-3 px-3 text-center">
+          <td class="py-2.5 px-2 text-center whitespace-nowrap">
             <span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-medium text-[11px]">${v.gt_status || 'Completed'}</span>
           </td>
-          <td class="py-3 px-3 text-center">${sfBadge}</td>
-          <td class="py-3 px-3 text-center">${csoBadge}</td>
-          <td class="py-3 px-3 text-center">${vBadge}</td>
-          <td class="py-3 px-3">
+          <td class="py-2.5 px-2 text-center whitespace-nowrap">${sfBadge}</td>
+          <td class="py-2.5 px-1.5 text-center whitespace-nowrap">${csoBadge}</td>
+          <td class="py-2.5 px-2 text-center whitespace-nowrap">${vBadge}</td>
+          <td class="py-2.5 px-2 whitespace-nowrap">
             <span class="text-[11px] font-medium text-slate-700 bg-slate-50 border border-slate-200 px-2 py-0.5 rounded inline-block">
               ${v.workflow_stage || 'Ground Truthing'}
             </span>
           </td>
-          <td class="py-3 px-4 text-slate-600 max-w-xs">
+          <td class="py-2.5 px-2.5 text-slate-600 max-w-xs">
             <div class="line-clamp-2 text-[11px]">${v.remarks || '-'}</div>
             ${v.qc_notes ? `<div class="text-[10px] text-amber-800 font-medium mt-0.5"><i class="fa-solid fa-comment-dots mr-1"></i>QC: ${v.qc_notes}</div>` : ''}
           </td>
-          <td class="py-3 px-3 text-center no-print space-x-1">
-            <!-- View History Diff Button -->
-            <button onclick="openHistoryModal('${v.id}')" title="View Change Audit History" class="text-cyan-600 hover:text-cyan-800 p-1.5 rounded hover:bg-cyan-50 transition">
-              <i class="fa-solid fa-clock-rotate-left"></i>
-            </button>
-
-            <!-- Edit / Locked Button -->
+          <td class="py-2 px-2.5 text-center no-print whitespace-nowrap sticky right-0 bg-white group-hover:bg-slate-50/95 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.06)] z-10 space-x-1.5">
+            <!-- 1. Edit Action (First Option per user requirement) -->
             ${canEdit ? `
-            <button onclick="openEditVillageModal('${v.id}')" title="Edit Village Record" class="text-emerald-600 hover:text-emerald-800 p-1.5 rounded hover:bg-emerald-50 transition">
-              <i class="fa-solid fa-pen-to-square"></i>
+            <button onclick="openEditVillageModal('${v.id}')" title="Edit Village Record" class="inline-flex items-center space-x-1 bg-emerald-600 hover:bg-emerald-700 text-white px-2.5 py-1 rounded text-xs font-semibold shadow-xs transition">
+              <i class="fa-solid fa-pen-to-square text-[10px]"></i>
+              <span>Edit</span>
             </button>` : (!isPicked ? `
-            <button onclick="alertNonPickedNotice('${(v.village_name || '').replace(/'/g, "\\'")}')" title="Not picked for Resurvey - Editing & Data Entry Disabled" class="text-slate-400 hover:text-slate-600 p-1.5 rounded hover:bg-slate-100 transition">
-              <i class="fa-solid fa-lock"></i>
+            <button onclick="alertNonPickedNotice('${(v.village_name || '').replace(/'/g, "\\'")}')" title="Not picked for Resurvey - Editing & Data Entry Disabled" class="inline-flex items-center space-x-1 text-slate-400 hover:text-slate-600 bg-slate-100 px-2 py-1 rounded text-xs transition">
+              <i class="fa-solid fa-lock text-[10px]"></i>
+              <span class="text-[10px]">Locked</span>
             </button>` : (!isAuth ? `
-            <button onclick="promptLoginRequired('sign in to edit records')" title="Sign in to edit" class="text-slate-300 hover:text-slate-500 p-1.5">
-              <i class="fa-solid fa-lock"></i>
+            <button onclick="promptLoginRequired('sign in to edit records')" title="Sign in to edit" class="inline-flex items-center text-slate-300 hover:text-slate-500 p-1">
+              <i class="fa-solid fa-lock text-[10px]"></i>
             </button>` : ''))}
 
-            <!-- QC Review Button -->
+            <!-- 2. History Action (Second Option per user requirement) -->
+            <button onclick="openHistoryModal('${v.id}')" title="View Change Audit History" class="inline-flex items-center justify-center text-cyan-700 hover:text-cyan-900 bg-cyan-50 hover:bg-cyan-100 border border-cyan-200 p-1.5 rounded text-xs transition">
+              <i class="fa-solid fa-clock-rotate-left text-[11px]"></i>
+            </button>
+
+            <!-- 3. QC Review Button (QC Lead / Admin) -->
             ${canVerify ? `
-            <button onclick="openQcModal('${v.id}')" title="QC Verification Review" class="text-amber-600 hover:text-amber-800 p-1.5 rounded hover:bg-amber-50 transition">
-              <i class="fa-solid fa-stamp"></i>
+            <button onclick="openQcModal('${v.id}')" title="QC Verification Review" class="inline-flex items-center justify-center text-amber-700 hover:text-amber-900 bg-amber-50 hover:bg-amber-100 border border-amber-200 p-1.5 rounded text-xs transition">
+              <i class="fa-solid fa-stamp text-[11px]"></i>
             </button>` : ''}
 
-            <!-- Delete Button (Admin only) -->
+            <!-- 4. Delete Button (Admin only) -->
             ${canDelete ? `
-            <button onclick="confirmDeleteVillage('${v.id}')" title="Delete Record" class="text-slate-400 hover:text-rose-600 p-1.5 rounded hover:bg-rose-50 transition">
-              <i class="fa-solid fa-trash"></i>
+            <button onclick="confirmDeleteVillage('${v.id}')" title="Delete Record" class="inline-flex items-center justify-center text-slate-400 hover:text-rose-600 hover:bg-rose-50 p-1.5 rounded text-xs transition">
+              <i class="fa-solid fa-trash text-[11px]"></i>
             </button>` : ''}
           </td>
         `;
