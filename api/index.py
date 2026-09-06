@@ -32,6 +32,9 @@ from core.database import (
     update_village,
     verify_village,
     delete_village,
+    add_daily_survey_log,
+    delete_daily_survey_log,
+    get_cso_survey_tracking,
     get_dashboard_stats,
     get_executive_summary,
     get_audit_logs,
@@ -138,6 +141,10 @@ class VillageCreateRequest(BaseModel):
     gazette_us_6_date: Optional[str] = ""
     notice_9_2_status: Optional[str] = "Notice to be given"
     notice_9_2_date: Optional[str] = ""
+    surveyed_extent_so_far: Optional[float] = 0.0
+    remaining_extent: Optional[float] = None
+    last_survey_date: Optional[str] = ""
+    daily_survey_logs: Optional[List[Dict[str, Any]]] = None
     remarks: Optional[str] = ""
     updated_by: Optional[str] = "District Rep"
     user_role: Optional[str] = "district_rep"
@@ -159,9 +166,19 @@ class VillageUpdateRequest(BaseModel):
     gazette_us_6_date: Optional[str] = None
     notice_9_2_status: Optional[str] = None
     notice_9_2_date: Optional[str] = None
+    surveyed_extent_so_far: Optional[float] = None
+    remaining_extent: Optional[float] = None
+    last_survey_date: Optional[str] = None
+    daily_survey_logs: Optional[List[Dict[str, Any]]] = None
     remarks: Optional[str] = None
     updated_by: Optional[str] = "District Rep"
     user_role: Optional[str] = "district_rep"
+
+class DailySurveyEntryRequest(BaseModel):
+    survey_date: str
+    extent_acres: Optional[float] = None
+    extent_raw: Optional[str] = ""
+    remarks: Optional[str] = ""
 
 class VerificationRequest(BaseModel):
     status: str  # "Verified" or "Returned for Correction"
@@ -831,6 +848,91 @@ def remove_village(
     if not success:
         raise HTTPException(status_code=404, detail="Village record not found")
     return {"success": True, "message": "Village record deleted"}
+
+@router.post("/villages/{village_id}/daily-survey")
+def log_village_daily_survey(
+    village_id: str,
+    payload: DailySurveyEntryRequest,
+    user: Dict[str, Any] = Depends(require_user)
+):
+    if user.get("role") not in ["admin", "district_rep"]:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Permission denied: Only designated District Representatives and Administrators can log daily survey entries."
+        )
+
+    existing = get_village(village_id)
+    if not existing:
+        raise HTTPException(status_code=404, detail="Village record not found")
+
+    is_picked = bool(existing.get("is_picked_for_resurvey") or existing.get("picked_for_resurvey"))
+    if not is_picked:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Editing or entering survey data is not permitted for villages not picked for resurvey."
+        )
+
+    if user.get("role") == "district_rep":
+        assigned_district = (user.get("district") or "").lower()
+        existing_district = (existing.get("district_name") or "").lower()
+        if assigned_district != "all" and existing_district != assigned_district:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=f"Permission denied: You are assigned to {user.get('district')} and cannot submit survey records for {existing.get('district_name')}."
+            )
+
+    try:
+        updated = add_daily_survey_log(
+            village_id=village_id,
+            survey_date=payload.survey_date,
+            extent_acres=payload.extent_acres,
+            extent_raw=payload.extent_raw,
+            remarks=payload.remarks,
+            user_name=user["name"],
+            user_role=user["role"]
+        )
+        return updated
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+
+@router.delete("/villages/{village_id}/daily-survey/{log_id}")
+def delete_village_daily_survey_entry(
+    village_id: str,
+    log_id: str,
+    user: Dict[str, Any] = Depends(require_user)
+):
+    if user.get("role") not in ["admin", "district_rep"]:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Permission denied: Only designated District Representatives and Administrators can delete daily survey entries."
+        )
+
+    try:
+        updated = delete_daily_survey_log(
+            village_id=village_id,
+            log_id=log_id,
+            user_name=user["name"],
+            user_role=user["role"]
+        )
+        return updated
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+
+@router.get("/cso/daily-survey-tracking")
+def cso_daily_survey_tracking(
+    time_range: Optional[str] = Query("all"),
+    from_date: Optional[str] = Query(None),
+    to_date: Optional[str] = Query(None),
+    district: Optional[str] = Query(None),
+    mandal: Optional[str] = Query(None)
+):
+    return get_cso_survey_tracking(
+        time_range=time_range or "all",
+        from_date=from_date,
+        to_date=to_date,
+        district=district,
+        mandal=mandal
+    )
 
 @router.get("/export/excel")
 def export_excel(

@@ -4,7 +4,7 @@ import re
 import json
 import logging
 from typing import List, Dict, Any, Optional
-from datetime import datetime
+from datetime import datetime, timedelta
 
 logger = logging.getLogger(__name__)
 
@@ -550,15 +550,18 @@ def get_villages(
                 match = survey_by_key.get(k)
             
             if match:
-                for fld in [
-                    "id", "gt_status", "shapefile_status", "sent_to_cso",
-                    "verification_status", "extent_raw", "extent_acres_float",
-                    "remarks", "qc_notes", "workflow_stage", "updated_by",
-                    "updated_at", "verified_by", "verified_at"
-                ]:
-                    if fld in match and match[fld] is not None:
-                        v_copy[fld] = match[fld]
-            
+                for k, val in match.items():
+                    if val is not None and k not in ["district_name", "mandal_name", "village_name", "village_name_telugu"]:
+                        v_copy[k] = val
+
+            # Default daily survey attributes and remaining area calculation
+            master_ac = float(v_copy.get("extent_acres_float", 0.0) or 0.0)
+            c_ac = float(v_copy.get("surveyed_extent_so_far", 0.0) or 0.0)
+            if "remaining_extent" not in v_copy or v_copy["remaining_extent"] is None:
+                v_copy["remaining_extent"] = max(0.0, round(master_ac - c_ac, 3)) if master_ac > 0 else 0.0
+            if "daily_survey_logs" not in v_copy or v_copy["daily_survey_logs"] is None:
+                v_copy["daily_survey_logs"] = []
+
             # Harmonize picked flags
             p_val = bool(v_copy.get("is_picked_for_resurvey") or v_copy.get("picked_for_resurvey"))
             v_copy["is_picked_for_resurvey"] = p_val
@@ -625,6 +628,12 @@ def get_villages(
         r_copy = dict(r)
         r_copy["is_picked_for_resurvey"] = bool(r_copy.get("is_picked_for_resurvey", True))
         r_copy["picked_for_resurvey"] = r_copy["is_picked_for_resurvey"]
+        master_ac = float(r_copy.get("extent_acres_float", 0.0) or 0.0)
+        c_ac = float(r_copy.get("surveyed_extent_so_far", 0.0) or 0.0)
+        if "remaining_extent" not in r_copy or r_copy["remaining_extent"] is None:
+            r_copy["remaining_extent"] = max(0.0, round(master_ac - c_ac, 3)) if master_ac > 0 else 0.0
+        if "daily_survey_logs" not in r_copy or r_copy["daily_survey_logs"] is None:
+            r_copy["daily_survey_logs"] = []
         
         if mandal and mandal.lower() != "all":
             if (r_copy.get("mandal_name") or "").lower().strip() != mandal.lower().strip():
@@ -850,6 +859,287 @@ def delete_village(village_id: str, user_name: str = "Admin") -> bool:
         changes={}
     )
     return True
+
+# ----------------- DAILY SURVEY PROGRESS & CSO TRACKING -----------------
+def add_daily_survey_log(
+    village_id: str,
+    survey_date: str,
+    extent_acres: Optional[float] = None,
+    extent_raw: Optional[str] = None,
+    remarks: Optional[str] = "",
+    user_name: str = "District Rep",
+    user_role: str = "district_rep"
+) -> Dict[str, Any]:
+    village = get_village(village_id)
+    if not village:
+        raise ValueError("Village not found")
+
+    is_picked = bool(village.get("is_picked_for_resurvey") or village.get("picked_for_resurvey"))
+    if not is_picked:
+        raise ValueError("Daily survey tracking is only allowed for villages picked for resurvey.")
+
+    # Parse extent if needed
+    ac = extent_acres
+    if ac is None or ac <= 0:
+        raw_str = (extent_raw or "").strip()
+        if raw_str:
+            try:
+                if "-" in raw_str:
+                    parts = raw_str.split("-")
+                    ac = float(parts[0] or 0) + (float(parts[1] or 0) / 40.0)
+                elif "." in raw_str:
+                    parts = raw_str.split(".")
+                    ac_part = float(parts[0] or 0)
+                    gt_part = float(parts[1] or 0)
+                    if gt_part < 40:
+                        ac = ac_part + (gt_part / 40.0)
+                    else:
+                        ac = float(raw_str)
+                else:
+                    ac = float(raw_str)
+            except Exception:
+                ac = 0.0
+        else:
+            ac = 0.0
+    ac = round(float(ac), 3)
+
+    log_id = f"dsl-{int(datetime.utcnow().timestamp() * 1000)}"
+    entry = {
+        "id": log_id,
+        "survey_date": survey_date,
+        "extent_acres": ac,
+        "extent_raw": extent_raw or f"{ac} ac",
+        "remarks": (remarks or "").strip(),
+        "surveyor_name": user_name,
+        "surveyor_role": user_role,
+        "created_at": datetime.utcnow().isoformat()
+    }
+
+    logs = list(village.get("daily_survey_logs") or [])
+    logs.append(entry)
+
+    total_surveyed = round(sum(float(item.get("extent_acres", 0.0) or 0.0) for item in logs), 3)
+    master_extent = float(village.get("extent_acres_float", 0.0) or 0.0)
+    remaining = max(0.0, round(master_extent - total_surveyed, 3)) if master_extent > 0 else 0.0
+
+    updates = {
+        "daily_survey_logs": logs,
+        "surveyed_extent_so_far": total_surveyed,
+        "remaining_extent": remaining,
+        "last_survey_date": survey_date
+    }
+    if total_surveyed >= master_extent and master_extent > 0:
+        updates["gt_status"] = "Completed"
+    elif total_surveyed > 0:
+        updates["gt_status"] = "In Progress"
+
+    updated_v = update_village(village_id, updates, user_name=user_name, user_role=user_role)
+
+    log_change(
+        record_id=village_id,
+        village_name=village.get("village_name", ""),
+        district_name=village.get("district_name", ""),
+        user_name=user_name,
+        user_role=user_role,
+        action="Daily Survey Logged",
+        details=f"Survey on {survey_date}: {ac} acres logged by {user_name}. Total surveyed so far: {total_surveyed} ac (Remaining: {remaining} ac).",
+        changes={
+            "survey_date": {"from": None, "to": survey_date},
+            "extent_surveyed_today": {"from": None, "to": ac},
+            "surveyed_extent_so_far": {"from": village.get("surveyed_extent_so_far", 0.0), "to": total_surveyed}
+        }
+    )
+
+    return updated_v or get_village(village_id)
+
+def delete_daily_survey_log(
+    village_id: str,
+    log_id: str,
+    user_name: str = "Admin",
+    user_role: str = "admin"
+) -> Dict[str, Any]:
+    village = get_village(village_id)
+    if not village:
+        raise ValueError("Village not found")
+
+    logs = list(village.get("daily_survey_logs") or [])
+    initial_len = len(logs)
+    target_entry = next((item for item in logs if item.get("id") == log_id), None)
+    logs = [item for item in logs if item.get("id") != log_id]
+
+    if len(logs) == initial_len:
+        raise ValueError("Daily survey log entry not found")
+
+    total_surveyed = round(sum(float(item.get("extent_acres", 0.0) or 0.0) for item in logs), 3)
+    master_extent = float(village.get("extent_acres_float", 0.0) or 0.0)
+    remaining = max(0.0, round(master_extent - total_surveyed, 3)) if master_extent > 0 else 0.0
+    dates = [item.get("survey_date") for item in logs if item.get("survey_date")]
+    latest_date = max(dates) if dates else ""
+
+    updates = {
+        "daily_survey_logs": logs,
+        "surveyed_extent_so_far": total_surveyed,
+        "remaining_extent": remaining,
+        "last_survey_date": latest_date
+    }
+    updated_v = update_village(village_id, updates, user_name=user_name, user_role=user_role)
+
+    log_change(
+        record_id=village_id,
+        village_name=village.get("village_name", ""),
+        district_name=village.get("district_name", ""),
+        user_name=user_name,
+        user_role=user_role,
+        action="Daily Survey Log Removed",
+        details=f"Daily survey entry {log_id} removed by {user_name}. Recalculated total surveyed: {total_surveyed} ac.",
+        changes={
+            "deleted_log": {"from": target_entry, "to": None},
+            "surveyed_extent_so_far": {"from": village.get("surveyed_extent_so_far", 0.0), "to": total_surveyed}
+        }
+    )
+    return updated_v or get_village(village_id)
+
+def get_cso_survey_tracking(
+    time_range: str = "all",  # "all", "today", "week", "month", "custom"
+    from_date: Optional[str] = None,
+    to_date: Optional[str] = None,
+    district: Optional[str] = None,
+    mandal: Optional[str] = None
+) -> Dict[str, Any]:
+    villages = get_villages(is_picked=True)
+    today_dt = datetime.utcnow().date()
+    today_str = today_dt.isoformat()
+
+    start_date_str = None
+    end_date_str = None
+
+    if time_range == "today":
+        start_date_str = today_str
+        end_date_str = today_str
+    elif time_range == "week":
+        start_date_str = (today_dt - timedelta(days=7)).isoformat()
+        end_date_str = today_str
+    elif time_range == "month":
+        start_date_str = (today_dt - timedelta(days=30)).isoformat()
+        end_date_str = today_str
+    elif time_range == "custom":
+        start_date_str = from_date.strip() if from_date and from_date.strip() else None
+        end_date_str = to_date.strip() if to_date and to_date.strip() else None
+
+    # Collect all matching logs
+    all_logs = []
+    for v in villages:
+        v_dist = (v.get("district_name") or "").strip()
+        v_mandal = (v.get("mandal_name") or "").strip()
+
+        if district and district.lower() != "all" and v_dist.lower() != district.lower().strip():
+            continue
+        if mandal and mandal.lower() != "all" and v_mandal.lower() != mandal.lower().strip():
+            continue
+
+        logs = v.get("daily_survey_logs") or []
+        m_acres = float(v.get("extent_acres_float", 0.0) or 0.0)
+        c_acres = float(v.get("surveyed_extent_so_far", 0.0) or 0.0)
+        r_acres = float(v.get("remaining_extent", 0.0) or (m_acres - c_acres))
+        pct = round((c_acres / m_acres * 100), 1) if m_acres > 0 else 0.0
+
+        for entry in logs:
+            s_date = entry.get("survey_date") or ""
+            if not s_date:
+                continue
+
+            # Time filtering
+            if start_date_str and s_date < start_date_str:
+                continue
+            if end_date_str and s_date > end_date_str:
+                continue
+
+            all_logs.append({
+                "log_id": entry.get("id"),
+                "village_id": v.get("id"),
+                "village_name": v.get("village_name"),
+                "village_name_telugu": v.get("village_name_telugu", ""),
+                "district_name": v_dist,
+                "mandal_name": v_mandal,
+                "category": v.get("category", "Cadastral"),
+                "survey_date": s_date,
+                "extent_acres": float(entry.get("extent_acres", 0.0) or 0.0),
+                "extent_raw": entry.get("extent_raw", ""),
+                "remarks": entry.get("remarks", ""),
+                "surveyor_name": entry.get("surveyor_name", "District Rep"),
+                "surveyor_role": entry.get("surveyor_role", "district_rep"),
+                "created_at": entry.get("created_at", ""),
+                "master_extent_acres": m_acres,
+                "cumulative_surveyed_acres": c_acres,
+                "remaining_extent_acres": max(0.0, r_acres),
+                "completion_percentage": pct,
+                "sent_to_cso": bool(v.get("sent_to_cso")),
+                "shapefile_status": v.get("shapefile_status", "Pending")
+            })
+
+    # Sort logs reverse chronological
+    all_logs.sort(key=lambda x: (x["survey_date"], x.get("created_at", "")), reverse=True)
+
+    # Aggregations
+    total_acres = round(sum(l["extent_acres"] for l in all_logs), 2)
+    unique_villages = len(set(l["village_id"] for l in all_logs))
+    unique_districts = len(set(l["district_name"] for l in all_logs))
+
+    # Daily timeline
+    timeline_dict = {}
+    for l in all_logs:
+        d = l["survey_date"]
+        if d not in timeline_dict:
+            timeline_dict[d] = {"date": d, "extent_acres": 0.0, "sessions_count": 0, "villages": set()}
+        timeline_dict[d]["extent_acres"] += l["extent_acres"]
+        timeline_dict[d]["sessions_count"] += 1
+        timeline_dict[d]["villages"].add(l["village_id"])
+
+    daily_timeline = []
+    for d in sorted(timeline_dict.keys(), reverse=True):
+        daily_timeline.append({
+            "date": d,
+            "extent_acres": round(timeline_dict[d]["extent_acres"], 2),
+            "sessions_count": timeline_dict[d]["sessions_count"],
+            "villages_count": len(timeline_dict[d]["villages"])
+        })
+
+    # District breakdown
+    dist_dict = {}
+    for l in all_logs:
+        dst = l["district_name"]
+        if dst not in dist_dict:
+            dist_dict[dst] = {"district": dst, "extent_acres": 0.0, "sessions_count": 0, "villages": set()}
+        dist_dict[dst]["extent_acres"] += l["extent_acres"]
+        dist_dict[dst]["sessions_count"] += 1
+        dist_dict[dst]["villages"].add(l["village_id"])
+
+    district_breakdown = []
+    for dst, info in dist_dict.items():
+        district_breakdown.append({
+            "district": dst,
+            "extent_acres": round(info["extent_acres"], 2),
+            "sessions_count": info["sessions_count"],
+            "villages_count": len(info["villages"])
+        })
+    district_breakdown.sort(key=lambda x: x["extent_acres"], reverse=True)
+
+    return {
+        "time_range": time_range,
+        "from_date": start_date_str,
+        "to_date": end_date_str,
+        "selected_district": district or "All",
+        "selected_mandal": mandal or "All",
+        "summary": {
+            "total_acres_surveyed": total_acres,
+            "unique_villages_covered": unique_villages,
+            "unique_districts_active": unique_districts,
+            "total_survey_sessions": len(all_logs)
+        },
+        "daily_timeline": daily_timeline,
+        "district_breakdown": district_breakdown,
+        "logs": all_logs
+    }
 
 # ----------------- STATS & EXECUTIVE SUMMARIES -----------------
 def get_dashboard_stats(district: Optional[str] = None) -> Dict[str, Any]:

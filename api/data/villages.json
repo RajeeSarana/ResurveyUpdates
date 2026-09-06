@@ -10,14 +10,59 @@
     "workflow_stage": "Polygon Work",
     "remarks": "data sent to the CSO",
     "id": "vlg-001",
-    "gt_status": "Completed",
+    "gt_status": "In Progress",
     "extent_acres_float": 1376.975,
     "updated_by": "K. Ravinder Reddy (Lead QC & Verification Engineer)",
     "verification_status": "Verified",
     "verified_by": "K. Ravinder Reddy (Lead QC & Verification Engineer)",
     "qc_notes": "GIS boundaries checked and certified",
     "updated_at": "2026-09-05T09:21:34.497474",
-    "verified_at": "2026-09-05T09:21:34.494876"
+    "verified_at": "2026-09-05T09:21:34.494876",
+    "daily_survey_logs": [
+      {
+        "id": "dsl-001-1",
+        "survey_date": "2026-09-02",
+        "extent_acres": 30.0,
+        "extent_raw": "30-00",
+        "remarks": "Initial ground truthing base perimeter",
+        "surveyor_name": "K. Rajesh (District Rep)",
+        "surveyor_role": "district_rep",
+        "created_at": "2026-09-02T16:30:00"
+      },
+      {
+        "id": "dsl-001-2",
+        "survey_date": "2026-09-04",
+        "extent_acres": 15.25,
+        "extent_raw": "15-10",
+        "remarks": "Survey of Patta lands adjoining forest tract",
+        "surveyor_name": "K. Rajesh (District Rep)",
+        "surveyor_role": "district_rep",
+        "created_at": "2026-09-04T17:15:00"
+      },
+      {
+        "id": "dsl-001-3",
+        "survey_date": "2026-09-05",
+        "extent_acres": 22.0,
+        "extent_raw": "22-00",
+        "remarks": "Survey of Government poramboke land",
+        "surveyor_name": "K. Rajesh (District Rep)",
+        "surveyor_role": "district_rep",
+        "created_at": "2026-09-05T17:00:00"
+      },
+      {
+        "id": "dsl-001-4",
+        "survey_date": "2026-09-06",
+        "extent_acres": 18.5,
+        "extent_raw": "18-20",
+        "remarks": "Block 3 Northern cadastral boundary",
+        "surveyor_name": "K. Rajesh (District Rep)",
+        "surveyor_role": "district_rep",
+        "created_at": "2026-09-06T11:45:00"
+      }
+    ],
+    "surveyed_extent_so_far": 85.75,
+    "remaining_extent": 1291.225,
+    "last_survey_date": "2026-09-06"
   },
   {
     "district_name": "Asifabad",
@@ -30,12 +75,37 @@
     "workflow_stage": "Shapefile Sent to CSO",
     "remarks": "Shape file completed",
     "id": "vlg-002",
-    "gt_status": "Completed",
+    "gt_status": "In Progress",
     "extent_acres_float": 560.0,
     "updated_by": "System Seed",
     "verification_status": "Verified",
     "verified_by": "K. Ravinder Reddy (Lead QC)",
-    "qc_notes": "Verified and approved for Central Office submission."
+    "qc_notes": "Verified and approved for Central Office submission.",
+    "daily_survey_logs": [
+      {
+        "id": "dsl-002-1",
+        "survey_date": "2026-09-03",
+        "extent_acres": 40.5,
+        "extent_raw": "40-20",
+        "remarks": "Outer perimeter boundary survey",
+        "surveyor_name": "M. Suresh (District Rep)",
+        "surveyor_role": "district_rep",
+        "created_at": "2026-09-03T16:00:00"
+      },
+      {
+        "id": "dsl-002-2",
+        "survey_date": "2026-09-06",
+        "extent_acres": 25.0,
+        "extent_raw": "25-00",
+        "remarks": "Grid sector B field boundary verification",
+        "surveyor_name": "M. Suresh (District Rep)",
+        "surveyor_role": "district_rep",
+        "created_at": "2026-09-06T12:30:00"
+      }
+    ],
+    "surveyed_extent_so_far": 65.5,
+    "remaining_extent": 494.5,
+    "last_survey_date": "2026-09-06"
   },
   {
     "district_name": "Mancherial",
@@ -48,12 +118,37 @@
     "workflow_stage": "Shapefile Sent to CSO",
     "remarks": "Shape file completed",
     "id": "vlg-003",
-    "gt_status": "Completed",
+    "gt_status": "In Progress",
     "extent_acres_float": 593.125,
     "updated_by": "System Seed",
     "verification_status": "Verified",
     "verified_by": "K. Ravinder Reddy (Lead QC)",
-    "qc_notes": "Verified and approved for Central Office submission."
+    "qc_notes": "Verified and approved for Central Office submission.",
+    "daily_survey_logs": [
+      {
+        "id": "dsl-003-1",
+        "survey_date": "2026-09-01",
+        "extent_acres": 35.0,
+        "extent_raw": "35-00",
+        "remarks": "Village settlement perimeter",
+        "surveyor_name": "P. Anji (District Rep)",
+        "surveyor_role": "district_rep",
+        "created_at": "2026-09-01T17:00:00"
+      },
+      {
+        "id": "dsl-003-2",
+        "survey_date": "2026-09-06",
+        "extent_acres": 12.0,
+        "extent_raw": "12-00",
+        "remarks": "Eastern agricultural holdings",
+        "surveyor_name": "P. Anji (District Rep)",
+        "surveyor_role": "district_rep",
+        "created_at": "2026-09-06T10:15:00"
+      }
+    ],
+    "surveyed_extent_so_far": 47.0,
+    "remaining_extent": 546.125,
+    "last_survey_date": "2026-09-06"
   },
   {
     "district_name": "Peddapally",
@@ -274,8 +369,8 @@
   {
     "district_name": "Nizamabad",
     "category": "Cadastral",
-    "village_name": "బాబాపూర్ (Babapur)",
-    "mandal_name": "భీంగల్ (Bheemgal)",
+    "village_name": "\u0c2c\u0c3e\u0c2c\u0c3e\u0c2a\u0c42\u0c30\u0c4d (Babapur)",
+    "mandal_name": "\u0c2d\u0c40\u0c02\u0c17\u0c32\u0c4d (Bheemgal)",
     "extent_raw": "153-17",
     "shapefile_status": "In Progress",
     "sent_to_cso": false,
@@ -292,8 +387,8 @@
   {
     "district_name": "Nizamabad",
     "category": "Cadastral",
-    "village_name": "రోజాపూర్ (Rojapur)",
-    "mandal_name": "కోటగిరి (Kotagiri)",
+    "village_name": "\u0c30\u0c4b\u0c1c\u0c3e\u0c2a\u0c42\u0c30\u0c4d (Rojapur)",
+    "mandal_name": "\u0c15\u0c4b\u0c1f\u0c17\u0c3f\u0c30\u0c3f (Kotagiri)",
     "extent_raw": "94-19",
     "shapefile_status": "In Progress",
     "sent_to_cso": false,
@@ -310,8 +405,8 @@
   {
     "district_name": "Nizamabad",
     "category": "Cadastral",
-    "village_name": "కమలాపూర్ (Kamalapur)",
-    "mandal_name": "డిచ్ పల్లి (Dichpally)",
+    "village_name": "\u0c15\u0c2e\u0c32\u0c3e\u0c2a\u0c42\u0c30\u0c4d (Kamalapur)",
+    "mandal_name": "\u0c21\u0c3f\u0c1a\u0c4d \u0c2a\u0c32\u0c4d\u0c32\u0c3f (Dichpally)",
     "extent_raw": "186-08",
     "shapefile_status": "Error",
     "sent_to_cso": true,
@@ -328,8 +423,8 @@
   {
     "district_name": "Nizamabad",
     "category": "Cadastral",
-    "village_name": "లక్ష్మాపూర్ (Laxmapur)",
-    "mandal_name": "నిజామాబాద్ రూరల్ (Nizamabad Rural)",
+    "village_name": "\u0c32\u0c15\u0c4d\u0c37\u0c4d\u0c2e\u0c3e\u0c2a\u0c42\u0c30\u0c4d (Laxmapur)",
+    "mandal_name": "\u0c28\u0c3f\u0c1c\u0c3e\u0c2e\u0c3e\u0c2c\u0c3e\u0c26\u0c4d \u0c30\u0c42\u0c30\u0c32\u0c4d (Nizamabad Rural)",
     "extent_raw": "131-32",
     "shapefile_status": "In Progress",
     "sent_to_cso": false,

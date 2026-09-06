@@ -1,5 +1,214 @@
 [
   {
+    "id": "log-1788664924695",
+    "timestamp": "2026-09-06T08:52:04.695528",
+    "record_id": "vlg-002",
+    "village_name": "Seethanagar (V)",
+    "district_name": "Asifabad",
+    "user_name": "Test Admin",
+    "user_role": "admin",
+    "action": "Daily Survey Log Removed",
+    "details": "Daily survey entry dsl-1788664917711 removed by Test Admin. Recalculated total surveyed: 65.5 ac.",
+    "changes": {
+      "deleted_log": {
+        "from": {
+          "id": "dsl-1788664917711",
+          "survey_date": "2026-09-06",
+          "extent_acres": 10.0,
+          "extent_raw": "10-00",
+          "remarks": "Automated test survey logging",
+          "surveyor_name": "Test Surveyor",
+          "surveyor_role": "district_rep",
+          "created_at": "2026-09-06T08:51:57.711887"
+        },
+        "to": null
+      },
+      "surveyed_extent_so_far": {
+        "from": 75.5,
+        "to": 65.5
+      }
+    }
+  },
+  {
+    "id": "log-1788664924689",
+    "timestamp": "2026-09-06T08:52:04.689106",
+    "record_id": "vlg-002",
+    "village_name": "Seethanagar (V)",
+    "district_name": "Asifabad",
+    "user_name": "Test Admin",
+    "user_role": "admin",
+    "action": "Updated",
+    "details": "Record updated by Test Admin (admin): daily_survey_logs, surveyed_extent_so_far, remaining_extent",
+    "changes": {
+      "daily_survey_logs": {
+        "from": [
+          {
+            "id": "dsl-002-1",
+            "survey_date": "2026-09-03",
+            "extent_acres": 40.5,
+            "extent_raw": "40-20",
+            "remarks": "Outer perimeter boundary survey",
+            "surveyor_name": "M. Suresh (District Rep)",
+            "surveyor_role": "district_rep",
+            "created_at": "2026-09-03T16:00:00"
+          },
+          {
+            "id": "dsl-002-2",
+            "survey_date": "2026-09-06",
+            "extent_acres": 25.0,
+            "extent_raw": "25-00",
+            "remarks": "Grid sector B field boundary verification",
+            "surveyor_name": "M. Suresh (District Rep)",
+            "surveyor_role": "district_rep",
+            "created_at": "2026-09-06T12:30:00"
+          },
+          {
+            "id": "dsl-1788664917711",
+            "survey_date": "2026-09-06",
+            "extent_acres": 10.0,
+            "extent_raw": "10-00",
+            "remarks": "Automated test survey logging",
+            "surveyor_name": "Test Surveyor",
+            "surveyor_role": "district_rep",
+            "created_at": "2026-09-06T08:51:57.711887"
+          }
+        ],
+        "to": [
+          {
+            "id": "dsl-002-1",
+            "survey_date": "2026-09-03",
+            "extent_acres": 40.5,
+            "extent_raw": "40-20",
+            "remarks": "Outer perimeter boundary survey",
+            "surveyor_name": "M. Suresh (District Rep)",
+            "surveyor_role": "district_rep",
+            "created_at": "2026-09-03T16:00:00"
+          },
+          {
+            "id": "dsl-002-2",
+            "survey_date": "2026-09-06",
+            "extent_acres": 25.0,
+            "extent_raw": "25-00",
+            "remarks": "Grid sector B field boundary verification",
+            "surveyor_name": "M. Suresh (District Rep)",
+            "surveyor_role": "district_rep",
+            "created_at": "2026-09-06T12:30:00"
+          }
+        ]
+      },
+      "surveyed_extent_so_far": {
+        "from": 75.5,
+        "to": 65.5
+      },
+      "remaining_extent": {
+        "from": 484.5,
+        "to": 494.5
+      }
+    }
+  },
+  {
+    "id": "log-1788664917788",
+    "timestamp": "2026-09-06T08:51:57.788248",
+    "record_id": "vlg-002",
+    "village_name": "Seethanagar (V)",
+    "district_name": "Asifabad",
+    "user_name": "Test Surveyor",
+    "user_role": "district_rep",
+    "action": "Daily Survey Logged",
+    "details": "Survey on 2026-09-06: 10.0 acres logged by Test Surveyor. Total surveyed so far: 75.5 ac (Remaining: 484.5 ac).",
+    "changes": {
+      "survey_date": {
+        "from": null,
+        "to": "2026-09-06"
+      },
+      "extent_surveyed_today": {
+        "from": null,
+        "to": 10.0
+      },
+      "surveyed_extent_so_far": {
+        "from": 65.5,
+        "to": 75.5
+      }
+    }
+  },
+  {
+    "id": "log-1788664917777",
+    "timestamp": "2026-09-06T08:51:57.777847",
+    "record_id": "vlg-002",
+    "village_name": "Seethanagar (V)",
+    "district_name": "Asifabad",
+    "user_name": "Test Surveyor",
+    "user_role": "district_rep",
+    "action": "Updated",
+    "details": "Record updated by Test Surveyor (district_rep): daily_survey_logs, surveyed_extent_so_far, remaining_extent",
+    "changes": {
+      "daily_survey_logs": {
+        "from": [
+          {
+            "id": "dsl-002-1",
+            "survey_date": "2026-09-03",
+            "extent_acres": 40.5,
+            "extent_raw": "40-20",
+            "remarks": "Outer perimeter boundary survey",
+            "surveyor_name": "M. Suresh (District Rep)",
+            "surveyor_role": "district_rep",
+            "created_at": "2026-09-03T16:00:00"
+          },
+          {
+            "id": "dsl-002-2",
+            "survey_date": "2026-09-06",
+            "extent_acres": 25.0,
+            "extent_raw": "25-00",
+            "remarks": "Grid sector B field boundary verification",
+            "surveyor_name": "M. Suresh (District Rep)",
+            "surveyor_role": "district_rep",
+            "created_at": "2026-09-06T12:30:00"
+          }
+        ],
+        "to": [
+          {
+            "id": "dsl-002-1",
+            "survey_date": "2026-09-03",
+            "extent_acres": 40.5,
+            "extent_raw": "40-20",
+            "remarks": "Outer perimeter boundary survey",
+            "surveyor_name": "M. Suresh (District Rep)",
+            "surveyor_role": "district_rep",
+            "created_at": "2026-09-03T16:00:00"
+          },
+          {
+            "id": "dsl-002-2",
+            "survey_date": "2026-09-06",
+            "extent_acres": 25.0,
+            "extent_raw": "25-00",
+            "remarks": "Grid sector B field boundary verification",
+            "surveyor_name": "M. Suresh (District Rep)",
+            "surveyor_role": "district_rep",
+            "created_at": "2026-09-06T12:30:00"
+          },
+          {
+            "id": "dsl-1788664917711",
+            "survey_date": "2026-09-06",
+            "extent_acres": 10.0,
+            "extent_raw": "10-00",
+            "remarks": "Automated test survey logging",
+            "surveyor_name": "Test Surveyor",
+            "surveyor_role": "district_rep",
+            "created_at": "2026-09-06T08:51:57.711887"
+          }
+        ]
+      },
+      "surveyed_extent_so_far": {
+        "from": 65.5,
+        "to": 75.5
+      },
+      "remaining_extent": {
+        "from": 494.5,
+        "to": 484.5
+      }
+    }
+  },
+  {
     "id": "log-1788610182485",
     "timestamp": "2026-09-05T17:39:42.485392",
     "record_id": "vlg-1592",
