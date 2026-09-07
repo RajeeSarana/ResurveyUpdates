@@ -8377,7 +8377,7 @@
         return;
       }
       const logs = csoTrackingDataCache.logs;
-      const headers = ['Survey Date', 'District', 'Mandal', 'Village Name', 'Surveyed Extent (Acres)', 'Master Extent (Acres)', 'Completed So Far (Acres)', 'Completion %', 'Remaining Extent (Acres)', 'Surveyor', 'Remarks'];
+      const headers = ['Survey Date', 'District', 'Mandal', 'Village Name', 'Surveyed Extent (Acres)', 'Target Non-Abadi Extent (Acres)', 'Completed So Far (Acres)', 'Completion %', 'Remaining Extent (Acres)', 'Surveyor', 'Remarks'];
       const rows = logs.map(l => [
         l.survey_date,
         `"${l.district_name}"`,
