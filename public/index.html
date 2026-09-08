@@ -1002,6 +1002,72 @@
         </div>
       </div>
 
+      <!-- QC FILTERS & SEARCH TOOLBAR -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-4 space-y-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 items-center">
+          
+          <!-- Search input (4 cols on lg) -->
+          <div class="lg:col-span-4 relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+            <input type="text" id="qcSearchInput" oninput="renderQcQueue()" placeholder="Search village, mandal, remarks, inspector..." 
+              class="w-full pl-9 pr-8 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:bg-white transition" />
+            <button type="button" id="qcSearchClearBtn" onclick="clearQcSearch()" class="hidden absolute right-2.5 top-2 text-slate-400 hover:text-slate-600 text-xs">
+              <i class="fa-solid fa-circle-xmark"></i>
+            </button>
+          </div>
+
+          <!-- District Filter (3 cols on lg) -->
+          <div class="lg:col-span-3">
+            <select id="qcDistrictFilter" onchange="renderQcQueue()" class="w-full py-2 px-3 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:bg-white transition font-medium text-slate-700">
+              <option value="all">All Districts (Statewide)</option>
+            </select>
+          </div>
+
+          <!-- Category Filter (2 cols on lg) -->
+          <div class="lg:col-span-2">
+            <select id="qcCategoryFilter" onchange="renderQcQueue()" class="w-full py-2 px-3 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:bg-white transition font-medium text-slate-700">
+              <option value="all">All Categories</option>
+              <option value="Non-Cadastral">Non-Cadastral</option>
+              <option value="Cadastral">Cadastral</option>
+            </select>
+          </div>
+
+          <!-- Shapefile Status Filter (2 cols on lg) -->
+          <div class="lg:col-span-2">
+            <select id="qcShapefileFilter" onchange="renderQcQueue()" class="w-full py-2 px-3 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:bg-white transition font-medium text-slate-700">
+              <option value="all">All Shapefiles</option>
+              <option value="Completed">Completed</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Pending">Pending</option>
+              <option value="Returned">Shapefile Returned</option>
+            </select>
+          </div>
+
+          <!-- Reset Filter Button (1 col on lg) -->
+          <div class="lg:col-span-1">
+            <button type="button" onclick="resetQcFilters()" title="Reset all filters" class="w-full py-2 px-2 text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg border border-slate-200 transition flex items-center justify-center space-x-1">
+              <i class="fa-solid fa-rotate-left text-slate-500"></i>
+              <span class="sm:inline">Reset</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Filter Status Bar & Count -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 text-[11px] text-slate-500 pt-2 border-t border-slate-100">
+          <div class="flex items-center space-x-2">
+            <span>Showing <span id="qcShowingCount" class="font-bold text-slate-800">0</span> of <span id="qcTotalQueueCount" class="font-bold text-slate-800">0</span> records</span>
+            <span id="qcActiveFiltersBadge" class="hidden text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full font-semibold text-[10px]">
+              <i class="fa-solid fa-filter mr-1"></i>Filters active
+            </span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <span class="text-slate-400">Current Queue:</span>
+            <span id="qcQueueSubtitle" class="font-semibold text-amber-700">Pending Review</span>
+          </div>
+        </div>
+      </div>
+
       <!-- QC Queue Table -->
       <section class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
         <div class="p-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -5547,26 +5613,70 @@
       const btnAll = document.getElementById('qcFilterAll');
 
       [btnPending, btnReturned, btnVerified, btnAll].forEach(b => {
-        b.className = 'px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 font-semibold text-xs hover:bg-slate-50 transition';
+        if (b) b.className = 'px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 font-semibold text-xs hover:bg-slate-50 transition';
       });
 
+      const titleEl = document.getElementById('qcQueueTitle');
+      const subEl = document.getElementById('qcQueueSubtitle');
+
       if (filterStatus === 'Pending QC') {
-        btnPending.className = 'px-3 py-1.5 rounded-lg bg-amber-500 text-white font-semibold text-xs shadow transition';
-        document.getElementById('qcQueueTitle').textContent = 'Pending Review';
-        document.getElementById('qcQueueTitle').className = 'text-amber-700';
+        if (btnPending) btnPending.className = 'px-3 py-1.5 rounded-lg bg-amber-500 text-white font-semibold text-xs shadow transition';
+        if (titleEl) { titleEl.textContent = 'Pending Review'; titleEl.className = 'text-amber-700'; }
+        if (subEl) { subEl.textContent = 'Pending QC'; subEl.className = 'font-semibold text-amber-700'; }
       } else if (filterStatus === 'Returned for Correction') {
-        btnReturned.className = 'px-3 py-1.5 rounded-lg bg-rose-600 text-white font-semibold text-xs shadow transition';
-        document.getElementById('qcQueueTitle').textContent = 'Returned for Correction';
-        document.getElementById('qcQueueTitle').className = 'text-rose-700';
+        if (btnReturned) btnReturned.className = 'px-3 py-1.5 rounded-lg bg-rose-600 text-white font-semibold text-xs shadow transition';
+        if (titleEl) { titleEl.textContent = 'Returned for Correction'; titleEl.className = 'text-rose-700'; }
+        if (subEl) { subEl.textContent = 'Returned for Correction'; subEl.className = 'font-semibold text-rose-700'; }
       } else if (filterStatus === 'Verified') {
-        btnVerified.className = 'px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-semibold text-xs shadow transition';
-        document.getElementById('qcQueueTitle').textContent = 'Verified & Approved';
-        document.getElementById('qcQueueTitle').className = 'text-emerald-700';
+        if (btnVerified) btnVerified.className = 'px-3 py-1.5 rounded-lg bg-emerald-600 text-white font-semibold text-xs shadow transition';
+        if (titleEl) { titleEl.textContent = 'Verified & Approved'; titleEl.className = 'text-emerald-700'; }
+        if (subEl) { subEl.textContent = 'Verified & Approved'; subEl.className = 'font-semibold text-emerald-700'; }
       } else {
-        btnAll.className = 'px-3 py-1.5 rounded-lg bg-slate-800 text-white font-semibold text-xs shadow transition';
-        document.getElementById('qcQueueTitle').textContent = 'All Submissions';
-        document.getElementById('qcQueueTitle').className = 'text-slate-800';
+        if (btnAll) btnAll.className = 'px-3 py-1.5 rounded-lg bg-slate-800 text-white font-semibold text-xs shadow transition';
+        if (titleEl) { titleEl.textContent = 'All Submissions'; titleEl.className = 'text-slate-800'; }
+        if (subEl) { subEl.textContent = 'All Records'; subEl.className = 'font-semibold text-slate-800'; }
       }
+
+      renderQcQueue();
+    }
+
+    function populateQcDistrictFilter() {
+      const select = document.getElementById('qcDistrictFilter');
+      if (!select) return;
+      if (select.options.length <= 1) {
+        const distsFromVillages = [...new Set(allVillages.map(v => v.district_name).filter(Boolean))].sort();
+        const distsFromAll = (allDistricts && allDistricts.length > 0) ? allDistricts.map(d => d.name).sort() : [];
+        const combined = [...new Set([...distsFromVillages, ...distsFromAll])].sort();
+        combined.forEach(d => {
+          const opt = document.createElement('option');
+          opt.value = d;
+          opt.textContent = d;
+          select.appendChild(opt);
+        });
+      }
+    }
+
+    function clearQcSearch() {
+      const input = document.getElementById('qcSearchInput');
+      if (input) {
+        input.value = '';
+        renderQcQueue();
+        input.focus();
+      }
+    }
+
+    function resetQcFilters() {
+      const searchInput = document.getElementById('qcSearchInput');
+      if (searchInput) searchInput.value = '';
+      
+      const distSelect = document.getElementById('qcDistrictFilter');
+      if (distSelect) distSelect.value = 'all';
+
+      const catSelect = document.getElementById('qcCategoryFilter');
+      if (catSelect) catSelect.value = 'all';
+
+      const shapeSelect = document.getElementById('qcShapefileFilter');
+      if (shapeSelect) shapeSelect.value = 'all';
 
       renderQcQueue();
     }
@@ -5575,26 +5685,105 @@
       const tbody = document.getElementById('qcQueueTableBody');
       if (!tbody) return;
 
+      populateQcDistrictFilter();
+
       const pCount = allVillages.filter(v => (v.verification_status || 'Pending QC') === 'Pending QC').length;
       const rCount = allVillages.filter(v => v.verification_status === 'Returned for Correction').length;
       const vCount = allVillages.filter(v => v.verification_status === 'Verified').length;
 
-      document.getElementById('qcCountPending').textContent = pCount;
-      document.getElementById('qcCountReturned').textContent = rCount;
-      document.getElementById('qcCountVerified').textContent = vCount;
+      const qcCountPendingEl = document.getElementById('qcCountPending');
+      const qcCountReturnedEl = document.getElementById('qcCountReturned');
+      const qcCountVerifiedEl = document.getElementById('qcCountVerified');
+      if (qcCountPendingEl) qcCountPendingEl.textContent = pCount;
+      if (qcCountReturnedEl) qcCountReturnedEl.textContent = rCount;
+      if (qcCountVerifiedEl) qcCountVerifiedEl.textContent = vCount;
 
       let queue = allVillages;
       if (currentQcFilter !== 'all') {
         queue = allVillages.filter(v => (v.verification_status || 'Pending QC') === currentQcFilter);
       }
 
+      const totalInQueue = queue.length;
+      const totalQueueCountEl = document.getElementById('qcTotalQueueCount');
+      if (totalQueueCountEl) totalQueueCountEl.textContent = totalInQueue;
+
+      // Filter 1: Search query
+      const searchInput = document.getElementById('qcSearchInput');
+      const searchClearBtn = document.getElementById('qcSearchClearBtn');
+      const searchQuery = (searchInput?.value || '').trim().toLowerCase();
+      if (searchClearBtn) {
+        searchClearBtn.classList.toggle('hidden', searchQuery.length === 0);
+      }
+
+      let isFiltered = false;
+
+      if (searchQuery) {
+        isFiltered = true;
+        queue = queue.filter(v => {
+          const vName = (v.village_name || '').toLowerCase();
+          const mName = (v.mandal_name || '').toLowerCase();
+          const dName = (v.district_name || '').toLowerCase();
+          const rem = (v.qc_notes || v.remarks || '').toLowerCase();
+          const insp = (v.verified_by || '').toLowerCase();
+          const cat = (v.category || '').toLowerCase();
+          return vName.includes(searchQuery) || mName.includes(searchQuery) || dName.includes(searchQuery) || rem.includes(searchQuery) || insp.includes(searchQuery) || cat.includes(searchQuery);
+        });
+      }
+
+      // Filter 2: District Filter
+      const distSelect = document.getElementById('qcDistrictFilter');
+      const distVal = distSelect?.value || 'all';
+      if (distVal !== 'all') {
+        isFiltered = true;
+        queue = queue.filter(v => (v.district_name || '').toLowerCase() === distVal.toLowerCase());
+      }
+
+      // Filter 3: Category Filter
+      const catSelect = document.getElementById('qcCategoryFilter');
+      const catVal = catSelect?.value || 'all';
+      if (catVal !== 'all') {
+        isFiltered = true;
+        queue = queue.filter(v => (v.category || '').toLowerCase() === catVal.toLowerCase());
+      }
+
+      // Filter 4: Shapefile Status Filter
+      const shapeSelect = document.getElementById('qcShapefileFilter');
+      const shapeVal = shapeSelect?.value || 'all';
+      if (shapeVal !== 'all') {
+        isFiltered = true;
+        if (shapeVal === 'Completed') {
+          queue = queue.filter(v => v.shapefile_status === 'Completed');
+        } else if (shapeVal === 'Returned') {
+          queue = queue.filter(v => (v.shapefile_status === 'Shapefile Returned' || v.shapefile_status === 'ShapefileReturned' || v.shapefile_status === 'Error' || v.verification_status === 'Returned for Correction'));
+        } else if (shapeVal === 'In Progress') {
+          queue = queue.filter(v => v.shapefile_status === 'In Progress');
+        } else if (shapeVal === 'Pending') {
+          queue = queue.filter(v => (!v.shapefile_status || v.shapefile_status === 'Pending'));
+        }
+      }
+
+      // Update badge
+      const activeBadge = document.getElementById('qcActiveFiltersBadge');
+      if (activeBadge) {
+        activeBadge.classList.toggle('hidden', !isFiltered);
+      }
+
+      const showingCountEl = document.getElementById('qcShowingCount');
+      if (showingCountEl) showingCountEl.textContent = queue.length;
+
       tbody.innerHTML = '';
       if (queue.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="9" class="py-8 text-center text-slate-400">
-              <i class="fa-solid fa-circle-check text-2xl text-emerald-500 mb-1 block"></i>
-              No records in this verification state. All submissions clear!
+            <td colspan="9" class="py-12 text-center text-slate-400">
+              <div class="max-w-xs mx-auto space-y-2">
+                <i class="fa-solid fa-filter-circle-xmark text-3xl text-amber-400 block mb-1"></i>
+                <div class="font-bold text-slate-700 text-sm">No records match filter criteria</div>
+                <p class="text-xs text-slate-500">Try clearing or adjusting your search keyword, district, or status filters.</p>
+                <button type="button" onclick="resetQcFilters()" class="mt-2 px-3 py-1.5 bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-200 font-semibold rounded-lg text-xs transition">
+                  <i class="fa-solid fa-rotate-left mr-1"></i>Reset All Filters
+                </button>
+              </div>
             </td>
           </tr>
         `;
