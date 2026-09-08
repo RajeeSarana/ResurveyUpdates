@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <title>ResurveyUpdates - Monitoring & Verification Portal</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
@@ -76,10 +79,10 @@
         <!-- Left: Hon'ble CM Photo & Telangana Government Emblem -->
         <div class="flex items-center space-x-2 sm:space-x-3 shrink-0">
           <div class="bg-white p-0.5 sm:p-1 rounded shadow-md border border-emerald-300/40">
-            <img src="/assets/cm_revanth_reddy_header.png" alt="Sri A. Revanth Reddy, Hon'ble Chief Minister" class="h-12 sm:h-16 md:h-18 w-auto object-cover rounded-sm shadow-inner" />
+            <img src="/assets/cm_revanth_reddy_header.png?v=20260908" alt="Sri A. Revanth Reddy, Hon'ble Chief Minister" class="h-12 sm:h-16 md:h-18 w-auto object-cover rounded-sm shadow-inner" />
           </div>
           <div class="flex items-center">
-            <img src="/assets/tg_govt_emblem.png" alt="Government of Telangana" class="h-12 sm:h-16 md:h-18 w-auto drop-shadow-md" />
+            <img src="/assets/tg_govt_emblem.png?v=20260908" alt="Government of Telangana" class="h-12 sm:h-16 md:h-18 w-auto drop-shadow-md" />
           </div>
         </div>
 
@@ -100,10 +103,10 @@
         <!-- Right: Bhu Bharati Seal & Hon'ble Revenue Minister Photo -->
         <div class="flex items-center space-x-2 sm:space-x-3 shrink-0">
           <div class="flex items-center">
-            <img src="/assets/bhu_bharati_seal.png" alt="Bhu Bharati Seal" class="h-12 sm:h-16 md:h-18 w-auto drop-shadow-md" />
+            <img src="/assets/bhu_bharati_seal.png?v=20260908" alt="Bhu Bharati Seal" class="h-12 sm:h-16 md:h-18 w-auto drop-shadow-md" />
           </div>
           <div class="bg-white p-0.5 sm:p-1 rounded shadow-md border border-emerald-300/40">
-            <img src="/assets/minister_ponguleti_header.png" alt="Sri Ponguleti Srinivasa Reddy, Hon'ble Minister for Revenue" class="h-12 sm:h-16 md:h-18 w-auto object-cover rounded-sm shadow-inner" />
+            <img src="/assets/minister_ponguleti_header.png?v=20260908" alt="Sri Ponguleti Srinivasa Reddy, Hon'ble Minister for Revenue" class="h-12 sm:h-16 md:h-18 w-auto object-cover rounded-sm shadow-inner" />
           </div>
         </div>
 
@@ -112,7 +115,7 @@
 
     <!-- HERO SECTION: EMBEDDED OFFICER LOGIN & OFFICIAL BACKGROUND -->
     <section class="relative w-full bg-[#02401c] shadow-lg overflow-hidden flex justify-center border-b border-emerald-800/40">
-      <div class="relative w-full max-w-7xl mx-auto flex items-center justify-center min-h-[480px] p-4 sm:p-6 md:p-8" style="background-image: url('/assets/bhu_bharati_hero_bg.png'); background-size: cover; background-position: center;">
+      <div class="relative w-full max-w-7xl mx-auto flex items-center justify-center min-h-[480px] p-4 sm:p-6 md:p-8" style="background-image: url('/assets/bhu_bharati_hero_bg.png?v=20260908'); background-size: cover; background-position: center;">
         
         <!-- Officer Sign-In Card (Centered as requested) -->
         <div class="w-full max-w-sm sm:max-w-md bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-emerald-600/30 p-5 sm:p-6 space-y-4 z-10 my-4 mx-auto">
@@ -4111,11 +4114,15 @@
       });
 
       // If current active main tab is not allowed for this role, switch to first allowed tab
-      if (!allowedMenus.includes(currentActiveMainTab)) {
+      const hashTab = (window.location.hash || '').replace('#', '').trim();
+      const savedTab = hashTab || sessionStorage.getItem('currentActiveMainTab');
+      const targetTab = (savedTab && allowedMenus.includes(savedTab)) ? savedTab : currentActiveMainTab;
+
+      if (!allowedMenus.includes(targetTab)) {
         const firstAllowed = (role === 'district_rep' || role === 'district_officer') ? 'tab-villages' : (allowedMenus[0] || 'tab-overview');
         switchMainTab(firstAllowed);
       } else {
-        switchMainTab(currentActiveMainTab);
+        switchMainTab(targetTab);
       }
 
       // Sync district scope if district rep
@@ -4505,6 +4512,10 @@
       }
 
       currentActiveMainTab = tabId;
+      sessionStorage.setItem('currentActiveMainTab', tabId);
+      try {
+        history.replaceState(null, null, '#' + tabId);
+      } catch (e) {}
       const allTabIds = ['tab-overview', 'tab-villages', 'tab-resurvey-master', 'tab-qc', 'tab-cso', 'tab-executive', 'tab-audit', 'tab-master', 'tab-admin'];
       
       allTabIds.forEach(id => {
