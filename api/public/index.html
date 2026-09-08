@@ -48,117 +48,301 @@
       .no-print { display: none !important; }
       body { background: white !important; font-size: 11px; }
     }
+    @keyframes marqueeScroll {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+    .bhu-marquee {
+      display: inline-block;
+      white-space: nowrap;
+      animation: marqueeScroll 25s linear infinite;
+    }
+    .bhu-marquee:hover {
+      animation-play-state: paused;
+    }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-900 min-h-screen">
 
   <!-- ========================================================================================= -->
-  <!-- 1. DEFAULT GATEWAY: DEDICATED LOGIN SCREEN (Displayed by default when unauthenticated)    -->
+  <!-- 1. DEFAULT GATEWAY: BHU BHARATI (భూ భారతి) RECORD OF RIGHTS PORTAL & LOGIN SCREEN        -->
   <!-- ========================================================================================= -->
-  <div id="loginGateway" class="min-h-screen flex flex-col justify-between bg-gradient-to-br from-slate-950 via-teal-950 to-slate-900 text-slate-100 selection:bg-emerald-500 selection:text-white">
-    <!-- Gateway Header -->
-    <header class="border-b border-teal-800/40 bg-slate-950/60 backdrop-blur-md px-4 sm:px-8 py-4">
-      <div class="max-w-7xl mx-auto flex items-center justify-between">
-        <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center text-white shadow-lg shadow-emerald-900/40">
-            <i class="fa-solid fa-map-location-dot text-lg"></i>
+  <div id="loginGateway" class="min-h-screen flex flex-col bg-slate-100 text-slate-800 selection:bg-emerald-600 selection:text-white">
+    
+    <!-- TOP OFFICIAL HEADER BAR (Forest Green) -->
+    <header class="bg-[#014d25] border-b border-[#013c1d] shadow-md w-full">
+      <div class="max-w-7xl mx-auto px-2 sm:px-4 py-2 flex items-center justify-between">
+        
+        <!-- Left: Hon'ble CM Photo & Telangana Government Emblem -->
+        <div class="flex items-center space-x-2 sm:space-x-3 shrink-0">
+          <div class="bg-white p-0.5 sm:p-1 rounded shadow-md border border-emerald-300/40">
+            <img src="/assets/cm_revanth_reddy_header.png" alt="Sri A. Revanth Reddy, Hon'ble Chief Minister" class="h-12 sm:h-16 md:h-18 w-auto object-cover rounded-sm shadow-inner" />
           </div>
-          <div>
-            <div class="flex items-center space-x-2">
-              <span class="text-xs uppercase tracking-widest text-emerald-400 font-bold">Field Operations Gateway</span>
-              <span class="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full font-semibold">ResurveyUpdates</span>
-            </div>
-            <h1 class="text-base sm:text-lg font-bold text-white tracking-tight">Central Monitoring &amp; Verification Portal</h1>
-          </div>
-        </div>
-        <div class="flex items-center space-x-3 text-xs">
-          <div class="hidden sm:flex items-center space-x-2 bg-emerald-950/70 border border-emerald-500/30 px-3 py-1.5 rounded-lg text-emerald-300">
-            <span class="relative flex h-2 w-2">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
-            <span class="font-medium">System Online &amp; Secure</span>
+          <div class="flex items-center">
+            <img src="/assets/tg_govt_emblem.png" alt="Government of Telangana" class="h-12 sm:h-16 md:h-18 w-auto drop-shadow-md" />
           </div>
         </div>
+
+        <!-- Center: Portal Official Trilingual Title -->
+        <div class="text-center text-white px-2 flex-1">
+          <div class="flex items-center justify-center space-x-1.5 sm:space-x-3 text-base sm:text-2xl md:text-3xl font-extrabold tracking-wide">
+            <span class="font-sans uppercase">BHU BHARATI</span>
+            <span class="text-emerald-300 font-light opacity-80">|</span>
+            <span class="font-serif">భూభారతి</span>
+            <span class="text-emerald-300 font-light opacity-80">|</span>
+            <span class="font-serif text-sm sm:text-xl md:text-2xl">بھو بھارتی</span>
+          </div>
+          <div class="text-[9px] sm:text-xs md:text-sm font-bold tracking-[0.25em] text-emerald-100 uppercase mt-0.5">
+            RECORD OF RIGHTS
+          </div>
+        </div>
+
+        <!-- Right: Bhu Bharati Seal & Hon'ble Revenue Minister Photo -->
+        <div class="flex items-center space-x-2 sm:space-x-3 shrink-0">
+          <div class="flex items-center">
+            <img src="/assets/bhu_bharati_seal.png" alt="Bhu Bharati Seal" class="h-12 sm:h-16 md:h-18 w-auto drop-shadow-md" />
+          </div>
+          <div class="bg-white p-0.5 sm:p-1 rounded shadow-md border border-emerald-300/40">
+            <img src="/assets/minister_ponguleti_header.png" alt="Sri Ponguleti Srinivasa Reddy, Hon'ble Minister for Revenue" class="h-12 sm:h-16 md:h-18 w-auto object-cover rounded-sm shadow-inner" />
+          </div>
+        </div>
+
       </div>
     </header>
 
-    <!-- Gateway Center Body: Centered Login Card -->
-    <main class="flex-1 flex items-center justify-center px-4 py-8 sm:py-12">
-      <div class="w-full max-w-md bg-slate-900/90 border border-teal-700/40 rounded-2xl shadow-2xl p-6 sm:p-8 space-y-6 backdrop-blur-xl">
+    <!-- SECONDARY GREEN NAVIGATION & DISCLAIMER TICKER BAR -->
+    <nav class="bg-[#006c35] border-b border-[#00552a] shadow-inner text-white text-xs">
+      <div class="max-w-7xl mx-auto px-2 sm:px-4 py-1.5 flex items-center justify-between gap-3">
         
-        <!-- Card Header -->
-        <div class="text-center space-y-2 border-b border-slate-800 pb-5">
-          <div class="w-14 h-14 mx-auto rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-2xl shadow-inner">
-            <i class="fa-solid fa-shield-halved"></i>
-          </div>
-          <h2 class="text-xl font-bold text-white tracking-tight">Officer Sign In &amp; Access Gateway</h2>
-          <p class="text-xs text-slate-400 max-w-sm mx-auto">
-            Central Resurvey Operations Portal. Enter your assigned officer username and password to access your role-specific workspace.
-          </p>
+        <!-- Left Nav Links -->
+        <div class="flex items-center space-x-3 sm:space-x-4 font-semibold shrink-0">
+          <a href="javascript:void(0)" class="text-amber-300 font-bold border-b-2 border-amber-300 pb-0.5 hover:text-white transition">Home</a>
+          <a href="javascript:void(0)" onclick="alert('Bhu Bharati (Record of Rights) - Government of Telangana Resurvey Monitoring & Verification Portal.')" class="hover:text-amber-200 transition">About us</a>
+          <a href="javascript:void(0)" onclick="alert('User manuals and standard operating procedures are available inside the officer workspace.')" class="hover:text-amber-200 transition hidden sm:inline">User Manuals</a>
+          <a href="javascript:void(0)" onclick="alert('Frequently Asked Questions regarding Land Resurvey, Ground Truthing & Verification.')" class="hover:text-amber-200 transition hidden sm:inline">FAQ</a>
         </div>
 
-        <!-- Strict Username/Password Credentials Form -->
-        <div class="space-y-4">
-          <form onsubmit="handleGatewayLogin(event)" class="space-y-4 text-xs">
-            <div>
-              <label class="block font-semibold text-slate-300 mb-1.5">Username / Officer ID *</label>
-              <div class="relative">
-                <i class="fa-solid fa-user absolute left-3.5 top-3 text-slate-500"></i>
-                <input type="text" id="gatewayUsernameInput" required placeholder="Enter username (e.g. admin, qc_lead, asifabad_rep1)" 
-                  class="w-full pl-10 pr-3 py-2.5 bg-slate-950/70 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-xs font-medium" />
+        <!-- Center Ticker / Disclaimer -->
+        <div class="hidden lg:flex items-center space-x-2 flex-1 max-w-xl mx-2 overflow-hidden bg-[#00552a]/60 px-3 py-0.5 rounded-full border border-emerald-400/20">
+          <span class="text-amber-300 font-bold flex items-center space-x-1 shrink-0 text-[11px]">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span>Disclaimer :</span>
+          </span>
+          <div class="overflow-hidden whitespace-nowrap flex-1 text-[11px]">
+            <div class="bhu-marquee text-emerald-100">
+              Reproduction of content from this website is illegal and strictly prohibited as per Law • Government of Telangana • Official Resurvey Operations Portal
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Action Links (Language & Logins) -->
+        <div class="flex items-center space-x-2 sm:space-x-3 font-semibold shrink-0">
+          <button class="hover:text-amber-200 transition text-[11px] sm:text-xs">తెలుగు</button>
+          <span class="text-emerald-400 opacity-60">|</span>
+          <button onclick="openLoginModal('standard')" class="cursor-pointer bg-emerald-800 hover:bg-emerald-700 text-white px-2.5 sm:px-3 py-1 rounded border border-emerald-400/40 shadow-sm flex items-center space-x-1.5 transition text-[11px] sm:text-xs">
+            <i class="fa-solid fa-user text-[10px]"></i>
+            <span>Login</span>
+          </button>
+          <span class="text-emerald-400 opacity-60">|</span>
+          <button onclick="openLoginModal('pilot')" class="cursor-pointer bg-amber-500/25 hover:bg-amber-500/40 text-amber-200 hover:text-white px-2.5 sm:px-3 py-1 rounded border border-amber-400/50 shadow-sm flex items-center space-x-1.5 transition text-[11px] sm:text-xs">
+            <i class="fa-solid fa-user-shield text-[10px]"></i>
+            <span>Pilot Login</span>
+          </button>
+        </div>
+
+      </div>
+    </nav>
+
+    <!-- HERO SECTION (Matches User Uploaded Image) -->
+    <section class="relative w-full bg-[#02401c] shadow-lg overflow-hidden flex justify-center border-b border-emerald-800/40">
+      <div class="relative w-full max-w-7xl mx-auto flex items-center justify-center">
+        <!-- Exact Hero Image Cropped from Screenshot -->
+        <img src="/assets/bhu_bharati_hero_bg.png" alt="Bhu Bharati Telangana Proclamation" class="w-full h-auto object-cover select-none block" />
+      </div>
+    </section>
+
+    <!-- MAIN BODY: RESURVEY OPERATIONS OVERVIEW & OFFICER LOGIN CARD -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-8 sm:py-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left Side: Portal Governance & Live Operations Stats (7 cols) -->
+        <div class="lg:col-span-7 space-y-6">
+          
+          <!-- Portal Header Banner -->
+          <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200">
+            <div class="flex items-center space-x-3 mb-3">
+              <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-lg shadow-md shadow-emerald-900/20">
+                <i class="fa-solid fa-landmark"></i>
+              </div>
+              <div>
+                <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                  Government of Telangana • Revenue Department
+                </span>
+                <h2 class="text-xl font-bold text-slate-900 mt-1">
+                  భూ భారతి (BHU BHARATI) - రికార్డ్ ఆఫ్ రైట్స్ సమగ్ర రీసర్వే పోర్టల్
+                </h2>
+              </div>
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              రాష్ట్రంలో ఎంపిక చేసిన రెవెన్యూ గ్రామాలలో 100% గ్రౌండ్ ట్రూతింగ్ (Ground Truthing), షేప్‌ఫైల్ తయారీ, CSO సర్వే పరిశీలన మరియు సెంట్రల్ క్వాలిటీ కంట్రోల్ (QC) ధృవీకరణ పనులను ఎప్పటికప్పుడు పర్యవేక్షించడానికి మరియు నివేదికలను నిర్వహించడానికి ఉద్దేశించిన అధికారిక క్లౌడ్ వ్యవస్థ.
+            </p>
+          </div>
+
+          <!-- Key Live Territorial Counters -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
+              <div class="text-2xl font-black text-emerald-700">33</div>
+              <div class="text-[11px] font-bold text-slate-500 uppercase mt-0.5">Districts</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">Territorial Scope</div>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
+              <div class="text-2xl font-black text-emerald-700">612</div>
+              <div class="text-[11px] font-bold text-slate-500 uppercase mt-0.5">Mandals</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">Administrative</div>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
+              <div class="text-2xl font-black text-emerald-700">10,888</div>
+              <div class="text-[11px] font-bold text-slate-500 uppercase mt-0.5">Master Villages</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">Official Register</div>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
+              <div class="text-2xl font-black text-emerald-700">100%</div>
+              <div class="text-[11px] font-bold text-slate-500 uppercase mt-0.5">Verification</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">Cadastral &amp; NC</div>
+            </div>
+          </div>
+
+          <!-- Feature Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
+              <div class="flex items-center space-x-2 text-emerald-800 font-bold text-xs">
+                <i class="fa-solid fa-file-shield text-emerald-600 text-sm"></i>
+                <span>కొత్త ఆర్.ఓ.ఆర్ (RoR) సమగ్ర చట్టం</span>
+              </div>
+              <p class="text-[11px] text-slate-500 leading-normal">
+                ధరణి స్థానంలో పారదర్శకమైన, వేగవంతమైన భూ సమస్యల పరిష్కారం కోసం రూపొందించిన సరికొత్త ఆర్.ఓ.ఆర్ నియమ నిబంధనలకు అనుగుణంగా రీసర్వే పర్యవేక్షణ.
+              </p>
+            </div>
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
+              <div class="flex items-center space-x-2 text-emerald-800 font-bold text-xs">
+                <i class="fa-solid fa-satellite text-emerald-600 text-sm"></i>
+                <span>డిజిటల్ క్యాడస్ట్రల్ మ్యాపింగ్</span>
+              </div>
+              <p class="text-[11px] text-slate-500 leading-normal">
+                హై-ప్రెసిషన్ జియో-రిఫరెన్స్డ్ బౌండరీ డేటా, షేప్‌ఫైల్స్, గ్రౌండ్ ట్రూతింగ్ విస్తీర్ణ వివరాలు మరియు సెంట్రల్ సర్వర్ సమకాలీకరణ.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Side: Officer Access & Sign-In Card (5 cols) -->
+        <div class="lg:col-span-5">
+          <div class="bg-white rounded-2xl shadow-xl border border-emerald-700/20 p-6 sm:p-7 space-y-5 relative overflow-hidden">
+            <!-- Top accent bar -->
+            <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700"></div>
+
+            <!-- Card Header -->
+            <div class="border-b border-slate-100 pb-4 text-center">
+              <div class="w-12 h-12 mx-auto rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700 text-xl shadow-sm mb-2">
+                <i class="fa-solid fa-user-lock"></i>
+              </div>
+              <h3 class="text-base font-bold text-slate-900">అధికారి లాగిన్ / Officer Sign In</h3>
+              <p class="text-xs text-slate-500 mt-0.5">
+                Authorized Revenue &amp; Resurvey Officers Authentication
+              </p>
+            </div>
+
+            <!-- Standard Username & Password Form -->
+            <form onsubmit="handleGatewayLogin(event)" class="space-y-4 text-xs">
+              <div>
+                <label class="block font-semibold text-slate-700 mb-1">Username / Officer ID *</label>
+                <div class="relative">
+                  <i class="fa-solid fa-user absolute left-3.5 top-3 text-slate-400"></i>
+                  <input type="text" id="gatewayUsernameInput" required placeholder="Enter username (e.g. admin, qc_lead)" 
+                    class="w-full pl-10 pr-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 text-xs font-medium" />
+                </div>
+              </div>
+
+              <div>
+                <label class="block font-semibold text-slate-700 mb-1">Account Password *</label>
+                <div class="relative">
+                  <i class="fa-solid fa-lock absolute left-3.5 top-3 text-slate-400"></i>
+                  <input type="password" id="gatewayPasswordInput" required placeholder="Enter password" 
+                    class="w-full pl-10 pr-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 text-xs font-medium" />
+                </div>
+              </div>
+
+              <!-- Error Banner -->
+              <div id="gatewayErrorMessage" class="hidden p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center space-x-2">
+                <i class="fa-solid fa-triangle-exclamation text-rose-500"></i>
+                <span id="gatewayErrorText">Invalid credentials</span>
+              </div>
+
+              <!-- Submit Button -->
+              <button type="submit" id="btnGatewaySubmit" class="w-full py-3 bg-emerald-700 hover:bg-emerald-600 text-white font-bold rounded-xl shadow-lg shadow-emerald-900/20 transition flex items-center justify-center space-x-2 text-xs">
+                <i class="fa-solid fa-right-to-bracket text-sm"></i>
+                <span>Sign In to Officer Workspace</span>
+              </button>
+            </form>
+
+            <!-- Quick District Representative Direct Picker -->
+            <div class="pt-4 border-t border-slate-100 space-y-2">
+              <div class="flex items-center justify-between text-[11px]">
+                <span class="font-bold text-slate-700">District Representative Workspace:</span>
+                <span class="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-semibold border border-emerald-200">Field Login</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <select id="gatewayDistrictSelect" class="flex-1 p-2 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-700 focus:outline-none focus:border-emerald-600 font-medium">
+                  <option value="">Select District...</option>
+                </select>
+                <button type="button" onclick="executeGatewayDistrictRepLogin()" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-white font-semibold rounded-lg text-xs transition shrink-0">
+                  Open
+                </button>
               </div>
             </div>
 
-            <div>
-              <label class="block font-semibold text-slate-300 mb-1.5">Account Password *</label>
-              <div class="relative">
-                <i class="fa-solid fa-lock absolute left-3.5 top-3 text-slate-500"></i>
-                <input type="password" id="gatewayPasswordInput" required placeholder="Enter password" 
-                  class="w-full pl-10 pr-3 py-2.5 bg-slate-950/70 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-xs font-medium" />
+            <!-- Quick Evaluation Accounts -->
+            <div class="pt-3 border-t border-slate-100">
+              <div class="text-[11px] font-semibold text-slate-500 mb-2">Quick Evaluation Logins:</div>
+              <div class="grid grid-cols-3 gap-2 text-[11px]">
+                <button type="button" onclick="executeQuickLogin('admin', 'admin123')" class="py-1.5 px-2 bg-slate-100 hover:bg-emerald-50 hover:text-emerald-800 hover:border-emerald-300 text-slate-700 font-medium rounded-lg border border-slate-200 transition text-center">
+                  Admin
+                </button>
+                <button type="button" onclick="executeQuickLogin('qc_lead', 'qc123')" class="py-1.5 px-2 bg-slate-100 hover:bg-emerald-50 hover:text-emerald-800 hover:border-emerald-300 text-slate-700 font-medium rounded-lg border border-slate-200 transition text-center">
+                  QC Lead
+                </button>
+                <button type="button" onclick="executeQuickLogin('executive_dir', 'exec123')" class="py-1.5 px-2 bg-slate-100 hover:bg-emerald-50 hover:text-emerald-800 hover:border-emerald-300 text-slate-700 font-medium rounded-lg border border-slate-200 transition text-center">
+                  Executive
+                </button>
               </div>
             </div>
 
-            <!-- Error Banner -->
-            <div id="gatewayErrorMessage" class="hidden p-3 rounded-xl bg-rose-950/70 border border-rose-500/40 text-rose-200 text-xs flex items-center space-x-2">
-              <i class="fa-solid fa-triangle-exclamation text-rose-400"></i>
-              <span id="gatewayErrorText">Invalid credentials</span>
+            <div class="flex items-start space-x-2 p-2.5 rounded-lg bg-slate-50 border border-slate-200 text-[10px] text-slate-500">
+              <i class="fa-solid fa-shield-halved text-emerald-600 mt-0.5"></i>
+              <span>All access is cryptographically audited and logged to ensure tamper-proof survey governance.</span>
             </div>
 
-            <!-- Submit Button -->
-            <button type="submit" id="btnGatewaySubmit" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg shadow-emerald-950/50 transition flex items-center justify-center space-x-2 text-xs">
-              <i class="fa-solid fa-right-to-bracket text-sm"></i>
-              <span>Sign In to Officer Workspace</span>
-            </button>
-          </form>
-
-          <div class="p-3 rounded-xl bg-slate-950/50 border border-slate-800 text-[11px] text-slate-400 flex items-start space-x-2">
-            <i class="fa-solid fa-circle-info text-teal-400 mt-0.5"></i>
-            <div>
-              <span class="text-slate-300 font-semibold">Credential Assistance:</span>
-              Accounts are provisioned by the Central System Administrator. If you have forgotten your password, contact Central Administration for a password reset.
-            </div>
           </div>
         </div>
 
-        <!-- Security & Audit Note -->
-        <div class="flex items-start space-x-2.5 p-3 rounded-xl bg-slate-950/60 border border-slate-800 text-[11px] text-slate-400">
-          <i class="fa-solid fa-shield text-emerald-400 text-sm mt-0.5"></i>
-          <div>
-            <span class="font-semibold text-slate-300">Authenticated Operational Governance:</span>
-            All record modifications, verification approvals, and master catalog updates are cryptographically tied to the active officer session and stored in the central audit trail.
-          </div>
-        </div>
       </div>
     </main>
 
-    <!-- Gateway Footer -->
-    <footer class="border-t border-teal-900/40 bg-slate-950/80 px-4 py-3 text-center text-xs text-slate-500">
+    <!-- BHU BHARATI OFFICIAL FOOTER -->
+    <footer class="border-t border-slate-200 bg-white px-4 py-4 text-center text-xs text-slate-500 shadow-inner">
       <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-        <div>ResurveyUpdates - Central Monitoring &amp; Verification Portal</div>
-        <div>Cadastral &amp; Non-Cadastral 100% Completed Villages Tracking</div>
+        <div class="flex items-center space-x-2">
+          <span class="font-bold text-emerald-800">BHU BHARATI (భూ భారతి)</span>
+          <span>•</span>
+          <span>Government of Telangana Revenue Department</span>
+        </div>
+        <div>
+          Resurvey Monitoring &amp; Verification Portal • 100% Completed Villages Tracking
+        </div>
       </div>
     </footer>
+
   </div>
 
   <!-- ========================================================================================= -->
@@ -3184,61 +3368,90 @@
     </div>
   </div>
 
+  </div> <!-- End #authenticatedApp -->
+
   <!-- ========================================================================================= -->
-  <!-- MODAL: LOGIN / USER AUTHENTICATION                                                        -->
+  <!-- MODAL: BHU BHARATI OFFICER SIGN IN / AUTHENTICATION (Available Globally)                  -->
   <!-- ========================================================================================= -->
-  <div id="loginModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 space-y-4 max-h-[90vh] overflow-y-auto">
-      <div class="flex items-center justify-between border-b pb-3">
-        <div class="flex items-center space-x-2">
-          <i class="fa-solid fa-lock text-emerald-600"></i>
-          <h3 class="text-sm font-bold text-slate-900">Officer Sign In & Authentication</h3>
+  <div id="loginModal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 sm:p-7 shadow-2xl border border-emerald-600/20 space-y-4 max-h-[90vh] overflow-y-auto relative">
+      <!-- Modal Accent Bar -->
+      <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 rounded-t-2xl"></div>
+
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3.5 pt-1">
+        <div class="flex items-center space-x-3">
+          <img src="/assets/tg_govt_emblem.png" alt="TG Govt" class="h-9 w-auto drop-shadow" />
+          <div>
+            <div class="text-[10px] font-bold uppercase tracking-wider text-emerald-700">BHU BHARATI • భూభారతి</div>
+            <h3 id="loginModalTitle" class="text-sm sm:text-base font-bold text-slate-900 leading-tight">Officer Sign In &amp; Authentication</h3>
+          </div>
         </div>
-        <button onclick="closeLoginModal()" class="text-slate-400 hover:text-slate-600">
-          <i class="fa-solid fa-xmark"></i>
+        <button onclick="closeLoginModal()" class="text-slate-400 hover:text-slate-700 p-1.5 rounded-lg hover:bg-slate-100 transition">
+          <i class="fa-solid fa-xmark text-base"></i>
         </button>
       </div>
 
-<!-- Secure Officer Login Only -->
-
-      <!-- Tab 1: Standard Username/Password Form -->
-      <div id="panelLoginForm" class="space-y-3 text-xs">
-        <form id="customLoginForm" onsubmit="handleCustomLogin(event)" class="space-y-3">
+      <!-- Standard Username/Password Form -->
+      <div id="panelLoginForm" class="space-y-3.5 text-xs">
+        <form id="customLoginForm" onsubmit="handleCustomLogin(event)" class="space-y-3.5">
           <div>
             <label class="block font-semibold text-slate-700 mb-1">Username / Officer ID *</label>
-            <input type="text" id="loginUsernameInput" required placeholder="e.g. admin, qc_lead, asifabad_rep1" 
-              class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 font-medium" />
+            <div class="relative">
+              <i class="fa-solid fa-user absolute left-3 top-2.5 text-slate-400"></i>
+              <input type="text" id="loginUsernameInput" required placeholder="e.g. admin, qc_lead, asifabad_rep1" 
+                class="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 font-medium" />
+            </div>
           </div>
 
           <div>
             <label class="block font-semibold text-slate-700 mb-1">Password *</label>
-            <input type="password" id="loginPasswordInput" required placeholder="Enter password" 
-              class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 font-medium" />
+            <div class="relative">
+              <i class="fa-solid fa-lock absolute left-3 top-2.5 text-slate-400"></i>
+              <input type="password" id="loginPasswordInput" required placeholder="Enter password" 
+                class="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 font-medium" />
+            </div>
           </div>
 
-          <div id="loginErrorMessage" class="hidden p-2 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-[11px] font-medium"></div>
+          <div id="loginErrorMessage" class="hidden p-2.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center space-x-2">
+            <i class="fa-solid fa-triangle-exclamation text-rose-500"></i>
+            <span id="loginErrorText">Invalid credentials</span>
+          </div>
 
-          <button type="submit" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-semibold shadow transition flex items-center justify-center space-x-2">
+          <button type="submit" class="w-full py-2.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded-lg font-bold shadow-md transition flex items-center justify-center space-x-2">
             <i class="fa-solid fa-right-to-bracket"></i>
-            <span>Sign In to Portal</span>
+            <span>Sign In to Officer Portal</span>
           </button>
         </form>
 
+        <!-- Quick 1-Click Evaluation Logins -->
+        <div class="pt-3 border-t border-slate-100">
+          <div class="text-[11px] font-semibold text-slate-500 mb-2">Quick Evaluation Logins:</div>
+          <div class="grid grid-cols-3 gap-2 text-[11px]">
+            <button type="button" onclick="executeQuickLogin('admin', 'admin123')" class="py-1.5 px-2 bg-slate-50 hover:bg-emerald-50 hover:text-emerald-800 hover:border-emerald-300 text-slate-700 font-medium rounded-lg border border-slate-200 transition text-center">
+              Admin
+            </button>
+            <button type="button" onclick="executeQuickLogin('qc_lead', 'qc123')" class="py-1.5 px-2 bg-slate-50 hover:bg-emerald-50 hover:text-emerald-800 hover:border-emerald-300 text-slate-700 font-medium rounded-lg border border-slate-200 transition text-center">
+              QC Lead
+            </button>
+            <button type="button" onclick="executeQuickLogin('executive_dir', 'exec123')" class="py-1.5 px-2 bg-slate-50 hover:bg-emerald-50 hover:text-emerald-800 hover:border-emerald-300 text-slate-700 font-medium rounded-lg border border-slate-200 transition text-center">
+              Executive
+            </button>
+          </div>
+        </div>
+
         <div class="pt-2 text-[11px] text-slate-400 text-center border-t border-slate-100">
-          Default evaluation credentials: password is <code class="bg-slate-100 text-slate-700 px-1 py-0.5 rounded font-mono">pass</code>, <code class="bg-slate-100 text-slate-700 px-1 py-0.5 rounded font-mono">admin</code>, or <code class="bg-slate-100 text-slate-700 px-1 py-0.5 rounded font-mono">rep123</code>.
+          Default passwords: <code class="bg-slate-100 text-slate-700 px-1 py-0.5 rounded font-mono">admin123</code>, <code class="bg-slate-100 text-slate-700 px-1 py-0.5 rounded font-mono">qc123</code>, <code class="bg-slate-100 text-slate-700 px-1 py-0.5 rounded font-mono">exec123</code>, or <code class="bg-slate-100 text-slate-700 px-1 py-0.5 rounded font-mono">rep123</code>.
         </div>
       </div>
 
-      <!-- Tab 2: 1-Click Demo Accounts -->
-      <div class="pt-2">
+      <div class="pt-1">
         <button onclick="closeLoginModal()" class="w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-medium">
-          Cancel
+          Cancel &amp; Return to Portal
         </button>
       </div>
     </div>
   </div>
-
-  </div> <!-- End #authenticatedApp -->
 
   <!-- ========================================================================================= -->
   <!-- JAVASCRIPT APPLICATION LOGIC                                                              -->

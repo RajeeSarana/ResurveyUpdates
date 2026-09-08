@@ -1133,6 +1133,17 @@ possible_public = [
 ]
 PUBLIC_DIR = next((p for p in possible_public if os.path.exists(p)), os.path.join(ROOT_DIR, "public"))
 if os.path.exists(PUBLIC_DIR):
+    assets_dir = os.path.join(PUBLIC_DIR, "assets")
+    if os.path.exists(assets_dir):
+        app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
+
+    @app.get("/assets/{file_path:path}")
+    def serve_asset(file_path: str):
+        asset_file = os.path.join(PUBLIC_DIR, "assets", file_path)
+        if os.path.exists(asset_file) and os.path.isfile(asset_file):
+            return FileResponse(asset_file)
+        raise HTTPException(status_code=404, detail="Asset not found")
+
     @app.get("/")
     def serve_index():
         index_file = os.path.join(PUBLIC_DIR, "index.html")
@@ -1146,3 +1157,4 @@ if os.path.exists(PUBLIC_DIR):
                 }
             )
         return HTMLResponse("<h3>ResurveyUpdates UI loading...</h3>")
+
