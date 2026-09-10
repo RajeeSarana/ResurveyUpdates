@@ -320,13 +320,13 @@
           </div>
         </button>
 
-        <!-- 2. Resurvey Operations & Status -->
+        <!-- 2. GT Data Updation & Status -->
         <button onclick="switchMainTab('tab-villages')" id="nav-tab-villages" class="sidebar-item w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition group text-left">
           <div class="flex items-center space-x-2.5 min-w-0">
             <div class="w-6 h-6 rounded-md bg-teal-500/10 text-teal-400 flex items-center justify-center border border-teal-500/20 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-list-check text-xs"></i>
             </div>
-            <span class="truncate">Resurvey Ops</span>
+            <span class="truncate">GT data Updatation</span>
           </div>
           <span id="navVillageCountBadge" class="bg-emerald-500/20 text-emerald-300 text-[9px] font-bold px-1.5 py-0.2 rounded-full border border-emerald-500/30">91</span>
         </button>
@@ -342,13 +342,13 @@
           <span id="navResurveyMasterBadge" class="bg-emerald-500/20 text-emerald-300 text-[9px] font-bold px-1.5 py-0.2 rounded-full border border-emerald-500/30">Registry</span>
         </button>
 
-        <!-- 3. QC Verification Desk -->
+        <!-- 3. Shape file QC Desk -->
         <button onclick="switchMainTab('tab-qc')" id="nav-tab-qc" class="sidebar-item w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition group text-left">
           <div class="flex items-center space-x-2.5 min-w-0">
             <div class="w-6 h-6 rounded-md bg-amber-500/10 text-amber-400 flex items-center justify-center border border-amber-500/20 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-clipboard-check text-xs"></i>
             </div>
-            <span class="truncate">QC Desk</span>
+            <span class="truncate">Shape file QC</span>
           </div>
           <span id="navPendingQcBadge" class="bg-amber-500/20 text-amber-300 text-[9px] font-bold px-1.5 py-0.2 rounded-full border border-amber-500/30">18</span>
         </button>
@@ -471,6 +471,10 @@
           <div class="w-full bg-slate-100 h-1.5 rounded-full mt-2 overflow-hidden">
             <div id="kpiNonCadBar" class="bg-emerald-500 h-full rounded-full" style="width: 13.6%"></div>
           </div>
+          <div class="text-[11px] text-slate-500 mt-2 flex items-center justify-between" title="Non-Cadastral Ground Truthing Total Area">
+            <span>Total Area:</span>
+            <span class="font-bold text-emerald-700 font-mono" id="kpiNonCadAcres">67,308.97 ac</span>
+          </div>
         </div>
 
         <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
@@ -484,6 +488,10 @@
           </div>
           <div class="w-full bg-slate-100 h-1.5 rounded-full mt-2 overflow-hidden">
             <div id="kpiCadBar" class="bg-blue-500 h-full rounded-full" style="width: 1.7%"></div>
+          </div>
+          <div class="text-[11px] text-slate-500 mt-2 flex items-center justify-between" title="Cadastral Ground Truthing Total Area">
+            <span>Total Area:</span>
+            <span class="font-bold text-blue-700 font-mono" id="kpiCadAcres">19,226.85 ac</span>
           </div>
         </div>
 
@@ -523,7 +531,7 @@
               <i class="fa-solid fa-shield-check"></i>
             </span>
             <div>
-              <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Central QC Verification Readiness</h3>
+              <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Shape file QC & Verification Readiness</h3>
               <p class="text-[11px] text-slate-500">Validation & verification status for 100% completed villages</p>
             </div>
           </div>
@@ -544,7 +552,7 @@
               <span class="font-bold text-rose-700" id="subKpiReturned">4</span>
             </div>
             <button onclick="switchMainTab('tab-qc')" class="ml-2 text-xs bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-semibold px-2.5 py-1 rounded border border-emerald-200 transition">
-              Open QC Desk &rarr;
+              Open Shape file QC &rarr;
             </button>
           </div>
         </div>
@@ -639,7 +647,7 @@
         <div>
           <h3 class="text-sm font-bold text-slate-900 flex items-center space-x-2">
             <i class="fa-solid fa-list-check text-emerald-600"></i>
-            <span id="villageExplorerTitle">Resurvey Operations &amp; Survey Submissions Status</span>
+            <span id="villageExplorerTitle">GT data Updatation &amp; Survey Submissions Status</span>
             <span class="ml-2 bg-emerald-50 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-200">Active Field Progress</span>
           </h3>
           <p class="text-xs text-slate-500 mt-0.5" id="villageExplorerSub">Tracking Ground Truthing (GT), Shapefile generation, CSO delivery, and Central QC Verification for ongoing resurvey submissions. For the permanent official territorial master of all 10,888 villages, view the <a href="javascript:void(0)" onclick="switchMainTab('tab-master')" class="text-emerald-700 underline font-semibold">State Master Directory &rarr;</a></p>
@@ -983,7 +991,7 @@
         <div>
           <div class="flex items-center space-x-2 text-amber-900 font-bold text-sm">
             <i class="fa-solid fa-clipboard-check text-amber-600 text-lg"></i>
-            <span>Central Office Quality Control & Verification Desk</span>
+            <span>Central Office Shape file Quality Control & Verification Desk</span>
           </div>
           <p class="text-xs text-amber-800/80 mt-1">
             Review field submissions from 32 district representatives, verify GIS boundary completeness, check attribute readiness, or return records with review remarks.
@@ -1164,7 +1172,7 @@
           <div class="w-full bg-slate-100 h-2 rounded-full mt-3 overflow-hidden">
             <div id="execQcBar" class="bg-teal-500 h-full rounded-full" style="width: 78.9%"></div>
           </div>
-          <div class="text-[10px] text-slate-400 mt-1">Cleared by Central QC Desk</div>
+          <div class="text-[10px] text-slate-400 mt-1">Cleared by Shape file QC</div>
         </div>
 
         <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
@@ -2195,13 +2203,13 @@
                 <span class="text-[9px] bg-blue-200 text-blue-900 font-bold px-1.5 py-0.2 rounded">Display Mode</span>
               </div>
               <div class="text-[11px] text-blue-800/90 mt-0.5">
-                Survey details and baseline extent are displayed for review. <strong>Data entry, daily survey logging, and updates are permitted only through the Resurvey Ops section.</strong>
+                Survey details and baseline extent are displayed for review. <strong>Data entry, daily survey logging, and updates are permitted only through the GT data Updatation section.</strong>
               </div>
             </div>
           </div>
           <button type="button" id="btnModalSwitchToOps" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-xs transition shrink-0 flex items-center space-x-1.5 shadow-xs">
             <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-            <span>Open in Resurvey Ops to Edit</span>
+            <span>Open in GT data Updatation to Edit</span>
           </button>
         </div>
 
@@ -2563,7 +2571,7 @@
           <!-- READ-ONLY NOTICE FOR DAILY SURVEY PROGRESS -->
           <div id="cardDailySurveyViewOnlyNotice" class="hidden bg-slate-50 border border-dashed border-slate-200 rounded-xl p-3 text-center text-xs text-slate-500 italic flex items-center justify-center space-x-2">
             <i class="fa-solid fa-lock text-slate-400"></i>
-            <span>Daily field survey extent entries and corrections are recorded through the <strong>Resurvey Ops</strong> section.</span>
+            <span>Daily field survey extent entries and corrections are recorded through the <strong>GT data Updatation</strong> section.</span>
           </div>
 
           <!-- RECENT DAILY SURVEY LOG TABLE -->
@@ -3823,8 +3831,8 @@
 
       const catalog = [
         { id: 'tab-overview', title: 'Overview Dashboard', icon: 'fa-chart-pie', color: 'emerald' },
-        { id: 'tab-villages', title: 'Resurvey Operations & Status', icon: 'fa-list-check', color: 'teal' },
-        { id: 'tab-qc', title: 'QC Verification Desk', icon: 'fa-clipboard-check', color: 'amber' },
+        { id: 'tab-villages', title: 'GT data Updatation', icon: 'fa-list-check', color: 'teal' },
+        { id: 'tab-qc', title: 'Shape file QC', icon: 'fa-clipboard-check', color: 'amber' },
         { id: 'tab-cso', title: 'CSO Daily Tracking', icon: 'fa-tower-broadcast', color: 'indigo' },
         { id: 'tab-executive', title: 'Executive Briefing', icon: 'fa-chart-line', color: 'blue' },
         { id: 'tab-audit', title: 'Change Audit Trail', icon: 'fa-clock-rotate-left', color: 'cyan' },
@@ -3981,8 +3989,8 @@
 
       const menuCatalog = [
         { id: 'tab-overview', title: 'Overview Dashboard', icon: 'fa-chart-pie' },
-        { id: 'tab-villages', title: 'Resurvey Operations & Status', icon: 'fa-list-check' },
-        { id: 'tab-qc', title: 'QC Verification Desk', icon: 'fa-clipboard-check' },
+        { id: 'tab-villages', title: 'GT data Updatation', icon: 'fa-list-check' },
+        { id: 'tab-qc', title: 'Shape file QC', icon: 'fa-clipboard-check' },
         { id: 'tab-cso', title: 'CSO Daily Tracking', icon: 'fa-tower-broadcast' },
         { id: 'tab-executive', title: 'Executive Briefing', icon: 'fa-chart-line' },
         { id: 'tab-audit', title: 'Change Audit Trail', icon: 'fa-clock-rotate-left' },
@@ -4885,6 +4893,22 @@
         document.getElementById('kpiSentCSO').textContent = stats.shapefiles.sent_to_cso;
         document.getElementById('kpiErrors').textContent = stats.shapefiles.error;
         document.getElementById('kpiTotalAcres').textContent = Number(stats.total_extent_acres).toLocaleString();
+
+        const ncAcres = (stats.gt_completed && stats.gt_completed.non_cadastral_acres !== undefined) 
+          ? stats.gt_completed.non_cadastral_acres 
+          : (stats.non_cadastral_gt_acres || 0);
+        const cadAcres = (stats.gt_completed && stats.gt_completed.cadastral_acres !== undefined) 
+          ? stats.gt_completed.cadastral_acres 
+          : (stats.cadastral_gt_acres || 0);
+
+        const elNonCadAcres = document.getElementById('kpiNonCadAcres');
+        if (elNonCadAcres) {
+          elNonCadAcres.textContent = `${Number(ncAcres).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} ac`;
+        }
+        const elCadAcres = document.getElementById('kpiCadAcres');
+        if (elCadAcres) {
+          elCadAcres.textContent = `${Number(cadAcres).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} ac`;
+        }
 
         const vVerified = stats.verification ? stats.verification.verified : 0;
         const vPending = stats.verification ? stats.verification.pending_qc : 0;
@@ -7046,7 +7070,7 @@
         return;
       }
 
-      // In edit mode (from Resurvey Ops):
+      // In edit mode (from GT data Updatation):
       openAddVillageModal();
       const distSelect = document.getElementById('formDistrict');
       if (distSelect) {
@@ -7670,7 +7694,7 @@
           btnCancel.className = 'px-6 py-2.5 bg-slate-800 hover:bg-slate-900 text-white rounded-lg font-semibold transition text-xs shadow-xs';
         }
         if (footerHelp) {
-          footerHelp.innerHTML = '<i class="fa-solid fa-eye text-blue-600 mr-1.5"></i><span>Resurvey Master Display Mode &bull; Data entry permitted in Resurvey Ops only</span>';
+          footerHelp.innerHTML = '<i class="fa-solid fa-eye text-blue-600 mr-1.5"></i><span>Resurvey Master Display Mode &bull; Data entry permitted in GT data Updatation only</span>';
         }
         if (cardDailyEntry) cardDailyEntry.classList.add('hidden');
         if (cardDailyNotice) cardDailyNotice.classList.remove('hidden');
@@ -8058,7 +8082,7 @@
     async function handleVillageFormSubmit(e) {
       e.preventDefault();
       if (currentVillageModalMode === 'view') {
-        alert('Resurvey Master Display Mode: Data entry and updates are permitted only through the Resurvey Ops section.');
+        alert('Resurvey Master Display Mode: Data entry and updates are permitted only through the GT data Updatation section.');
         return;
       }
       const id = document.getElementById('formVillageId').value;
@@ -8197,7 +8221,7 @@
 
     function handleEditDailySurveyEntry(villageId, logId) {
       if (currentVillageModalMode === 'view') {
-        alert('Resurvey Master Display Mode: Daily survey entries cannot be edited here. Use Resurvey Ops section.');
+        alert('Resurvey Master Display Mode: Daily survey entries cannot be edited here. Use GT data Updatation section.');
         return;
       }
       const v = allVillages.find(item => item.id === villageId);
@@ -8284,7 +8308,7 @@
 
     async function handleLogDailySurveyEntry() {
       if (currentVillageModalMode === 'view') {
-        alert('Resurvey Master Display Mode: Daily survey logging is permitted only through the Resurvey Ops section.');
+        alert('Resurvey Master Display Mode: Daily survey logging is permitted only through the GT data Updatation section.');
         return;
       }
       if (!currentUser) {
@@ -8378,7 +8402,7 @@
 
     async function handleDeleteDailySurveyEntry(villageId, logId) {
       if (currentVillageModalMode === 'view') {
-        alert('Resurvey Master Display Mode: Daily survey entries cannot be deleted here. Use Resurvey Ops section.');
+        alert('Resurvey Master Display Mode: Daily survey entries cannot be deleted here. Use GT data Updatation section.');
         return;
       }
       if (!confirm('Are you sure you want to delete this daily survey log entry? Extent will be recalculated.')) return;

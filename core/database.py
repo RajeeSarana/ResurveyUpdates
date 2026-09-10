@@ -1517,6 +1517,11 @@ def get_dashboard_stats(district: Optional[str] = None) -> Dict[str, Any]:
     gt_non_cadastral = [v for v in picked_vlgs if v.get("category") == "Non-Cadastral" and v.get("gt_status") == "Completed"]
     gt_cadastral = [v for v in picked_vlgs if v.get("category") == "Cadastral" and v.get("gt_status") == "Completed"]
     
+    non_cadastral_gt_acres = sum(v.get("extent_acres_float", 0.0) or 0.0 for v in gt_non_cadastral)
+    cadastral_gt_acres = sum(v.get("extent_acres_float", 0.0) or 0.0 for v in gt_cadastral)
+    total_non_cadastral_acres = sum(v.get("extent_acres_float", 0.0) or 0.0 for v in picked_vlgs if v.get("category") == "Non-Cadastral")
+    total_cadastral_acres = sum(v.get("extent_acres_float", 0.0) or 0.0 for v in picked_vlgs if v.get("category") == "Cadastral")
+    
     shapefile_completed = [v for v in picked_vlgs if v.get("shapefile_status") == "Completed" and v.get("verification_status") != "Returned for Correction"]
     shapefile_error = [v for v in picked_vlgs if v.get("shapefile_status") in ["Error", "Shapefile Returned", "ShapefileReturned", "Returned"] or v.get("verification_status") == "Returned for Correction"]
     shapefile_in_progress = [v for v in picked_vlgs if v.get("shapefile_status") == "In Progress"]
@@ -1536,6 +1541,8 @@ def get_dashboard_stats(district: Optional[str] = None) -> Dict[str, Any]:
         d_picked = [v for v in d_vlgs if v.get("is_picked_for_resurvey") or v.get("picked_for_resurvey")]
         d_non_cad_gt = [v for v in d_picked if v.get("category") == "Non-Cadastral" and v.get("gt_status") == "Completed"]
         d_cad_gt = [v for v in d_picked if v.get("category") == "Cadastral" and v.get("gt_status") == "Completed"]
+        d_non_cad_acres = sum(v.get("extent_acres_float", 0.0) or 0.0 for v in d_non_cad_gt)
+        d_cad_acres = sum(v.get("extent_acres_float", 0.0) or 0.0 for v in d_cad_gt)
         d_sf_sent = [v for v in d_picked if (v.get("sent_to_cso") is True or v.get("shapefile_status") == "Completed") and v.get("verification_status") != "Returned for Correction"]
         d_sf_err = [v for v in d_picked if v.get("shapefile_status") in ["Error", "Shapefile Returned", "ShapefileReturned", "Returned"] or v.get("verification_status") == "Returned for Correction"]
         d_verified = [v for v in d_picked if v.get("verification_status") == "Verified"]
@@ -1549,6 +1556,8 @@ def get_dashboard_stats(district: Optional[str] = None) -> Dict[str, Any]:
             "non_cadastral_gt_done": len(d_non_cad_gt),
             "cadastral_gt_done": len(d_cad_gt),
             "total_gt_done": len(d_non_cad_gt) + len(d_cad_gt),
+            "non_cadastral_gt_acres": round(d_non_cad_acres, 2),
+            "cadastral_gt_acres": round(d_cad_acres, 2),
             "shapefiles_sent": len(d_sf_sent),
             "shapefiles_error": len(d_sf_err),
             "verified_count": len(d_verified),
@@ -1608,8 +1617,16 @@ def get_dashboard_stats(district: Optional[str] = None) -> Dict[str, Any]:
         "gt_completed": {
             "non_cadastral": len(gt_non_cadastral),
             "cadastral": len(gt_cadastral),
-            "total": len(gt_non_cadastral) + len(gt_cadastral)
+            "total": len(gt_non_cadastral) + len(gt_cadastral),
+            "non_cadastral_acres": round(non_cadastral_gt_acres, 2),
+            "cadastral_acres": round(cadastral_gt_acres, 2),
+            "total_non_cadastral_acres": round(total_non_cadastral_acres, 2),
+            "total_cadastral_acres": round(total_cadastral_acres, 2)
         },
+        "non_cadastral_gt_acres": round(non_cadastral_gt_acres, 2),
+        "cadastral_gt_acres": round(cadastral_gt_acres, 2),
+        "total_non_cadastral_acres": round(total_non_cadastral_acres, 2),
+        "total_cadastral_acres": round(total_cadastral_acres, 2),
         "shapefiles": {
             "completed": len(shapefile_completed),
             "error": len(shapefile_error),
