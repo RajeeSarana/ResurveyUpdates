@@ -796,7 +796,6 @@
                 <th class="py-2.5 px-2 text-center whitespace-nowrap">GT Status</th>
                 <th class="py-2.5 px-2 text-center whitespace-nowrap">Shapefile Status</th>
                 <th class="py-2.5 px-1.5 text-center whitespace-nowrap">CSO Sent</th>
-                <th class="py-2.5 px-2.5 max-w-xs">Remarks / Observations</th>
                 <th class="py-2.5 px-2.5 text-center no-print sticky right-0 bg-slate-100 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.06)] min-w-[120px] z-10">Actions</th>
               </tr>
             </thead>
@@ -5447,7 +5446,7 @@
       if (records.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="11" class="py-8 text-center text-slate-400">
+            <td colspan="10" class="py-8 text-center text-slate-400">
               <i class="fa-regular fa-folder-open text-3xl mb-2 block"></i>
               No village records found matching the active filter.
             </td>
@@ -5535,10 +5534,6 @@
           </td>
           <td class="py-2.5 px-2 text-center whitespace-nowrap">${sfBadge}</td>
           <td class="py-2.5 px-1.5 text-center whitespace-nowrap">${csoBadge}</td>
-          <td class="py-2.5 px-2.5 text-slate-600 max-w-xs">
-            <div class="line-clamp-2 text-[11px]">${v.remarks || '-'}</div>
-            ${v.qc_notes ? `<div class="text-[10px] text-rose-800 bg-rose-50 border border-rose-200/80 rounded px-1.5 py-0.5 font-medium mt-1"><i class="fa-solid fa-triangle-exclamation mr-1 text-rose-600"></i>QC Remarks: ${v.qc_notes}</div>` : ''}
-          </td>
           <td class="py-2 px-2.5 text-center no-print whitespace-nowrap sticky right-0 bg-white group-hover:bg-slate-50/95 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.06)] z-10 space-x-1.5">
             <!-- 1. Edit Action (First Option per user requirement) -->
             ${canEdit ? `
