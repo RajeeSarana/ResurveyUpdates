@@ -2164,8 +2164,8 @@
               <span id="modalBadgePicked" class="text-[10px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-md font-medium border border-emerald-200 flex items-center">
                 <i class="fa-solid fa-circle-check text-emerald-600 mr-1 text-[9px]"></i>Picked for Resurvey
               </span>
-              <span id="modalBadgeGtStatus" class="text-[10px] bg-amber-50 text-amber-900 px-2.5 py-0.5 rounded-md font-bold border border-amber-300 flex items-center shadow-2xs">
-                <i class="fa-solid fa-clock text-amber-600 mr-1.5 text-[10px]"></i>Ground Truthing Status: GT Pending
+              <span id="modalBadgeGtStatus" class="text-xs sm:text-sm bg-amber-50 text-amber-900 px-3.5 py-1.5 rounded-lg font-extrabold border-2 border-amber-400 flex items-center shadow-sm">
+                <i class="fa-solid fa-clock text-amber-600 mr-2 text-sm"></i>Ground Truthing Status: GT Pending
               </span>
             </div>
           </div>
@@ -2556,37 +2556,10 @@
           </div>
         </div>
 
-        <!-- SECTION 3: GROUND SURVEY PROGRESS & REMARKS -->
-        <div class="bg-white p-4 sm:p-5 rounded-xl border border-slate-200/90 shadow-sm space-y-4">
-          <div class="flex items-center justify-between pb-2.5 border-b border-slate-200">
-            <div class="flex items-center space-x-2">
-              <span class="w-6 h-6 rounded-md bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs shadow-2xs">
-                <i class="fa-solid fa-person-walking text-emerald-700"></i>
-              </span>
-              <span class="font-bold text-slate-800 text-xs sm:text-sm">Ground Survey Execution &amp; Field Notes</span>
-            </div>
-            <div class="flex items-center space-x-2">
-              <span class="text-xs text-slate-600 font-medium">Village Category:</span>
-              <span id="dispCategoryText" class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-blue-50 text-blue-700 border border-blue-200">Cadastral</span>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label class="block font-semibold text-slate-700 mb-1">Ground Truthing Status *</label>
-              <select id="formGtStatus" class="w-full p-2.5 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 font-medium text-slate-800 shadow-2xs">
-                <option value="Completed">100% GT Completed</option>
-                <option value="In Progress">GT In Progress</option>
-                <option value="Pending">Pending Start</option>
-              </select>
-            </div>
-            <div>
-              <label class="block font-semibold text-slate-700 mb-1">Remarks / Action Notes</label>
-              <textarea id="formRemarks" rows="2" placeholder="Enter observations, 9(2) notice details, or field survey notes..." 
-                class="w-full p-2.5 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 text-slate-800 shadow-2xs"></textarea>
-            </div>
-          </div>
-        </div>
+        <!-- PRESERVED FORM STATE (Ground Survey Execution & Field Notes removed per user request) -->
+        <input type="hidden" id="formGtStatus" value="Pending" />
+        <input type="hidden" id="formRemarks" value="" />
+        <span id="dispCategoryText" class="hidden"></span>
 
         <!-- MODAL FOOTER -->
         <div class="flex items-center justify-between pt-4 border-t border-slate-200 bg-white shrink-0">
@@ -4272,11 +4245,11 @@
       const badgeGtStatus = document.getElementById('modalBadgeGtStatus');
       if (badgeGtStatus) {
         if (remainingAcres <= 0.0001 && (targetAcres > 0 || surveyedSoFar > 0)) {
-          badgeGtStatus.className = 'text-[10px] bg-emerald-50 text-emerald-800 px-2.5 py-0.5 rounded-md font-bold border border-emerald-300 flex items-center shadow-2xs';
-          badgeGtStatus.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-600 mr-1.5 text-[10px]"></i>Ground Truthing Status: GT Completed';
+          badgeGtStatus.className = 'text-xs sm:text-sm bg-emerald-50 text-emerald-900 px-3.5 py-1.5 rounded-lg font-extrabold border-2 border-emerald-400 flex items-center shadow-sm';
+          badgeGtStatus.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-600 mr-2 text-sm"></i>Ground Truthing Status: GT Completed';
         } else {
-          badgeGtStatus.className = 'text-[10px] bg-amber-50 text-amber-900 px-2.5 py-0.5 rounded-md font-bold border border-amber-300 flex items-center shadow-2xs';
-          badgeGtStatus.innerHTML = '<i class="fa-solid fa-clock text-amber-600 mr-1.5 text-[10px]"></i>Ground Truthing Status: GT Pending';
+          badgeGtStatus.className = 'text-xs sm:text-sm bg-amber-50 text-amber-900 px-3.5 py-1.5 rounded-lg font-extrabold border-2 border-amber-400 flex items-center shadow-sm';
+          badgeGtStatus.innerHTML = '<i class="fa-solid fa-clock text-amber-600 mr-2 text-sm"></i>Ground Truthing Status: GT Pending';
         }
       }
 
@@ -7486,8 +7459,8 @@
       document.getElementById('modalBadgeMandal').innerHTML = `<i class="fa-solid fa-layer-group text-blue-600 mr-1 text-[9px]"></i>New Mandal`;
       document.getElementById('modalBadgeCategory').textContent = 'Cadastral';
       if (document.getElementById('modalBadgeGtStatus')) {
-        document.getElementById('modalBadgeGtStatus').className = 'text-[10px] bg-amber-50 text-amber-900 px-2.5 py-0.5 rounded-md font-bold border border-amber-300 flex items-center shadow-2xs';
-        document.getElementById('modalBadgeGtStatus').innerHTML = '<i class="fa-solid fa-clock text-amber-600 mr-1.5 text-[10px]"></i>Ground Truthing Status: GT Pending';
+        document.getElementById('modalBadgeGtStatus').className = 'text-xs sm:text-sm bg-amber-50 text-amber-900 px-3.5 py-1.5 rounded-lg font-extrabold border-2 border-amber-400 flex items-center shadow-sm';
+        document.getElementById('modalBadgeGtStatus').innerHTML = '<i class="fa-solid fa-clock text-amber-600 mr-2 text-sm"></i>Ground Truthing Status: GT Pending';
       }
 
       if (document.getElementById('dispDistrict')) document.getElementById('dispDistrict').textContent = defDist;
