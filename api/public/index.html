@@ -2213,54 +2213,7 @@
           </button>
         </div>
 
-        <!-- UNIFIED MASTER BASELINE & CSO TELEMETRY BANNER (ULTRA-SLIM EXECUTIVE TICKER - 2/3 SPACE SAVED) -->
-        <div class="bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-900 rounded-xl px-3 py-1.5 sm:px-4 sm:py-2 text-white shadow-sm border border-slate-700/60 flex flex-wrap items-center justify-between gap-x-4 gap-y-1.5">
-          <!-- 1. Left: Non-Editable Master Geography & Category Trail -->
-          <div class="flex items-center space-x-2 text-xs flex-wrap">
-            <span class="bg-indigo-500/30 text-indigo-200 border border-indigo-400/40 text-[9px] font-black uppercase px-1.5 py-0.5 rounded tracking-wider flex items-center shrink-0 shadow-2xs">
-              <i class="fa-solid fa-lock text-amber-400 mr-1 text-[8px]"></i>Master Info
-            </span>
-            <div class="flex items-center space-x-1.5 text-slate-300 text-xs flex-wrap">
-              <span class="text-slate-400 text-[10px]">Dist:</span>
-              <span class="font-bold text-white text-xs" id="dispDistrict">-</span>
-              <span class="text-slate-600">&bull;</span>
-              <span class="text-slate-400 text-[10px]">Mandal:</span>
-              <span class="font-bold text-white text-xs" id="dispMandal">-</span>
-              <span class="text-slate-600">&bull;</span>
-              <span class="text-slate-400 text-[10px]">Village:</span>
-              <span class="font-bold text-amber-300 text-xs telugu-text" id="dispVillage">-</span>
-              <span class="text-[10px] text-indigo-300 telugu-text" id="dispVillageTelugu"></span>
-              <span class="text-slate-600">&bull;</span>
-              <span class="text-slate-400 text-[10px]">Type:</span>
-              <span id="dispCategoryText" class="font-bold text-emerald-300 text-xs">Cadastral</span>
-            </div>
-          </div>
 
-          <!-- 2. Center: Eye-Catching Master Extent Jewel Badge -->
-          <div class="flex items-center space-x-2 bg-gradient-to-r from-emerald-950 to-teal-950 border border-emerald-500/50 px-3 py-1 rounded-lg shadow-inner shrink-0">
-            <i class="fa-solid fa-gem text-amber-300 text-xs"></i>
-            <span class="text-[9px] font-bold text-slate-300 uppercase tracking-wider">Master Extent:</span>
-            <span class="text-xs sm:text-sm font-black text-amber-300 font-mono tracking-tight" id="dispExtentRaw">-</span>
-            <span class="text-[9px] bg-emerald-800/80 text-emerald-100 px-1 py-0.2 rounded font-semibold border border-emerald-400/30">Ac-Gts</span>
-            <span class="text-[10px] text-slate-300 font-mono pl-1.5 border-l border-emerald-500/30" id="dispExtentDecimal">Decimal: 0.00 ac</span>
-          </div>
-
-          <!-- 3. Right: Compact CSO Telemetry Status Badges -->
-          <div class="flex items-center space-x-2 text-xs shrink-0 flex-wrap">
-            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider flex items-center">
-              <i class="fa-solid fa-tower-broadcast text-indigo-400 mr-1 text-[9px]"></i>CSO:
-            </span>
-            <span id="dispCsoTransmission" class="inline-flex items-center">
-              <span class="text-slate-400 text-[10px]">Pending</span>
-            </span>
-            <span id="dispShapefileStatus" class="inline-flex items-center">
-              <span class="text-slate-400 text-[10px]">Pending</span>
-            </span>
-            <span id="dispWorkflowMilestone" class="inline-flex items-center">
-              <span class="text-slate-400 text-[10px]">Ground Truthing</span>
-            </span>
-          </div>
-        </div>
 
         <!-- DEDICATED QC RETURN FEEDBACK BANNER (DISPLAYED WHEN RETURNED FOR CORRECTION) -->
         <div id="dispModalQcAlert" class="hidden p-3 bg-rose-50 border-l-4 border-rose-500 rounded-r-xl space-y-2 shadow-2xs">
@@ -7529,13 +7482,13 @@
       document.getElementById('modalBadgeMandal').innerHTML = `<i class="fa-solid fa-layer-group text-blue-600 mr-1 text-[9px]"></i>New Mandal`;
       document.getElementById('modalBadgeCategory').textContent = 'Cadastral';
 
-      document.getElementById('dispDistrict').textContent = defDist;
-      document.getElementById('dispMandal').textContent = 'New Mandal';
-      document.getElementById('dispVillage').textContent = 'New Village Entry';
-      document.getElementById('dispVillageTelugu').textContent = '';
-      document.getElementById('dispExtentRaw').textContent = '-';
-      document.getElementById('dispExtentDecimal').textContent = 'Decimal: 0.00 ac';
-      document.getElementById('dispCategoryText').textContent = 'Cadastral';
+      if (document.getElementById('dispDistrict')) document.getElementById('dispDistrict').textContent = defDist;
+      if (document.getElementById('dispMandal')) document.getElementById('dispMandal').textContent = 'New Mandal';
+      if (document.getElementById('dispVillage')) document.getElementById('dispVillage').textContent = 'New Village Entry';
+      if (document.getElementById('dispVillageTelugu')) document.getElementById('dispVillageTelugu').textContent = '';
+      if (document.getElementById('dispExtentRaw')) document.getElementById('dispExtentRaw').textContent = '-';
+      if (document.getElementById('dispExtentDecimal')) document.getElementById('dispExtentDecimal').textContent = 'Decimal: 0.00 ac';
+      if (document.getElementById('dispCategoryText')) document.getElementById('dispCategoryText').textContent = 'Cadastral';
 
       document.getElementById('formDistrict').value = defDist;
       document.getElementById('formMandalName').value = 'General Mandal';
@@ -7732,17 +7685,17 @@
       }
 
       // Master Data Display Cards (Read-only as navigated from selected village)
-      document.getElementById('dispDistrict').textContent = v.district_name;
-      document.getElementById('dispMandal').textContent = v.mandal_name;
-      document.getElementById('dispVillage').textContent = v.village_name;
-      document.getElementById('dispVillageTelugu').textContent = v.village_name_telugu ? `(${v.village_name_telugu})` : '';
-      document.getElementById('dispCategoryText').textContent = v.category;
+      if (document.getElementById('dispDistrict')) document.getElementById('dispDistrict').textContent = v.district_name;
+      if (document.getElementById('dispMandal')) document.getElementById('dispMandal').textContent = v.mandal_name;
+      if (document.getElementById('dispVillage')) document.getElementById('dispVillage').textContent = v.village_name;
+      if (document.getElementById('dispVillageTelugu')) document.getElementById('dispVillageTelugu').textContent = v.village_name_telugu ? `(${v.village_name_telugu})` : '';
+      if (document.getElementById('dispCategoryText')) document.getElementById('dispCategoryText').textContent = v.category;
       const rawExt = (v.extent_raw && v.extent_raw !== '-') ? v.extent_raw : '-';
-      document.getElementById('dispExtentRaw').textContent = rawExt;
+      if (document.getElementById('dispExtentRaw')) document.getElementById('dispExtentRaw').textContent = rawExt;
       const decExt = (v.extent_acres_float && v.extent_acres_float > 0) 
         ? `Decimal: ${v.extent_acres_float.toFixed(3)} ac` 
         : 'Decimal: 0.00 ac';
-      document.getElementById('dispExtentDecimal').textContent = decExt;
+      if (document.getElementById('dispExtentDecimal')) document.getElementById('dispExtentDecimal').textContent = decExt;
 
       // CSO Transmission Status & Shapefile Status
       const isSentCSO = !!v.sent_to_cso;
