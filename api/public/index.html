@@ -2164,6 +2164,9 @@
               <span id="modalBadgePicked" class="text-[10px] bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-md font-medium border border-emerald-200 flex items-center">
                 <i class="fa-solid fa-circle-check text-emerald-600 mr-1 text-[9px]"></i>Picked for Resurvey
               </span>
+              <span id="modalBadgeGtStatus" class="text-[10px] bg-amber-50 text-amber-900 px-2.5 py-0.5 rounded-md font-bold border border-amber-300 flex items-center shadow-2xs">
+                <i class="fa-solid fa-clock text-amber-600 mr-1.5 text-[10px]"></i>Ground Truthing Status: GT Pending
+              </span>
             </div>
           </div>
         </div>
@@ -4263,6 +4266,28 @@
 
       if (document.getElementById('dispSurveyProgressBar')) {
         document.getElementById('dispSurveyProgressBar').style.width = Math.min(100, Math.max(0, completionPct)) + '%';
+      }
+
+      // Update Ground Truthing Status Badge directly below Edit Record header
+      const badgeGtStatus = document.getElementById('modalBadgeGtStatus');
+      if (badgeGtStatus) {
+        if (remainingAcres <= 0.0001 && (targetAcres > 0 || surveyedSoFar > 0)) {
+          badgeGtStatus.className = 'text-[10px] bg-emerald-50 text-emerald-800 px-2.5 py-0.5 rounded-md font-bold border border-emerald-300 flex items-center shadow-2xs';
+          badgeGtStatus.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-600 mr-1.5 text-[10px]"></i>Ground Truthing Status: GT Completed';
+        } else {
+          badgeGtStatus.className = 'text-[10px] bg-amber-50 text-amber-900 px-2.5 py-0.5 rounded-md font-bold border border-amber-300 flex items-center shadow-2xs';
+          badgeGtStatus.innerHTML = '<i class="fa-solid fa-clock text-amber-600 mr-1.5 text-[10px]"></i>Ground Truthing Status: GT Pending';
+        }
+      }
+
+      // Sync Ground Truthing status select input with remaining progress
+      const elFormGt = document.getElementById('formGtStatus');
+      if (elFormGt) {
+        if (remainingAcres <= 0.0001 && (targetAcres > 0 || surveyedSoFar > 0)) {
+          elFormGt.value = 'Completed';
+        } else if (remainingAcres > 0.0001) {
+          elFormGt.value = (surveyedSoFar > 0) ? 'In Progress' : 'Pending';
+        }
       }
     }
 
@@ -7460,6 +7485,10 @@
       document.getElementById('modalBadgeDistrict').innerHTML = `<i class="fa-solid fa-map-pin text-emerald-600 mr-1 text-[9px]"></i>${defDist}`;
       document.getElementById('modalBadgeMandal').innerHTML = `<i class="fa-solid fa-layer-group text-blue-600 mr-1 text-[9px]"></i>New Mandal`;
       document.getElementById('modalBadgeCategory').textContent = 'Cadastral';
+      if (document.getElementById('modalBadgeGtStatus')) {
+        document.getElementById('modalBadgeGtStatus').className = 'text-[10px] bg-amber-50 text-amber-900 px-2.5 py-0.5 rounded-md font-bold border border-amber-300 flex items-center shadow-2xs';
+        document.getElementById('modalBadgeGtStatus').innerHTML = '<i class="fa-solid fa-clock text-amber-600 mr-1.5 text-[10px]"></i>Ground Truthing Status: GT Pending';
+      }
 
       if (document.getElementById('dispDistrict')) document.getElementById('dispDistrict').textContent = defDist;
       if (document.getElementById('dispMandal')) document.getElementById('dispMandal').textContent = 'New Mandal';
@@ -7967,8 +7996,14 @@
       cancelDailySurveyEdit();
       renderModalDailySurveyTable(v.daily_survey_logs || [], v.id, isReadOnly);
 
-      // Operational fields
-      document.getElementById('formGtStatus').value = v.gt_status || 'Completed';
+      // Operational fields - align GT status with remaining progress
+      const surveyedExtent = parseFloat((v.surveyed_extent_so_far !== undefined && v.surveyed_extent_so_far !== null) ? v.surveyed_extent_so_far : 0);
+      const remainingExtent = Math.max(0, Math.round((targetAcres - surveyedExtent) * 1000) / 1000);
+      if (remainingExtent <= 0.0001 && (targetAcres > 0 || surveyedExtent > 0)) {
+        document.getElementById('formGtStatus').value = 'Completed';
+      } else {
+        document.getElementById('formGtStatus').value = (surveyedExtent > 0) ? 'In Progress' : 'Pending';
+      }
       document.getElementById('formRemarks').value = v.remarks || '';
       if (isReadOnly) {
         document.getElementById('formGtStatus').disabled = true;
