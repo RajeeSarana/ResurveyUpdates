@@ -796,7 +796,6 @@
                 <th class="py-2.5 px-2 text-center whitespace-nowrap">GT Status</th>
                 <th class="py-2.5 px-2 text-center whitespace-nowrap">Shapefile Status</th>
                 <th class="py-2.5 px-1.5 text-center whitespace-nowrap">CSO Sent</th>
-                <th class="py-2.5 px-2 text-center whitespace-nowrap">QC Status</th>
                 <th class="py-2.5 px-2 whitespace-nowrap">Workflow Stage</th>
                 <th class="py-2.5 px-2.5 max-w-xs">Remarks / Observations</th>
                 <th class="py-2.5 px-2.5 text-center no-print sticky right-0 bg-slate-100 shadow-[-4px_0_6px_-2px_rgba(0,0,0,0.06)] min-w-[120px] z-10">Actions</th>
@@ -5449,7 +5448,7 @@
       if (records.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="13" class="py-8 text-center text-slate-400">
+            <td colspan="12" class="py-8 text-center text-slate-400">
               <i class="fa-regular fa-folder-open text-3xl mb-2 block"></i>
               No village records found matching the active filter.
             </td>
@@ -5501,15 +5500,7 @@
             ? '<span class="text-teal-600 font-bold"><i class="fa-solid fa-circle-check text-xs mr-1"></i>Yes</span>'
             : '<span class="text-slate-400">No</span>');
 
-        let vBadge = '';
-        const vStat = v.verification_status || 'Pending QC';
-        if (vStat === 'Verified') {
-          vBadge = '<span class="bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full font-bold text-[10px]"><i class="fa-solid fa-circle-check mr-1"></i>Verified</span>';
-        } else if (vStat === 'Returned for Correction' || isReturned) {
-          vBadge = '<span class="inline-flex items-center gap-1 bg-rose-50 text-rose-700 border border-rose-200 px-2 py-0.5 rounded-full font-bold text-[10px]"><i class="fa-solid fa-arrow-rotate-left mr-1"></i>Returned</span>';
-        } else {
-          vBadge = '<span class="bg-amber-50 text-amber-700 border border-amber-200 px-2 py-0.5 rounded-full font-bold text-[10px]"><i class="fa-solid fa-clock mr-1"></i>Pending QC</span>';
-        }
+
 
         // Determine button actions based on authenticated user and picked status
         const isAuth = !!currentUser;
@@ -5545,7 +5536,6 @@
           </td>
           <td class="py-2.5 px-2 text-center whitespace-nowrap">${sfBadge}</td>
           <td class="py-2.5 px-1.5 text-center whitespace-nowrap">${csoBadge}</td>
-          <td class="py-2.5 px-2 text-center whitespace-nowrap">${vBadge}</td>
           <td class="py-2.5 px-2 whitespace-nowrap">
             <span class="text-[11px] font-medium text-slate-700 bg-slate-50 border border-slate-200 px-2 py-0.5 rounded inline-block">
               ${v.workflow_stage || 'Ground Truthing'}
