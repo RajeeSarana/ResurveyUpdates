@@ -468,12 +468,12 @@
             <span class="text-2xl font-bold text-emerald-700" id="kpiNonCadDone">51</span>
             <span class="text-xs text-slate-400 font-medium">/ <span id="kpiNonCadTarget">373</span></span>
           </div>
-          <div class="w-full bg-slate-100 h-1.5 rounded-full mt-2 overflow-hidden">
+          <div class="w-full bg-slate-100 h-2 rounded-full mt-2 overflow-hidden">
             <div id="kpiNonCadBar" class="bg-emerald-500 h-full rounded-full" style="width: 13.6%"></div>
           </div>
-          <div class="text-[11px] text-slate-500 mt-2 flex items-center justify-between" title="Non-Cadastral Ground Truthing Total Area">
-            <span>Total Area:</span>
-            <span class="font-bold text-emerald-700 font-mono" id="kpiNonCadAcres">67,308.97 ac</span>
+          <div class="mt-2.5 p-2 bg-emerald-50/70 rounded-lg border border-emerald-200/70 flex items-center justify-between" title="Non-Cadastral Ground Truthing Total Area">
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-800">Total Area</span>
+            <span class="font-black text-emerald-700 font-mono text-sm sm:text-base tracking-tight" id="kpiNonCadAcres">67,308.97 ac</span>
           </div>
         </div>
 
@@ -486,12 +486,12 @@
             <span class="text-2xl font-bold text-blue-700" id="kpiCadDone">39</span>
             <span class="text-xs text-slate-400 font-medium">/ <span id="kpiCadTarget">2236</span></span>
           </div>
-          <div class="w-full bg-slate-100 h-1.5 rounded-full mt-2 overflow-hidden">
+          <div class="w-full bg-slate-100 h-2 rounded-full mt-2 overflow-hidden">
             <div id="kpiCadBar" class="bg-blue-500 h-full rounded-full" style="width: 1.7%"></div>
           </div>
-          <div class="text-[11px] text-slate-500 mt-2 flex items-center justify-between" title="Cadastral Ground Truthing Total Area">
-            <span>Total Area:</span>
-            <span class="font-bold text-blue-700 font-mono" id="kpiCadAcres">19,226.85 ac</span>
+          <div class="mt-2.5 p-2 bg-blue-50/70 rounded-lg border border-blue-200/70 flex items-center justify-between" title="Cadastral Ground Truthing Total Area">
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-800">Total Area</span>
+            <span class="font-black text-blue-700 font-mono text-sm sm:text-base tracking-tight" id="kpiCadAcres">19,226.85 ac</span>
           </div>
         </div>
 
@@ -524,42 +524,42 @@
       </section>
 
       <!-- Verification Readiness Sub-bar -->
-      <section class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+      <section class="bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-sm">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
-          <div class="flex items-center space-x-2">
-            <span class="p-1.5 rounded-lg bg-emerald-100 text-emerald-800 text-xs font-bold">
+          <div class="flex items-center space-x-3">
+            <span class="p-2.5 rounded-lg bg-emerald-100 text-emerald-800 text-base font-bold">
               <i class="fa-solid fa-shield-check"></i>
             </span>
             <div>
-              <h3 class="text-xs font-bold text-slate-800 uppercase tracking-wider">Shape file QC & Verification Readiness</h3>
-              <p class="text-[11px] text-slate-500">Validation & verification status for 100% completed villages</p>
+              <h3 class="text-sm sm:text-base font-bold text-slate-800 uppercase tracking-wide">Shape file QC &amp; Verification Readiness</h3>
+              <p class="text-xs text-slate-500">Validation &amp; verification status for 100% completed villages</p>
             </div>
           </div>
-          <div class="flex items-center space-x-3 text-xs">
-            <div class="flex items-center space-x-1">
-              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-              <span class="text-slate-600">Verified:</span>
-              <span class="font-bold text-emerald-700" id="subKpiVerified">71</span>
+          <div class="flex flex-wrap items-center gap-3 sm:gap-4">
+            <div class="flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200">
+              <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 shadow-sm"></span>
+              <span class="text-xs sm:text-sm font-bold text-emerald-900">Verified:</span>
+              <span class="font-black text-base sm:text-xl text-emerald-700" id="subKpiVerified">71</span>
             </div>
-            <div class="flex items-center space-x-1">
-              <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
-              <span class="text-slate-600">Pending QC:</span>
-              <span class="font-bold text-amber-700" id="subKpiPendingQc">15</span>
+            <div class="flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-amber-50 border border-amber-200">
+              <span class="w-3.5 h-3.5 rounded-full bg-amber-500 shadow-sm"></span>
+              <span class="text-xs sm:text-sm font-bold text-amber-900">Pending QC:</span>
+              <span class="font-black text-base sm:text-xl text-amber-700" id="subKpiPendingQc">15</span>
             </div>
-            <div class="flex items-center space-x-1">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
-              <span class="text-slate-600">Returned:</span>
-              <span class="font-bold text-rose-700" id="subKpiReturned">4</span>
+            <div class="flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-rose-50 border border-rose-200">
+              <span class="w-3.5 h-3.5 rounded-full bg-rose-500 shadow-sm"></span>
+              <span class="text-xs sm:text-sm font-bold text-rose-900">Returned:</span>
+              <span class="font-black text-base sm:text-xl text-rose-700" id="subKpiReturned">4</span>
             </div>
-            <button onclick="switchMainTab('tab-qc')" class="ml-2 text-xs bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-semibold px-2.5 py-1 rounded border border-emerald-200 transition">
+            <button onclick="switchMainTab('tab-qc')" class="ml-1 sm:ml-2 text-xs sm:text-sm bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold px-3 py-1.5 rounded-xl border border-emerald-200 transition">
               Open Shape file QC &rarr;
             </button>
           </div>
         </div>
-        <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden flex">
-          <div id="barVerifiedPct" class="bg-emerald-500 h-full" style="width: 78%" title="Verified"></div>
-          <div id="barPendingPct" class="bg-amber-400 h-full" style="width: 17%" title="Pending QC"></div>
-          <div id="barReturnedPct" class="bg-rose-500 h-full" style="width: 5%" title="Returned for Correction"></div>
+        <div class="w-full bg-slate-100 h-5 sm:h-6 rounded-full overflow-hidden flex shadow-inner border border-slate-200/50">
+          <div id="barVerifiedPct" class="bg-emerald-500 h-full transition-all duration-500" style="width: 78%" title="Verified"></div>
+          <div id="barPendingPct" class="bg-amber-400 h-full transition-all duration-500" style="width: 17%" title="Pending QC"></div>
+          <div id="barReturnedPct" class="bg-rose-500 h-full transition-all duration-500" style="width: 5%" title="Returned for Correction"></div>
         </div>
       </section>
 
