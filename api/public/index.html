@@ -353,6 +353,17 @@
           <span id="navPendingQcBadge" class="bg-amber-500/20 text-amber-300 text-[9px] font-bold px-1.5 py-0.2 rounded-full border border-amber-500/30">18</span>
         </button>
 
+        <!-- 3.5 District Wise Status (Territorial Matrix) -->
+        <button onclick="switchMainTab('tab-district-status')" id="nav-tab-district-status" class="sidebar-item w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition group text-left">
+          <div class="flex items-center space-x-2.5 min-w-0">
+            <div class="w-6 h-6 rounded-md bg-indigo-500/10 text-indigo-400 flex items-center justify-center border border-indigo-500/20 group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-table-cells-large text-xs"></i>
+            </div>
+            <span class="truncate">District Wise status</span>
+          </div>
+          <span class="bg-indigo-500/20 text-indigo-300 text-[9px] font-bold px-1.5 py-0.2 rounded-full border border-indigo-500/30">Mandal</span>
+        </button>
+
         <!-- 4. CSO Daily Tracking -->
         <button onclick="switchMainTab('tab-cso')" id="nav-tab-cso" class="sidebar-item w-full flex items-center justify-between px-2.5 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition group text-left">
           <div class="flex items-center space-x-2.5 min-w-0">
@@ -1130,6 +1141,145 @@
               </tr>
             </thead>
             <tbody id="qcQueueTableBody" class="divide-y divide-slate-100 bg-white">
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <!-- ========================================================================================= -->
+    <!-- VIEW TAB 3.5: DISTRICT WISE STATUS & MANDAL PROGRESS MATRIX                                -->
+    <!-- ========================================================================================= -->
+    <div id="tab-district-status" class="hidden space-y-4">
+      <!-- Header Banner -->
+      <div class="bg-gradient-to-r from-indigo-900 via-indigo-950 to-slate-900 text-white p-5 sm:p-6 rounded-2xl shadow-lg border border-indigo-800/40 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center space-x-2 px-2.5 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-semibold mb-2">
+            <i class="fa-solid fa-table-cells-large"></i>
+            <span>TERRITORIAL PROGRESS MATRIX</span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-black tracking-tight text-white flex items-center space-x-2">
+            <span>District Wise &amp; Mandal Status</span>
+          </h2>
+          <p class="text-xs sm:text-sm text-indigo-200 mt-1 max-w-2xl">
+            Complete compliance and target achievements across all 32 districts and mandals. Filter by district to display mandals in place of districts.
+          </p>
+        </div>
+        <div class="flex items-center space-x-2.5">
+          <button onclick="exportDistrictStatusExcel()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition flex items-center space-x-2 shadow-sm cursor-pointer">
+            <i class="fa-solid fa-file-excel"></i>
+            <span>Export Matrix</span>
+          </button>
+          <button onclick="window.print()" class="bg-white/10 hover:bg-white/20 text-white text-xs font-semibold px-3.5 py-2 rounded-xl transition flex items-center space-x-2 border border-white/20 cursor-pointer">
+            <i class="fa-solid fa-print"></i>
+            <span>Print</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- DISTRICT FILTER TOOLBAR -->
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+        <div class="flex items-center space-x-3">
+          <span class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-700 flex items-center justify-center text-sm font-bold shadow-2xs shrink-0">
+            <i class="fa-solid fa-filter"></i>
+          </span>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h3 class="text-sm font-bold text-slate-900">District &amp; Mandal Scope Filter</h3>
+              <span id="distStatusFilterBadge" class="text-[10px] bg-indigo-100 text-indigo-800 font-bold px-2 py-0.5 rounded-md">Statewide View (32 Districts)</span>
+            </div>
+            <p class="text-xs text-slate-500">Select any district to display its mandals in the table below</p>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2.5">
+          <!-- District Dropdown -->
+          <div class="flex items-center space-x-2">
+            <label for="distStatusDistrictSelect" class="text-xs font-bold text-slate-700 shrink-0">Filter District:</label>
+            <div class="relative">
+              <select id="distStatusDistrictSelect" onchange="onDistrictWiseStatusFilterChange()" class="py-1.5 pl-3 pr-8 text-xs bg-slate-50 border border-slate-300 rounded-lg font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition shadow-2xs cursor-pointer min-w-[210px]">
+                <option value="all">All Districts (Statewide)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Quick Search -->
+          <div class="relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+            <input type="text" id="distStatusSearchInput" oninput="filterDistrictWiseStatusTable()" placeholder="Search district or mandal..." class="pl-8 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition w-44 sm:w-56" />
+          </div>
+
+          <!-- Reset Button -->
+          <button type="button" onclick="resetDistrictWiseStatusFilter()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-bold transition flex items-center space-x-1.5 border border-slate-200 cursor-pointer" title="Reset to Statewide">
+            <i class="fa-solid fa-rotate-left text-slate-500"></i>
+            <span>Reset</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- KPI Cards Strip -->
+      <section class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
+          <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Territorial Scope</div>
+          <div class="text-xl font-black text-slate-900 mt-1" id="distStatusKpiScopeCount">32 Districts</div>
+          <div class="text-[10px] text-slate-500 mt-0.5" id="distStatusKpiScopeSub">Entire Telangana State</div>
+        </div>
+        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
+          <div class="text-[11px] font-bold text-emerald-700 uppercase tracking-wider">NC GT Done</div>
+          <div class="text-xl font-black text-emerald-700 mt-1" id="distStatusKpiNcDone">0</div>
+          <div class="text-[10px] text-slate-400 mt-0.5">Target: <span id="distStatusKpiNcTarget">0</span></div>
+        </div>
+        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
+          <div class="text-[11px] font-bold text-blue-700 uppercase tracking-wider">Cad GT Done</div>
+          <div class="text-xl font-black text-blue-700 mt-1" id="distStatusKpiCadDone">0</div>
+          <div class="text-[10px] text-slate-400 mt-0.5">Target: <span id="distStatusKpiCadTarget">0</span></div>
+        </div>
+        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
+          <div class="text-[11px] font-bold text-slate-700 uppercase tracking-wider">Total Completed</div>
+          <div class="text-xl font-black text-slate-900 mt-1" id="distStatusKpiTotalDone">0</div>
+          <div class="text-[10px] text-emerald-600 font-semibold mt-0.5">GT Finished</div>
+        </div>
+        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
+          <div class="text-[11px] font-bold text-teal-700 uppercase tracking-wider">QC Certified</div>
+          <div class="text-xl font-black text-teal-700 mt-1" id="distStatusKpiVerified">0</div>
+          <div class="text-[10px] text-teal-600 font-semibold mt-0.5">Approved Villages</div>
+        </div>
+        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
+          <div class="text-[11px] font-bold text-rose-700 uppercase tracking-wider">Errors / Returned</div>
+          <div class="text-xl font-black text-rose-600 mt-1" id="distStatusKpiErrors">0</div>
+          <div class="text-[10px] text-rose-500 font-semibold mt-0.5">Requires Revision</div>
+        </div>
+      </section>
+
+      <!-- Matrix Table Card (matches second image) -->
+      <section class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="p-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-slate-50/50">
+          <div>
+            <h3 class="text-sm sm:text-base font-bold text-slate-900" id="distStatusTableTitle">Statewide District Compliance &amp; Targets Matrix</h3>
+            <p class="text-xs text-slate-500 mt-0.5" id="distStatusTableSubtitle">Showing target vs achievement across administrative divisions (Click any row to view its mandals)</p>
+          </div>
+          <div class="flex items-center space-x-2">
+            <span class="text-xs text-slate-500 font-medium" id="distStatusRightBadge">32 Administrative Districts</span>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-slate-200 text-left text-xs">
+            <thead class="bg-slate-50 text-slate-600 font-bold uppercase tracking-wider text-[11px]">
+              <tr>
+                <th class="py-3 px-3.5 w-12 text-slate-500">#</th>
+                <th class="py-3 px-3.5" id="distStatusColName">DISTRICT</th>
+                <th class="py-3 px-3.5 text-center">NC GT DONE</th>
+                <th class="py-3 px-3.5 text-center">NC TARGET</th>
+                <th class="py-3 px-3.5 text-center">CAD GT DONE</th>
+                <th class="py-3 px-3.5 text-center">CAD TARGET</th>
+                <th class="py-3 px-3.5 text-center">TOTAL COMPLETED</th>
+                <th class="py-3 px-3.5 text-center">QC CERTIFIED</th>
+                <th class="py-3 px-3.5 text-center">ERRORS</th>
+                <th class="py-3 px-3.5 text-right">EXTENT (ACRES)</th>
+              </tr>
+            </thead>
+            <tbody id="distStatusTableBody" class="divide-y divide-slate-100 font-sans">
+              <!-- Dynamically populated rows -->
             </tbody>
           </table>
         </div>
@@ -3597,13 +3747,13 @@
     
     // ----------------- ROLE-BASED MENU ACCESS & ADMIN MANAGEMENT -----------------
     const DEFAULT_MENU_PERMISSIONS = {
-      admin: ['tab-overview', 'tab-villages', 'tab-resurvey-master', 'tab-qc', 'tab-cso', 'tab-executive', 'tab-audit', 'tab-master', 'tab-admin'],
-      executive: ['tab-overview', 'tab-villages', 'tab-resurvey-master', 'tab-cso', 'tab-executive', 'tab-audit', 'tab-master'],
-      district_rep: ['tab-overview', 'tab-villages', 'tab-resurvey-master', 'tab-cso', 'tab-audit'],
-      district_officer: ['tab-overview', 'tab-villages', 'tab-resurvey-master', 'tab-cso', 'tab-audit'],
-      qc_engineer: ['tab-overview', 'tab-villages', 'tab-resurvey-master', 'tab-qc', 'tab-cso'],
-      cso_officer: ['tab-overview', 'tab-villages', 'tab-resurvey-master', 'tab-cso'],
-      viewer: ['tab-overview', 'tab-villages', 'tab-resurvey-master']
+      admin: ['tab-overview', 'tab-villages', 'tab-resurvey-master', 'tab-qc', 'tab-district-status', 'tab-cso', 'tab-executive', 'tab-audit', 'tab-master', 'tab-admin'],
+      executive: ['tab-overview', 'tab-villages', 'tab-resurvey-master', 'tab-district-status', 'tab-cso', 'tab-executive', 'tab-audit', 'tab-master'],
+      district_rep: ['tab-overview', 'tab-villages', 'tab-resurvey-master', 'tab-district-status', 'tab-cso', 'tab-audit'],
+      district_officer: ['tab-overview', 'tab-villages', 'tab-resurvey-master', 'tab-district-status', 'tab-cso', 'tab-audit'],
+      qc_engineer: ['tab-overview', 'tab-villages', 'tab-resurvey-master', 'tab-qc', 'tab-district-status', 'tab-cso'],
+      cso_officer: ['tab-overview', 'tab-villages', 'tab-resurvey-master', 'tab-district-status', 'tab-cso'],
+      viewer: ['tab-overview', 'tab-villages', 'tab-resurvey-master', 'tab-district-status']
     };
     let currentMenuPermissions = JSON.parse(JSON.stringify(DEFAULT_MENU_PERMISSIONS));
     let menuCatalogList = [];
@@ -3812,6 +3962,7 @@
         { id: 'tab-overview', title: 'Overview Dashboard', icon: 'fa-chart-pie', color: 'emerald' },
         { id: 'tab-villages', title: 'GT data Updatation', icon: 'fa-list-check', color: 'teal' },
         { id: 'tab-qc', title: 'Shape file QC', icon: 'fa-clipboard-check', color: 'amber' },
+        { id: 'tab-district-status', title: 'District Wise status', icon: 'fa-table-cells-large', color: 'indigo' },
         { id: 'tab-cso', title: 'CSO Daily Tracking', icon: 'fa-tower-broadcast', color: 'indigo' },
         { id: 'tab-executive', title: 'Executive Briefing', icon: 'fa-chart-line', color: 'blue' },
         { id: 'tab-audit', title: 'Change Audit Trail', icon: 'fa-clock-rotate-left', color: 'cyan' },
@@ -3876,7 +4027,7 @@
         html += `</tr>`;
       });
 
-      // Summary Row
+      // Summary row
       html += `
           <tr class="bg-slate-100/80 font-bold text-slate-700">
             <td class="py-3 px-4 border-r border-slate-200">Total Permitted Menus</td>
@@ -3885,7 +4036,7 @@
               return `
                 <td class="py-3 px-3 text-center border-r border-slate-200 last:border-r-0">
                   <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2 py-0.5 rounded-full" id="count_badge_${r.key}">
-                    ${allowed.length} / 8
+                    ${allowed.length} / ${catalog.length}
                   </span>
                 </td>
               `;
@@ -3970,6 +4121,7 @@
         { id: 'tab-overview', title: 'Overview Dashboard', icon: 'fa-chart-pie' },
         { id: 'tab-villages', title: 'GT data Updatation', icon: 'fa-list-check' },
         { id: 'tab-qc', title: 'Shape file QC', icon: 'fa-clipboard-check' },
+        { id: 'tab-district-status', title: 'District Wise status', icon: 'fa-table-cells-large' },
         { id: 'tab-cso', title: 'CSO Daily Tracking', icon: 'fa-tower-broadcast' },
         { id: 'tab-executive', title: 'Executive Briefing', icon: 'fa-chart-line' },
         { id: 'tab-audit', title: 'Change Audit Trail', icon: 'fa-clock-rotate-left' },
@@ -4082,6 +4234,7 @@
         'tab-villages',
         'tab-resurvey-master',
         'tab-qc',
+        'tab-district-status',
         'tab-cso',
         'tab-executive',
         'tab-audit',
@@ -4216,6 +4369,10 @@
       populateOverviewDistrictFilter();
       await fetchDashboardStats();
       await fetchExecutiveSummary();
+      populateDistrictStatusDropdown();
+      if (window.location.hash === '#tab-district-status' || sessionStorage.getItem('currentActiveMainTab') === 'tab-district-status') {
+        initDistrictWiseStatusTab();
+      }
       await fetchRepresentatives();
       await fetchUsers();
       await fetchAuditLogs();
@@ -4608,7 +4765,7 @@
       try {
         history.replaceState(null, null, '#' + tabId);
       } catch (e) {}
-      const allTabIds = ['tab-overview', 'tab-villages', 'tab-resurvey-master', 'tab-qc', 'tab-cso', 'tab-executive', 'tab-audit', 'tab-master', 'tab-admin'];
+      const allTabIds = ['tab-overview', 'tab-villages', 'tab-resurvey-master', 'tab-qc', 'tab-district-status', 'tab-cso', 'tab-executive', 'tab-audit', 'tab-master', 'tab-admin'];
       
       allTabIds.forEach(id => {
         const panel = document.getElementById(id);
@@ -4629,7 +4786,9 @@
       // Close mobile drawer if open
       toggleSidebar(false);
 
-      if (tabId === 'tab-resurvey-master') {
+      if (tabId === 'tab-district-status') {
+        initDistrictWiseStatusTab();
+      } else if (tabId === 'tab-resurvey-master') {
         initResurveyMasterView();
       } else if (tabId === 'tab-qc') {
         renderQcQueue();
@@ -5065,6 +5224,9 @@
         renderCharts(stats);
         renderDistrictsTable(stats.districts_summary);
         renderOverviewDistrictsTable(stats.districts_summary, stats);
+        if (!stats.is_district_scoped && stats.districts_summary) {
+          cachedDistrictStatusStats = stats;
+        }
       } catch (e) {
         console.error('Error loading stats:', e);
       }
@@ -5404,6 +5566,392 @@
           });
         }
       }
+    }
+
+    // =========================================================================================
+    // DISTRICT WISE STATUS & MANDAL PROGRESS MATRIX CONTROLLER
+    // =========================================================================================
+    let cachedDistrictStatusStats = null;
+    let districtStatusSearchQuery = '';
+
+    async function initDistrictWiseStatusTab() {
+      try {
+        if (!allVillages || allVillages.length === 0) {
+          await fetchVillages();
+        }
+        if (!cachedDistrictStatusStats) {
+          const res = await fetch('/dashboard/stats');
+          if (res.ok) {
+            cachedDistrictStatusStats = await res.json();
+          }
+        }
+      } catch (err) {
+        console.error('Error initializing District Wise Status tab:', err);
+      }
+      populateDistrictStatusDropdown();
+      renderDistrictWiseStatusTable();
+    }
+
+    function populateDistrictStatusDropdown() {
+      const select = document.getElementById('distStatusDistrictSelect');
+      if (!select) return;
+
+      const currentVal = select.value || 'all';
+
+      // Collect all districts from cached stats or allVillages
+      let districtNames = [];
+      if (cachedDistrictStatusStats && Array.isArray(cachedDistrictStatusStats.districts_summary)) {
+        districtNames = cachedDistrictStatusStats.districts_summary.map(d => d.district).filter(Boolean);
+      } else if (cachedExecStatsData && Array.isArray(cachedExecStatsData.districts_summary)) {
+        districtNames = cachedExecStatsData.districts_summary.map(d => d.district).filter(Boolean);
+      } else if (allVillages && allVillages.length > 0) {
+        districtNames = Array.from(new Set(allVillages.map(v => v.district_name).filter(Boolean)));
+      }
+
+      districtNames.sort((a, b) => a.localeCompare(b));
+
+      let html = '<option value="all">All Districts (Statewide)</option>';
+      districtNames.forEach(d => {
+        html += `<option value="${d}">${d}</option>`;
+      });
+      select.innerHTML = html;
+
+      // Auto-select if user is a district representative or preserve selection
+      if (currentUser && (currentUser.role === 'district_rep' || currentUser.role === 'district_officer') && currentUser.district_name) {
+        const matchingDist = districtNames.find(d => d.toLowerCase() === currentUser.district_name.toLowerCase());
+        if (matchingDist) {
+          select.value = matchingDist;
+        } else {
+          select.value = currentVal;
+        }
+      } else if (currentVal && districtNames.includes(currentVal)) {
+        select.value = currentVal;
+      } else {
+        select.value = 'all';
+      }
+    }
+
+    function onDistrictWiseStatusFilterChange() {
+      renderDistrictWiseStatusTable();
+    }
+
+    function resetDistrictWiseStatusFilter() {
+      const select = document.getElementById('distStatusDistrictSelect');
+      if (select) select.value = 'all';
+      const searchInput = document.getElementById('distStatusSearchInput');
+      if (searchInput) searchInput.value = '';
+      districtStatusSearchQuery = '';
+      renderDistrictWiseStatusTable();
+    }
+
+    function selectDistrictStatusScope(districtName) {
+      const select = document.getElementById('distStatusDistrictSelect');
+      if (select) {
+        select.value = districtName;
+      }
+      const searchInput = document.getElementById('distStatusSearchInput');
+      if (searchInput) searchInput.value = '';
+      districtStatusSearchQuery = '';
+      renderDistrictWiseStatusTable();
+      const panel = document.getElementById('tab-district-status');
+      if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function filterDistrictWiseStatusTable() {
+      const searchInput = document.getElementById('distStatusSearchInput');
+      districtStatusSearchQuery = (searchInput ? searchInput.value : '').trim().toLowerCase();
+      renderDistrictWiseStatusTable();
+    }
+
+    function renderDistrictWiseStatusTable() {
+      const select = document.getElementById('distStatusDistrictSelect');
+      const selectedDistrict = select ? select.value : 'all';
+      const isStatewide = (selectedDistrict === 'all');
+
+      const filterBadge = document.getElementById('distStatusFilterBadge');
+      const tableTitle = document.getElementById('distStatusTableTitle');
+      const tableSubtitle = document.getElementById('distStatusTableSubtitle');
+      const rightBadge = document.getElementById('distStatusRightBadge');
+      const colNameHeader = document.getElementById('distStatusColName');
+      const tbody = document.getElementById('distStatusTableBody');
+
+      if (!tbody) return;
+
+      const searchInput = document.getElementById('distStatusSearchInput');
+      const query = (searchInput ? searchInput.value : '').trim().toLowerCase();
+
+      let rowsHtml = '';
+      let kpiData = {
+        scopeCount: '',
+        scopeSub: '',
+        ncDone: 0,
+        ncTarget: 0,
+        cadDone: 0,
+        cadTarget: 0,
+        totalDone: 0,
+        verified: 0,
+        errors: 0,
+        totalAcres: 0
+      };
+
+      if (isStatewide) {
+        if (filterBadge) {
+          filterBadge.textContent = 'Statewide View (32 Districts)';
+          filterBadge.className = 'text-[10px] bg-indigo-100 text-indigo-800 font-bold px-2 py-0.5 rounded-md';
+        }
+        if (tableTitle) tableTitle.textContent = 'Statewide District Compliance & Targets Matrix';
+        if (tableSubtitle) tableSubtitle.textContent = 'Showing target vs achievement across administrative divisions (Click any row to view its mandals)';
+        if (rightBadge) rightBadge.textContent = '32 Administrative Districts';
+        if (colNameHeader) colNameHeader.textContent = 'DISTRICT';
+
+        let districts = [];
+        if (cachedDistrictStatusStats && Array.isArray(cachedDistrictStatusStats.districts_summary)) {
+          districts = cachedDistrictStatusStats.districts_summary;
+        } else if (cachedExecStatsData && Array.isArray(cachedExecStatsData.districts_summary)) {
+          districts = cachedExecStatsData.districts_summary;
+        }
+
+        // Sum overall totals for KPIs
+        districts.forEach(d => {
+          kpiData.ncDone += (d.non_cadastral_gt_done || 0);
+          kpiData.ncTarget += (d.non_cadastral_target || 0);
+          kpiData.cadDone += (d.cadastral_gt_done || 0);
+          kpiData.cadTarget += (d.cadastral_target || 0);
+          kpiData.totalDone += (d.total_gt_done || 0);
+          kpiData.verified += (d.verified_count || 0);
+          kpiData.errors += (d.shapefiles_error || 0);
+          kpiData.totalAcres += parseFloat(d.total_extent_acres || 0);
+        });
+        kpiData.scopeCount = `${districts.length} Districts`;
+        kpiData.scopeSub = 'Entire Telangana State';
+
+        let filteredDistricts = districts;
+        if (query) {
+          filteredDistricts = districts.filter(d => (d.district || '').toLowerCase().includes(query));
+        }
+
+        if (filteredDistricts.length === 0) {
+          rowsHtml = `<tr><td colspan="10" class="py-8 text-center text-slate-400 font-medium">No districts matching "${query}"</td></tr>`;
+        } else {
+          filteredDistricts.forEach((d, idx) => {
+            const errClass = (d.shapefiles_error > 0) ? 'text-rose-600 font-bold' : 'text-slate-400 font-medium';
+            const extentFormatted = Number(d.total_extent_acres || 0).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+
+            rowsHtml += `
+              <tr class="hover:bg-indigo-50/50 transition cursor-pointer group" onclick="selectDistrictStatusScope('${(d.district || '').replace(/'/g, "\\'")}')" title="Click to view mandal details for ${d.district}">
+                <td class="py-3 px-3.5 text-slate-400 font-medium">${idx + 1}</td>
+                <td class="py-3 px-3.5 font-bold text-slate-800 group-hover:text-indigo-600 flex items-center space-x-2">
+                  <span>${d.district}</span>
+                  <i class="fa-solid fa-arrow-right text-[10px] text-slate-300 group-hover:text-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                </td>
+                <td class="py-3 px-3.5 text-center font-bold text-teal-700">${d.non_cadastral_gt_done || 0}</td>
+                <td class="py-3 px-3.5 text-center text-slate-500 font-normal">${d.non_cadastral_target || 0}</td>
+                <td class="py-3 px-3.5 text-center font-bold text-blue-700">${d.cadastral_gt_done || 0}</td>
+                <td class="py-3 px-3.5 text-center text-slate-500 font-normal">${d.cadastral_target || 0}</td>
+                <td class="py-3 px-3.5 text-center font-black text-slate-900">${d.total_gt_done || 0}</td>
+                <td class="py-3 px-3.5 text-center font-bold text-teal-700">${d.verified_count || 0}</td>
+                <td class="py-3 px-3.5 text-center ${errClass}">${d.shapefiles_error || 0}</td>
+                <td class="py-3 px-3.5 text-right font-medium text-slate-700">${extentFormatted}</td>
+              </tr>
+            `;
+          });
+        }
+      } else {
+        // District-filtered mode: display mandals in place of district
+        if (filterBadge) {
+          filterBadge.textContent = `Filtered: ${selectedDistrict} District`;
+          filterBadge.className = 'text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-md';
+        }
+        if (colNameHeader) colNameHeader.textContent = 'MANDAL';
+
+        // Compute mandal breakdown for selected district
+        const mandalsMap = {};
+        const districtVillages = allVillages.filter(v => (v.district_name || '').toLowerCase() === selectedDistrict.toLowerCase());
+
+        districtVillages.forEach(v => {
+          const mName = v.mandal_name || 'Unknown Mandal';
+          if (!mandalsMap[mName]) {
+            mandalsMap[mName] = {
+              mandal: mName,
+              district: selectedDistrict,
+              nc_done: 0,
+              nc_target: 0,
+              cad_done: 0,
+              cad_target: 0,
+              total_gt_done: 0,
+              verified_count: 0,
+              shapefiles_error: 0,
+              total_extent_acres: 0
+            };
+          }
+
+          const m = mandalsMap[mName];
+          const isPicked = Boolean(v.is_picked_for_resurvey || v.picked_for_resurvey);
+          if (isPicked) {
+            const cat = v.category || '';
+            const isCompleted = (v.gt_status === 'Completed');
+
+            if (cat === 'Non-Cadastral') {
+              m.nc_target++;
+              if (isCompleted) m.nc_done++;
+            } else if (cat === 'Cadastral') {
+              m.cad_target++;
+              if (isCompleted) m.cad_done++;
+            }
+
+            if (isCompleted) m.total_gt_done++;
+            if (v.verification_status === 'Verified') m.verified_count++;
+
+            const sf = (v.shapefile_status || '').toLowerCase().trim();
+            const isErr = (sf === 'error' || sf === 'shapefile returned' || sf === 'shapefilereturned' || sf === 'returned' || v.verification_status === 'Returned for Correction');
+            if (isErr) m.shapefiles_error++;
+
+            const acres = parseFloat(v.extent_acres_float || v.extent_acres || v.surveyed_extent_so_far || 0) || 0;
+            m.total_extent_acres = Math.round((m.total_extent_acres + acres) * 100) / 100;
+          }
+        });
+
+        const mandalsList = Object.values(mandalsMap);
+        mandalsList.sort((a, b) => b.total_gt_done - a.total_gt_done || a.mandal.localeCompare(b.mandal));
+
+        if (tableTitle) tableTitle.textContent = `${selectedDistrict} - Mandal Compliance & Targets Matrix`;
+        if (tableSubtitle) tableSubtitle.textContent = `Showing performance breakdown across ${mandalsList.length} mandals in ${selectedDistrict} District`;
+        if (rightBadge) rightBadge.textContent = `${mandalsList.length} Administrative Mandals`;
+
+        // Sum for KPIs
+        mandalsList.forEach(m => {
+          kpiData.ncDone += m.nc_done;
+          kpiData.ncTarget += m.nc_target;
+          kpiData.cadDone += m.cad_done;
+          kpiData.cadTarget += m.cad_target;
+          kpiData.totalDone += m.total_gt_done;
+          kpiData.verified += m.verified_count;
+          kpiData.errors += m.shapefiles_error;
+          kpiData.totalAcres += m.total_extent_acres;
+        });
+        kpiData.scopeCount = `${mandalsList.length} Mandals`;
+        kpiData.scopeSub = `${selectedDistrict} District`;
+
+        let filteredMandals = mandalsList;
+        if (query) {
+          filteredMandals = mandalsList.filter(m => (m.mandal || '').toLowerCase().includes(query));
+        }
+
+        if (filteredMandals.length === 0) {
+          rowsHtml = `<tr><td colspan="10" class="py-8 text-center text-slate-400 font-medium">No mandals found in ${selectedDistrict} matching "${query}"</td></tr>`;
+        } else {
+          filteredMandals.forEach((m, idx) => {
+            const errClass = (m.shapefiles_error > 0) ? 'text-rose-600 font-bold' : 'text-slate-400 font-medium';
+            const extentFormatted = Number(m.total_extent_acres || 0).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+
+            rowsHtml += `
+              <tr class="hover:bg-slate-50 transition">
+                <td class="py-3 px-3.5 text-slate-400 font-medium">${idx + 1}</td>
+                <td class="py-3 px-3.5 font-bold text-slate-800 flex items-center justify-between">
+                  <span>${m.mandal}</span>
+                  <button type="button" onclick="inspectMandal('${selectedDistrict.replace(/'/g, "\\'")}', '${m.mandal.replace(/'/g, "\\'")}')" class="text-[10px] text-indigo-600 hover:text-indigo-800 font-semibold hover:underline cursor-pointer">
+                    Inspect
+                  </button>
+                </td>
+                <td class="py-3 px-3.5 text-center font-bold text-teal-700">${m.nc_done}</td>
+                <td class="py-3 px-3.5 text-center text-slate-500 font-normal">${m.nc_target}</td>
+                <td class="py-3 px-3.5 text-center font-bold text-blue-700">${m.cad_done}</td>
+                <td class="py-3 px-3.5 text-center text-slate-500 font-normal">${m.cad_target}</td>
+                <td class="py-3 px-3.5 text-center font-black text-slate-900">${m.total_gt_done}</td>
+                <td class="py-3 px-3.5 text-center font-bold text-teal-700">${m.verified_count}</td>
+                <td class="py-3 px-3.5 text-center ${errClass}">${m.shapefiles_error}</td>
+                <td class="py-3 px-3.5 text-right font-medium text-slate-700">${extentFormatted}</td>
+              </tr>
+            `;
+          });
+        }
+      }
+
+      // Total Row at bottom of table
+      if (rowsHtml && !rowsHtml.includes('colspan="10"')) {
+        const totalExtentFormatted = Number(kpiData.totalAcres).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+        rowsHtml += `
+          <tr class="bg-slate-100/90 font-black text-slate-900 border-t-2 border-slate-300">
+            <td class="py-3.5 px-3.5 text-slate-500 font-bold">&#931;</td>
+            <td class="py-3.5 px-3.5 font-black uppercase text-slate-900">
+              ${isStatewide ? 'STATEWIDE TOTAL' : `TOTAL (${selectedDistrict.toUpperCase()})`}
+            </td>
+            <td class="py-3.5 px-3.5 text-center text-teal-800 font-black">${kpiData.ncDone}</td>
+            <td class="py-3.5 px-3.5 text-center text-slate-600 font-bold">${kpiData.ncTarget}</td>
+            <td class="py-3.5 px-3.5 text-center text-blue-800 font-black">${kpiData.cadDone}</td>
+            <td class="py-3.5 px-3.5 text-center text-slate-600 font-bold">${kpiData.cadTarget}</td>
+            <td class="py-3.5 px-3.5 text-center text-slate-950 font-black text-sm">${kpiData.totalDone}</td>
+            <td class="py-3.5 px-3.5 text-center text-teal-800 font-black">${kpiData.verified}</td>
+            <td class="py-3.5 px-3.5 text-center ${kpiData.errors > 0 ? 'text-rose-700 font-black' : 'text-slate-500 font-bold'}">${kpiData.errors}</td>
+            <td class="py-3.5 px-3.5 text-right font-black text-slate-900">${totalExtentFormatted}</td>
+          </tr>
+        `;
+      }
+
+      tbody.innerHTML = rowsHtml;
+
+      // Update KPI strip
+      updateDistrictStatusKpis(kpiData);
+    }
+
+    function updateDistrictStatusKpis(kpiData) {
+      if (!kpiData) return;
+      const elScopeCount = document.getElementById('distStatusKpiScopeCount');
+      const elScopeSub = document.getElementById('distStatusKpiScopeSub');
+      const elNcDone = document.getElementById('distStatusKpiNcDone');
+      const elNcTarget = document.getElementById('distStatusKpiNcTarget');
+      const elCadDone = document.getElementById('distStatusKpiCadDone');
+      const elCadTarget = document.getElementById('distStatusKpiCadTarget');
+      const elTotalDone = document.getElementById('distStatusKpiTotalDone');
+      const elVerified = document.getElementById('distStatusKpiVerified');
+      const elErrors = document.getElementById('distStatusKpiErrors');
+
+      if (elScopeCount) elScopeCount.textContent = kpiData.scopeCount;
+      if (elScopeSub) elScopeSub.textContent = kpiData.scopeSub;
+      if (elNcDone) elNcDone.textContent = kpiData.ncDone;
+      if (elNcTarget) elNcTarget.textContent = kpiData.ncTarget;
+      if (elCadDone) elCadDone.textContent = kpiData.cadDone;
+      if (elCadTarget) elCadTarget.textContent = kpiData.cadTarget;
+      if (elTotalDone) elTotalDone.textContent = kpiData.totalDone;
+      if (elVerified) elVerified.textContent = kpiData.verified;
+      if (elErrors) elErrors.textContent = kpiData.errors;
+    }
+
+    function exportDistrictStatusExcel() {
+      const select = document.getElementById('distStatusDistrictSelect');
+      const selectedDistrict = select ? select.value : 'all';
+      const isStatewide = (selectedDistrict === 'all');
+
+      let csv = [];
+      const col1Name = isStatewide ? 'District' : 'Mandal';
+      csv.push(['#', col1Name, 'NC GT Done', 'NC Target', 'Cad GT Done', 'Cad Target', 'Total Completed', 'QC Certified', 'Errors', 'Extent (Acres)'].join(','));
+
+      const tbody = document.getElementById('distStatusTableBody');
+      if (tbody) {
+        const trs = tbody.querySelectorAll('tr');
+        trs.forEach(tr => {
+          const tds = tr.querySelectorAll('td');
+          if (tds.length === 10) {
+            const rowData = Array.from(tds).map(td => {
+              let text = td.innerText.replace(/\n/g, ' ').replace(/,/g, '').trim();
+              return `"${text}"`;
+            });
+            csv.push(rowData.join(','));
+          }
+        });
+      }
+
+      const csvContent = "data:text/csv;charset=utf-8," + csv.join("\n");
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      const filename = isStatewide
+        ? 'Telangana_Statewide_District_Compliance_Matrix.csv'
+        : `Telangana_${selectedDistrict}_Mandal_Compliance_Matrix.csv`;
+      link.setAttribute("download", filename);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
 
     function renderOverviewDistrictsTable(summary, stats) {

@@ -4,6 +4,7 @@
     "tab-villages",
     "tab-resurvey-master",
     "tab-qc",
+    "tab-district-status",
     "tab-cso",
     "tab-executive",
     "tab-audit",
@@ -14,6 +15,7 @@
     "tab-overview",
     "tab-villages",
     "tab-resurvey-master",
+    "tab-district-status",
     "tab-cso",
     "tab-executive",
     "tab-audit",
@@ -23,6 +25,7 @@
     "tab-overview",
     "tab-villages",
     "tab-resurvey-master",
+    "tab-district-status",
     "tab-cso",
     "tab-audit"
   ],
@@ -30,6 +33,7 @@
     "tab-overview",
     "tab-villages",
     "tab-resurvey-master",
+    "tab-district-status",
     "tab-cso",
     "tab-audit"
   ],
@@ -38,17 +42,20 @@
     "tab-villages",
     "tab-resurvey-master",
     "tab-qc",
+    "tab-district-status",
     "tab-cso"
   ],
   "cso_officer": [
     "tab-overview",
     "tab-villages",
     "tab-resurvey-master",
+    "tab-district-status",
     "tab-cso"
   ],
   "viewer": [
     "tab-overview",
     "tab-villages",
-    "tab-resurvey-master"
+    "tab-resurvey-master",
+    "tab-district-status"
   ]
 }

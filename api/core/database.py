@@ -2333,6 +2333,13 @@ MENU_CATALOG = [
         "description": "Central Survey Office Quality Control verification queue, review approvals, rework notes, and defect tracking."
     },
     {
+        "id": "tab-district-status",
+        "title": "District Wise status",
+        "icon": "fa-solid fa-table-cells-large",
+        "badge": "Mandal",
+        "description": "Territorial compliance and targets matrix across all 32 districts and mandal breakdown."
+    },
+    {
         "id": "tab-cso",
         "title": "CSO Daily Tracking",
         "icon": "fa-solid fa-tower-broadcast",
@@ -2421,6 +2428,7 @@ DEFAULT_ROLE_MENU_PERMISSIONS = {
         "tab-villages",
         "tab-resurvey-master",
         "tab-qc",
+        "tab-district-status",
         "tab-cso",
         "tab-executive",
         "tab-audit",
@@ -2431,6 +2439,7 @@ DEFAULT_ROLE_MENU_PERMISSIONS = {
         "tab-overview",
         "tab-villages",
         "tab-resurvey-master",
+        "tab-district-status",
         "tab-cso",
         "tab-executive",
         "tab-audit",
@@ -2440,6 +2449,7 @@ DEFAULT_ROLE_MENU_PERMISSIONS = {
         "tab-overview",
         "tab-villages",
         "tab-resurvey-master",
+        "tab-district-status",
         "tab-cso",
         "tab-audit"
     ],
@@ -2447,6 +2457,7 @@ DEFAULT_ROLE_MENU_PERMISSIONS = {
         "tab-overview",
         "tab-villages",
         "tab-resurvey-master",
+        "tab-district-status",
         "tab-cso",
         "tab-audit"
     ],
@@ -2455,18 +2466,21 @@ DEFAULT_ROLE_MENU_PERMISSIONS = {
         "tab-villages",
         "tab-resurvey-master",
         "tab-qc",
+        "tab-district-status",
         "tab-cso"
     ],
     "cso_officer": [
         "tab-overview",
         "tab-villages",
         "tab-resurvey-master",
+        "tab-district-status",
         "tab-cso"
     ],
     "viewer": [
         "tab-overview",
         "tab-villages",
-        "tab-resurvey-master"
+        "tab-resurvey-master",
+        "tab-district-status"
     ]
 }
 
