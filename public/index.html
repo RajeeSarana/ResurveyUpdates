@@ -2175,10 +2175,6 @@
                 <span class="font-extrabold mr-1 shrink-0">Shapefile Remarks:</span>
                 <span id="modalBadgeShapefileRemarksText" class="truncate font-medium text-slate-700">-</span>
               </span>
-              <span id="modalBadgeQcInspector" class="hidden text-xs sm:text-sm bg-rose-100 text-rose-900 px-3 py-1.5 rounded-lg font-bold border-2 border-rose-300 items-center shadow-sm shrink-0">
-                <i class="fa-solid fa-user-shield text-rose-600 mr-1.5 text-xs"></i>
-                <span id="modalBadgeQcInspectorText">QC Inspector</span>
-              </span>
               <label id="modalBadgeQcResubmit" class="hidden items-center space-x-2 bg-emerald-50 hover:bg-emerald-100 border-2 border-emerald-400 text-emerald-900 px-3.5 py-1.5 rounded-lg cursor-pointer transition shadow-sm text-xs sm:text-sm font-bold shrink-0">
                 <input type="checkbox" id="formResubmitCorrectedShapefile" onchange="onResubmitCheckboxChange()" class="rounded text-emerald-600 focus:ring-emerald-500 h-4 w-4" />
                 <span>Mark Corrected &amp; Ready for Re-verification</span>
@@ -4289,8 +4285,6 @@
       const badgeSfStatus = document.getElementById('modalBadgeShapefileStatus');
       const badgeSfRemarks = document.getElementById('modalBadgeShapefileRemarks');
       const badgeSfRemarksText = document.getElementById('modalBadgeShapefileRemarksText');
-      const badgeInspector = document.getElementById('modalBadgeQcInspector');
-      const badgeInspectorText = document.getElementById('modalBadgeQcInspectorText');
       const badgeResubmit = document.getElementById('modalBadgeQcResubmit');
 
       let normalizedStatus = (sfStatus || 'Pending').trim();
@@ -4331,19 +4325,6 @@
       }
       if (badgeSfRemarksText) {
         badgeSfRemarksText.textContent = displayVal;
-      }
-
-      if (badgeInspector) {
-        if (isReturned) {
-          badgeInspector.classList.remove('hidden');
-          badgeInspector.classList.add('flex');
-          if (badgeInspectorText) {
-            badgeInspectorText.textContent = inspectorName ? `QC: ${inspectorName}` : 'Central QC Officer';
-          }
-        } else {
-          badgeInspector.classList.add('hidden');
-          badgeInspector.classList.remove('flex');
-        }
       }
 
       if (badgeResubmit) {
