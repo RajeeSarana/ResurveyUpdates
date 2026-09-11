@@ -2167,6 +2167,14 @@
               <span id="modalBadgeGtStatus" class="text-xs sm:text-sm bg-amber-50 text-amber-900 px-3.5 py-1.5 rounded-lg font-extrabold border-2 border-amber-400 flex items-center shadow-sm">
                 <i class="fa-solid fa-clock text-amber-600 mr-2 text-sm"></i>Ground Truthing Status: GT Pending
               </span>
+              <span id="modalBadgeShapefileStatus" class="text-xs sm:text-sm bg-amber-50 text-amber-900 px-3.5 py-1.5 rounded-lg font-extrabold border-2 border-amber-400 flex items-center shadow-sm">
+                <i class="fa-solid fa-clock text-amber-600 mr-2 text-sm"></i>Shapefile Status: Pending
+              </span>
+              <span id="modalBadgeShapefileRemarks" class="text-xs sm:text-sm bg-slate-50 text-slate-800 px-3.5 py-1.5 rounded-lg font-semibold border-2 border-slate-300 flex items-center shadow-sm max-w-xs sm:max-w-md" title="Shapefile Remarks">
+                <i class="fa-solid fa-comment-dots text-slate-500 mr-2 text-sm shrink-0"></i>
+                <span class="font-extrabold mr-1 shrink-0">Shapefile Remarks:</span>
+                <span id="modalBadgeShapefileRemarksText" class="truncate font-medium text-slate-700">-</span>
+              </span>
             </div>
           </div>
         </div>
@@ -4277,6 +4285,59 @@
       }
       if (v) {
         v.gt_status = gtState;
+        let sfStatus = v.shapefile_status || 'Pending';
+        const isReturned = (v.verification_status === 'Returned for Correction') ||
+                           sfStatus === 'Shapefile Returned' || sfStatus === 'ShapefileReturned' || sfStatus === 'Error';
+        const sfRemarks = isReturned
+          ? (v.qc_notes || v.shapefile_remarks || v.remarks || '')
+          : (v.shapefile_remarks || v.remarks || v.qc_notes || '');
+        updateModalHeaderShapefileBadges(sfStatus, isReturned, sfRemarks);
+      }
+    }
+
+    function updateModalHeaderShapefileBadges(sfStatus, isReturned, remarksText) {
+      const badgeSfStatus = document.getElementById('modalBadgeShapefileStatus');
+      const badgeSfRemarks = document.getElementById('modalBadgeShapefileRemarks');
+      const badgeSfRemarksText = document.getElementById('modalBadgeShapefileRemarksText');
+
+      let normalizedStatus = (sfStatus || 'Pending').trim();
+      if (isReturned || normalizedStatus === 'Shapefile Returned' || normalizedStatus === 'ShapefileReturned') {
+        normalizedStatus = 'Shapefile Returned';
+      }
+
+      if (badgeSfStatus) {
+        if (normalizedStatus === 'Completed' || normalizedStatus === 'Shapefile Done') {
+          badgeSfStatus.className = 'text-xs sm:text-sm bg-emerald-50 text-emerald-900 px-3.5 py-1.5 rounded-lg font-extrabold border-2 border-emerald-400 flex items-center shadow-sm';
+          badgeSfStatus.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-600 mr-2 text-sm"></i>Shapefile Status: Completed';
+        } else if (normalizedStatus === 'Shapefile Returned' || normalizedStatus === 'Error' || normalizedStatus === 'Rejected') {
+          badgeSfStatus.className = 'text-xs sm:text-sm bg-rose-50 text-rose-900 px-3.5 py-1.5 rounded-lg font-extrabold border-2 border-rose-400 flex items-center shadow-sm';
+          badgeSfStatus.innerHTML = `<i class="fa-solid fa-arrow-rotate-left text-rose-600 mr-2 text-sm"></i>Shapefile Status: ${normalizedStatus}`;
+        } else if (normalizedStatus === 'In Progress') {
+          badgeSfStatus.className = 'text-xs sm:text-sm bg-blue-50 text-blue-900 px-3.5 py-1.5 rounded-lg font-extrabold border-2 border-blue-400 flex items-center shadow-sm';
+          badgeSfStatus.innerHTML = '<i class="fa-solid fa-arrows-rotate text-blue-600 mr-2 text-sm"></i>Shapefile Status: In Progress';
+        } else {
+          badgeSfStatus.className = 'text-xs sm:text-sm bg-amber-50 text-amber-900 px-3.5 py-1.5 rounded-lg font-extrabold border-2 border-amber-400 flex items-center shadow-sm';
+          badgeSfStatus.innerHTML = `<i class="fa-solid fa-clock text-amber-600 mr-2 text-sm"></i>Shapefile Status: ${normalizedStatus}`;
+        }
+      }
+
+      const cleanRemarks = (remarksText || '').trim();
+      const displayVal = cleanRemarks || '-';
+
+      if (badgeSfRemarks) {
+        badgeSfRemarks.setAttribute('title', cleanRemarks ? `Shapefile Remarks: ${cleanRemarks}` : 'Shapefile Remarks: None');
+        if (isReturned && cleanRemarks) {
+          badgeSfRemarks.className = 'text-xs sm:text-sm bg-rose-50 text-rose-900 px-3.5 py-1.5 rounded-lg font-semibold border-2 border-rose-300 flex items-center shadow-sm max-w-xs sm:max-w-md';
+          const icon = badgeSfRemarks.querySelector('i');
+          if (icon) icon.className = 'fa-solid fa-comment-dots text-rose-600 mr-2 text-sm shrink-0';
+        } else {
+          badgeSfRemarks.className = 'text-xs sm:text-sm bg-slate-50 text-slate-800 px-3.5 py-1.5 rounded-lg font-semibold border-2 border-slate-300 flex items-center shadow-sm max-w-xs sm:max-w-md';
+          const icon = badgeSfRemarks.querySelector('i');
+          if (icon) icon.className = 'fa-solid fa-comment-dots text-slate-500 mr-2 text-sm shrink-0';
+        }
+      }
+      if (badgeSfRemarksText) {
+        badgeSfRemarksText.textContent = displayVal;
       }
     }
 
@@ -7501,6 +7562,7 @@
         document.getElementById('modalBadgeGtStatus').className = 'text-xs sm:text-sm bg-amber-50 text-amber-900 px-3.5 py-1.5 rounded-lg font-extrabold border-2 border-amber-400 flex items-center shadow-sm';
         document.getElementById('modalBadgeGtStatus').innerHTML = '<i class="fa-solid fa-clock text-amber-600 mr-2 text-sm"></i>Ground Truthing Status: GT Pending';
       }
+      updateModalHeaderShapefileBadges('Pending', false, '');
 
       if (document.getElementById('dispDistrict')) document.getElementById('dispDistrict').textContent = defDist;
       if (document.getElementById('dispMandal')) document.getElementById('dispMandal').textContent = 'New Mandal';
@@ -7753,6 +7815,12 @@
       if (dispWfEl) {
         dispWfEl.innerHTML = `<span class="inline-flex items-center text-[10px] font-semibold text-slate-200 bg-white/10 border border-white/10 px-2 py-0.5 rounded truncate max-w-[150px]" title="${wfStage}"><i class="fa-solid fa-diagram-project mr-1 text-indigo-300 text-[9px]"></i>${wfStage}</span>`;
       }
+
+      // Update Shapefile Status and Remarks Badges in Modal Header
+      const sfRemarks = isReturned
+        ? (v.qc_notes || v.shapefile_remarks || v.remarks || '')
+        : (v.shapefile_remarks || v.remarks || v.qc_notes || '');
+      updateModalHeaderShapefileBadges(sfStatus, isReturned, sfRemarks);
 
       // Populate QC Return Feedback Card if returned
       const qcAlertEl = document.getElementById('dispModalQcAlert');
@@ -8046,24 +8114,27 @@
       const sfInput = document.getElementById('formShapefileStatus');
       const wfInput = document.getElementById('formWorkflowStage');
       const dispSfEl = document.getElementById('dispShapefileStatus');
+      const id = document.getElementById('formVillageId').value;
+      const v = allVillages.find(item => item.id === id) || {};
+      const sfRemarks = v.qc_notes || v.shapefile_remarks || v.remarks || '';
       if (checkbox && checkbox.checked) {
         if (sfInput) sfInput.value = 'Completed';
         if (wfInput) wfInput.value = 'QC Resubmitted (Correction Done)';
         if (dispSfEl) {
           dispSfEl.innerHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-400/40"><i class="fa-solid fa-check-double mr-1 text-emerald-400 text-[9px]"></i>Corrected (Ready for QC)</span>`;
         }
+        updateModalHeaderShapefileBadges('Completed', false, sfRemarks);
       } else {
-        const id = document.getElementById('formVillageId').value;
-        const v = allVillages.find(item => item.id === id);
-        if (v) {
-          let origSf = v.shapefile_status || 'Shapefile Returned';
-          if (origSf === 'Error') origSf = 'Shapefile Returned';
-          if (sfInput) sfInput.value = origSf;
-          if (wfInput) wfInput.value = v.workflow_stage || 'Shapefile Returned for Correction';
-          if (dispSfEl) {
-            dispSfEl.innerHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/30 text-rose-200 border border-rose-400/50 shadow-xs animate-pulse"><i class="fa-solid fa-arrow-rotate-left mr-1 text-rose-300 text-[9px]"></i>Shapefile Returned</span>`;
-          }
+        let origSf = v.shapefile_status || 'Shapefile Returned';
+        if (origSf === 'Error') origSf = 'Shapefile Returned';
+        if (sfInput) sfInput.value = origSf;
+        if (wfInput) wfInput.value = v.workflow_stage || 'Shapefile Returned for Correction';
+        if (dispSfEl) {
+          dispSfEl.innerHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/30 text-rose-200 border border-rose-400/50 shadow-xs animate-pulse"><i class="fa-solid fa-arrow-rotate-left mr-1 text-rose-300 text-[9px]"></i>Shapefile Returned</span>`;
         }
+        const isReturned = (v.verification_status === 'Returned for Correction') ||
+                           origSf === 'Shapefile Returned' || origSf === 'ShapefileReturned' || origSf === 'Error';
+        updateModalHeaderShapefileBadges(origSf, isReturned, sfRemarks);
       }
     }
 
