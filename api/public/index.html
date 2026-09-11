@@ -1140,7 +1140,7 @@
           <div class="text-xs text-slate-500 font-semibold uppercase">Non-Cadastral Achievement</div>
           <div class="flex items-baseline space-x-2 mt-2">
             <span class="text-3xl font-extrabold text-emerald-700" id="execNonCadPct">13.7%</span>
-            <span class="text-xs text-slate-500 font-medium">(51 of 373)</span>
+            <span class="text-xs text-slate-500 font-medium" id="execNonCadCount">(51 of 373)</span>
           </div>
           <div class="w-full bg-slate-100 h-2 rounded-full mt-3 overflow-hidden">
             <div id="execNonCadBar" class="bg-emerald-500 h-full rounded-full" style="width: 13.7%"></div>
@@ -1152,7 +1152,7 @@
           <div class="text-xs text-slate-500 font-semibold uppercase">Cadastral Achievement</div>
           <div class="flex items-baseline space-x-2 mt-2">
             <span class="text-3xl font-extrabold text-blue-700" id="execCadPct">1.7%</span>
-            <span class="text-xs text-slate-500 font-medium">(39 of 2,236)</span>
+            <span class="text-xs text-slate-500 font-medium" id="execCadCount">(39 of 2,236)</span>
           </div>
           <div class="w-full bg-slate-100 h-2 rounded-full mt-3 overflow-hidden">
             <div id="execCadBar" class="bg-blue-500 h-full rounded-full" style="width: 1.7%"></div>
@@ -1185,27 +1185,60 @@
         </div>
       </section>
 
-      <!-- Two-Column Leaderboards -->
+      <!-- DISTRICT WISE FILTER TOOLBAR (BELOW SHAPE FILE QC) -->
+      <div class="bg-white p-3.5 sm:p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="flex items-center space-x-2.5">
+          <span class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-700 flex items-center justify-center text-sm font-bold shadow-2xs shrink-0">
+            <i class="fa-solid fa-filter"></i>
+          </span>
+          <div>
+            <div class="flex items-center space-x-2">
+              <h3 class="text-xs sm:text-sm font-bold text-slate-900">District-wise Mandal Filtering</h3>
+              <span id="execFilterActiveBadge" class="text-[10px] bg-indigo-100 text-indigo-800 font-bold px-2 py-0.5 rounded-md">Statewide View</span>
+            </div>
+            <p class="text-[11px] text-slate-500">Filter top performing mandals and priority attention radar by administrative district</p>
+          </div>
+        </div>
+        <div class="flex items-center space-x-2 shrink-0">
+          <label for="execDistrictFilter" class="text-xs font-semibold text-slate-600 shrink-0">Filter District:</label>
+          <div class="relative">
+            <select id="execDistrictFilter" onchange="onExecDistrictFilterChange()" class="py-1.5 pl-3 pr-8 text-xs bg-slate-50 border border-slate-300 rounded-lg font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition shadow-2xs cursor-pointer min-w-[200px] sm:min-w-[240px]">
+              <option value="all">All Districts (Statewide)</option>
+            </select>
+          </div>
+          <button type="button" onclick="resetExecDistrictFilter()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-600 px-2.5 py-1.5 rounded-lg font-medium transition" title="Reset to Statewide">
+            <i class="fa-solid fa-rotate-left"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Two-Column Leaderboards (Mandals instead of Districts) -->
       <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Top Performing Districts -->
+        <!-- Top Performing Mandals -->
         <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-          <div class="flex items-center space-x-2 text-emerald-800 font-bold text-xs uppercase tracking-wider mb-3">
-            <i class="fa-solid fa-trophy text-amber-500"></i>
-            <span>Top Performing Districts (Highest GT Completions)</span>
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center space-x-2 text-emerald-800 font-bold text-xs uppercase tracking-wider">
+              <i class="fa-solid fa-trophy text-amber-500 text-sm"></i>
+              <span id="execTopMandalsTitle">Top Performing Mandals (Highest GT Completions)</span>
+            </div>
+            <span id="execTopScopeBadge" class="text-[10px] text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded font-bold">Statewide</span>
           </div>
           <div class="space-y-3" id="execTopDistrictsList">
-            <!-- Dynamic Top Districts -->
+            <!-- Dynamic Top Mandals -->
           </div>
         </div>
 
-        <!-- Districts Requiring Attention -->
+        <!-- Mandals Requiring Attention -->
         <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-          <div class="flex items-center space-x-2 text-rose-800 font-bold text-xs uppercase tracking-wider mb-3">
-            <i class="fa-solid fa-triangle-exclamation text-rose-500"></i>
-            <span>Priority Attention Radar (Errors & Returned Submissions)</span>
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center space-x-2 text-rose-800 font-bold text-xs uppercase tracking-wider">
+              <i class="fa-solid fa-triangle-exclamation text-rose-500 text-sm"></i>
+              <span id="execAttentionMandalsTitle">Priority Attention Radar (Mandal Errors &amp; Returned Submissions)</span>
+            </div>
+            <span id="execAttentionScopeBadge" class="text-[10px] text-rose-700 bg-rose-50 border border-rose-200 px-2 py-0.5 rounded font-bold">Statewide</span>
           </div>
           <div class="space-y-3" id="execAttentionDistrictsList">
-            <!-- Dynamic Attention Districts -->
+            <!-- Dynamic Attention Mandals -->
           </div>
         </div>
       </section>
@@ -1213,15 +1246,15 @@
       <!-- Complete State Performance Matrix -->
       <section class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
         <div class="p-4 border-b border-slate-200 flex items-center justify-between">
-          <h3 class="text-sm font-bold text-slate-800">Statewide District Compliance & Targets Matrix</h3>
-          <span class="text-xs text-slate-500">32 Administrative Districts</span>
+          <h3 class="text-sm font-bold text-slate-800" id="execMatrixTitle">Statewide District Compliance &amp; Targets Matrix</h3>
+          <span class="text-xs text-slate-500" id="execMatrixSubtitle">32 Administrative Districts</span>
         </div>
         <div class="overflow-x-auto">
           <table class="min-w-full divide-y divide-slate-200 text-left text-xs">
             <thead class="bg-slate-100 text-slate-600 font-semibold uppercase tracking-wider">
               <tr>
                 <th class="py-2.5 px-3">#</th>
-                <th class="py-2.5 px-3">District</th>
+                <th class="py-2.5 px-3" id="execMatrixColHeader">District</th>
                 <th class="py-2.5 px-3 text-center">NC GT Done</th>
                 <th class="py-2.5 px-3 text-center">NC Target</th>
                 <th class="py-2.5 px-3 text-center">Cad GT Done</th>
@@ -4958,90 +4991,339 @@
       }
     }
 
+    let cachedExecSummaryData = null;
+    let cachedExecStatsData = null;
+
     async function fetchExecutiveSummary() {
       try {
-        const res = await fetch('/executive/summary');
-        const data = await res.json();
-        const sp = data.statewide_progress;
+        if (!allVillages || allVillages.length === 0) {
+          await fetchVillages();
+        }
+        const [execRes, statsRes] = await Promise.all([
+          fetch('/executive/summary'),
+          fetch('/dashboard/stats')
+        ]);
+        cachedExecSummaryData = await execRes.json();
+        cachedExecStatsData = await statsRes.json();
 
-        document.getElementById('execNonCadPct').textContent = `${sp.non_cadastral_completion_pct}%`;
-        document.getElementById('execNonCadBar').style.width = `${Math.min(sp.non_cadastral_completion_pct, 100)}%`;
+        populateExecDistrictFilter();
+        renderExecutiveLeaderboards();
+      } catch (e) {
+        console.error('Error loading executive summary:', e);
+      }
+    }
 
-        document.getElementById('execCadPct').textContent = `${sp.cadastral_completion_pct}%`;
-        document.getElementById('execCadBar').style.width = `${Math.min(sp.cadastral_completion_pct, 100)}%`;
+    function populateExecDistrictFilter() {
+      const select = document.getElementById('execDistrictFilter');
+      if (!select) return;
+      const curVal = select.value || 'all';
 
-        document.getElementById('execQcPct').textContent = `${sp.qc_verification_pct}%`;
-        document.getElementById('execQcBar').style.width = `${Math.min(sp.qc_verification_pct, 100)}%`;
+      let districtNames = [];
+      if (cachedExecStatsData && Array.isArray(cachedExecStatsData.districts_summary)) {
+        districtNames = cachedExecStatsData.districts_summary.map(d => d.district).filter(Boolean);
+      } else if (allVillages && allVillages.length > 0) {
+        districtNames = Array.from(new Set(allVillages.map(v => v.district_name).filter(Boolean)));
+      }
+      districtNames.sort((a, b) => a.localeCompare(b));
 
-        document.getElementById('execCsoPct').textContent = `${sp.shapefile_readiness_pct}%`;
-        document.getElementById('execCsoBar').style.width = `${Math.min(sp.shapefile_readiness_pct, 100)}%`;
+      select.innerHTML = '<option value="all">All Districts (Statewide)</option>';
+      districtNames.forEach(d => {
+        const opt = document.createElement('option');
+        opt.value = d;
+        opt.textContent = d;
+        if (d === curVal) opt.selected = true;
+        select.appendChild(opt);
+      });
+    }
 
-        const topContainer = document.getElementById('execTopDistrictsList');
-        topContainer.innerHTML = '';
-        data.top_performing_districts.forEach((d, idx) => {
-          const div = document.createElement('div');
-          div.className = 'flex items-center justify-between p-2.5 rounded-lg bg-emerald-50/50 border border-emerald-100 text-xs';
-          div.innerHTML = `
-            <div class="flex items-center space-x-3">
-              <span class="w-6 h-6 rounded-full bg-emerald-600 text-white font-bold flex items-center justify-center text-[10px]">${idx + 1}</span>
-              <div>
-                <span class="font-bold text-slate-800">${d.district}</span>
-                <span class="text-[10px] text-slate-500 ml-1.5">(${d.total_extent_acres} Acres)</span>
-              </div>
-            </div>
-            <div class="text-right">
-              <span class="font-extrabold text-emerald-800">${d.total_gt_done} Villages</span>
-              <div class="text-[10px] text-emerald-600 font-semibold">${d.verified_count} Verified</div>
-            </div>
-          `;
-          topContainer.appendChild(div);
-        });
+    function onExecDistrictFilterChange() {
+      renderExecutiveLeaderboards();
+    }
 
-        const attContainer = document.getElementById('execAttentionDistrictsList');
-        attContainer.innerHTML = '';
-        if (data.districts_needing_attention.length === 0) {
-          attContainer.innerHTML = '<div class="text-xs text-slate-500 py-3">No critical defects detected.</div>';
+    function resetExecDistrictFilter() {
+      const select = document.getElementById('execDistrictFilter');
+      if (select) {
+        select.value = 'all';
+        renderExecutiveLeaderboards();
+      }
+    }
+
+    function inspectMandal(district, mandal) {
+      switchMainTab('tab-villages');
+      const distEl = document.getElementById('districtFilter');
+      if (distEl) {
+        distEl.value = district;
+        onDistrictFilterChange();
+      }
+      const mandalEl = document.getElementById('mandalFilter');
+      if (mandalEl) {
+        mandalEl.value = mandal;
+        onMandalFilterChange();
+      }
+    }
+
+    function renderExecutiveLeaderboards() {
+      const select = document.getElementById('execDistrictFilter');
+      const selectedDistrict = select ? select.value : 'all';
+      const isStatewide = (selectedDistrict === 'all');
+
+      // 1. Update Filter Active Badge
+      const activeBadge = document.getElementById('execFilterActiveBadge');
+      if (activeBadge) {
+        if (isStatewide) {
+          activeBadge.textContent = 'Statewide View';
+          activeBadge.className = 'text-[10px] bg-indigo-100 text-indigo-800 font-bold px-2 py-0.5 rounded-md';
         } else {
-          data.districts_needing_attention.forEach(d => {
+          activeBadge.textContent = `Filtered: ${selectedDistrict}`;
+          activeBadge.className = 'text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-md';
+        }
+      }
+
+      // 2. Update Leaderboard Scope Badges
+      const topBadge = document.getElementById('execTopScopeBadge');
+      if (topBadge) topBadge.textContent = isStatewide ? 'Statewide' : selectedDistrict;
+      const attBadge = document.getElementById('execAttentionScopeBadge');
+      if (attBadge) attBadge.textContent = isStatewide ? 'Statewide' : selectedDistrict;
+
+      // 3. Update KPI Scorecards
+      if (isStatewide && cachedExecSummaryData && cachedExecSummaryData.statewide_progress) {
+        const sp = cachedExecSummaryData.statewide_progress;
+        if (document.getElementById('execNonCadPct')) document.getElementById('execNonCadPct').textContent = `${sp.non_cadastral_completion_pct}%`;
+        if (document.getElementById('execNonCadBar')) document.getElementById('execNonCadBar').style.width = `${Math.min(sp.non_cadastral_completion_pct, 100)}%`;
+        if (document.getElementById('execNonCadCount') && cachedExecStatsData) {
+          const ncDone = cachedExecStatsData.gt_completed ? cachedExecStatsData.gt_completed.non_cadastral : 51;
+          const ncTarget = cachedExecStatsData.targets ? cachedExecStatsData.targets.non_cadastral : 373;
+          document.getElementById('execNonCadCount').textContent = `(${ncDone} of ${ncTarget.toLocaleString()})`;
+        }
+
+        if (document.getElementById('execCadPct')) document.getElementById('execCadPct').textContent = `${sp.cadastral_completion_pct}%`;
+        if (document.getElementById('execCadBar')) document.getElementById('execCadBar').style.width = `${Math.min(sp.cadastral_completion_pct, 100)}%`;
+        if (document.getElementById('execCadCount') && cachedExecStatsData) {
+          const cadDone = cachedExecStatsData.gt_completed ? cachedExecStatsData.gt_completed.cadastral : 39;
+          const cadTarget = cachedExecStatsData.targets ? cachedExecStatsData.targets.cadastral : 2236;
+          document.getElementById('execCadCount').textContent = `(${cadDone} of ${cadTarget.toLocaleString()})`;
+        }
+
+        if (document.getElementById('execQcPct')) document.getElementById('execQcPct').textContent = `${sp.qc_verification_pct}%`;
+        if (document.getElementById('execQcBar')) document.getElementById('execQcBar').style.width = `${Math.min(sp.qc_verification_pct, 100)}%`;
+
+        if (document.getElementById('execCsoPct')) document.getElementById('execCsoPct').textContent = `${sp.shapefile_readiness_pct}%`;
+        if (document.getElementById('execCsoBar')) document.getElementById('execCsoBar').style.width = `${Math.min(sp.shapefile_readiness_pct, 100)}%`;
+      } else if (!isStatewide && cachedExecStatsData && Array.isArray(cachedExecStatsData.districts_summary)) {
+        const dObj = cachedExecStatsData.districts_summary.find(d => (d.district || '').toLowerCase() === selectedDistrict.toLowerCase());
+        if (dObj) {
+          const ncDone = dObj.non_cadastral_gt_done || 0;
+          const ncTarget = dObj.non_cadastral_target || 0;
+          const ncPct = ncTarget > 0 ? ((ncDone / ncTarget) * 100).toFixed(1) : '0.0';
+          if (document.getElementById('execNonCadPct')) document.getElementById('execNonCadPct').textContent = `${ncPct}%`;
+          if (document.getElementById('execNonCadBar')) document.getElementById('execNonCadBar').style.width = `${Math.min(parseFloat(ncPct), 100)}%`;
+          if (document.getElementById('execNonCadCount')) document.getElementById('execNonCadCount').textContent = `(${ncDone} of ${ncTarget.toLocaleString()})`;
+
+          const cadDone = dObj.cadastral_gt_done || 0;
+          const cadTarget = dObj.cadastral_target || 0;
+          const cadPct = cadTarget > 0 ? ((cadDone / cadTarget) * 100).toFixed(1) : '0.0';
+          if (document.getElementById('execCadPct')) document.getElementById('execCadPct').textContent = `${cadPct}%`;
+          if (document.getElementById('execCadBar')) document.getElementById('execCadBar').style.width = `${Math.min(parseFloat(cadPct), 100)}%`;
+          if (document.getElementById('execCadCount')) document.getElementById('execCadCount').textContent = `(${cadDone} of ${cadTarget.toLocaleString()})`;
+
+          const totalGt = dObj.total_gt_done || 0;
+          const verified = dObj.verified_count || 0;
+          const qcPct = totalGt > 0 ? ((verified / totalGt) * 100).toFixed(1) : '0.0';
+          if (document.getElementById('execQcPct')) document.getElementById('execQcPct').textContent = `${qcPct}%`;
+          if (document.getElementById('execQcBar')) document.getElementById('execQcBar').style.width = `${Math.min(parseFloat(qcPct), 100)}%`;
+
+          const sfSent = dObj.shapefiles_sent || 0;
+          const csoPct = totalGt > 0 ? ((sfSent / totalGt) * 100).toFixed(1) : '0.0';
+          if (document.getElementById('execCsoPct')) document.getElementById('execCsoPct').textContent = `${csoPct}%`;
+          if (document.getElementById('execCsoBar')) document.getElementById('execCsoBar').style.width = `${Math.min(parseFloat(csoPct), 100)}%`;
+        }
+      }
+
+      // 4. Aggregate Mandal-Level Statistics from allVillages
+      const targetVillages = isStatewide
+        ? allVillages
+        : allVillages.filter(v => (v.district_name || '').toLowerCase() === selectedDistrict.toLowerCase());
+
+      const mandalsMap = {};
+      targetVillages.forEach(v => {
+        const dName = v.district_name || 'General District';
+        const mName = v.mandal_name || 'General Mandal';
+        const key = `${dName}____${mName}`;
+
+        if (!mandalsMap[key]) {
+          mandalsMap[key] = {
+            district: dName,
+            mandal: mName,
+            total_villages: 0,
+            picked_villages: 0,
+            non_cad_done: 0,
+            non_cad_target: 0,
+            cad_done: 0,
+            cad_target: 0,
+            total_gt_done: 0,
+            verified_count: 0,
+            shapefiles_error: 0,
+            total_extent_acres: 0
+          };
+        }
+
+        const m = mandalsMap[key];
+        m.total_villages++;
+
+        const isPicked = Boolean(v.is_picked_for_resurvey || v.picked_for_resurvey);
+        if (isPicked) {
+          m.picked_villages++;
+          const cat = v.category || '';
+          const isCompleted = (v.gt_status === 'Completed');
+          if (cat === 'Non-Cadastral') {
+            m.non_cad_target++;
+            if (isCompleted) m.non_cad_done++;
+          } else if (cat === 'Cadastral') {
+            m.cad_target++;
+            if (isCompleted) m.cad_done++;
+          }
+          if (isCompleted) m.total_gt_done++;
+          if (v.verification_status === 'Verified') m.verified_count++;
+
+          const sf = (v.shapefile_status || '').toLowerCase().trim();
+          const isErr = (sf === 'error' || sf === 'shapefile returned' || sf === 'shapefilereturned' || sf === 'returned' || v.verification_status === 'Returned for Correction');
+          if (isErr) m.shapefiles_error++;
+
+          const acres = parseFloat(v.extent_acres_float || v.extent_acres || v.surveyed_extent_so_far || 0) || 0;
+          m.total_extent_acres = Math.round((m.total_extent_acres + acres) * 100) / 100;
+        }
+      });
+
+      const mandalsList = Object.values(mandalsMap);
+
+      // 5. Render Top Performing Mandals
+      const rankedMandals = mandalsList.slice().sort((a, b) => {
+        if (b.total_gt_done !== a.total_gt_done) return b.total_gt_done - a.total_gt_done;
+        if (b.verified_count !== a.verified_count) return b.verified_count - a.verified_count;
+        return b.total_extent_acres - a.total_extent_acres;
+      });
+
+      const topMandalsWithDone = rankedMandals.filter(m => m.total_gt_done > 0);
+      const displayTop = (topMandalsWithDone.length > 0 ? topMandalsWithDone : rankedMandals).slice(0, 5);
+
+      const topContainer = document.getElementById('execTopDistrictsList');
+      if (topContainer) {
+        topContainer.innerHTML = '';
+        if (displayTop.length === 0) {
+          topContainer.innerHTML = '<div class="text-xs text-slate-500 py-3 text-center">No mandal data found in this scope.</div>';
+        } else {
+          displayTop.forEach((m, idx) => {
             const div = document.createElement('div');
-            div.className = 'flex items-center justify-between p-2.5 rounded-lg bg-rose-50/50 border border-rose-100 text-xs';
+            div.className = 'flex items-center justify-between p-2.5 rounded-lg bg-emerald-50/50 border border-emerald-100 text-xs hover:bg-emerald-50 transition';
             div.innerHTML = `
-              <div class="flex items-center space-x-2">
-                <i class="fa-solid fa-circle-exclamation text-rose-500 text-sm"></i>
-                <span class="font-bold text-slate-800">${d.district}</span>
+              <div class="flex items-center space-x-3">
+                <span class="w-6 h-6 rounded-full bg-emerald-600 text-white font-bold flex items-center justify-center text-[10px] shadow-2xs">${idx + 1}</span>
+                <div>
+                  <div class="font-bold text-slate-800 flex items-center space-x-1.5">
+                    <span>${m.mandal}</span>
+                    <span class="text-[10px] text-slate-500 font-normal">(${m.district})</span>
+                  </div>
+                  <div class="text-[10px] text-slate-500 font-medium">${m.total_extent_acres.toLocaleString()} Acres</div>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="font-extrabold text-emerald-800">${m.total_gt_done} Villages</span>
+                <div class="text-[10px] text-emerald-600 font-semibold">${m.verified_count} Verified</div>
+              </div>
+            `;
+            topContainer.appendChild(div);
+          });
+        }
+      }
+
+      // 6. Render Priority Attention Radar (Mandals with Errors)
+      const attentionMandals = mandalsList.filter(m => m.shapefiles_error > 0).sort((a, b) => b.shapefiles_error - a.shapefiles_error).slice(0, 5);
+      const attContainer = document.getElementById('execAttentionDistrictsList');
+      if (attContainer) {
+        attContainer.innerHTML = '';
+        if (attentionMandals.length === 0) {
+          attContainer.innerHTML = '<div class="text-xs text-slate-500 py-4 text-center font-medium bg-slate-50 rounded-lg border border-slate-100"><i class="fa-solid fa-circle-check text-emerald-500 mr-1.5"></i>No shapefile defects or returned submissions detected.</div>';
+        } else {
+          attentionMandals.forEach(m => {
+            const div = document.createElement('div');
+            div.className = 'flex items-center justify-between p-2.5 rounded-lg bg-rose-50/50 border border-rose-100 text-xs hover:bg-rose-50 transition';
+            div.innerHTML = `
+              <div class="flex items-center space-x-2.5">
+                <i class="fa-solid fa-circle-exclamation text-rose-500 text-sm shrink-0"></i>
+                <div>
+                  <div class="font-bold text-slate-800">${m.mandal}</div>
+                  <div class="text-[10px] text-slate-500">(${m.district})</div>
+                </div>
               </div>
               <div class="flex items-center space-x-3">
-                <span class="bg-rose-100 text-rose-800 px-2 py-0.5 rounded font-bold text-[10px]">${d.shapefiles_error} Shapefile Error(s)</span>
-                <button onclick="switchMainTab('tab-villages'); filterDistrict('${d.district}')" class="text-xs text-rose-700 hover:underline font-semibold">Inspect &rarr;</button>
+                <span class="bg-rose-100 text-rose-800 px-2 py-0.5 rounded font-bold text-[10px]">${m.shapefiles_error} Shapefile Error(s)</span>
+                <button type="button" onclick="inspectMandal('${m.district.replace(/'/g, "\\'")}', '${m.mandal.replace(/'/g, "\\'")}')" class="text-xs text-rose-700 hover:text-rose-900 font-bold hover:underline flex items-center space-x-1 cursor-pointer">
+                  <span>Inspect</span>
+                  <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </button>
               </div>
             `;
             attContainer.appendChild(div);
           });
         }
+      }
 
-        const matrixBody = document.getElementById('execMatrixTableBody');
+      // 7. Render Complete Performance Matrix Table
+      const matrixTitle = document.getElementById('execMatrixTitle');
+      const matrixSub = document.getElementById('execMatrixSubtitle');
+      const matrixColHeader = document.getElementById('execMatrixColHeader');
+      const matrixBody = document.getElementById('execMatrixTableBody');
+
+      if (matrixBody) {
         matrixBody.innerHTML = '';
-        const statsRes = await fetch('/dashboard/stats');
-        const statsJson = await statsRes.json();
-        statsJson.districts_summary.forEach((d, idx) => {
-          const tr = document.createElement('tr');
-          tr.className = 'hover:bg-slate-50 transition';
-          tr.innerHTML = `
-            <td class="py-2 px-3 text-slate-400">${idx + 1}</td>
-            <td class="py-2 px-3 font-semibold text-slate-800">${d.district}</td>
-            <td class="py-2 px-3 text-center font-bold text-emerald-700">${d.non_cadastral_gt_done}</td>
-            <td class="py-2 px-3 text-center text-slate-500">${d.non_cadastral_target}</td>
-            <td class="py-2 px-3 text-center font-bold text-blue-700">${d.cadastral_gt_done}</td>
-            <td class="py-2 px-3 text-center text-slate-500">${d.cadastral_target}</td>
-            <td class="py-2 px-3 text-center font-bold text-slate-900">${d.total_gt_done}</td>
-            <td class="py-2 px-3 text-center font-semibold text-teal-700">${d.verified_count || 0}</td>
-            <td class="py-2 px-3 text-center font-semibold ${d.shapefiles_error > 0 ? 'text-rose-600' : 'text-slate-400'}">${d.shapefiles_error}</td>
-            <td class="py-2 px-3 text-right font-medium text-slate-700">${Number(d.total_extent_acres).toLocaleString()}</td>
-          `;
-          matrixBody.appendChild(tr);
-        });
-      } catch (e) {
-        console.error('Error fetching exec summary:', e);
+        if (isStatewide) {
+          if (matrixTitle) matrixTitle.innerHTML = 'Statewide District Compliance &amp; Targets Matrix';
+          if (matrixSub) matrixSub.textContent = '32 Administrative Districts';
+          if (matrixColHeader) matrixColHeader.textContent = 'District';
+
+          const districts = (cachedExecStatsData && cachedExecStatsData.districts_summary) ? cachedExecStatsData.districts_summary : [];
+          districts.forEach((d, idx) => {
+            const tr = document.createElement('tr');
+            tr.className = 'hover:bg-slate-50 transition';
+            tr.innerHTML = `
+              <td class="py-2 px-3 text-slate-400">${idx + 1}</td>
+              <td class="py-2 px-3 font-semibold text-slate-800">${d.district}</td>
+              <td class="py-2 px-3 text-center font-bold text-emerald-700">${d.non_cadastral_gt_done}</td>
+              <td class="py-2 px-3 text-center text-slate-500">${d.non_cadastral_target}</td>
+              <td class="py-2 px-3 text-center font-bold text-blue-700">${d.cadastral_gt_done}</td>
+              <td class="py-2 px-3 text-center text-slate-500">${d.cadastral_target}</td>
+              <td class="py-2 px-3 text-center font-bold text-slate-900">${d.total_gt_done}</td>
+              <td class="py-2 px-3 text-center font-semibold text-teal-700">${d.verified_count || 0}</td>
+              <td class="py-2 px-3 text-center font-semibold ${d.shapefiles_error > 0 ? 'text-rose-600' : 'text-slate-400'}">${d.shapefiles_error}</td>
+              <td class="py-2 px-3 text-right font-medium text-slate-700">${Number(d.total_extent_acres).toLocaleString()}</td>
+            `;
+            matrixBody.appendChild(tr);
+          });
+        } else {
+          if (matrixTitle) matrixTitle.innerHTML = `${selectedDistrict} - Mandal Compliance &amp; Progress Matrix`;
+          if (matrixSub) matrixSub.textContent = `${mandalsList.length} Mandals in ${selectedDistrict}`;
+          if (matrixColHeader) matrixColHeader.textContent = 'Mandal';
+
+          mandalsList.sort((a, b) => b.total_gt_done - a.total_gt_done || a.mandal.localeCompare(b.mandal));
+
+          mandalsList.forEach((m, idx) => {
+            const tr = document.createElement('tr');
+            tr.className = 'hover:bg-slate-50 transition';
+            tr.innerHTML = `
+              <td class="py-2 px-3 text-slate-400">${idx + 1}</td>
+              <td class="py-2 px-3 font-semibold text-slate-800">${m.mandal}</td>
+              <td class="py-2 px-3 text-center font-bold text-emerald-700">${m.non_cad_done}</td>
+              <td class="py-2 px-3 text-center text-slate-500">${m.non_cad_target}</td>
+              <td class="py-2 px-3 text-center font-bold text-blue-700">${m.cad_done}</td>
+              <td class="py-2 px-3 text-center text-slate-500">${m.cad_target}</td>
+              <td class="py-2 px-3 text-center font-bold text-slate-900">${m.total_gt_done}</td>
+              <td class="py-2 px-3 text-center font-semibold text-teal-700">${m.verified_count || 0}</td>
+              <td class="py-2 px-3 text-center font-semibold ${m.shapefiles_error > 0 ? 'text-rose-600' : 'text-slate-400'}">${m.shapefiles_error}</td>
+              <td class="py-2 px-3 text-right font-medium text-slate-700">${Number(m.total_extent_acres).toLocaleString()}</td>
+            `;
+            matrixBody.appendChild(tr);
+          });
+        }
       }
     }
 
