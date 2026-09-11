@@ -955,7 +955,7 @@ def update_village(
     if cur_surveyed <= 0.0001:
         updates["gt_status"] = "Pending"
     elif actual_rem > 0.0001:
-        updates["gt_status"] = "Pending"
+        updates["gt_status"] = "In Progress"
     elif actual_rem <= 0.0001 and cur_surveyed > 0.0001:
         updates["gt_status"] = "Completed"
 
@@ -1189,7 +1189,7 @@ def add_daily_survey_log(
     if total_surveyed <= 0.0001:
         updates["gt_status"] = "Pending"
     elif actual_rem > 0.0001:
-        updates["gt_status"] = "Pending"
+        updates["gt_status"] = "In Progress"
     elif actual_rem <= 0.0001 and total_surveyed > 0.0001:
         updates["gt_status"] = "Completed"
 
@@ -1246,7 +1246,7 @@ def delete_daily_survey_log(
     if total_surveyed <= 0.0001:
         updates["gt_status"] = "Pending"
     elif actual_rem > 0.0001:
-        updates["gt_status"] = "Pending"
+        updates["gt_status"] = "In Progress"
     elif actual_rem <= 0.0001 and total_surveyed > 0.0001:
         updates["gt_status"] = "Completed"
 
@@ -1347,7 +1347,7 @@ def update_daily_survey_log(
     if total_surveyed <= 0.0001:
         updates["gt_status"] = "Pending"
     elif actual_rem > 0.0001:
-        updates["gt_status"] = "Pending"
+        updates["gt_status"] = "In Progress"
     elif actual_rem <= 0.0001 and total_surveyed > 0.0001:
         updates["gt_status"] = "Completed"
 

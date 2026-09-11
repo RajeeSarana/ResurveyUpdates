@@ -4244,23 +4244,26 @@
       // Update Ground Truthing Status Badge directly below Edit Record header
       // Rules:
       // 1. If surveyed is 0 -> Ground Truthing Status is GT Pending
-      // 2. If remaining is greater than 0 -> Ground Truthing Status is GT Pending
+      // 2. If remaining is greater than 0 (and surveyed > 0) -> Ground Truthing Status is GT In Progress
       // 3. If remaining is less than or equal to 0 (and surveyed > 0) -> Ground Truthing Status is GT Completed
       const badgeGtStatus = document.getElementById('modalBadgeGtStatus');
       const actualRemaining = Math.round((targetAcres - surveyedSoFar) * 1000) / 1000;
-      let isGtCompleted = false;
+      let gtState = 'Pending';
       if (surveyedSoFar <= 0.0001) {
-        isGtCompleted = false;
+        gtState = 'Pending';
       } else if (actualRemaining > 0.0001) {
-        isGtCompleted = false;
+        gtState = 'In Progress';
       } else if (actualRemaining <= 0.0001 && surveyedSoFar > 0.0001) {
-        isGtCompleted = true;
+        gtState = 'Completed';
       }
 
       if (badgeGtStatus) {
-        if (isGtCompleted) {
+        if (gtState === 'Completed') {
           badgeGtStatus.className = 'text-xs sm:text-sm bg-emerald-50 text-emerald-900 px-3.5 py-1.5 rounded-lg font-extrabold border-2 border-emerald-400 flex items-center shadow-sm';
           badgeGtStatus.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-600 mr-2 text-sm"></i>Ground Truthing Status: GT Completed';
+        } else if (gtState === 'In Progress') {
+          badgeGtStatus.className = 'text-xs sm:text-sm bg-blue-50 text-blue-900 px-3.5 py-1.5 rounded-lg font-extrabold border-2 border-blue-400 flex items-center shadow-sm';
+          badgeGtStatus.innerHTML = '<i class="fa-solid fa-arrows-rotate text-blue-600 mr-2 text-sm"></i>Ground Truthing Status: GT In Progress';
         } else {
           badgeGtStatus.className = 'text-xs sm:text-sm bg-amber-50 text-amber-900 px-3.5 py-1.5 rounded-lg font-extrabold border-2 border-amber-400 flex items-center shadow-sm';
           badgeGtStatus.innerHTML = '<i class="fa-solid fa-clock text-amber-600 mr-2 text-sm"></i>Ground Truthing Status: GT Pending';
@@ -4270,10 +4273,10 @@
       // Sync Ground Truthing status select input with remaining progress
       const elFormGt = document.getElementById('formGtStatus');
       if (elFormGt) {
-        elFormGt.value = isGtCompleted ? 'Completed' : 'Pending';
+        elFormGt.value = gtState;
       }
       if (v) {
-        v.gt_status = isGtCompleted ? 'Completed' : 'Pending';
+        v.gt_status = gtState;
       }
     }
 
@@ -5509,27 +5512,32 @@
             ? '<span class="text-teal-600 font-bold"><i class="fa-solid fa-circle-check text-xs mr-1"></i>Yes</span>'
             : '<span class="text-slate-400">No</span>');
 
-        // GT Status: If surveyed is 0 or remaining > 0 -> GT Pending; if remaining <= 0 (and surveyed > 0) -> GT Completed
+        // GT Status: If surveyed is 0 -> GT Pending; if remaining > 0 (and surveyed > 0) -> GT In Progress; if remaining <= 0 (and surveyed > 0) -> GT Completed
         const vSurveyed = parseFloat((v.surveyed_extent_so_far !== undefined && v.surveyed_extent_so_far !== null) ? v.surveyed_extent_so_far : 0);
         const vTarget = parseFloat(v.target_extent || v.master_extent || v.extent_acres_float || 0);
         const vRem = (v.remaining_extent !== undefined && v.remaining_extent !== null) 
           ? parseFloat(v.remaining_extent) 
           : (vTarget > 0 ? Math.round((vTarget - vSurveyed) * 1000) / 1000 : 0);
         
-        let isRowGtCompleted = false;
+        let rowGtState = 'Pending';
         if (vSurveyed <= 0.0001) {
-          isRowGtCompleted = false;
+          rowGtState = 'Pending';
         } else if (vRem > 0.0001) {
-          isRowGtCompleted = false;
+          rowGtState = 'In Progress';
         } else if (vRem <= 0.0001 && vSurveyed > 0.0001) {
-          isRowGtCompleted = true;
+          rowGtState = 'Completed';
         } else if (v.gt_status === 'Completed' && vSurveyed > 0.0001) {
-          isRowGtCompleted = true;
+          rowGtState = 'Completed';
         }
 
-        const gtBadge = isRowGtCompleted
-          ? '<span class="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full font-bold text-[10px]"><i class="fa-solid fa-circle-check text-[9px] text-emerald-600"></i>GT Completed</span>'
-          : '<span class="inline-flex items-center gap-1 bg-amber-50 text-amber-700 border border-amber-200 px-2 py-0.5 rounded-full font-medium text-[10px]"><i class="fa-solid fa-clock text-[9px] text-amber-600"></i>GT Pending</span>';
+        let gtBadge = '';
+        if (rowGtState === 'Completed') {
+          gtBadge = '<span class="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full font-bold text-[10px]"><i class="fa-solid fa-circle-check text-[9px] text-emerald-600"></i>GT Completed</span>';
+        } else if (rowGtState === 'In Progress') {
+          gtBadge = '<span class="inline-flex items-center gap-1 bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full font-semibold text-[10px]"><i class="fa-solid fa-arrows-rotate text-[9px] text-blue-600"></i>GT In Progress</span>';
+        } else {
+          gtBadge = '<span class="inline-flex items-center gap-1 bg-amber-50 text-amber-700 border border-amber-200 px-2 py-0.5 rounded-full font-medium text-[10px]"><i class="fa-solid fa-clock text-[9px] text-amber-600"></i>GT Pending</span>';
+        }
 
         // Determine button actions based on authenticated user and picked status
         const isAuth = !!currentUser;
@@ -8003,20 +8011,20 @@
       // Operational fields - align GT status with remaining progress
       // Rules:
       // 1. If surveyed is 0 -> Ground Truthing Status is GT Pending
-      // 2. If remaining is greater than 0 -> Ground Truthing Status is GT Pending
+      // 2. If remaining is greater than 0 (and surveyed > 0) -> Ground Truthing Status is GT In Progress
       // 3. If remaining is less than or equal to 0 (and surveyed > 0) -> Ground Truthing Status is GT Completed
       const surveyedExtent = parseFloat((v.surveyed_extent_so_far !== undefined && v.surveyed_extent_so_far !== null) ? v.surveyed_extent_so_far : 0);
       const actualRemainingExtent = Math.round((targetAcres - surveyedExtent) * 1000) / 1000;
-      let isCompletedGt = false;
+      let modalGtState = 'Pending';
       if (surveyedExtent <= 0.0001) {
-        isCompletedGt = false;
+        modalGtState = 'Pending';
       } else if (actualRemainingExtent > 0.0001) {
-        isCompletedGt = false;
+        modalGtState = 'In Progress';
       } else if (actualRemainingExtent <= 0.0001 && surveyedExtent > 0.0001) {
-        isCompletedGt = true;
+        modalGtState = 'Completed';
       }
-      document.getElementById('formGtStatus').value = isCompletedGt ? 'Completed' : 'Pending';
-      v.gt_status = isCompletedGt ? 'Completed' : 'Pending';
+      document.getElementById('formGtStatus').value = modalGtState;
+      v.gt_status = modalGtState;
       document.getElementById('formRemarks').value = v.remarks || '';
       if (isReadOnly) {
         document.getElementById('formGtStatus').disabled = true;
