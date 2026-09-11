@@ -950,7 +950,14 @@ def update_village(
     merged_temp = {**existing, **updates}
     target_extent = _get_target_survey_extent(merged_temp)
     cur_surveyed = float(updates.get("surveyed_extent_so_far", existing.get("surveyed_extent_so_far", 0.0)) or 0.0)
-    updates["remaining_extent"] = max(0.0, round(target_extent - cur_surveyed, 3)) if target_extent > 0 else 0.0
+    actual_rem = round(target_extent - cur_surveyed, 3)
+    updates["remaining_extent"] = max(0.0, actual_rem) if target_extent > 0 else 0.0
+    if cur_surveyed <= 0.0001:
+        updates["gt_status"] = "Pending"
+    elif actual_rem > 0.0001:
+        updates["gt_status"] = "Pending"
+    elif actual_rem <= 0.0001 and cur_surveyed > 0.0001:
+        updates["gt_status"] = "Completed"
 
     diff = {}
     for k, v in updates.items():
@@ -1172,16 +1179,19 @@ def add_daily_survey_log(
     target_extent = _get_target_survey_extent(village)
     remaining = max(0.0, round(target_extent - total_surveyed, 3)) if target_extent > 0 else 0.0
 
+    actual_rem = round(target_extent - total_surveyed, 3)
     updates = {
         "daily_survey_logs": logs,
         "surveyed_extent_so_far": total_surveyed,
         "remaining_extent": remaining,
         "last_survey_date": survey_date
     }
-    if total_surveyed >= target_extent and target_extent > 0:
+    if total_surveyed <= 0.0001:
+        updates["gt_status"] = "Pending"
+    elif actual_rem > 0.0001:
+        updates["gt_status"] = "Pending"
+    elif actual_rem <= 0.0001 and total_surveyed > 0.0001:
         updates["gt_status"] = "Completed"
-    elif total_surveyed > 0:
-        updates["gt_status"] = "In Progress"
 
     updated_v = update_village(village_id, updates, user_name=user_name, user_role=user_role)
 
@@ -1223,6 +1233,7 @@ def delete_daily_survey_log(
     total_surveyed = round(sum(float(item.get("extent_acres", 0.0) or 0.0) for item in logs), 3)
     target_extent = _get_target_survey_extent(village)
     remaining = max(0.0, round(target_extent - total_surveyed, 3)) if target_extent > 0 else 0.0
+    actual_rem = round(target_extent - total_surveyed, 3)
     dates = [item.get("survey_date") for item in logs if item.get("survey_date")]
     latest_date = max(dates) if dates else ""
 
@@ -1232,6 +1243,13 @@ def delete_daily_survey_log(
         "remaining_extent": remaining,
         "last_survey_date": latest_date
     }
+    if total_surveyed <= 0.0001:
+        updates["gt_status"] = "Pending"
+    elif actual_rem > 0.0001:
+        updates["gt_status"] = "Pending"
+    elif actual_rem <= 0.0001 and total_surveyed > 0.0001:
+        updates["gt_status"] = "Completed"
+
     updated_v = update_village(village_id, updates, user_name=user_name, user_role=user_role)
 
     log_change(
@@ -1316,6 +1334,7 @@ def update_daily_survey_log(
     total_surveyed = round(sum(float(item.get("extent_acres", 0.0) or 0.0) for item in logs), 3)
     target_extent = _get_target_survey_extent(village)
     remaining = max(0.0, round(target_extent - total_surveyed, 3)) if target_extent > 0 else 0.0
+    actual_rem = round(target_extent - total_surveyed, 3)
     dates = [item.get("survey_date") for item in logs if item.get("survey_date")]
     latest_date = max(dates) if dates else ""
 
@@ -1325,10 +1344,12 @@ def update_daily_survey_log(
         "remaining_extent": remaining,
         "last_survey_date": latest_date
     }
-    if total_surveyed >= target_extent and target_extent > 0:
+    if total_surveyed <= 0.0001:
+        updates["gt_status"] = "Pending"
+    elif actual_rem > 0.0001:
+        updates["gt_status"] = "Pending"
+    elif actual_rem <= 0.0001 and total_surveyed > 0.0001:
         updates["gt_status"] = "Completed"
-    elif total_surveyed > 0:
-        updates["gt_status"] = "In Progress"
 
     updated_v = update_village(village_id, updates, user_name=user_name, user_role=user_role)
 
