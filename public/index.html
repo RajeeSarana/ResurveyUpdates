@@ -2170,11 +2170,19 @@
               <span id="modalBadgeShapefileStatus" class="text-xs sm:text-sm bg-amber-50 text-amber-900 px-3.5 py-1.5 rounded-lg font-extrabold border-2 border-amber-400 flex items-center shadow-sm">
                 <i class="fa-solid fa-clock text-amber-600 mr-2 text-sm"></i>Shapefile Status: Pending
               </span>
-              <span id="modalBadgeShapefileRemarks" class="text-xs sm:text-sm bg-slate-50 text-slate-800 px-3.5 py-1.5 rounded-lg font-semibold border-2 border-slate-300 flex items-center shadow-sm max-w-xs sm:max-w-md" title="Shapefile Remarks">
+              <span id="modalBadgeShapefileRemarks" class="text-xs sm:text-sm bg-slate-50 text-slate-800 px-3.5 py-1.5 rounded-lg font-semibold border-2 border-slate-300 flex items-center shadow-sm max-w-md sm:max-w-xl" title="Shapefile Remarks">
                 <i class="fa-solid fa-comment-dots text-slate-500 mr-2 text-sm shrink-0"></i>
                 <span class="font-extrabold mr-1 shrink-0">Shapefile Remarks:</span>
                 <span id="modalBadgeShapefileRemarksText" class="truncate font-medium text-slate-700">-</span>
               </span>
+              <span id="modalBadgeQcInspector" class="hidden text-xs sm:text-sm bg-rose-100 text-rose-900 px-3 py-1.5 rounded-lg font-bold border-2 border-rose-300 items-center shadow-sm shrink-0">
+                <i class="fa-solid fa-user-shield text-rose-600 mr-1.5 text-xs"></i>
+                <span id="modalBadgeQcInspectorText">QC Inspector</span>
+              </span>
+              <label id="modalBadgeQcResubmit" class="hidden items-center space-x-2 bg-emerald-50 hover:bg-emerald-100 border-2 border-emerald-400 text-emerald-900 px-3.5 py-1.5 rounded-lg cursor-pointer transition shadow-sm text-xs sm:text-sm font-bold shrink-0">
+                <input type="checkbox" id="formResubmitCorrectedShapefile" onchange="onResubmitCheckboxChange()" class="rounded text-emerald-600 focus:ring-emerald-500 h-4 w-4" />
+                <span>Mark Corrected &amp; Ready for Re-verification</span>
+              </label>
             </div>
           </div>
         </div>
@@ -2223,29 +2231,10 @@
 
 
 
-        <!-- DEDICATED QC RETURN FEEDBACK BANNER (DISPLAYED WHEN RETURNED FOR CORRECTION) -->
-        <div id="dispModalQcAlert" class="hidden p-3 bg-rose-50 border-l-4 border-rose-500 rounded-r-xl space-y-2 shadow-2xs">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-2 text-rose-900 font-bold text-xs">
-              <i class="fa-solid fa-arrow-rotate-left text-rose-600 text-sm"></i>
-              <span>Shapefile Returned for Correction by Central QC</span>
-            </div>
-            <span class="text-[10px] bg-rose-200 text-rose-900 font-bold px-2 py-0.5 rounded shadow-2xs" id="dispModalQcInspector">QC Inspector</span>
-          </div>
-          <div class="text-xs text-rose-800 bg-white/90 border border-rose-200 rounded-lg p-2.5 font-medium leading-relaxed" id="dispModalQcRemarks">
-            "..."
-          </div>
-          <div class="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-rose-200/60">
-            <div class="text-[11px] text-slate-600 flex items-center space-x-1.5">
-              <i class="fa-solid fa-circle-info text-rose-500 text-xs"></i>
-              <span>Rectify the shapefile boundary / attribute data and save record to resubmit to Central QC.</span>
-            </div>
-            <label class="flex items-center space-x-2 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 px-3 py-1 rounded-lg cursor-pointer transition shadow-2xs">
-              <input type="checkbox" id="formResubmitCorrectedShapefile" onchange="onResubmitCheckboxChange()" class="rounded text-emerald-600 focus:ring-emerald-500 h-4 w-4" />
-              <span class="text-xs font-bold text-emerald-900">Mark Corrected &amp; Ready for Re-verification</span>
-            </label>
-          </div>
-        </div>
+        <!-- QC Return feedback is displayed in modal header badges row beside Ground Truthing status -->
+        <div id="dispModalQcAlert" class="hidden"></div>
+        <span id="dispModalQcInspector" class="hidden"></span>
+        <span id="dispModalQcRemarks" class="hidden"></span>
 
         <!-- SECTION 2: STATUTORY NOTIFICATIONS & OWNER NOTICES (ULTRA-COMPACT STRIP) -->
         <div class="bg-white px-3 py-2 rounded-xl border border-slate-200/90 shadow-2xs space-y-1.5">
@@ -4291,14 +4280,18 @@
         const sfRemarks = isReturned
           ? (v.qc_notes || v.shapefile_remarks || v.remarks || '')
           : (v.shapefile_remarks || v.remarks || v.qc_notes || '');
-        updateModalHeaderShapefileBadges(sfStatus, isReturned, sfRemarks);
+        const inspector = v.verified_by || '';
+        updateModalHeaderShapefileBadges(sfStatus, isReturned, sfRemarks, inspector);
       }
     }
 
-    function updateModalHeaderShapefileBadges(sfStatus, isReturned, remarksText) {
+    function updateModalHeaderShapefileBadges(sfStatus, isReturned, remarksText, inspectorName = '') {
       const badgeSfStatus = document.getElementById('modalBadgeShapefileStatus');
       const badgeSfRemarks = document.getElementById('modalBadgeShapefileRemarks');
       const badgeSfRemarksText = document.getElementById('modalBadgeShapefileRemarksText');
+      const badgeInspector = document.getElementById('modalBadgeQcInspector');
+      const badgeInspectorText = document.getElementById('modalBadgeQcInspectorText');
+      const badgeResubmit = document.getElementById('modalBadgeQcResubmit');
 
       let normalizedStatus = (sfStatus || 'Pending').trim();
       if (isReturned || normalizedStatus === 'Shapefile Returned' || normalizedStatus === 'ShapefileReturned') {
@@ -4307,16 +4300,16 @@
 
       if (badgeSfStatus) {
         if (normalizedStatus === 'Completed' || normalizedStatus === 'Shapefile Done') {
-          badgeSfStatus.className = 'text-xs sm:text-sm bg-emerald-50 text-emerald-900 px-3.5 py-1.5 rounded-lg font-extrabold border-2 border-emerald-400 flex items-center shadow-sm';
+          badgeSfStatus.className = 'text-xs sm:text-sm bg-emerald-50 text-emerald-900 px-3.5 py-1.5 rounded-lg font-extrabold border-2 border-emerald-400 flex items-center shadow-sm shrink-0';
           badgeSfStatus.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-600 mr-2 text-sm"></i>Shapefile Status: Completed';
         } else if (normalizedStatus === 'Shapefile Returned' || normalizedStatus === 'Error' || normalizedStatus === 'Rejected') {
-          badgeSfStatus.className = 'text-xs sm:text-sm bg-rose-50 text-rose-900 px-3.5 py-1.5 rounded-lg font-extrabold border-2 border-rose-400 flex items-center shadow-sm';
-          badgeSfStatus.innerHTML = `<i class="fa-solid fa-arrow-rotate-left text-rose-600 mr-2 text-sm"></i>Shapefile Status: ${normalizedStatus}`;
+          badgeSfStatus.className = 'text-xs sm:text-sm bg-rose-50 text-rose-900 px-3.5 py-1.5 rounded-lg font-extrabold border-2 border-rose-400 flex items-center shadow-sm shrink-0';
+          badgeSfStatus.innerHTML = `<i class="fa-solid fa-arrow-rotate-left text-rose-600 mr-2 text-sm"></i>Shapefile Status: Shapefile Returned for Correction`;
         } else if (normalizedStatus === 'In Progress') {
-          badgeSfStatus.className = 'text-xs sm:text-sm bg-blue-50 text-blue-900 px-3.5 py-1.5 rounded-lg font-extrabold border-2 border-blue-400 flex items-center shadow-sm';
+          badgeSfStatus.className = 'text-xs sm:text-sm bg-blue-50 text-blue-900 px-3.5 py-1.5 rounded-lg font-extrabold border-2 border-blue-400 flex items-center shadow-sm shrink-0';
           badgeSfStatus.innerHTML = '<i class="fa-solid fa-arrows-rotate text-blue-600 mr-2 text-sm"></i>Shapefile Status: In Progress';
         } else {
-          badgeSfStatus.className = 'text-xs sm:text-sm bg-amber-50 text-amber-900 px-3.5 py-1.5 rounded-lg font-extrabold border-2 border-amber-400 flex items-center shadow-sm';
+          badgeSfStatus.className = 'text-xs sm:text-sm bg-amber-50 text-amber-900 px-3.5 py-1.5 rounded-lg font-extrabold border-2 border-amber-400 flex items-center shadow-sm shrink-0';
           badgeSfStatus.innerHTML = `<i class="fa-solid fa-clock text-amber-600 mr-2 text-sm"></i>Shapefile Status: ${normalizedStatus}`;
         }
       }
@@ -4327,17 +4320,40 @@
       if (badgeSfRemarks) {
         badgeSfRemarks.setAttribute('title', cleanRemarks ? `Shapefile Remarks: ${cleanRemarks}` : 'Shapefile Remarks: None');
         if (isReturned && cleanRemarks) {
-          badgeSfRemarks.className = 'text-xs sm:text-sm bg-rose-50 text-rose-900 px-3.5 py-1.5 rounded-lg font-semibold border-2 border-rose-300 flex items-center shadow-sm max-w-xs sm:max-w-md';
+          badgeSfRemarks.className = 'text-xs sm:text-sm bg-rose-50 text-rose-950 px-3.5 py-1.5 rounded-lg font-semibold border-2 border-rose-300 flex items-center shadow-sm max-w-md sm:max-w-xl';
           const icon = badgeSfRemarks.querySelector('i');
           if (icon) icon.className = 'fa-solid fa-comment-dots text-rose-600 mr-2 text-sm shrink-0';
         } else {
-          badgeSfRemarks.className = 'text-xs sm:text-sm bg-slate-50 text-slate-800 px-3.5 py-1.5 rounded-lg font-semibold border-2 border-slate-300 flex items-center shadow-sm max-w-xs sm:max-w-md';
+          badgeSfRemarks.className = 'text-xs sm:text-sm bg-slate-50 text-slate-800 px-3.5 py-1.5 rounded-lg font-semibold border-2 border-slate-300 flex items-center shadow-sm max-w-md sm:max-w-xl';
           const icon = badgeSfRemarks.querySelector('i');
           if (icon) icon.className = 'fa-solid fa-comment-dots text-slate-500 mr-2 text-sm shrink-0';
         }
       }
       if (badgeSfRemarksText) {
         badgeSfRemarksText.textContent = displayVal;
+      }
+
+      if (badgeInspector) {
+        if (isReturned) {
+          badgeInspector.classList.remove('hidden');
+          badgeInspector.classList.add('flex');
+          if (badgeInspectorText) {
+            badgeInspectorText.textContent = inspectorName ? `QC: ${inspectorName}` : 'Central QC Officer';
+          }
+        } else {
+          badgeInspector.classList.add('hidden');
+          badgeInspector.classList.remove('flex');
+        }
+      }
+
+      if (badgeResubmit) {
+        if (isReturned) {
+          badgeResubmit.classList.remove('hidden');
+          badgeResubmit.classList.add('flex');
+        } else {
+          badgeResubmit.classList.add('hidden');
+          badgeResubmit.classList.remove('flex');
+        }
       }
     }
 
@@ -7816,39 +7832,22 @@
         dispWfEl.innerHTML = `<span class="inline-flex items-center text-[10px] font-semibold text-slate-200 bg-white/10 border border-white/10 px-2 py-0.5 rounded truncate max-w-[150px]" title="${wfStage}"><i class="fa-solid fa-diagram-project mr-1 text-indigo-300 text-[9px]"></i>${wfStage}</span>`;
       }
 
-      // Update Shapefile Status and Remarks Badges in Modal Header
+      // Update Shapefile Status and Remarks Badges in Modal Header (beside Ground Truthing status)
       const sfRemarks = isReturned
         ? (v.qc_notes || v.shapefile_remarks || v.remarks || '')
         : (v.shapefile_remarks || v.remarks || v.qc_notes || '');
-      updateModalHeaderShapefileBadges(sfStatus, isReturned, sfRemarks);
+      const inspectorName = v.verified_by || '';
+      updateModalHeaderShapefileBadges(sfStatus, isReturned, sfRemarks, inspectorName);
 
-      // Populate QC Return Feedback Card if returned
-      const qcAlertEl = document.getElementById('dispModalQcAlert');
+      // Reset & configure Mark Corrected checkbox (located in modal header badges)
       const resubmitCheckbox = document.getElementById('formResubmitCorrectedShapefile');
-      if (qcAlertEl) {
-        if (isReturned) {
-          qcAlertEl.classList.remove('hidden');
-          const inspectorEl = document.getElementById('dispModalQcInspector');
-          if (inspectorEl) {
-            inspectorEl.textContent = v.verified_by ? `QC: ${v.verified_by}` : 'Central QC Officer';
-          }
-          const remarksEl = document.getElementById('dispModalQcRemarks');
-          if (remarksEl) {
-            const notes = v.qc_notes || 'Shapefile flagged for correction. Please rectify shapefile boundary / parcel attributes and resubmit.';
-            remarksEl.innerHTML = `<i class="fa-solid fa-quote-left text-rose-400 mr-1.5 opacity-70"></i>${notes}<i class="fa-solid fa-quote-right text-rose-400 ml-1.5 opacity-70"></i>`;
-          }
-          if (resubmitCheckbox) {
-            resubmitCheckbox.checked = false;
-            resubmitCheckbox.disabled = isReadOnly;
-          }
-        } else {
-          qcAlertEl.classList.add('hidden');
-          if (resubmitCheckbox) {
-            resubmitCheckbox.checked = false;
-            resubmitCheckbox.disabled = isReadOnly;
-          }
-        }
+      if (resubmitCheckbox) {
+        resubmitCheckbox.checked = false;
+        resubmitCheckbox.disabled = isReadOnly;
       }
+
+      const qcAlertEl = document.getElementById('dispModalQcAlert');
+      if (qcAlertEl) qcAlertEl.classList.add('hidden');
 
       // Form hidden inputs
       document.getElementById('formDistrict').value = v.district_name;
@@ -8117,13 +8116,19 @@
       const id = document.getElementById('formVillageId').value;
       const v = allVillages.find(item => item.id === id) || {};
       const sfRemarks = v.qc_notes || v.shapefile_remarks || v.remarks || '';
+      const inspector = v.verified_by || '';
+
       if (checkbox && checkbox.checked) {
         if (sfInput) sfInput.value = 'Completed';
         if (wfInput) wfInput.value = 'QC Resubmitted (Correction Done)';
         if (dispSfEl) {
           dispSfEl.innerHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-400/40"><i class="fa-solid fa-check-double mr-1 text-emerald-400 text-[9px]"></i>Corrected (Ready for QC)</span>`;
         }
-        updateModalHeaderShapefileBadges('Completed', false, sfRemarks);
+        const badgeSfStatus = document.getElementById('modalBadgeShapefileStatus');
+        if (badgeSfStatus) {
+          badgeSfStatus.className = 'text-xs sm:text-sm bg-emerald-50 text-emerald-900 px-3.5 py-1.5 rounded-lg font-extrabold border-2 border-emerald-400 flex items-center shadow-sm shrink-0';
+          badgeSfStatus.innerHTML = '<i class="fa-solid fa-check-double text-emerald-600 mr-2 text-sm"></i>Shapefile Status: Completed (Ready for QC)';
+        }
       } else {
         let origSf = v.shapefile_status || 'Shapefile Returned';
         if (origSf === 'Error') origSf = 'Shapefile Returned';
@@ -8134,7 +8139,7 @@
         }
         const isReturned = (v.verification_status === 'Returned for Correction') ||
                            origSf === 'Shapefile Returned' || origSf === 'ShapefileReturned' || origSf === 'Error';
-        updateModalHeaderShapefileBadges(origSf, isReturned, sfRemarks);
+        updateModalHeaderShapefileBadges(origSf, isReturned, sfRemarks, inspector);
       }
     }
 
