@@ -1603,6 +1603,9 @@ def get_dashboard_stats(district: Optional[str] = None) -> Dict[str, Any]:
                     "completed": 0,
                     "non_cad_gt": 0,
                     "cad_gt": 0,
+                    "verified": 0,
+                    "shapefiles_sent": 0,
+                    "shapefiles_error": 0,
                     "acres": 0.0
                 }
             mandals_dict[m]["total"] += 1
@@ -1615,12 +1618,19 @@ def get_dashboard_stats(district: Optional[str] = None) -> Dict[str, Any]:
                     mandals_dict[m]["cad_gt"] += 1
                 if v.get("gt_status") == "Completed":
                     mandals_dict[m]["completed"] += 1
-                mandals_dict[m]["acres"] += (v.get("extent_acres_float", 0.0) or 0.0)
+                if v.get("verification_status") == "Verified":
+                    mandals_dict[m]["verified"] += 1
+                if v.get("sent_to_cso") is True and v.get("verification_status") != "Returned for Correction":
+                    mandals_dict[m]["shapefiles_sent"] += 1
+                sf = (v.get("shapefile_status") or "").strip()
+                if sf in ["Error", "Shapefile Returned", "ShapefileReturned", "Returned"] or v.get("verification_status") == "Returned for Correction":
+                    mandals_dict[m]["shapefiles_error"] += 1
+                mandals_dict[m]["acres"] = round(mandals_dict[m]["acres"] + (v.get("extent_acres_float", 0.0) or 0.0), 2)
             else:
                 mandals_dict[m]["unpicked"] += 1
         
         mandal_summary = list(mandals_dict.values())
-        mandal_summary.sort(key=lambda x: (x["picked"], x["total"]), reverse=True)
+        mandal_summary.sort(key=lambda x: (x["completed"], x["picked"], x["total"]), reverse=True)
 
     return {
         "is_district_scoped": is_district_scoped,
