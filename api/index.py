@@ -753,6 +753,7 @@ def list_master_villages(
     mandal: Optional[str] = Query(None),
     category: Optional[str] = Query(None),
     is_picked: Optional[bool] = Query(None),
+    survey_progress: Optional[str] = Query(None),
     search: Optional[str] = Query(None),
     page: int = Query(1, ge=1),
     limit: int = Query(50, ge=1, le=500),
@@ -770,6 +771,7 @@ def list_master_villages(
         mandal=mandal,
         category=category,
         is_picked=is_picked,
+        survey_progress=survey_progress,
         search=search,
         page=page,
         limit=limit

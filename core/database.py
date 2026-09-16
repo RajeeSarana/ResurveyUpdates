@@ -2083,6 +2083,7 @@ def get_master_villages(
     category: Optional[str] = None,
     is_picked: Optional[bool] = None,
     search: Optional[str] = None,
+    survey_progress: Optional[str] = None,
     page: int = 1,
     limit: int = 50
 ) -> Dict[str, Any]:
@@ -2093,6 +2094,24 @@ def get_master_villages(
     m_clean = mandal.lower().strip() if mandal and mandal.lower() != "all" else None
     c_clean = category.lower().strip() if category and category.lower() != "all" else None
     s_clean = search.lower().strip() if search else None
+    sp_clean = survey_progress.lower().strip() if survey_progress and survey_progress.lower() != "all" else None
+
+    # Load active survey operational records for lookup & survey_progress filtering
+    survey_records = list(mongo_db.villages.find({}, {"_id": 0})) if (is_mongo and mongo_db is not None) else _load_json(VILLAGES_FILE)
+    survey_by_id = {v["id"]: v for v in survey_records if v.get("id")}
+    survey_by_key = {}
+    for sv in survey_records:
+        if sv.get("village_name") and sv.get("mandal_name"):
+            k = _normalize_name_token(sv.get("village_name")) + "_" + _normalize_name_token(sv.get("mandal_name"))
+            if k not in survey_by_key:
+                survey_by_key[k] = sv
+
+    def _get_survey_rec(v_item):
+        sv_item = survey_by_id.get(v_item.get("id"))
+        if not sv_item:
+            k_item = _normalize_name_token(v_item.get("village_name", "")) + "_" + _normalize_name_token(v_item.get("mandal_name", ""))
+            sv_item = survey_by_key.get(k_item)
+        return sv_item
 
     if d_clean:
         filtered = [v for v in filtered if v.get("district_name", "").lower() == d_clean]
@@ -2109,22 +2128,34 @@ def get_master_villages(
             or s_clean in v.get("mandal_name", "").lower()
             or s_clean in v.get("district_name", "").lower()
         ]
+    if sp_clean:
+        if sp_clean in ["completed", "gt_done"]:
+            filtered = [v for v in filtered if _get_survey_rec(v) and _get_survey_rec(v).get("gt_status") == "Completed"]
+        elif sp_clean == "verified":
+            filtered = [
+                v for v in filtered
+                if _get_survey_rec(v)
+                and _get_survey_rec(v).get("gt_status") == "Completed"
+                and (_get_survey_rec(v).get("verification_status") == "Verified" or not _get_survey_rec(v).get("verification_status"))
+            ]
+        elif sp_clean in ["pending_qc"]:
+            filtered = [
+                v for v in filtered
+                if _get_survey_rec(v)
+                and _get_survey_rec(v).get("gt_status") == "Completed"
+                and _get_survey_rec(v).get("verification_status") == "Pending QC"
+            ]
+        elif sp_clean in ["pending", "pending_submission"]:
+            filtered = [
+                v for v in filtered
+                if not _get_survey_rec(v) or _get_survey_rec(v).get("gt_status") != "Completed"
+            ]
 
     total_matches = len(filtered)
     total_pages = max(1, math.ceil(total_matches / limit)) if limit > 0 else 1
     safe_page = max(1, min(page, total_pages))
     offset = (safe_page - 1) * limit
     slice_data = filtered[offset : offset + limit]
-
-    # Overlay active survey operational records and ensure 4 Area of Extent fields are present
-    survey_records = list(mongo_db.villages.find({}, {"_id": 0})) if (is_mongo and mongo_db is not None) else _load_json(VILLAGES_FILE)
-    survey_by_id = {v["id"]: v for v in survey_records if v.get("id")}
-    survey_by_key = {}
-    for sv in survey_records:
-        if sv.get("village_name") and sv.get("mandal_name"):
-            k = _normalize_name_token(sv.get("village_name")) + "_" + _normalize_name_token(sv.get("mandal_name"))
-            if k not in survey_by_key:
-                survey_by_key[k] = sv
 
     enriched_slice = []
     for item in slice_data:

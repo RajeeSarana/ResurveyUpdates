@@ -912,6 +912,10 @@
               <span id="rMasterBadgeRecordCount" class="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">0 Records</span>
             </div>
             <div class="flex items-center space-x-2">
+              <button type="button" onclick="resetResurveyMasterFilters()" class="px-2.5 py-1.5 text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded-lg border border-slate-200 transition flex items-center space-x-1" title="Clear and reset all filters">
+                <i class="fa-solid fa-filter-circle-xmark text-[11px] text-slate-500"></i>
+                <span>Reset Filters</span>
+              </button>
               <button onclick="fetchResurveyMasterVillages(currentResurveyMasterPage || 1)" class="px-2.5 py-1.5 text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded-lg border border-slate-200 transition flex items-center space-x-1">
                 <i class="fa-solid fa-rotate text-[11px]"></i>
                 <span>Refresh</span>
@@ -923,8 +927,8 @@
             </div>
           </div>
 
-          <!-- Filter Dropdowns Row -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 text-xs">
+          <!-- Filter Dropdowns Row (Reordered & Survey Progress added) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 text-xs">
             <div>
               <label class="block font-semibold text-slate-700 mb-1 flex items-center justify-between">
                 <span>District</span>
@@ -932,33 +936,15 @@
                   <i class="fa-solid fa-lock text-[8px]"></i> Assigned
                 </span>
               </label>
-              <select id="rMasterDistrictFilter" onchange="onResurveyMasterDistrictChange()" class="w-full py-2 px-2.5 bg-slate-50 border border-slate-200 rounded-lg font-semibold text-slate-800 focus:ring-2 focus:ring-emerald-500">
+              <select id="rMasterDistrictFilter" onchange="syncResurveyMasterFilter('district', this.value)" class="w-full py-2 px-2.5 bg-slate-50 border border-slate-200 rounded-lg font-semibold text-slate-800 focus:ring-2 focus:ring-emerald-500">
                 <option value="all">All Districts (32)</option>
               </select>
             </div>
 
             <div>
               <label class="block font-semibold text-slate-700 mb-1">Mandal</label>
-              <select id="rMasterMandalFilter" onchange="fetchResurveyMasterVillages(1)" class="w-full py-2 px-2.5 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 focus:ring-2 focus:ring-emerald-500">
+              <select id="rMasterMandalFilter" onchange="syncResurveyMasterFilter('mandal', this.value)" class="w-full py-2 px-2.5 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 focus:ring-2 focus:ring-emerald-500">
                 <option value="all">All Mandals</option>
-              </select>
-            </div>
-
-            <div>
-              <label class="block font-semibold text-slate-700 mb-1">Category</label>
-              <select id="rMasterCategoryFilter" onchange="fetchResurveyMasterVillages(1)" class="w-full py-2 px-2.5 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 focus:ring-2 focus:ring-emerald-500">
-                <option value="all">All Categories</option>
-                <option value="Non-Cadastral">Non-Cadastral (100% Target)</option>
-                <option value="Cadastral">Cadastral</option>
-              </select>
-            </div>
-
-            <div>
-              <label class="block font-semibold text-slate-700 mb-1">Resurvey Status</label>
-              <select id="rMasterPickedFilter" onchange="fetchResurveyMasterVillages(1)" class="w-full py-2 px-2.5 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 focus:ring-2 focus:ring-emerald-500">
-                <option value="all">All Villages</option>
-                <option value="true">Picked for Resurvey (Target)</option>
-                <option value="false">Non-Survey Phase</option>
               </select>
             </div>
 
@@ -966,34 +952,107 @@
               <label class="block font-semibold text-slate-700 mb-1">Search Village</label>
               <div class="relative">
                 <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-slate-400 text-xs"></i>
-                <input type="text" id="rMasterSearch" placeholder="Village name..." oninput="debounceResurveyMasterSearch()" class="w-full pl-8 pr-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs focus:ring-2 focus:ring-emerald-500" />
+                <input type="text" id="rMasterSearch" placeholder="Village name..." oninput="syncResurveyMasterSearch(this.value)" class="w-full pl-8 pr-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs focus:ring-2 focus:ring-emerald-500" />
               </div>
+            </div>
+
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Category</label>
+              <select id="rMasterCategoryFilter" onchange="syncResurveyMasterFilter('category', this.value)" class="w-full py-2 px-2.5 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 focus:ring-2 focus:ring-emerald-500">
+                <option value="all">All Categories</option>
+                <option value="Non-Cadastral">Non-Cadastral (100% Target)</option>
+                <option value="Cadastral">Cadastral</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Resurvey Target</label>
+              <select id="rMasterPickedFilter" onchange="syncResurveyMasterFilter('picked', this.value)" class="w-full py-2 px-2.5 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 focus:ring-2 focus:ring-emerald-500">
+                <option value="all">All Villages</option>
+                <option value="true">Picked for Resurvey (Target)</option>
+                <option value="false">Non-Survey Phase</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Survey Progress</label>
+              <select id="rMasterSurveyProgressFilter" onchange="syncResurveyMasterFilter('survey_progress', this.value)" class="w-full py-2 px-2.5 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 focus:ring-2 focus:ring-emerald-500">
+                <option value="all">All Survey Progress</option>
+                <option value="completed">GT Done (All)</option>
+                <option value="verified">GT Done • Verified</option>
+                <option value="pending">Pending Survey</option>
+              </select>
             </div>
           </div>
         </div>
 
-        <!-- The Table with 4 Area of Extent Columns -->
+        <!-- The Table with 4 Area of Extent Columns & Column Filters for Red Box -->
         <div class="overflow-x-auto border border-slate-100 rounded-lg">
           <table class="min-w-full divide-y divide-slate-200 text-left text-xs">
             <thead class="bg-slate-100 text-slate-700 font-semibold uppercase tracking-wider text-[11px]">
-              <tr>
-                <th rowspan="2" class="py-2.5 px-3 w-12 text-center border-b border-slate-200">#</th>
-                <th rowspan="2" class="py-2.5 px-3 border-b border-slate-200">Village Name</th>
-                <th rowspan="2" class="py-2.5 px-3 border-b border-slate-200">Mandal</th>
-                <th rowspan="2" class="py-2.5 px-3 border-b border-slate-200">District</th>
-                <th rowspan="2" class="py-2.5 px-3 text-center border-b border-slate-200">Category</th>
-                <th rowspan="2" class="py-2.5 px-3 text-center border-b border-slate-200">Resurvey Target</th>
-                <th rowspan="2" class="py-2.5 px-3 text-center border-b border-slate-200">Survey Progress</th>
+              <tr class="border-b border-slate-200">
+                <th class="py-2 px-2.5 w-12 text-center border-r border-slate-200">#</th>
+                <th class="py-2 px-2.5 border-r border-slate-200">District</th>
+                <th class="py-2 px-2.5 border-r border-slate-200">Mandal</th>
+                <th class="py-2 px-2.5 border-r border-slate-200">Village Name</th>
+                <th class="py-2 px-2.5 text-center border-r border-slate-200">Category</th>
+                <th class="py-2 px-2.5 text-center border-r border-slate-200">Resurvey Target</th>
+                <th class="py-2 px-2.5 text-center border-r border-slate-200">Survey Progress</th>
                 <th colspan="4" class="py-1.5 px-2 text-center bg-slate-900 text-amber-300 font-bold border-b border-x border-slate-800 tracking-wider text-[11px]">
                   <i class="fa-solid fa-chart-area mr-1 text-amber-300"></i>Area of Extent (Ac-Gt)
                 </th>
-                <th rowspan="2" class="py-2.5 px-3 text-center no-print w-28 border-b border-slate-200">Action</th>
+                <th class="py-2 px-3 text-center no-print w-28">Action</th>
               </tr>
+              <!-- Column Filters Row (Red Box Columns) + Extent Sub-Headers -->
               <tr class="bg-slate-50 text-[10px] font-bold text-slate-700 uppercase tracking-wider border-b border-slate-200">
+                <th class="py-1 px-1 text-center border-r border-slate-200">
+                  <button type="button" onclick="resetResurveyMasterFilters()" title="Reset All Filters" class="w-6 h-6 inline-flex items-center justify-center text-slate-400 hover:text-rose-600 hover:bg-slate-200 rounded transition">
+                    <i class="fa-solid fa-filter-circle-xmark text-xs"></i>
+                  </button>
+                </th>
+                <th class="py-1 px-1 border-r border-slate-200 normal-case font-normal">
+                  <select id="rMasterThDistrictFilter" onchange="syncResurveyMasterFilter('district', this.value)" class="w-full py-1 px-1.5 bg-white border border-slate-300 rounded text-[11px] text-slate-700 focus:ring-1 focus:ring-emerald-500 font-normal">
+                    <option value="all">All Districts</option>
+                  </select>
+                </th>
+                <th class="py-1 px-1 border-r border-slate-200 normal-case font-normal">
+                  <select id="rMasterThMandalFilter" onchange="syncResurveyMasterFilter('mandal', this.value)" class="w-full py-1 px-1.5 bg-white border border-slate-300 rounded text-[11px] text-slate-700 focus:ring-1 focus:ring-emerald-500 font-normal">
+                    <option value="all">All Mandals</option>
+                  </select>
+                </th>
+                <th class="py-1 px-1 border-r border-slate-200 normal-case font-normal">
+                  <div class="relative">
+                    <input type="text" id="rMasterThSearch" placeholder="Filter village..." oninput="syncResurveyMasterSearch(this.value)" class="w-full py-1 pl-2 pr-5 bg-white border border-slate-300 rounded text-[11px] text-slate-700 focus:ring-1 focus:ring-emerald-500 font-normal" />
+                    <i class="fa-solid fa-magnifying-glass absolute right-1.5 top-1.5 text-slate-400 text-[10px] pointer-events-none"></i>
+                  </div>
+                </th>
+                <th class="py-1 px-1 border-r border-slate-200 text-center normal-case font-normal">
+                  <select id="rMasterThCategoryFilter" onchange="syncResurveyMasterFilter('category', this.value)" class="w-full py-1 px-1 bg-white border border-slate-300 rounded text-[10px] text-slate-700 focus:ring-1 focus:ring-emerald-500 font-normal">
+                    <option value="all">All</option>
+                    <option value="Non-Cadastral">Non-Cadastral</option>
+                    <option value="Cadastral">Cadastral</option>
+                  </select>
+                </th>
+                <th class="py-1 px-1 border-r border-slate-200 text-center normal-case font-normal">
+                  <select id="rMasterThPickedFilter" onchange="syncResurveyMasterFilter('picked', this.value)" class="w-full py-1 px-1 bg-white border border-slate-300 rounded text-[10px] text-slate-700 focus:ring-1 focus:ring-emerald-500 font-normal">
+                    <option value="all">All</option>
+                    <option value="true">Picked</option>
+                    <option value="false">Non-Survey</option>
+                  </select>
+                </th>
+                <th class="py-1 px-1 border-r border-slate-200 text-center normal-case font-normal">
+                  <select id="rMasterThSurveyProgressFilter" onchange="syncResurveyMasterFilter('survey_progress', this.value)" class="w-full py-1 px-1 bg-white border border-slate-300 rounded text-[10px] text-slate-700 focus:ring-1 focus:ring-emerald-500 font-normal">
+                    <option value="all">All</option>
+                    <option value="completed">GT Done</option>
+                    <option value="verified">Verified</option>
+                    <option value="pending">Pending</option>
+                  </select>
+                </th>
                 <th class="py-1.5 px-2.5 text-right border-l border-slate-200 whitespace-nowrap" title="Existing Baseline Record (1-time entry)">Existing Record</th>
                 <th class="py-1.5 px-2.5 text-right border-l border-slate-200 whitespace-nowrap" title="Village Boundary 25-26 (Saved by District Rep / Admin editable)">Boundary 25-26</th>
                 <th class="py-1.5 px-2.5 text-right border-l border-slate-200 whitespace-nowrap" title="Village Abadi (Saved by District Rep / Admin editable)">Village Abadi</th>
                 <th class="py-1.5 px-2.5 text-right border-l border-r border-slate-200 text-emerald-800 whitespace-nowrap" title="Non-Abadi (Updated daily on survey completion)">Non Abadi</th>
+                <th class="py-1.5 px-2 text-center text-slate-400 no-print font-normal text-[10px]">—</th>
               </tr>
             </thead>
             <tbody id="resurveyMasterTableBody" class="divide-y divide-slate-100">
@@ -1945,9 +2004,9 @@
             <thead class="bg-slate-100 text-slate-700 font-semibold uppercase tracking-wider text-[11px]">
               <tr>
                 <th rowspan="2" class="py-2.5 px-3 w-12 text-center border-b border-slate-200">#</th>
-                <th rowspan="2" class="py-2.5 px-3 border-b border-slate-200">Village Name</th>
-                <th rowspan="2" class="py-2.5 px-3 border-b border-slate-200">Mandal</th>
                 <th rowspan="2" class="py-2.5 px-3 border-b border-slate-200">District</th>
+                <th rowspan="2" class="py-2.5 px-3 border-b border-slate-200">Mandal</th>
+                <th rowspan="2" class="py-2.5 px-3 border-b border-slate-200">Village Name</th>
                 <th rowspan="2" class="py-2.5 px-3 text-center border-b border-slate-200">Category</th>
                 <th rowspan="2" class="py-2.5 px-3 text-center border-b border-slate-200">Resurvey Target</th>
                 <th rowspan="2" class="py-2.5 px-3 text-center border-b border-slate-200">Survey Progress</th>
@@ -7665,12 +7724,12 @@
 
         tr.innerHTML = `
           <td class="py-2.5 px-3 text-slate-400 font-mono text-center">${globalIdx}</td>
+          <td class="py-2.5 px-3 font-semibold text-slate-800">${v.district_name}</td>
+          <td class="py-2.5 px-3 font-medium text-slate-700">${v.mandal_name}</td>
           <td class="py-2.5 px-3 font-bold text-slate-900">
             ${v.village_name}
             ${v.village_name_telugu ? `<div class="telugu-text text-[11px] text-slate-500 font-normal">${v.village_name_telugu}</div>` : ''}
           </td>
-          <td class="py-2.5 px-3 font-medium text-slate-700">${v.mandal_name}</td>
-          <td class="py-2.5 px-3 font-semibold text-slate-800">${v.district_name}</td>
           <td class="py-2.5 px-3 text-center">${catBadge}</td>
           <td class="py-2.5 px-3 text-center">${pickedBadge}</td>
           <td class="py-2.5 px-3 text-center">${opsBadge}</td>
@@ -7714,6 +7773,7 @@
       const repDistrict = currentUser.district || '';
 
       const distSelect = document.getElementById('rMasterDistrictFilter');
+      const thDistSelect = document.getElementById('rMasterThDistrictFilter');
       const lockIndicator = document.getElementById('rMasterDistrictLockIndicator');
       const districtTitle = document.getElementById('resurveyMasterDistrictName');
       const scopeSub = document.getElementById('resurveyMasterScopeSubtitle');
@@ -7721,24 +7781,36 @@
       if (distSelect) {
         const sortedDists = [...new Set(allDistricts.map(d => d.name || d.district).filter(Boolean))].sort();
         const prevDistVal = distSelect.value;
-        distSelect.innerHTML = '<option value="all">All Districts (32)</option>' + 
+        const optionsHtml = '<option value="all">All Districts (32)</option>' + 
           sortedDists.map(d => `<option value="${d}">${d}</option>`).join('');
+        distSelect.innerHTML = optionsHtml;
+        if (thDistSelect) {
+          thDistSelect.innerHTML = '<option value="all">All Districts</option>' + 
+            sortedDists.map(d => `<option value="${d}">${d}</option>`).join('');
+        }
 
         if (isDistrictRep && repDistrict && repDistrict.toLowerCase() !== 'all') {
           distSelect.value = repDistrict;
           distSelect.disabled = true;
+          if (thDistSelect) {
+            thDistSelect.value = repDistrict;
+            thDistSelect.disabled = true;
+          }
           if (lockIndicator) lockIndicator.classList.remove('hidden');
           if (districtTitle) districtTitle.textContent = repDistrict;
           if (scopeSub) scopeSub.textContent = `${repDistrict} District Revenue Villages & Area of Extent`;
         } else {
           distSelect.disabled = false;
+          if (thDistSelect) thDistSelect.disabled = false;
           if (lockIndicator) lockIndicator.classList.add('hidden');
           if (prevDistVal && prevDistVal !== 'all' && sortedDists.includes(prevDistVal)) {
             distSelect.value = prevDistVal;
+            if (thDistSelect) thDistSelect.value = prevDistVal;
             if (districtTitle) districtTitle.textContent = prevDistVal;
             if (scopeSub) scopeSub.textContent = `${prevDistVal} District Revenue Villages & Area of Extent`;
           } else {
             distSelect.value = 'all';
+            if (thDistSelect) thDistSelect.value = 'all';
             if (districtTitle) districtTitle.textContent = 'Statewide';
             if (scopeSub) scopeSub.textContent = '32 Districts • 604 Mandals • 10,888 Revenue Villages';
           }
@@ -7749,27 +7821,125 @@
       fetchResurveyMasterVillages(1);
     }
 
+    function syncResurveyMasterFilter(type, value) {
+      if (type === 'district') {
+        const topEl = document.getElementById('rMasterDistrictFilter');
+        const thEl = document.getElementById('rMasterThDistrictFilter');
+        if (topEl) topEl.value = value;
+        if (thEl) thEl.value = value;
+
+        const districtTitle = document.getElementById('resurveyMasterDistrictName');
+        const scopeSub = document.getElementById('resurveyMasterScopeSubtitle');
+        if (value === 'all') {
+          if (districtTitle) districtTitle.textContent = 'Statewide';
+          if (scopeSub) scopeSub.textContent = '32 Districts • 604 Mandals • 10,888 Revenue Villages';
+        } else {
+          if (districtTitle) districtTitle.textContent = value;
+          if (scopeSub) scopeSub.textContent = `${value} District Revenue Villages & Area of Extent`;
+        }
+
+        populateResurveyMasterMandals();
+        fetchResurveyMasterVillages(1);
+      } else if (type === 'mandal') {
+        const topEl = document.getElementById('rMasterMandalFilter');
+        const thEl = document.getElementById('rMasterThMandalFilter');
+        if (topEl) topEl.value = value;
+        if (thEl) thEl.value = value;
+        fetchResurveyMasterVillages(1);
+      } else if (type === 'category') {
+        const topEl = document.getElementById('rMasterCategoryFilter');
+        const thEl = document.getElementById('rMasterThCategoryFilter');
+        if (topEl) topEl.value = value;
+        if (thEl) thEl.value = value;
+        fetchResurveyMasterVillages(1);
+      } else if (type === 'picked') {
+        const topEl = document.getElementById('rMasterPickedFilter');
+        const thEl = document.getElementById('rMasterThPickedFilter');
+        if (topEl) topEl.value = value;
+        if (thEl) thEl.value = value;
+        fetchResurveyMasterVillages(1);
+      } else if (type === 'survey_progress') {
+        const topEl = document.getElementById('rMasterSurveyProgressFilter');
+        const thEl = document.getElementById('rMasterThSurveyProgressFilter');
+        if (topEl) topEl.value = value;
+        if (thEl) thEl.value = value;
+        fetchResurveyMasterVillages(1);
+      }
+    }
+
+    function syncResurveyMasterSearch(val) {
+      const topSearch = document.getElementById('rMasterSearch');
+      const thSearch = document.getElementById('rMasterThSearch');
+      if (topSearch && topSearch.value !== val) topSearch.value = val;
+      if (thSearch && thSearch.value !== val) thSearch.value = val;
+
+      if (rMasterSearchTimeout) clearTimeout(rMasterSearchTimeout);
+      rMasterSearchTimeout = setTimeout(() => {
+        fetchResurveyMasterVillages(1);
+      }, 350);
+    }
+
     function onResurveyMasterDistrictChange() {
-      const dist = document.getElementById('rMasterDistrictFilter')?.value || 'all';
+      syncResurveyMasterFilter('district', document.getElementById('rMasterDistrictFilter')?.value || 'all');
+    }
+
+    function resetResurveyMasterFilters() {
+      const role = currentUser ? currentUser.role : 'viewer';
+      const isDistrictRep = (role === 'district_rep' || role === 'district_officer');
+      const repDistrict = currentUser ? (currentUser.district || '') : '';
+
+      const distVal = (isDistrictRep && repDistrict && repDistrict.toLowerCase() !== 'all') ? repDistrict : 'all';
+      
+      const topDist = document.getElementById('rMasterDistrictFilter');
+      const thDist = document.getElementById('rMasterThDistrictFilter');
+      if (topDist) topDist.value = distVal;
+      if (thDist) thDist.value = distVal;
+
       const districtTitle = document.getElementById('resurveyMasterDistrictName');
       const scopeSub = document.getElementById('resurveyMasterScopeSubtitle');
-
-      if (dist === 'all') {
+      if (distVal === 'all') {
         if (districtTitle) districtTitle.textContent = 'Statewide';
         if (scopeSub) scopeSub.textContent = '32 Districts • 604 Mandals • 10,888 Revenue Villages';
       } else {
-        if (districtTitle) districtTitle.textContent = dist;
-        if (scopeSub) scopeSub.textContent = `${dist} District Revenue Villages & Area of Extent`;
+        if (districtTitle) districtTitle.textContent = distVal;
+        if (scopeSub) scopeSub.textContent = `${distVal} District Revenue Villages & Area of Extent`;
       }
 
       populateResurveyMasterMandals();
+
+      const topMnd = document.getElementById('rMasterMandalFilter');
+      const thMnd = document.getElementById('rMasterThMandalFilter');
+      if (topMnd) topMnd.value = 'all';
+      if (thMnd) thMnd.value = 'all';
+
+      const topSearch = document.getElementById('rMasterSearch');
+      const thSearch = document.getElementById('rMasterThSearch');
+      if (topSearch) topSearch.value = '';
+      if (thSearch) thSearch.value = '';
+
+      const topCat = document.getElementById('rMasterCategoryFilter');
+      const thCat = document.getElementById('rMasterThCategoryFilter');
+      if (topCat) topCat.value = 'all';
+      if (thCat) thCat.value = 'all';
+
+      const topPicked = document.getElementById('rMasterPickedFilter');
+      const thPicked = document.getElementById('rMasterThPickedFilter');
+      if (topPicked) topPicked.value = 'all';
+      if (thPicked) thPicked.value = 'all';
+
+      const topSp = document.getElementById('rMasterSurveyProgressFilter');
+      const thSp = document.getElementById('rMasterThSurveyProgressFilter');
+      if (topSp) topSp.value = 'all';
+      if (thSp) thSp.value = 'all';
+
       fetchResurveyMasterVillages(1);
     }
 
     function populateResurveyMasterMandals() {
       const distSelect = document.getElementById('rMasterDistrictFilter');
       const mndSelect = document.getElementById('rMasterMandalFilter');
-      if (!mndSelect) return;
+      const thMndSelect = document.getElementById('rMasterThMandalFilter');
+      if (!mndSelect && !thMndSelect) return;
 
       const selectedDist = (distSelect ? distSelect.value : 'all').toLowerCase();
       let mandals = [];
@@ -7781,15 +7951,15 @@
           .filter(Boolean);
       }
       const uniqueMandals = [...new Set(mandals)].sort();
-      mndSelect.innerHTML = '<option value="all">All Mandals</option>' + 
+      const mndOptions = '<option value="all">All Mandals</option>' + 
         uniqueMandals.map(m => `<option value="${m}">${m}</option>`).join('');
+      if (mndSelect) mndSelect.innerHTML = mndOptions;
+      if (thMndSelect) thMndSelect.innerHTML = mndOptions;
     }
 
     function debounceResurveyMasterSearch() {
-      if (rMasterSearchTimeout) clearTimeout(rMasterSearchTimeout);
-      rMasterSearchTimeout = setTimeout(() => {
-        fetchResurveyMasterVillages(1);
-      }, 350);
+      const searchVal = document.getElementById('rMasterSearch')?.value || '';
+      syncResurveyMasterSearch(searchVal);
     }
 
     function changeResurveyMasterPage(page) {
@@ -7803,14 +7973,15 @@
       const isDistrictRep = (role === 'district_rep' || role === 'district_officer');
       const repDistrict = currentUser ? (currentUser.district || '') : '';
 
-      let dist = document.getElementById('rMasterDistrictFilter')?.value || 'all';
+      let dist = document.getElementById('rMasterDistrictFilter')?.value || document.getElementById('rMasterThDistrictFilter')?.value || 'all';
       if (isDistrictRep && repDistrict && repDistrict.toLowerCase() !== 'all') {
         dist = repDistrict;
       }
-      const mnd = document.getElementById('rMasterMandalFilter')?.value || 'all';
-      const cat = document.getElementById('rMasterCategoryFilter')?.value || 'all';
-      const picked = document.getElementById('rMasterPickedFilter')?.value || 'all';
-      const search = (document.getElementById('rMasterSearch')?.value || '').trim();
+      const mnd = document.getElementById('rMasterMandalFilter')?.value || document.getElementById('rMasterThMandalFilter')?.value || 'all';
+      const cat = document.getElementById('rMasterCategoryFilter')?.value || document.getElementById('rMasterThCategoryFilter')?.value || 'all';
+      const picked = document.getElementById('rMasterPickedFilter')?.value || document.getElementById('rMasterThPickedFilter')?.value || 'all';
+      const sp = document.getElementById('rMasterSurveyProgressFilter')?.value || document.getElementById('rMasterThSurveyProgressFilter')?.value || 'all';
+      const search = (document.getElementById('rMasterSearch')?.value || document.getElementById('rMasterThSearch')?.value || '').trim();
       const limit = 50;
 
       updateResurveyMasterKpis(dist);
@@ -7828,6 +7999,7 @@
       if (cat !== 'all') params.set('category', cat);
       if (picked === 'true') params.set('is_picked', 'true');
       if (picked === 'false') params.set('is_picked', 'false');
+      if (sp !== 'all') params.set('survey_progress', sp);
       if (search) params.set('search', search);
 
       try {
@@ -7951,12 +8123,12 @@
 
         tr.innerHTML = `
           <td class="py-2.5 px-3 text-slate-400 font-mono text-center">${globalIdx}</td>
+          <td class="py-2.5 px-3 font-semibold text-slate-800">${v.district_name}</td>
+          <td class="py-2.5 px-3 font-medium text-slate-700">${v.mandal_name}</td>
           <td class="py-2.5 px-3 font-bold text-slate-900">
             ${v.village_name}
             ${v.village_name_telugu ? `<div class="telugu-text text-[11px] text-slate-500 font-normal">${v.village_name_telugu}</div>` : ''}
           </td>
-          <td class="py-2.5 px-3 font-medium text-slate-700">${v.mandal_name}</td>
-          <td class="py-2.5 px-3 font-semibold text-slate-800">${v.district_name}</td>
           <td class="py-2.5 px-3 text-center">${catBadge}</td>
           <td class="py-2.5 px-3 text-center">${pickedBadge}</td>
           <td class="py-2.5 px-3 text-center">${opsBadge}</td>
@@ -7979,14 +8151,15 @@
       const role = currentUser ? currentUser.role : 'viewer';
       const isDistrictRep = (role === 'district_rep' || role === 'district_officer');
       const repDistrict = currentUser ? (currentUser.district || '') : '';
-      let dist = document.getElementById('rMasterDistrictFilter')?.value || 'all';
+      let dist = document.getElementById('rMasterDistrictFilter')?.value || document.getElementById('rMasterThDistrictFilter')?.value || 'all';
       if (isDistrictRep && repDistrict && repDistrict.toLowerCase() !== 'all') {
         dist = repDistrict;
       }
-      const mnd = document.getElementById('rMasterMandalFilter')?.value || 'all';
-      const cat = document.getElementById('rMasterCategoryFilter')?.value || 'all';
-      const picked = document.getElementById('rMasterPickedFilter')?.value || 'all';
-      const search = (document.getElementById('rMasterSearch')?.value || '').trim();
+      const mnd = document.getElementById('rMasterMandalFilter')?.value || document.getElementById('rMasterThMandalFilter')?.value || 'all';
+      const cat = document.getElementById('rMasterCategoryFilter')?.value || document.getElementById('rMasterThCategoryFilter')?.value || 'all';
+      const picked = document.getElementById('rMasterPickedFilter')?.value || document.getElementById('rMasterThPickedFilter')?.value || 'all';
+      const sp = document.getElementById('rMasterSurveyProgressFilter')?.value || document.getElementById('rMasterThSurveyProgressFilter')?.value || 'all';
+      const search = (document.getElementById('rMasterSearch')?.value || document.getElementById('rMasterThSearch')?.value || '').trim();
 
       const params = new URLSearchParams();
       params.set('page', 1);
@@ -7996,6 +8169,7 @@
       if (cat !== 'all') params.set('category', cat);
       if (picked === 'true') params.set('is_picked', 'true');
       if (picked === 'false') params.set('is_picked', 'false');
+      if (sp !== 'all') params.set('survey_progress', sp);
       if (search) params.set('search', search);
 
       try {
@@ -8007,9 +8181,9 @@
           return;
         }
 
-        let csv = 'Village Name,Telugu Name,Mandal,District,Category,Resurvey Target,Survey Progress,Existing Record Extent,Boundary 25-26 Extent,Village Abadi Extent,Non Abadi Extent\n';
+        let csv = 'District,Mandal,Village Name,Telugu Name,Category,Resurvey Target,Survey Progress,Existing Record Extent,Boundary 25-26 Extent,Village Abadi Extent,Non Abadi Extent\n';
         records.forEach(r => {
-          csv += `"${(r.village_name||'').replace(/"/g, '""')}","${(r.village_name_telugu||'').replace(/"/g, '""')}","${(r.mandal_name||'').replace(/"/g, '""')}","${(r.district_name||'').replace(/"/g, '""')}","${r.category||''}","${r.is_picked_for_resurvey ? 'Picked' : 'Non-Survey'}","${r.gt_status||'Pending'}","${r.extent_existing_record||r.extent_raw||'0-00'}","${r.village_boundary_25_26||'-'}","${r.village_abadi||'-'}","${r.non_abadi_extent||'-'}"\n`;
+          csv += `"${(r.district_name||'').replace(/"/g, '""')}","${(r.mandal_name||'').replace(/"/g, '""')}","${(r.village_name||'').replace(/"/g, '""')}","${(r.village_name_telugu||'').replace(/"/g, '""')}","${r.category||''}","${r.is_picked_for_resurvey ? 'Picked' : 'Non-Survey'}","${r.gt_status||'Pending'}","${r.extent_existing_record||r.extent_raw||'0-00'}","${r.village_boundary_25_26||'-'}","${r.village_abadi||'-'}","${r.non_abadi_extent||'-'}"\n`;
         });
 
         const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
